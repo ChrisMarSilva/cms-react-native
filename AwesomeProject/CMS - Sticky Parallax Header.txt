@@ -1,0 +1,101 @@
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+Sticky Parallax Header
+https://morioh.com/p/f98592649cd8
+https://github.com/netguru/sticky-parallax-header
+
+
+npm i react-native-sticky-parallax-header
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, Modal, TouchableOpacity, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import StickyParallaxHeader from 'react-native-sticky-parallax-header'
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs(true);
+
+const windowHeight = Dimensions.get('window').height
+const { event, ValueXY } = Animated
+const scrollY = new ValueXY()
+
+const text = {
+  biography:`The bounty hunter known as "the Mandalorian" was dispatched by "the Client" and Imperial Dr. Pershing to capture the Child alive, however the Client would allow the Mandalorian to return the Child dead for a lower price.
+  The assassin droid IG-11 was also dispatched to terminate him. After working together to storm the encampment the infant was being held in, the Mandalorian and IG-11 found the Child. IG-11 then attempted to terminate the Child. The Mandalorian shot the droid before the he was able to assassinate the Child.
+  Shortly after, the Mandalorian took the Child back to his ship. On the way they were attacked by a trio of Trandoshan bounty hunters, who attempted to kill the Child. After the Mandalorian defeated them, he and the Child camped out in the desert for the night. While the Mandalorian sat by the fire, the Child ate one of the creatures moving around nearby. He then approached the bounty hunter and attempted to use the Force to heal one of the Mandalorian's wounds. The Mandalorian stopped him and placed him back into his pod. The next day, the pair made it to the Razor Crest only to find it being scavenged by Jawas. The Mandalorian attacked their sandcrawler for the scavenged parts and attempted to climb it while the Child followed in his pod. However, the Mandalorian was knocked down to the ground`,
+  powers: "Powers and Abilities",
+  appearances: "Appearances"
+}
+
+const styles = StyleSheet.create({
+  headerCotainer: { width: '100%', paddingHorizontal: 24, paddingTop: 55, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'black' },
+  headerWrapper: { flexDirection: 'row', alignItems: 'center' },
+  headerImage: { width: 20, height: 20 },
+  headerText: { color: 'white', paddingLeft: 20, fontSize: 20, fontWeight: 'bold' },
+  titleStyle: { color: 'white', fontWeight: 'bold', padding: 10, fontSize: 40, backgroundColor: 'rgba(0,0,0,0.6)' },
+  tabTextContainerStyle: { backgroundColor: 'transparent', borderRadius: 18 },
+  tabTextContainerActiveStyle: { backgroundColor: '#FFC106' },
+  tabTextStyle: { fontSize: 16, fontWeight: 'bold', lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: 'white', },
+  tabTextActiveStyle: { fontSize: 16, fontWeight: 'bold', lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: 'black', },
+  tabWrapperStyle: { paddingVertical: 10 },
+  tabsContainerStyle: {  backgroundColor: 'black', paddingHorizontal: 10 },
+  contentContiner: { height: windowHeight, padding: 10 },
+  contentText: { fontSize: 16 }
+})
+
+export default class App extends React.Component {
+
+  renderContent = x => (
+      <View
+        style={styles.contentContiner}>
+        <Text style={styles.contentText}>{x}</Text>
+      </View>
+  )
+
+  renderHeader = () => {
+    const opacity = scrollY.y.interpolate({ inputRange: [0, 60, 90], outputRange: [0, 0, 1], extrapolate: 'clamp', })
+    return (
+      <View style={styles.headerCotainer}>
+        <View style={styles.headerWrapper}>
+          <TouchableOpacity onPress={() => console.warn('CLICKED')}>
+            <Image style={styles.headerImage} resizeMode="contain" source={{ uri: 'https://close.png', }} />
+          </TouchableOpacity>
+          <Animated.View style={{ opacity }}>
+            <Text style={styles.headerText}> Baby Yoda </Text>
+          </Animated.View>
+        </View>
+      </View>
+    )
+  }
+    
+  render() {
+    return (
+      <StickyParallaxHeader
+        headerType="TabbedHeader"
+        backgroundImage={{ uri: 'https://i.pinimg.com/564x/48/da/6b/48da6b85425270c726abfcffb0ea9b44.jpg', }}
+        backgroundColor={'dark'}
+        header={this.renderHeader}
+        title={'Baby Yoda'}
+        titleStyle={styles.titleStyle}
+        foregroundImage={{ uri: 'https://starwars.png', }}
+        tabs={[ {title: 'Biography', content: this.renderContent(text.biography) }, {title: 'Powers and Abilities', content: this.renderContent(text.powers) }, {title: 'Appearances', content: this.renderContent(text.appearances) } ]}
+        tabTextContainerStyle={styles.tabTextContainerStyle}
+        tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
+        tabTextStyle={styles.tabTextStyle}
+        tabTextActiveStyle={styles.tabTextActiveStyle}
+        tabWrapperStyle={styles.tabWrapperStyle}
+        tabsContainerStyle={styles.tabsContainerStyle}
+        scrollEvent={event( [{ nativeEvent: { contentOffset: { y: scrollY.y } } }], { useNativeDriver: false } )}
+      />
+    )
+  }
+
+}
+
+
+---------------------------------------------------------
+---------------------------------------------------------

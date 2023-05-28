@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="transaction_tab_income">Доход</string>
+    <string name="transaction_tab_expense">Расход</string>
+    <string name="transaction_category_subtitle">Категория</string>
+
+    <string name="transaction_money_account_subtitle">Счет</string>
+
+    <string name="transaction_date_subtitle">Дата</string>
+    <string name="transaction_date_today">Сегодня</string>
+    <string name="transaction_date_yesterday">Вчера</string>
+
+    <string name="transaction_delete_button">Удалить транзакцию</string>
+
+    <string name="transaction_unsaved_transaction_dialog_message">Сохранить транзакцию?</string>
+    <string name="transaction_unsaved_changes_dialog_message">Сохранить изменения?</string>
+
+</resources>

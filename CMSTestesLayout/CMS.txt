@@ -1,0 +1,62 @@
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+NAO     cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\01-argon-react-native-master'                                       porem o layout eh bonito
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\02-create-react-native-app-master'                                  nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\03-ignite-master'                                                   nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN01-travel-onboarding-app'      nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN02-plant-app-exploration''     nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN03-trip-booking-app''          nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN04-furniture-app''             nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN05-nike-shoes-ecommerce-app''  nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN06-book-store-app''            nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\04-lets-code-react-native-master\LCRN07-expense-tracker-app''       nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\05-piggyvault-develop'                                              nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\06-react-native-finance-app-master'                                 nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\07-react-native-material-ui-master'                                 nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\08-react-native-starter-kit-instamobile'                            nao iniciou 
+OK      cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\09-rn-finance-app-main'                                             layout eh bonito, por ser preto o fundo
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\10-stock-app-master'                                                nao iniciou 
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\11-Stock-Trading-App-main\client'                                   SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\12-StocksAppReact-main'                                             SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\13-stocks-app-main'                                                 SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\14-Stock-Portfolio-App-main'                                        nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\15-Stock-Management-WebApp-master\stock-management-frontend'        SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\16-Stock-Hawk-master'                                               nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\18-Sale-Purchase-Stock-Inventory-App-in-React-master'               SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\19-react-stock-app-master'                                          SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\20-ReactNativeStockProject-master'                                  nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\21-react-native-hindsighttrader-develop'                            nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\23-iTrade-master'                                                   SITE
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\24-Finances-develop'                                                nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\25-Finance-app-main'                                                nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\26-FinanceReactNative-master'                                       nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\27-clchart-master'                                                  nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\28-react-native-chart-kit-master'                                   nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\29-react-native-charts-wrapper-master'                              nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\29-react-native-charts-wrapper-master\Example'                      nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\30-ReactiveTraderCloud-master'                                      nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\31-InvestingApp-master\client\app'                                  nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\32-Stockifier-master'                                               nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\33-stockify-master'                                                 nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\34-stocks-master'                                                   nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\34-stocks-master\client'                                            nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\36-authentication-master'                                           nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\37-online-groceries-app-master'                                     nao iniciou
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\38-PushBase-master'  
+ERRO    cd 'C:\Users\chris\Desktop\CMS React Native\CMSTestesLayout\39-Signalus-master'                                                 nao iniciou
+
+
+npm install
+npm audit fix
+npm audit fix --force
+yarn add expo
+
+expo start
+npm start
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+

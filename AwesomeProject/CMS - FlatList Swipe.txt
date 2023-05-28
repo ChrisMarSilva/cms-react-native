@@ -1,0 +1,92 @@
+
+
+
+colocar remover item tela fatos e noticias por swit
+
+https://github.com/rishabhbhatia/react-native-swipeview
+npm i react-native-swipeview --save
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import SwipeView from 'react-native-swipeview';
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+const leftOpenValue =  Dimensions.get('window').width;
+const rightOpenValue = -Dimensions.get('window').width;
+
+
+export default class App extends React.Component {
+
+  constructor(props) {
+    super(props)  
+    this.state = {
+      data: [{id: 0, title: '0 Item'}, {id: 1, title: '1 Item', }, {id: 2, title: '2 Item'}, {id: 3, title: '3 Item'}, {id: 4, title: '4 Item'}],
+    }
+  }
+
+  _onPress01() {
+
+  }
+
+  _onDeleteItemById = ( id ) => {
+    this.setState({ data: this.state.data.filter(item => item.id !== id) });
+  }
+
+   render() {
+    return (
+      <SafeAreaView style={styles.container}>
+
+        <StatusBar style="light" backgroundColor="purple" />
+        
+        <Text>CMS Teste #2</Text>
+
+        <TouchableOpacity onPress={this._onPress01} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Teste #1</Text>
+        </TouchableOpacity>
+
+        <FlatList
+          data={this.state.data}
+          style={{ width: '100%', }}
+          keyExtractor={(item, index) => item.id.toString()}    
+          extraData={this.props}
+          enableEmptySections={true}
+          ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: 'black', }}></View>}          
+          renderItem={({ item }) => (
+            <SwipeView
+              renderVisibleContent={() => (
+                <View key={item.id} style={{ backgroundColor: '#fff', paddingLeft: 15, paddingRight: 15, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 70, }}>
+                  <Text style={{ fontSize: 15, fontWeight: 'bold', }}>{item.title}</Text>
+                </View>
+              )}
+              renderRightView={() => (
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', paddingLeft: 20, paddingRight: 20, backgroundColor: '#c94040' }}>
+                   <Icon style={{ color: 'white', }} name={ "trash"} size={20} />
+                </View>
+              )}
+              leftOpenValue={leftOpenValue}
+              rightOpenValue={rightOpenValue}
+              disableSwipeToRight={true}
+              onSwipedLeft={() => this._onDeleteItemById(item.id)}
+              swipeDuration={300} 
+              swipeToOpenPercent={40}
+            />
+          )}
+        />
+
+      </SafeAreaView>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#f0f0f0', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+

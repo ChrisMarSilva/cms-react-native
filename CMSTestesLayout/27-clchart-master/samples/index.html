@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/bootstrap-grid.css">
+
+  <title>ClChart</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-fixed">
+    <input type="checkbox" id="navbar-checkbox" class="navbar-checkbox">
+    <div class="navbar-menu navbar-menu-left navbar-menu-dark">
+      <ul class="navbar-navigation">
+        <li class="navbar-header">
+          <a class="navbar-brand" href="https://github.com/seerline/clchart" target="_blank">ClChart</a>
+          <label class="navbar-hamburger navbar-hamburger-doublespin" for="navbar-checkbox"> <span></span> </label>
+        </li>
+        <li class="navbar-item active"><a href="/">首页</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- container -->
+  <div class="container main-container">
+    <div class="row" id="sectionList">
+    </div>
+  </div>
+</body>
+
+<script>
+  var lists = [
+    {
+      title: '历史数据',
+      charts: [
+        { name: 'daykline', title: 'day kline'},
+        { name: 'minkline', title: 'min kline'},
+        { name: 'ddxkline', title: 'ddx kline'},
+      ]
+    },
+    {
+      title: '实时数据',
+      charts: [
+        { name: 'realline', title: 'real line'},
+        { name: 'mdayline', title: 'mday line'},
+        { name: 'ddxline', title: 'ddx line'},
+      ]
+    },
+    {
+      title: '其他示例',
+      charts: [
+        { name: 'kline', title: 'K线图'},
+        { name: 'kline', title: 'K线图'},
+        { name: 'kline', title: 'K线图'},
+      ]
+    }
+  ]
+  function nofind(){
+         var img=event.srcElement;  
+         img.src="./demo/kline.png";  
+         img.onerror=null;
+     }
+  function getSectionHtml(item) {
+    var html = `<div class="col-md-12">
+<h4 class="section-header">${item.title}</h4>
+</div>`;
+    item.charts.forEach(item => {
+      html += `
+<div class="col-md-4 col-sm-6 card-item">
+  <a target="_blank" class="chart-link" href="./demo/${item.name}.html">
+    <h4 class="chart-title">${item.title}</h4>
+    <img class="chart-image" src="./demo/${item.name}.png"
+      data-original="./demo/${item.name}.png" style="display: inline;" onerror="nofind();">
+  </a>
+</div>
+` 
+    });
+    return html;
+  }
+  window.onload = function() {
+    var container = document.getElementById('sectionList')
+    container.innerHTML = lists.map(getSectionHtml).join('')
+  }
+</script>
+
+</html>

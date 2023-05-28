@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboardingGraph"
+    android:label="Onboarding Container Graph"
+    app:startDestination="@id/onboardingLaunchFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/onboardingLaunchFragment"
+        android:name="serg.chuprin.finances.feature.onboarding.presentation.launch.view.OnboardingLaunchFragment"
+        android:label="OnboardingLaunchFragment"
+        tools:layout="@layout/fragment_onboarding_launch">
+
+        <action
+            android:id="@+id/navigateToCurrencyChoiceOnboarding"
+            app:destination="@id/currencyChoiceOnboardingFragment"
+            app:popUpTo="@layout/fragment_onboarding_launch"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/navigateToAccountsSetupOnboarding"
+            app:destination="@id/accountsSetupOnboardingFragment"
+            app:popUpTo="@layout/fragment_onboarding_launch"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/currencyChoiceOnboardingFragment"
+        android:name="serg.chuprin.finances.feature.onboarding.presentation.currencychoice.view.CurrencyChoiceOnboardingFragment"
+        android:label="CurrencyChoiceOnboardingFragment"
+        tools:layout="@layout/fragment_onboarding_currency_choice">
+
+        <action
+            android:id="@+id/navigateFromCurrencyChoiceOnboardingToAccountsSetupOnboarding"
+            app:destination="@id/accountsSetupOnboardingFragment"
+            app:popUpTo="@layout/fragment_onboarding_launch"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountsSetupOnboardingFragment"
+        android:name="serg.chuprin.finances.feature.onboarding.presentation.accountssetup.view.AccountsSetupOnboardingFragment"
+        android:label="AccountsSetupOnboardingFragment"
+        tools:layout="@layout/fragment_onboarding_accounts_setup" />
+
+</navigation>

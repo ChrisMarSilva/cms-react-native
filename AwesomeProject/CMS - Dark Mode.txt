@@ -1,0 +1,100 @@
+
+
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+Dark Mode
+
+npm install react-native-dark-mode
+react-native link react-native-dark-mode
+
+
+import { useDarkModeContext } from 'react-native-dark-mode'
+ 
+const backgroundColors = {
+    light: 'white',
+    dark: 'black',
+}
+ 
+function Component() {
+    const mode = useDarkModeContext()
+    const backgroundColor = backgroundColors[mode]
+    return <View style={{ backgroundColor }} />
+}
+
+https://www.npmjs.com/package/react-native-dark-mode
+https://github.com/codemotionapps/react-native-dark-mode
+
+
+import { DynamicStyleSheet, DynamicValue, useDynamicStyleSheet } from 'react-native-dark-mode'
+ 
+const dynamicStyles = new DynamicStyleSheet({
+    container: {
+        backgroundColor: new DynamicValue('white', 'black'),
+        flex: 1,
+    },
+    text: {
+        color: new DynamicValue('black', 'white'),
+        textAlign: 'center',
+    },
+})
+ 
+function Component() {
+    const styles = useDynamicStyleSheet(dynamicStyles)
+ 
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>My text</Text>
+        </View>
+    )
+}
+
+
+import { DefaultTheme, DarkTheme } from “@react-navigation/native”;
+
+
+
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+Dark Mode
+expo install react-native-appearance
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { AsyncStorage, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, Modal, TouchableOpacity, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import { Appearance, AppearanceProvider, useColorScheme } from 'react-native-appearance'
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs(true);
+
+export default function App() {
+
+  const colorScheme = useColorScheme();
+  const themeStatusBarStyle = colorScheme === 'light' ? 'dark-content' : 'light-content';
+  const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle = colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
+
+  return (
+    <AppearanceProvider>
+      <SafeAreaView style={[styles.container, themeContainerStyle]}>
+        <StatusBar barStyle={themeStatusBarStyle} />
+        <Text style={[styles.text, themeTextStyle]}>Color scheme: {colorScheme}</Text>
+      </SafeAreaView>
+    </AppearanceProvider>
+  )
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', },
+  lightContainer: { backgroundColor: '#D0D0C0', },
+  darkContainer: { backgroundColor: '#242C40', },
+  lightThemeText: { color: '#242C40', },
+  darkThemeText: { color: '#D0D0C0', },
+})
+

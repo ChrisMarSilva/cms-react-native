@@ -1,0 +1,23 @@
+
+cd 'C:\Users\chris\Desktop\CMS React Native\TamoNaBolsa'
+
+npm install
+npm audit fix
+npm audit fix --force
+yarn add expo
+
+expo start
+npm start
+yarn start
+
+npm i -g expo-cli
+
+1. npm uninstall -g expo-cli --save
+2. npm install -g expo-cli --save 
+3. cd ~/.expo/cache
+4. rm -rf everything that is in there
+5. go back to your project
+6. run expo start
+
+
+----------------------------------------------------------------------------------------------------

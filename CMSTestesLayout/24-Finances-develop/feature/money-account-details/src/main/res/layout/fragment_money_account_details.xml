@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/money_account_collapsing_toolbar">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactionsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fakeAppBarLayout"
+        app:layout_constraintVertical_bias="0"
+        tools:itemCount="5" />
+
+    <serg.chuprin.finances.core.api.presentation.view.widget.FakeToolbarLayout
+        android:id="@+id/fakeAppBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/backButton"
+        style="@style/ToolbarIcon"
+        android:src="@drawable/abc_ic_ab_back_material"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:attr/textColorPrimary"
+        tools:ignore="PrivateResource" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/favoriteImageView"
+        style="@style/ToolbarIcon"
+        android:src="@drawable/ic_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:tint="@color/colorFavoriteOrange" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/settingImageView"
+        style="@style/ToolbarIcon"
+        android:src="@drawable/ic_settings"
+        android:transitionName="@string/transition_name_money_account_editing"
+        app:layout_constraintEnd_toStartOf="@id/favoriteImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:attr/textColorPrimary" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/accountNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:transformPivotY="12sp"
+        tools:text="Title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/balanceTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="18sp"
+        android:transformPivotY="9sp"
+        tools:text="Subtitle" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

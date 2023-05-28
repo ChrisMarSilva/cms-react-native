@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/balanceSubtitleTextView"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/dashboard_balance_widget_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/balanceTextView"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceSubtitleTextView"
+        tools:text="51 890 $" />
+
+    <serg.chuprin.finances.feature.dashboard.presentation.view.widget.DashboardMoneyCardView
+        android:id="@+id/expensesCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:tag="@string/transition_dashboard_to_transactions_report_expenses"
+        android:transitionName="@string/transition_dashboard_to_transactions_report_expenses"
+        app:cardForegroundColor="@color/colorRedRipple"
+        app:layout_constraintEnd_toStartOf="@id/incomesCardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTextView"
+        app:titleText="@string/dashboard_balance_widget_expenses" />
+
+    <serg.chuprin.finances.feature.dashboard.presentation.view.widget.DashboardMoneyCardView
+        android:id="@+id/incomesCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:tag="@string/transition_dashboard_to_transactions_report_income"
+        android:transitionName="@string/transition_dashboard_to_transactions_report_income"
+        app:cardForegroundColor="?colorControlHighlight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/expensesCardView"
+        app:layout_constraintTop_toBottomOf="@+id/balanceTextView"
+        app:titleText="@string/dashboard_balance_widget_incomes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

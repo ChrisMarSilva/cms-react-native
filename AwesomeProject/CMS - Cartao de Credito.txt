@@ -1,0 +1,163 @@
+
+cartao de credito 
+payments
+
+npm install --save react-native-payments
+react-native link react-native-payments
+expo install expo-payments-stripe
+
+npm install --save mercadopago
+npm install --save react-native-webview
+npm install --save styled-components
+
+
+https://github.com/AlissonAp/MercadoPagoSmartCheckoutNodeExample
+https://github.com/AlissonAp/ReactNativePrototipoPagamento
+https://www.npmjs.com/package/react-native-payments
+
+
+https://www.mercadopago.com.br/developers/panel/credentials/sandbox?id=3851776153304628
+Public Key    TEST-97e2f258-96cd-45fd-a274-c2f40bd6f619
+Access Token  TEST-3851776153304628-011018-bdbfa3fa46c8c2c506dd64d319dafb84-253409566
+253409566 - MercadoPago application
+Application for MercadoPago
+ID: 3851776153304628
+
+MP_ACCESS_TOKEN=<TOKEN DE ACESSO DO MERCADO PAGO>
+SANDBOX=true
+API_PORT=3333
+
+GET payments/checkout/:id/:email/:description/:amount
+GET payments/success
+GET payments/pending
+GET payments/failure
+
+back_urls:
+   { success: 'http:///<meu_endereco_ip>:3333/payments/success',
+     pending: 'http://<meu_endereco_ip>:3333/payments/pending',
+     failure: 'http://<meu_endereco_ip>:3333/payments/failure' 
+   } 
+}
+
+
+view rawpaymentsController.js
+
+const MercadoPago = require('mercadopago');
+
+const getFullUrl = (req) =>{
+    const url = req.protocol + '://' + req.get('host');
+    console.log(url)
+    return url;
+}
+
+module.exports = {
+    async checkout(req, res){
+
+        console.log(process.env)
+        MercadoPago.configure({
+            sandbox: process.env.SANDBOX == 'true' ? true : false,
+            access_token: process.env.MP_ACCESS_TOKEN
+        });
+
+        const { id, email, description, amount } = req.params;
+
+        //Create purchase item object template
+        const purchaseOrder = {
+            items: [
+              item = {
+                id: id,
+                title: description,
+                description : description,
+                quantity: 1,
+                currency_id: 'BRL',
+                unit_price: parseFloat(amount)
+              }
+            ],
+            payer : {
+              email: email
+            },
+            auto_return : "all",
+            external_reference : id,
+            back_urls : {
+              success : getFullUrl(req) + "/payments/success",
+              pending : getFullUrl(req) + "/payments/pending",
+              failure : getFullUrl(req) + "/payments/failure",
+            }
+          }
+      
+          //Generate init_point to checkout
+          try {
+            const preference = await MercadoPago.preferences.create(purchaseOrder);
+            return res.redirect(`${preference.body.init_point}`);
+          }catch(err){
+            return res.send(err.message);
+          }
+    }
+}
+
+
+view rawCheckout.js
+
+import React, { useState } from 'react';
+import { Text, Alert, View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { MainContainer, Title, InputText, PersonalButton, HeaderCheckout } from './styles';
+import { WebView } from 'react-native-webview';
+
+export default function Checkout() {
+
+    const [idPagamento, setIdPagamento] = useState("1")
+    const [emailPagamento, setEmailPagamento] = useState("meuemail@gmail.com")
+    const [descricaoPagamento, setDescricaoPagamento] = useState("Venda de produto digital")
+    const [vlrPagamento, setVlrPagamento] = useState("5.00")
+    const [showCheckout, setShowCheckout] = useState(false)
+
+    const stateChange = (state) => {
+        switch (state.title) {
+            case 'success':
+                setShowCheckout(false)
+                Alert.alert("Pagamento aprovado!", `Recebemos seu pagamento de ${vlrPagamento}`)
+                break;
+            case 'pending':
+                setShowCheckout(false)
+                Alert.alert("Pagamento pendente!", `Seu pagamento de ${vlrPagamento} está pendente de processamento, assim que for processado seguiremos com o pedido!`)
+                break;
+            case 'failure':
+                setShowCheckout(false)
+                Alert.alert("Pagamento não aprovado!", 'Verifique os dados e tente novamente')
+                break;
+        }
+    }
+
+    if (!showCheckout) {
+        return (
+
+            <MainContainer>
+                <Title>Protótipo de pagamento</Title>
+                <InputText value={idPagamento} onChangeText={(text) => setIdPagamento(text)} placeholder={'Informe o id do produto'} keyboardType={'numeric'}></InputText>
+                <InputText value={emailPagamento} onChangeText={(text) => setEmailPagamento(text)} placeholder={'Informe o e-mail do comprador'} keyboardType={'email-address'}></InputText>
+                <InputText value={descricaoPagamento} onChangeText={(text) => setDescricaoPagamento(text)} placeholder={'Informe a descrição da venda'}></InputText>
+                <InputText value={vlrPagamento} onChangeText={(text) => setVlrPagamento(text)} placeholder={'Informe o valor do produto'} keyboardType={'numeric'}></InputText>
+                <PersonalButton onPress={() => setShowCheckout(true)}><Text>Pagar R$ {vlrPagamento}</Text></PersonalButton>
+
+            </MainContainer>
+        )
+    } else {
+
+        return (
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <HeaderCheckout>
+                    <TouchableOpacity onPress={() => setShowCheckout(false)}><Text style={{ fontSize: 20, color: 'white' }}>{"<<"}</Text></TouchableOpacity>
+                    <Title>Pagamento do pedido</Title>
+                </HeaderCheckout>
+                <WebView
+                    source={{ uri: `<url_api_git_pod>/payments/checkout/${idPagamento}/${emailPagamento}/${descricaoPagamento}/${vlrPagamento}` }}
+                    onNavigationStateChange={state => stateChange(state)}
+                    startInLoadingState={true}
+                    renderLoading={() => <ActivityIndicator></ActivityIndicator>}
+                />
+
+            </View>
+        )
+
+    }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="money_account_creation_toolbar_title">Create account</string>
+    <string name="money_account_editing_toolbar_title">Edit account</string>
+    <string name="money_account_creation_menu_create">Create</string>
+    <string name="money_account_creation_hint_name">Name</string>
+    <string name="money_account_delete_button">Delete account</string>
+    <string name="money_account_deletion_dialog_message">
+        Are you sure? Account with all associated transactions will be deleted.
+    </string>
+    <string name="money_account_deletion_dialog_title">Account deletion</string>
+    <string name="money_account_creation_hint_initial_balance">Initial balance</string>
+    <string name="money_account_creation_account_created_message">Account is created</string>
+    <string name="money_account_account_edited_message">Account edited successfully</string>
+
+</resources>

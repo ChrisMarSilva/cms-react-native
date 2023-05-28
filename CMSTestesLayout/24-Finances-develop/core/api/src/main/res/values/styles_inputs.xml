@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OutlineClearableTextInputLayout"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopEnd">@dimen/radiusCornerDefault</item>
+        <item name="boxCornerRadiusTopStart">@dimen/radiusCornerDefault</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radiusCornerDefault</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radiusCornerDefault</item>
+        <item name="boxStrokeColor">@color/selection_text_input_layout_stroke</item>
+
+        <item name="endIconMode">clear_text</item>
+        <item name="hintTextColor">?colorAccent</item>
+    </style>
+
+</resources>

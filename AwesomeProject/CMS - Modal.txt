@@ -1,0 +1,12 @@
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+modal
+https://github.com/jeremybarbet/react-native-modalize
+
+npm i react-native-modalize 
+npm i react-native-gesture-handler
+
+https://medium.com/@rafaelaugustodev/criando-modal-animada-com-react-native-4ed783aaf460
+

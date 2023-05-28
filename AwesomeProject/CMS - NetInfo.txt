@@ -1,0 +1,101 @@
+
+npm install --save @react-native-community/netinfo
+react-native link @react-native-community/netinfo
+import NetInfo from "@react-native-community/netinfo"
+
+npm install --save react-native-network-checker
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import NetInfo from "@react-native-community/netinfo"
+import NetworkChecker from 'react-native-network-checker'
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+export default class App extends React.Component {
+
+  constructor(props) {
+    super(props)  
+    this.state = { type: '---' , isConnected: false }
+  }
+
+  componentDidMount() {
+    NetInfo.fetch().then(state => {
+      this.setState({ type: state.type, isConnected: state.isConnected, })
+      // console.log("---------------------"); 
+      console.log(" NetInfo.fetch()");
+      // console.log("Connection type", state.type);
+      // console.log("Is connected?", state.isConnected);
+      // console.log("---------------------"); 
+    });
+    NetInfo.addEventListener(state => {
+      this.setState({ type: state.type, isConnected: state.isConnected, })
+      // console.log("---------------------"); 
+      console.log(" NetInfo.addEventListener()");
+      // console.log("Connection type", state.type);
+      // console.log("Is connected?", state.isConnected);
+      // console.log("---------------------"); 
+    })
+  }
+
+  async _onPress01() {
+    const netStatus = await NetInfo.fetch()
+    Alert.alert(netStatus.isConnected.toString())
+    if (!netStatus.isConnected) Alert.alert("NAOOOOOOOOOO")
+    // if (netStatus === 'none' || netStatus === 'NONE') {
+    //     Alert.alert("Internet not connected.!!!")
+    //     return []
+    // }else{ 
+    //     Alert.alert("Internet connected.!!! ")
+    // }
+  }
+  
+  CheckConnectivity = () => {
+    if (Platform.OS === "android") {
+      NetInfo.isConnected.fetch().then(isConnected => { if (isConnected) { Alert.alert("You are online!"); } else { Alert.alert("You are offline!"); } });
+    } else {
+      // For iOS devices
+      NetInfo.isConnected.addEventListener("connectionChange",this.handleFirstConnectivityChange);
+    }
+    // handleFirstConnectivityChange = isConnected => {NetInfo.isConnected.removeEventListener( "connectionChange", this.handleFirstConnectivityChange );};
+  }
+
+   render() {  
+    return (
+      <NetworkChecker
+        style={{ paddingTop: Constants.statusBarHeight, }}
+        position="top"
+        duration={2000} // In milliseconds
+        connectedTextColor="white"
+        connectedBackgroundColor="green"
+        notConnectedMessage="Não conectado à Internet!"
+        notConnectedTextColor="white"
+        notConnectedBackgroundColor="red"
+        connectedMessage="Conectado à Internet!"
+    > 
+      <SafeAreaView style={styles.container}>
+        
+        <Text>CMS Teste #2</Text>
+        <Text>Connection type: {this.state.type}</Text>
+        <Text>Is connected: {this.state.isConnected.toString()}</Text>
+
+        <TouchableOpacity onPress={this._onPress01} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Teste #1</Text>
+        </TouchableOpacity>
+
+      </SafeAreaView>
+    </NetworkChecker>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+

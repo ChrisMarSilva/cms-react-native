@@ -1,0 +1,80 @@
+{
+  "name": "Stockifier",
+  "version": "1.0.2",
+  "description": "A notification and insights app for stock markets",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "install-app-deps",
+    "rebuild": "electron-rebuild -f -w sqlite3",
+    "build-osx": "electron-packager ./ --app-version 1.0.0 --platform darwin --icon ./res/Stockifier.png.icns --prune=true --out ./dist --overwrite",
+    "build-linux": "electron-packager ./ --app-version 1.0.0 --platform linux --icon ./res/Stockifier.png --prune=true --out ./dist --overwrite",
+    "build-win32": "electron-packager ./ --app-version 1.0.0 --platform win32 --prune=true --out ./dist --overwrite",
+    "build-all": "npm run build-osx && npm run build-win32 && npm run build-linux",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "com.samyak.stockifier",
+    "asar": "false",
+    "extraResources": [
+      "stocksDB.db"
+    ],
+    "productName": "Stockifier",
+    "win": {
+      "target": "nsis",
+      "icon": "res/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "res/icon.ico",
+      "license": "LICENSE"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "res/macicon.png",
+      "type": "distribution"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jainsamyak/Stockifier.git"
+  },
+  "keywords": [
+    "stock",
+    "notifier",
+    "finance",
+    "market",
+    "alert",
+    "insights",
+    "prediction",
+    "equity",
+    "analysis"
+  ],
+  "author": "Samyak Jain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jainsamyak/Stockifier/issues"
+  },
+  "homepage": "https://github.com/jainsamyak/Stockifier#readme",
+  "devDependencies": {
+    "electron": "^7.2.4",
+    "electron-builder": "^20.39.0",
+    "electron-packager": "^13.1.1",
+    "electron-rebuild": "^2.3.4",
+    "electron-reload": "^1.5.0"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^3.0.0",
+    "alphavantage": "^1.2.0",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.7.3",
+    "currency-symbol-map": "^4.0.4",
+    "expo": "^40.0.1",
+    "jquery": "^3.5.0",
+    "popper.js": "^1.15.0",
+    "sqlite3": "^4.0.6"
+  }
+}

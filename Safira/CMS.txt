@@ -1,0 +1,1401 @@
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm i -g expo@latest
+npm i -g expo-cli@latest
+npm i -g eas-cli@latest
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npx create-expo-app@latest Safira
+
+cd Safira
+expo install expo-updates
+npx expo install
+
+npm install expo@^48.0.0
+npx expo install --fix
+npx expo-doctor
+
+npx expo start --clear
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm i -g eas-cli expo-cli
+npm install -g eas-cli
+
+eas login
+chris.mar.silva@gmail.com
+#Chrs2387
+
+npx expo login
+chris.mar.silva@gmail.com
+#Chrs2387
+
+eas update:configure
+eas build:configure
+eas update --branch preview --message "#001 - Updating the app"
+eas update --branch preview --message "#002 - Updating the app"
+eas update --branch preview --message "#003 - Updating the app"
+eas update --branch preview --message "#004 - Updating the app"
+eas update --branch preview --message "#005 - Updating the app"
+eas update --branch preview --message "#006 - Updating the app"
+eas update --branch preview --message "#007 - Updating the app"
+eas update --branch preview --message "#008 - Updating the app version 1.0.7"
+
+eas build --platform android --profile preview
+eas build --platform android --profile production
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npx expo upgrade
+npx eas update
+npx react-native upgrade
+
+npx expo install expo-status-bar@latest
+npx expo install expo@latest
+npx expo install expo@48.0.17
+
+npm cache clean --force
+npm cache verify
+npm audit fix --force
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm i @react-navigation/native@latest
+npx expo install react-native-screens@latest
+npx expo install react-native-safe-area-context@latest
+npm i @react-navigation/native-stack@latest
+npm i @react-navigation/drawer@latest
+npm i react-native-gesture-handler@latest
+npm i react-native-reanimated@latest
+npx expo install react-native-gesture-handler@~2.9.0 react-native-reanimated@~2.14.4
+
+npx expo install --fix
+npx expo-doctor
+
+npx expo start --clear
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm i @reduxjs/toolkit
+npm i redux
+npm i react-redux
+npm i redux-thunk
+npm i redux-logger --save
+npm i redux-devtools-extension --save
+npm i react-navigation-redux-helpers --save
+
+npm i axios
+npm i react-native-axios
+
+npm i @react-native-async-storage/async-storage
+react-native link @react-native-async-storage/async-storage
+npx expo install @react-native-async-storage/async-storage@1.17.11
+
+npm i react-native-console-time-polyfill
+
+npx expo install --fix
+npx expo-doctor
+
+npx expo start --clear
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm i recyclerlistview --save
+npx expo install expo-linear-gradient
+npx expo install expo-updates
+npx expo install react-native-reanimated
+npx expo install expo-device
+npm i react-native-modal
+npm i react-native-input-spinner
+npm i react-native-smart-tip --save
+npm i react-native-uuid
+npm i @react-native-community/viewpager
+npm install react-native-pager-view
+npx expo install react-native-pager-view@6.1.2
+
+npx expo install --fix
+npx expo-doctor
+
+npx expo start --clear
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+ "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@types/i18n-js": "^3.0.3",
+    "@types/mapbox__polyline": "^1.0.0",
+    "@types/marked": "^2.0.1",
+    "@types/react": "~18.0.24",
+    "@types/react-native": "~0.70.6",
+    "@types/react-redux": "^7.1.9",
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "babel-preset-expo": "~9.2.1",
+    "eslint": "^7.5.0",
+    "eslint-config-universe": "^4.0.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.0.5",
+    "typescript": "^4.6.3"
+  },
+
+  
+app.json
+
+{
+  "expo": {
+    "name": "Safira",
+    "slug": "CMS-Safira",
+    "version": "1.0.5",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#152d44"
+    },
+    "androidNavigationBar": {
+      "backgroundColor": "#152d44"
+    },
+    "runtimeVersion": "1.0.5",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+      "policy": "appVersion"
+      "policy": "nativeVersion"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "requestHeaders": {
+        "expo-channel-name": "main"
+      },
+      "url": "https://u.expo.dev/df50cac3-d184-4d68-9e09-b7b2d3268992"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "br.com.cms.app.safira",
+      "icon": "./assets/icon.png",
+      "versionCode": 5,
+      "blockedPermissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "com.htc.launcher.permission.READ_SETTINGS"
+
+		
+        "INTERNET",
+        "ACCESS_FINE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_NETWORK_STATE",
+        "com.htc.launcher.permission.READ_SETTINGS",
+        "MANAGE_DOCUMENTS",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "com.sonyericsson.home.permission.BROADCAST_BADGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.INTERNET",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_INTERNAL_STORAGE",
+        "android.permission.WRITE_INTERNAL_STORAGE",
+        "android.permission.MANAGED_DOCUMENTS",
+        "android.permission.CHANGE_CONFIGURATION",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "com.htc.launcher.permission.UPDATE_SHORTCUT",
+        "com.anddoes.launcher.permission.UPDATE_COUNT",
+        "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+        "com.google.android.providers.gsf.permission.READ_GSERVICES",
+        "com.majeur.launcher.permission.UPDATE_BADGE",
+        "com.sec.android.provider.badge.permission.READ",
+        "com.sec.android.provider.badge.permission.WRITE"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#152d44"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "df50cac3-d184-4d68-9e09-b7b2d3268992"
+      }
+    }
+  }
+}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+const renderItem = useCallback(({item}) => (
+   <View key={item.key}>
+      <Text>{item.title}</Text>
+   </View>
+ ), []);
+
+return (
+  // ...
+
+  <FlatList data={items} renderItem={renderItem} />;
+  // ...
+);
+
+
+
+const HelloWorld = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.hello}>Hello, World</Text>
+    </View>
+  );
+};
+
+
+const addNewItemToShoppingList = useCallback(() => {
+    setItems([groceryItem, ...items]);
+    setGroceryItem('');
+  }, [groceryItem, items]);
+
+onPress={addNewItemToShoppingList}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+https://www.youtube.com/watch?v=2ICOVstF6rU
+
+/.github/workflows/update.yml
+
+name: update
+on: pull_request
+
+jobs:
+  update:
+    name: EAS Update
+    runs-on: ubuntu-latest
+    steps:
+      # https://expo.dev/settings/access-tokens
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Find yarn cache
+        id: yarn-cache-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Publish update
+        run: eas update --branch preview --auto
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+
+2023
+
+npm install -g expo-cli
+
+npx create-expo-app Safira
+npx create-expo-app --template
+npx react-native upgrade
+
+cd Safira
+npx expo start --clear
+
+npm install --force
+
+npm i @react-navigation/native
+npm i react-native-screens 
+npm i react-native-safe-area-context
+npm i @react-navigation/native-stack
+npm i @react-navigation/drawer
+npm install react-native-gesture-handler react-native-reanimated
+
+npm i @reduxjs/toolkit
+npm i redux
+npm i react-redux
+npm i redux-thunk
+npm i redux-logger --save
+npm i redux-devtools-extension --save
+npm i react-navigation-redux-helpers --save
+
+npm i axios
+npm i react-native-axios
+
+npm i @react-native-async-storage/async-storage
+react-native link @react-native-async-storage/async-storage
+
+npm i react-native-console-time-polyfill
+
+npm i recyclerlistview --save
+
+npx expo install expo-linear-gradient
+npx expo install expo-updates
+npx expo install react-native-reanimated
+npx expo install expo-device
+npx pod-install
+
+npm i react-native-modal
+npm i react-native-input-spinner
+npm i react-native-smart-tip --save 
+
+npm audit fix --force
+
+Warning: Invalid version react-native@0.71.7 for expo sdkVersion 44.0.0. Use react-native@0.64.3
+npm audit fix --force
+
+npx expo install @react-native-async-storage/async-storage@1.17.11 react-native@0.71.7 react-native-reanimated@~2.14.4 react-native-safe-area-context@4.5.0
+npm audit fix --force
+
+npx expo install expo-linear-gradient@~11.4.0 expo-updates@~0.14.7 react@18.0.0 react-native@0.69.9 react-native-gesture-handler@~2.5.0 react-native-reanimated@~2.9.1 react-native-safe-area-context@4.3.1 react-native-screens@~3.15.0
+npm audit fix --force
+
+npx expo install expo-linear-gradient@~12.1.2 expo-updates@~0.16.4 react@18.2.0 react-native@0.71.7 react-native-gesture-handler@~2.9.0 react-native-reanimated@~2.14.4 react-native-safe-area-context@4.5.0 react-native-screens@~3.20.0
+
+npm install react-native-onboard
+npm uninstall react-native-onboard
+
+npm i @react-native-community/viewpager
+npm install react-native-pager-view
+npx expo install react-native-pager-view@6.1.2
+
+npm i react-native-uuid
+npx expo install react-native@0.71.8
+
+npx expo-doctor
+npx expo install --check
+y
+npx expo install expo-device@~4.3.0 expo-linear-gradient@~11.4.0 expo-updates@~0.14.7 react@18.0.0 react-native@0.69.9 react-native-gesture-handler@~2.5.0 react-native-pager-view@5.4.24 react-native-reanimated@~2.9.1 react-native-safe-area-context@4.3.1 react-native-screens@~3.15.0
+
+expo upgrade
+npx expo install react-native@0.71.8
+
+npm install --global expo-cli
+npx expo-cli upgrade
+npx expo upgrade
+yarn add expo
+
+react-native@0.71.3 - expected version: 0.71.8
+npx expo install react-native@0.71.8
+
+npm start --reset-cache
+npx expo start --clear
+
+----------------------------------------------------------------------------------------------------
+
+
+2021
+
+npm install -g expo-cli
+npm install --global expo-cli
+
+npx react-native upgrade
+expo init Safira
+cd 'C:\Users\chris\Desktop\CMS React Native\Safira'
+
+npm cache clear --force 
+npm cache clean --force
+
+npm audit fix
+npm audit fix --force
+
+npm install
+
+yarn start
+expo start
+
+npm start
+npm start --reset-cache
+
+----------------------------------------------------------------------------------------------------
+
+npm install -g react-devtools
+npm install --save-dev babel-plugin-module-resolver
+
+npm i @react-navigation/native  
+npm i @react-navigation/stack
+npm i react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+npm i @react-navigation/drawer 
+
+npm i @reduxjs/toolkit
+npm i redux
+npm i react-redux
+npm i redux-thunk
+npm i --save redux-logger
+npm i --save-dev redux-devtools
+npm install --save redux-devtools-extension
+npm i --save react-navigation-redux-helpers
+
+npm i axios
+npm i react-native-axios
+
+npm i @react-native-async-storage/async-storage
+react-native link @react-native-async-storage/async-storage
+
+npm i react-native-console-time-polyfill
+
+npm install --save @react-native-community/netinfo
+npm uninstall @react-native-community/netinfo
+npm i @react-native-community/netinfo@5.9.7 --save
+react-native link @react-native-community/netinfo
+npm install --save react-native-network-checker
+
+npm i --save recyclerlistview
+
+npm uninstall @react-native-community/masked-view
+npm i @react-native-community/masked-view@0.1.10
+
+npm uninstall react-native-reanimated
+npm i react-native-reanimated@~2.1.0
+
+npm uninstall react-native-screens
+npm i react-native-screens@~3.0.0
+
+npm uninstall @react-native-community/netinfo
+npm i @react-native-community/netinfo@6.0.0
+
+npm i expo-linear-gradient
+npm i @expo/vector-icons
+
+npm i react-native-smart-tip --save 
+
+npm i react-native-input-spinner
+https://www.npmjs.com/package/react-native-input-spinner
+
+npm i react-native-dialog-input
+
+npm i react-native-modal
+
+expo i expo-device
+npx expo install expo-device
+
+npx expo install expo-updates
+
+npm i react-native-web
+
+cd 'C:\Users\chris\Desktop\CMS React Native\Safira'
+npm audit fix --force
+npm start --reset-cache
+
+ expo start
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+2021-06-16
+
+Sis Safira - Nome do Aplicativo
+Puteiro Dreams
+
+tela login do garçom
+
+tela recepção
+ - cartao e nome
+ - grid ( codigo, descricao, qtd e valor ) 
+ - total
+
+tela garçom/bar - para a moça ou empregado - nao via ser feito no celular
+ - F2 - Venda Cartao
+ - campo garçom (codgio e nome)
+ - campo moça/gaorta (codgio e nome) pesquisar por nome
+ - campo produto (codgio, descricao e valor) pesquisar por nome
+ - campo qtde
+ -   verificar se ela tem saldo ou nao
+ 
+tela garçom/bar -  para clientes
+ - campo garçom (codgio e nome)
+ - campo cartao (codgio e nome e situacao)
+ - campo moça/gaorta (codgio e nome) pesquisar por nome
+ - campo produto (codgio, descricao e valor) pesquisar por nome
+ - campo qtde
+ - permitir exluir itens, ainda nao laçados
+ - Btn fazer pedidos
+ - antes fazer pedido verificar se estourou o limite do cartao
+
+tela garçom/bar -  para clientes com vendas divididas
+ - campo garçom (codgio e nome)
+ - F5 - Dividir Venda
+ - pedir todos os cartoes
+ - campo cartao (codgio e nome e situacao)
+ - campo cartao (codgio e nome e situacao)
+ - campo cartao (codgio e nome e situacao)
+ - campo cartao fica divido por 3
+ - campo moça/gaorta (codgio e nome) pesquisar por nome
+ - campo produto (codgio, descricao e valor) pesquisar por nome
+ - campo qtde
+ - permitir exluir itens, ainda nao laçados
+ - Btn fazer pedidos
+ - antes fazer pedido verificar se estourou o limite do cartao
+
+tela garçom/bar -  pesquisar todas as vendas
+ - pesquisar por codigo do cartao
+ - codigo, pproduto, qtde, valor
+ - total
+ - itens agrupados
+
+EndPoint Auth  *** ou nao
+
+EndPoint Login Garçon
+	entrada nome e senha
+	saida status cod 200
+
+EndPoint Pesquisar Cartao ( pegar o nome e situação, verificar se nao esta bloqueado) 
+	- caregar ao abrir tela de fazer pedidos
+	saida codigo e nome
+
+EndPoint Carregar Lista de Garotas ( pesquisar por nome e pegar o codigo ) btn atualizar a lista 
+	- caregar ao abrir tela de fazer pedidos
+	saida codigo e nome
+
+EndPoint Carregar Lista de Pordutos ( codigo e nome ) btn atualizar a lista 
+	- caregar ao abrir tela de fazer pedidos
+	saida codigo e nome
+
+EndPoint FazerPedidos
+	entrada cod garçom - logado
+	entrada cartoes - (lista de cod catores)
+	entrada cod garota
+	entrada produtos - (lista de codigo e qtde )
+	entrada codigo de usuario e senha de autorizador
+	saida status cod 200
+	saida message
+	nao tirar os itens nao
+	os itens somente sera apagados com status cod 200
+	status cod ok ... novo pedido
+	ao dar erro pq estourou limite... e precisa de senha do autorizador
+
+EndPoint ConsumoCartao 
+	entrada cod catao
+	saida descrição (cod e produto), qtde, valor
+
+EndPoint ValidarSenhaGerente
+	ao fazer o pedido e o cartao estourar o limite
+	entao pedido precisa validar a senha do gerente
+
+EndPoint TravarCartao - ficou pendente Rela
+EndPoint DestravarCartao - ficou pendente Rela
+
+ - cartao sem codigo de barra, mais pra frente pode ter
+ - fazer pedido de bebidas, codigo da garota, sai na impressao no bar
+ - comidas, a impresao sai na cozinha
+ - pedido, mesa, cartao, bebidas
+ -  Endpoint Buscar lista de produtos ( carregar lista em background )
+ -  Endpoint Buscar lista de codigos da garotas ( qtde garotas )
+ -  Endpoint Fazer Pedido ( codigo da bebida, codigo da garota, qtdade )
+ -  Endpoint Fazer Pedido Divido ( lista de cartoes, lista de codigos )
+
+ - 15hr * 50 = 750,00 mais ou menos 1.000,00
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+2021-06-24
+
+Tela Login
+ - url padrao localhost
+ - nao entrar direto
+ - nao carregar senha
+ - campo login, mudar o icon de email, para o icone de caracinha... p eh login
+
+Tela Config
+ - fazer teste com a url da api
+ - add voltar
+ - titulo - configuração
+ - botao voltar
+
+Tela Consumir
+	- add o codigo e nome do cartao
+	- nome cara e o total, deoxar fixo no top..
+	- colcoar scroll
+	- add o botao voltar... ou o botao X
+
+Tela Home
+ - posicionar pop do cartao mais centralizado
+ - posicionar pop do moça mais centralizado
+ - posicionar pop do produto mais centralizado
+ - top do testo produto, deve ser o mesmo do top do botao add produto
+ - botao add produto, deixar no centro da tela, em baixo da lista de produtos
+ - validar senha do gernente ao enviar o pedido
+ - se tiver cartao, ou moca, ou produto, deve esconder ou deixar desabilitado o botao consumir e o botao logout/logoff 
+ - menu na lateral
+ - retirar msg e susceso do pedido
+ - validar moça, esta com erro.. nao precisa
+ - ao enviar o pedido. deve chamar o limpar a tela...
+ - botao enviar pedido.. se td estiver vazio, nao deve exibir msg de erro..
+
+Tela Home Modal Cartao
+ - o tecaldo esta cortando 
+ - jogar modal para o top
+ - animação do modal mais rapida - 200ml
+ - completar com zero a esquerda - com 5 caracteres
+ - validar se o cartao esta ativo
+ - limitar tamanho do texto
+ - na lista de cartao retirar o #
+ - padronizar tamanho da fonte e cor
+ - o botao X, somente sair da tela.. e nao limpar nada
+ - retirar o botao azul pesqusiar... 
+ - bota add nao sair da tela
+ - mostrar lista de cartao em baixo
+ - votla verde add, se o campo estiver em branco. ai ele sai da tela
+ - colocar o botao x para limpar o texto
+ - mudar icone voltar para uma seta
+
+Tela Home Modal Moça
+ - o tecaldo esta cortando 
+ - jogar modal para o top
+ - animação do modal mais rapida - 200ml
+ - completar com zero a esquerda - com 6 caracteres
+ - verificar se ela esta ativa ou nao
+ - carregar lista da moça, toda hora q abrir o modal da moça
+ - limitar tamanho do texto
+ - na lista de Moça retirar o #
+ - padronizar tamanho da fonte e cor
+ - o botao X, somente sair da tela.. e nao limpar nada
+ - lista de moça, colocar uma seta em cada 
+ - carregar o codigo da mocaç
+ - botao verde, se tives se o filtro estiver vazio, deve limpar o codigo da moça
+ - colocar o botao x para limpar o texto
+ - mudar icone voltar para uma seta
+
+Tela Home Modal Produto
+ - o tecaldo esta cortando 
+ - jogar modal para o top
+ - animação do modal mais rapida - 200ml
+ - completar com zero a esquerda - com 4 caracteres
+ - limitar tamanho do texto
+ - na lista de Produto retirar o #
+ - padronizar tamanho da fonte e cor
+ - o botao X, somente sair da tela.. e nao limpar nada
+ - texto do campo quantidade, deixar enabled 
+ - retirar o botao azul pesqusiar... 
+ - bota add nao sair da tela
+ - mostrar lista de cartao em baixo
+ - votla verde add, se o campo estiver em branco. ai ele sai da tela
+ - colocar o botao x para limpar o texto
+ - mudar icone voltar para uma seta
+
+Tela Home Pesquisa Cartao
+ - posicionar o cursor no texto de pesquisa
+ - nao esta carrega a lista de cartao
+ - na lista de Produto retirar o #
+ - padronizar tamanho da fonte e cor
+ - limitar tamanho do texto
+ - add o botao voltar... ou o botao X
+
+Tela Home Pesquisa Moça
+ - posicionar o cursor no texto de pesquisa
+ - na lista de Produto retirar o #
+ - padronizar tamanho da fonte e cor
+ - limitar tamanho do texto
+ - add o botao voltar... ou o botao X
+
+Tela Home Pesquisa Produto
+ - posicionar o cursor no texto de pesquisa
+ - na lista de Produto retirar o #
+ - padronizar tamanho da fonte e cor
+ - limitar tamanho do texto
+ - voltar para o modal de produtos com o codigo do produto selecionado
+ - add o botao voltar... ou o botao X
+
+ 
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+2021-07-01
+
+mensagem de erro '(Status Code ) Falha Generica e colcoar o '
+ - criar lilsta de erro e exibir na tela de configruação
+ - bota de limpar erros
+
+Cartao, tem diferente entre numero do cartao e codigo do cartao
+	CodigoCartao - eh sempre fixo
+	NumeroCartao 00200 - eh variado por noite
+
+Tela Login
+
+Tela Config
+
+Tela Consumir
+
+Tela Home
+	retirar descrição dos nomes do botao
+	descrição do produto, trocar para ' ------ Produtos ------ '  
+	Botao Limpar Pedido, se tiver preenchio deve perguntar se deseja realmente limpar os itens, para nao perder oq foi feito
+
+Tela Home Modal Cartao
+	posicionar no top - ios
+	ao add Cartao, deve mostrar teclado de novo
+	perguntar se deseja excluir
+	colocar de voltar o botao voltar
+	nome muito grande colocar '...'
+	Botao Add, deve efitivar as alterações feitas ( colocar situaçao do item, IncluidoPendente/ExcluidoPendten/OK )
+	Botao Cancelar, deve desfazer as ultimas alterações ( colocar situaçao do item, IncluidoPendente/ExcluidoPendten/OK )
+
+Tela Home Modal Moça
+	posicionar no top - ios
+	colocar de voltar o botao voltar
+	nome muito grande colocar '...'
+
+Tela Home Modal Produto
+	posicionar no top - ios
+	ao add Produto, deve mostrar teclado de novo
+	perguntar se deseja excluir
+	'Produto não localizado' ou nao encontrado
+	colocar de voltar o botao voltar
+	ao add um produto que jah existe, deve somar a quantidade
+	nome muito grande colocar '...'
+
+Tela Home Pesquisa Moça
+ nao vai ter Moça inativa
+	nome muito grande colocar '...'
+
+Tela Home Pesquisa Produto
+ nao vai ter Produto inativa
+	nome muito grande colocar '...'
+
+
+	
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+2021-07-07
+
+Tela Login
+	colocar titulo de tela "Login"
+	Senha desligada por default
+	Mensagem de senha invalida "Usairio/Senha invalido" ---- 
+	- remover todo titulo de msg de erro
+
+Tela Config
+	- remover todo titulo de msg de erro
+
+Tela Consumo
+	- colocar titulo de tela "Consulta de Cartão" - maior q o nome do garcom, e menor q safora mobile, a direita, em cima do safira mobile, tudo em maisculo
+	- retirar o cartao, em cima do nome,,,deixa somente o edit
+	- retirar a ultima linha, SUBTOTAL, ignorar pela descricao
+	- clicar no edit para pesquisar... se tiver valor limpar tudo, ateh a lista
+	- remover todo titulo de msg de erro
+
+Tela Home
+	colocar titulo de tela "Pedido" maior q o nome do garcom, e menor q safora mobile, a direita
+	colocar titulo de tela "Pedido" - maior q o nome do garcom, e menor q safora mobile, a direita, em cima do safira mobile, tudo em maisculo
+	/v1/FechaVenda
+	pegar o nome do celular para enviar no endpoint
+	NOME, OU IP, OU UID
+	- confirmação, cencelar pedido... remover a confirmação
+	- remover todo titulo de msg de erro
+
+Tela Home Modal Cartao
+	- remover todo titulo de msg de erro
+	- 101, 100, 
+
+Tela Home Modal Moça
+	- remover todo titulo de msg de erro
+
+Tela Home Modal Produto
+	- remover todo titulo de msg de erro
+	- barra de rolagem mover para o ultimo
+	- se nao conseguir mover a barra de rolagem, entao deve ordernar a tela pelo ultimo
+	- se tiver item alterado, ou excluido, deve perguntar sem "deseja cancelar alterações"
+
+Tela Home Pesquisa Cartao
+	- remover todo titulo de msg de erro
+
+Tela Home Pesquisa Moça
+	- remover todo titulo de msg de erro
+
+Tela Home Pesquisa Produto
+	- remover todo titulo de msg de erro
+	- ao pesquisar um item. o teclado fica mostrado.. mas ao selecionar um item, o teclado some, mas nao nao seleciona o item - deve tirar o teclado no clique... e realmente selecionar o item
+
+{
+	"garcom": "string",  ---- SIM
+	"cup": "string",    ---- SIM CODIGO DA GAROTA
+	"autorizador": "string",   ---- OPCIONAL CODIGO DO AUTORIZADOR   
+	"netName": "string",   ---- SIM NOME DO CELULAR
+	"cartoes": [  ---- CARTOES , PASSAR O CODIGO 31 e nao o cartao 000200
+		0
+	],
+	"items": [    ---- SIM lista de produtos
+		{
+			"codigo": "string",   -- 
+			"quantidade": 0
+		}
+	],
+	"tipoPagtos": [  ---- NAO
+		{
+			"tipo": "string",
+			"dataChe": "2021-07-07T23:12:24.084Z",
+			"cartao": "string",
+			"valor": 0,
+			"taxa": 0,
+			"descricao": "string",
+			"operador": "string"
+		}
+	],
+	"caixa": 0
+}
+
+
+
+{
+	"garcom": "000008",
+	"cup": "",
+	"autorizador": "",
+	"netName": "string",
+	"cartoes": [
+		32
+	],
+	"items": [
+		{
+			"codigo": "0004",
+			"quantidade": 1
+		}
+	],
+	"tipoPagtos": []
+}
+
+
+200
+{
+	"status": 1 //  OK
+}
+
+200
+{
+	"status": -3,
+	"cartao": 32,
+	"saldo": 710,
+	"form": "frmRecepcao",
+	"formRecurso": "LiberaLimite"
+}
+
+
+	RET_NONE             =  0;
+	RET_SUCESSO          =  1;
+	RET_CANCELA          = -1;
+	RET_LIBERACAO_LIMITE = -3;
+	RET_CARTAO_TRAVADO          **** rela vai definir ainda
+	RET_EXCEPTION        = -100;
+
+
+O cartão  "<000200>" possui saldo aberto de <SALDO>. 
+Informe a senha para a liberação do limite do cartão
+
+
+
+		public void ConfigureServices(IServiceCollection services)
+		{
+				services.AddMvc()
+						.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+				// Register the Swagger generator, defining 1 or more Swagger documents
+				services.AddSwaggerGen(c =>
+				{
+						c.SwaggerDoc("v1", new Info { Title = "API WSVAP (WebSmartView)", Version = "v1" });
+				});
+		}
+
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
+				app.UseSwagger();
+				app.UseSwaggerUI(c =>
+				{
+						c.SwaggerEndpoint("./swagger/v1/swagger.json", "My API V1");
+			c.SwaggerEndpoint($"{env.WebRootPath}swagger/v1/swagger.json", "Test.Web.Api");
+						c.RoutePrefix = string.Empty;
+				});
+#if DEBUG
+	 // For Debug in Kestrel
+	 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
+#else
+	 // To deploy on IIS
+	 c.SwaggerEndpoint("/webapi/swagger/v1/swagger.json", "Web API V1");
+#endif
+
+
+				app.UseMvc();
+		}
+}
+
+
+https://aboutreact.com/react-native-device-info/
+https://www.npmjs.com/package/react-native-device-info
+
+
+
+
+// require module
+var NetworkInfo = require('react-native-network-info');
+
+// Get Local IP
+NetworkInfo.getIPAddress(ip => {
+	console.log(ip);
+});
+
+
+yarn add react-native-network-info
+
+
+import {NetworkInfo} from 'react-native-network-info';
+
+// Get Local IP
+NetworkInfo.getIPAddress().then(ipAddress => {
+	console.log(ipAddress);
+});
+
+// Get IPv4 IP (priority: WiFi first, cellular second)
+NetworkInfo.getIPV4Address().then(ipv4Address => {
+	console.log(ipv4Address);
+});
+
+// Get Broadcast
+NetworkInfo.getBroadcast().then(broadcast => {
+	console.log(broadcast);
+});
+
+// Get SSID
+NetworkInfo.getSSID().then(ssid => {
+	console.log(ssid);
+});
+
+// Get BSSID
+NetworkInfo.getBSSID().then(bssid => {
+	console.log(bssid);
+});
+
+// Get Subnet
+NetworkInfo.getSubnet().then(subnet => {
+	console.log(subnet);
+});
+
+// Get Default Gateway IP
+NetworkInfo.getGatewayIPAddress().then(defaultGateway => {
+	console.log(defaultGateway);
+});
+
+// Get frequency (supported only for Android)
+NetworkInfo.getFrequency().then(frequency => {
+	console.log(frequency);
+});
+
+
+
+import publicIP from 'react-native-public-ip';
+
+publicIP()
+.then(ip => {    
+	console.log(ip);
+	// '47.122.71.234'
+})
+.catch(error => {
+	console.log(error);
+	// 'Unable to get IP address.'
+});
+
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-07-12
+
+PESQUISAR COMO ATUALIAR O APP AUTOMATICAMENTE
+MOSTRAR PARA O USUARIO QUE TEM NOVA VERSAO
+
+	Tela Login
+		completar com zero a esquerda - 6 digitos
+		novo 010004
+		Ajusta o top, titulo da tela, para IOS colocar top 0, somente top para Android
+		FUTURO - ao fazer o login vai gerar o toke, deve gaurdar o token e a hora, e colocar um time para logar a cada 1h30m
+
+	Tela Config
+		ordernar a lista de erros, sendo ultimo primeiro
+		Ajusta o top, titulo da tela, para IOS colocar top 0, somente top para Android
+		colocar o get do endoint /version, ao abrir a tela
+
+	Tela Consumo
+		Ajusta o top, titulo da tela, para IOS colocar top 0, somente top para Android
+		verficar o nome do cartao, se tiver em branco, preecnher com '---'
+		desabilitar botes o pedido ao Fechar
+		mensgem de enviado pedido. ou uma lupa rodando
+
+	Tela Home
+		Ajusta o top, titulo da tela, para IOS colocar top 0, somente top para Android
+		desabilitar botes o pedido ao Fechar
+		mensgem de enviado pedido. ou uma lupa rodando
+
+	Tela Home Modal Cartao
+		desabilitar botes o pedido ao Fechar
+		mensgem de enviado pedido. ou uma lupa rodando
+
+	Tela Home Modal Moça
+
+	Tela Home Modal Produto
+
+	Tela Home Modal AcessoLibera
+		desabilitar botes o pedido ao Fechar
+		mensgem de enviado pedido. ou uma lupa rodando
+		text edit do usuario, ao clicar no CHECK, deve ir para o text edit senha
+		text edit do senha, ao clicar no CHECK, deve validar
+		deixar o codigo do autorizador salvo, e jah carregado
+		no edit usuario, ao vir carregado, deve estar selecionado td o testo, para falicitar limpeza, para digitar outro usuario
+		nao apagar usuario ou senha invalido
+
+	Tela Home Pesquisa Moça
+		Ajusta o top, titulo da tela, para IOS colocar top 0, somente top para Android
+
+	Tela Home Pesquisa Produto
+		Ajusta o top, titulo da tela, para IOS colocar top 0, somente top para Android
+
+		
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-07-14
+
+	Multilaser E - 
+		https://www.mercadolivre.com.br/multilaser-e-dual-sim-32-gb-ouro-512-mb-ram/p/MLB16160107?pdp_filters=seller_id%3A85263796#reco_item_pos=1&reco_backend=machinalis-seller-items-pdp-tracksv2&reco_backend_type=low_level&reco_client=vip-seller_items-above&reco_id=cf999b6a-a088-48a8-8f32-724c95304d5b
+
+	Endpoint
+		colocar o v1, no request, nao deixar no padrao nao
+		arrumar layout das telas para Monitor 8 Android 8
+		verificar o download da APK
+		PESQUISAR COMO ATUALIAR O APP AUTOMATICAMENTE
+		MOSTRAR PARA O USUARIO QUE TEM NOVA VERSAO
+
+	Tela Login
+
+	Tela Login Modal Admin
+
+	Tela Login Config
+
+	Tela Consumo
+
+	Tela Home
+		colocar meu Configuração no Menu
+		colocar o campo obervação por produto
+
+	Tela Home Modal Cartao
+
+	Tela Home Modal Moça
+
+	Tela Home Modal Produto
+		colocar o campo obervação por produto
+
+	Tela Home Modal AcessoLibera
+
+	Tela Home Pesquisa Moça
+
+	Tela Home Pesquisa Produto
+
+Cartao Especiais
+	somente para gerente, normalmente
+	tem numero fixo
+	tem opções especiais, limite de 1Mil por exemplo
+	pode obrigar pedir uma senha
+	utilizado para cortesia
+	fluxo de fechar venda
+	  ao tentar fazer uma venda para o codigo "5000"
+	  msm fluxo do liberar limite
+	  somente infomrar a senha
+	  somente verificar usuario e senha
+	  fazer a venda com o autorizador, vai ser o usuario digitado ao verificar acesso
+	  usuario autorizador - 010004 tem q dar erro / 010001 tem q dar certo
+	  senha - 1234
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-07-17
+
+	Tela Home
+		add o campo observacao, ao fazer o post do FezarPedido
+
+	Tela Home Modal Cartao
+		botao cancelar, se clicar em nao, eh para nao sair da tela, e nao fazer nada
+
+	Tela Home Modal Produto
+		botao cancelar, se clicar em nao, eh para nao sair da tela, e nao fazer nada
+		clicar no Produto, abrir modal observacao, deve exibir o nome do produto e a qtde
+		observacao somente com 80 caracteres
+		lista de produto, a observacao dever vir em baixo do nome do produto, com letras menores e cor centralizado
+		add A, comeco da lista, add o B foi pro final, Add o C, e se add o A, o deve ir para o final da lista
+		ao add o A, deve pegar os dados dele, aproveitar a Qtd e a Obsr, deve excluir da lista, e add de novo, para ele ir para a lista
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-08-09
+
+- LANCAMENTO DE PRODUTOS
+	- OBSERVAÇÃO: DEIXAR O CAMPO DA OBSERVAÇÃO MAIOR, MESMO ESTANDO VAZIA (HOJE APARECE SOMENTE UMA LINHA APERTADA)
+	- AO FINALIZAR A DIGITAÇÃO DA OBSERVAÇÃO, ROLAR ATÉ O ITEM QUE TEVE A OBSERVAÇÃO ALTERADA.
+	- AO ENTRAR NA LISTA DE ITENS (+ NA TELA PRINCIPAL), MOSTRAR O ÚLTIMO ITEM
+	- RETIRAR A MENSAGEM DE ENTRADA "VOCÊ JÁ ESTÁ COM A VERSÃO MAIS ATUAL". MOSTRAR A MENSAGEM "NOVA VERSÃO DISPONÍVEL" APENAS SE TIVER UMA NOVA VERSÃO.
+
+	Eu tinha encontrado um problema, mas agora não estou conseguindo reproduzir. Quando entrava na tela de lançamento de produto 
+	e clicava em voltar, ele perguntava se devia cancelar. Isso pq ele guardava o status anterior que no outro lançamento realmente 
+	tinha sido alterado.
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-08-11
+
+- ao digitar um produto novo, a rolagem só mostra até o penúltimo item. Quando o item já existe ele vai corretamente até o último.
+- não está rolando até o item que acabou de receber a observação. Ele continua no mesmo lugar.
+- a área pra digitar a observação continua com uma linha só apertada.
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-08-12
+
+Ao digitar uma observação do produto, deixar tudo como maiúsculo (isso facilita na visualização da impressão).
+Se isso não for possível, posso fazer na hora de salvar.
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2021-08-19
+  ao mudar a obsercaocao, deve excluir e incluir de novo no final..
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+2023-05-03
+	Add os opcionais de produtos ( com gelo, frutas )
+	 	- tipo :  produto ou observação
+
+http://rela.no-ip.net:8885/v1/Produtos/Opcionais?produto=0022
+
+
+[
+  {
+    "codigo": 2,
+    "nome": "FRUTAS",
+    "tipo": "O",
+    "obrigatorio": "N",
+    "items": [
+      {
+        "codigo": 3,
+        "produto": null,
+        "quantidade": 0,
+        "observacao": "LIMÃO",
+        "tipo": "O",
+        "nome": "FRUTAS"
+      },
+      {
+        "codigo": 4,
+        "produto": null,
+        "quantidade": 0,
+        "observacao": "ABACAXI",
+        "tipo": "O",
+        "nome": "FRUTAS"
+      },
+      {
+        "codigo": 5,
+        "produto": null,
+        "quantidade": 0,
+        "observacao": "MORANGO",
+        "tipo": "O",
+        "nome": "FRUTAS"
+      },
+      {
+        "codigo": 6,
+        "produto": null,
+        "quantidade": 0,
+        "observacao": "GOIABA",
+        "tipo": "O",
+        "nome": "FRUTAS"
+      }
+    ]
+  },
+  {
+    "codigo": 1,
+    "nome": "GELO",
+    "tipo": "O",
+    "obrigatorio": "S",
+    "items": [
+      {
+        "codigo": 1,
+        "produto": null,
+        "quantidade": 0,
+        "observacao": "COM GELO",
+        "tipo": "O",
+        "nome": "GELO"
+      },
+      {
+        "codigo": 2,
+        "produto": null,
+        "quantidade": 0,
+        "observacao": "SEM GELO",
+        "tipo": "O",
+        "nome": "GELO"
+      }
+    ]
+  }
+]
+
+const url = urlPadrao + "FechaVenda"
+
+opcionais [
+	{
+		 // produto
+		"tipo": "P",
+		"nome": "whisky",
+		"produto": 0002,
+        "quantidade": 1,
+	},
+	{
+		 // opcional
+		"produto": 2,
+        "quantidade": 0,
+	}
+]
+
+const produtos = props.listaPedidoProduto.length <= 0 ? [] : 
+props.listaPedidoProduto.map((item) => ({
+	'codigo': item.codigo.toString(), 
+	'quantidade': parseInt(item.quant), 
+	'observacao': item.observacao.toString().trim().substring(0, 80) 
+}))
+
+
+
+
+
+
+{
+  "garcom": "string",
+  "cup": "string",
+  "autorizador": "string",
+  "netName": "string",
+  "cartoes": [
+    0
+  ],
+  "items": [
+    {
+      "codigo": "string",
+      "quantidade": 0,
+      "observacao": "string",
+      "opcionaisVendaItem": [
+        {
+          "nomeGrupo": "string",
+          "tipo": "string",
+          "produto": "string",
+          "quantidade": 0,
+          "observacao": "string"
+        }
+      ]
+    }
+  ],
+  "tipoPagtos": [
+    {
+      "tipo": "string",
+      "cartao": "string",
+      "valor": 0,
+      "taxa": 0,
+      "descricao": "string",
+      "operador": "string"
+    }
+  ],
+  "caixa": 0,
+  "vendaFuncionarioValidada": true
+}
+
+
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+cd 'C:\Users\chris\Desktop\CMS React Native\Safira'
+
+npx expo login
+chris.mar.silva@gmail.com
+#Chrs2387
+
+npm i -g npm
+npm i -g expo-cli
+npm i -g eas-cli
+expo upgrade
+
+npm start --reset-cache
+npx expo start --clear
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+expo publish
+expo build:android -t apk
+
+npm install -g eas-cli
+eas login
+chris.mar.silva@gmail.com
+#Chrs2387
+eas build:configure
+eas build --platform android
+eas build --platform android --profile preview
+eas build --platform android --profile preview --non-interactive 
+eas build:run -p android
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------

@@ -1,0 +1,63 @@
+{
+  "name": "clchart",
+  "version": "0.1.0",
+  "description": "A fast, simple, cross-platform, and configurable stock chart library created using canvas.",
+  "main": "dist/clchart.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seerline/clchart.git"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --open --config webpack.config.js",
+    "demo": "cross-env NODE_ENV=development webpack-dev-server --progress --open --config webpack.config.demo.js",
+    "lint": "eslint ./src",
+    "fixcode": "eslint ./src --fix",
+    "clean": "rm -rf node_modules && npm i",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "deploy": "sh ./deploy.sh",
+    "release": "npm run build && ./node_modules/.bin/gh-release -a ./dist/clchart.js",
+    "docs": "open http://localhost:8080/ && vuepress dev docs",
+    "docs:api": "gulp doc && open ./vuepress/api/index.html && gulp watch",
+    "docs:build": "vuepress build docs",
+    "prepublishOnly": "npm run clean && npm run lint && npm run build"
+  },
+  "keywords": [
+    "canvas",
+    "stock chart",
+    "candle chart"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^7.0.0",
+    "cross-env": "^5.2.0",
+    "docdash": "^1.0.0",
+    "eslint": "^5.7.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-html": "^4.0.6",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "gh-release": "^5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.0.1",
+    "gulp-jsdoc3": "^2.0.0",
+    "husky": "^3.1.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "vuepress": "^1.0.0-alpha.13",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "expo": "^40.0.1"
+  }
+}

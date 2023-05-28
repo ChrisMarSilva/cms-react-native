@@ -1,0 +1,252 @@
+
+
+npm install --save recyclerlistview
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { RecyclerListView, DataProvider, LayoutProvider, BaseItemAnimator, } from 'recyclerlistview'
+// import Feather from 'react-native-vector-icons/Feather'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
+// import Fontisto from 'react-native-vector-icons/Feather'
+// import { Ionicons, Feather, Feather, Fontisto, MaterialCommunityIcons, } from '@expo/vector-icons'
+import { LinearGradient, Fontisto } from 'expo-linear-gradient'
+import { AnimatedCircularProgress } from 'react-native-circular-progress'
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+const { height, width } = Dimensions.get('window')
+const ITEM_HEIGHT = 180 //  Dimensions.get("screen").height // 829.0909090909091
+const ITEM_WIDTH = Dimensions.get("screen").width // 392.72727272727275
+const VIEWABILITY_CONFIG = { minimumViewTime: 300, viewAreaCoveragePercentThreshold: 100,  } // waitForInteraction
+// const URL = 'https://jsonplaceholder.typicode.com/users' // 10 registros
+// const URL = 'https://jsonplaceholder.typicode.com/posts' // 100 registros
+// const URL = 'https://jsonplaceholder.typicode.com/todos' // 200 registros
+// const URL = 'https://jsonplaceholder.typicode.com/photos' // 5000 registros
+const URL = 'https://jsonplaceholder.typicode.com/photos?_limit=100' // 20 registros
+// const URL = 'https://jsonplaceholder.typicode.com/photos?_limit=' 
+const ViewTypes = { HEADER: 0, LISTITEM: 1, }
+
+export default class App extends React.PureComponent {
+
+   constructor(props) {
+    super(props)  
+     this.state = {
+      loadingMore: false,
+      stopFetchMore: false,
+      page: 1,
+      data: [],
+      dataProvider: new DataProvider((r1, r2) => { return r1 !== r2; }),
+      someThingHappen: false,
+      fakeData: [],
+     }
+   }
+
+  componentDidMount() {
+    //this._fetchData()
+    this.fetchData()
+  }
+  
+  _setStopFetchMore = (value) => {
+    this.setState({ stopFetchMore: value })
+  }
+  
+  _setLoadingMore = ( value ) => {
+    this.setState({ loadingMore: value })
+  }
+  
+  _setPage = (value) => {
+    this.setState({page: value})
+  }
+  
+  _setData = (value) => {
+    this.setState({data: value})
+  }
+  
+  _fetchData = async () => {
+    //console.log('_fetchData.Page.INI')
+    if (!this.state.stopFetchMore && !this.state.loadingMore) {
+      console.log('_fetchData.Page: ', this.state.page.toString())
+      this._setLoadingMore(true)
+      fetch(URL + '&_page=' + this.state.page.toString())
+        .then((response) => response.json())
+        .then((json) => this._setData([...this.state.data, ...json])) // this.state.data.concat(json) // [...this.state.data, ...json]
+        .catch((error) => { console.error(error) })
+        .finally(() => {
+          this._setPage(this.state.page + 1)
+          this._setLoadingMore(false)
+          this._setStopFetchMore(true)
+          //console.log('_fetchData.Page.FIM')
+        })
+    } else {
+      //console.log('_fetchData.Page.FIM.2')
+    }
+  }
+  
+  // _handleOnEndReached = async () => {
+  //   if (!this.state.stopFetchMore && !this.state.loadingMore) {
+  //     console.log('_handleOnEndReached.Page: ', this.state.page.toString())
+  //     this._setLoadingMore(true)
+  //     fetch(URL+'&_page=' + this.state.page.toString()) 
+  //       .then((response) => response.json())
+  //       .then((json) => this._setData(this.state.data.concat(json))) // this.state.data.concat(json) // [...this.state.data, ...json]
+  //       .catch((error) => { console.error(error) })
+  //       .finally(() => {
+  //         this._setPage(this.state.page+1)
+  //         this._setLoadingMore(false)
+  //         this._setStopFetchMore(true)
+  //         console.log('_handleOnEndReached.Page,FIM')
+  //       })
+  //   }
+  // }
+  
+  _renderItem = ({ item }) => {
+    // console.log(`Imprimindo o Item: #${item.id}`)
+    return (
+      <View key={item.id.toString()} style={{ padding: 15, borderBottomColor: 'red', borderBottomWidth: 1, }}>
+        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 15, }}>#{item.id} - {item?.title} - {item?.name}</Text>
+      </View>
+    )
+  }
+
+  _renderFooter = () => {
+    if (!this.state.loadingMore) return null
+    return (
+      <View style={{ padding: 5, flexDirection: "row",alignItems: 'center', justifyContent: 'center', alignContent: 'center',  }}>
+        <ActivityIndicator size="large" color="gray" />
+        <View style={{ alignItems: 'center', }}>
+          <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: 'bold', color: 'gray', }}>Carregando!</Text>
+          <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: 'bold', color: 'gray', }}>Por favor, Aguarde...</Text>
+        </View>
+      </View>
+    )
+  }
+  
+  _renderSeparato = () => { return <View style={{ height: 1, backgroundColor: 'plum', paddingTop: 2, }} /> }
+
+  getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })
+  
+
+  layoutProvider = new LayoutProvider(
+    index => {
+      // if (index == 0) { return ViewTypes.HEADER; } else { return ViewTypes.LISTITEM; }
+      return ViewTypes.LISTITEM;
+    },
+    (type, dim) => {
+      dim.width = width;
+      dim.height = 50;
+    }
+  )
+
+  rowRenderer = (type, item, index) => {
+    if (type === ViewTypes.HEADER) {
+      return <Text style={{ }}>Header</Text>
+    } else {
+      return (<Text numberOfLines={1} style={{ textAlign: 'center', fontSize: 20, padding: 5, borderBottomColor: 'red', borderBottomWidth: 1, backgroundColor: 'yellow', }}>#{item.id} - {item?.title} - {item?.name}</Text>)
+    }
+  }
+
+  renderFooter = () => {
+    if (!this.state.loadingMore) return null
+    return (
+      <View style={{ padding: 5, flexDirection: "row",alignItems: 'center', justifyContent: 'center', alignContent: 'center',  }}>
+        <ActivityIndicator size="large" color="gray" />
+        <View style={{ alignItems: 'center', }}>
+          <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: 'bold', color: 'gray', }}>Carregando!</Text>
+          <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: 'bold', color: 'gray', }}>Por favor, Aguarde...</Text>
+        </View>
+      </View>
+    )
+  }
+
+  fetchData = async () => {
+    this.setState({ ...this.state, loadingMore: true })
+    fetch(URL + '&_page=' + this.state.page.toString())
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          ...this.state,
+          dataProvider: this.state.dataProvider.cloneWithRows([...this.state.fakeData, ...json]),
+          fakeData: [...this.state.fakeData, ...json],
+          loadingMore: false,
+          page: this.state.page + 1,
+        })
+      })
+  }
+
+  // render() {  
+  //   return (
+  //     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, }}>
+  //       <FlatList
+  //         data={this.state.data}
+  //         keyExtractor={(item, index) => index.toString()} // item.id.toString()
+  //         renderItem={({ item, index }) => <RenderItemComponent index={index} item={item} />} // renderItem={this._renderItem}
+  //         // ItemSeparatorComponent={this._renderSeparato}
+  //         ListFooterComponent={this._renderFooter}
+  //         initialNumToRender={30} // 10 = Quantos itens renderizar no lote inicial
+  //         maxToRenderPerBatch={30} // 10 = quantidade de itens renderizados por lote
+  //         updateCellsBatchingPeriod={50} // 50 = atraso em milissegundos entre as renderizações de lote
+  //         windowSize={31} // 21 == 10 viewports acima, 10 abaixo e uma no meio)
+  //         // getItemLayout={this.getItemLayout}  //  elimina a necessidade de FlatList medir o layout dos itens da lista.
+  //         // initialScrollIndex={1}
+  //         showsVerticalScrollIndicator={false}
+  //         removeClippedSubviews={true} // Isso pode melhorar o desempenho de rolagem para listas grandes. // performance for large lists.
+  //         viewabilityConfig={VIEWABILITY_CONFIG}
+  //         onEndReached={this._fetchData}
+  //         onEndReachedThreshold={0.5}
+  //         onScrollBeginDrag={() => { this._setStopFetchMore(false) }}
+  //       />
+  //     </SafeAreaView>
+  //   )
+  // }
+
+    render() {
+      if (!this.state.dataProvider._data.length)
+        return null; // let renderFooter = this.state.dataProvider.getSize() === 0 ? this.renderFooter : null;
+      return (
+        <SafeAreaView style={{ flex: 1, minHeight: 1, minWidth: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, }}>
+          <RecyclerListView
+            style={{ flex: 1, height: '100%', width: '100%', }}
+            contentContainerStyle={{ margin: 3 }}
+            showsVerticalScrollIndicator={false}
+            forceNonDeterministicRendering={false}
+            canChangeSize={true}
+            rowRenderer={this.rowRenderer}
+            dataProvider={this.state.dataProvider}
+            layoutProvider={this.layoutProvider}
+            renderFooter={this.renderFooter} 
+            onEndReached={this.fetchData}
+            onEndReachedThreshold={0.5}
+          />
+        </SafeAreaView>
+      )
+    }
+
+}
+
+
+class RenderItemComponent extends React.PureComponent {
+  constructor(props) {
+    super(props)  
+    this.state = {  }
+  }
+  render() {
+    // console.log(`Imprimindo o Item: #${this.props.item.id}`) // this.props.item.id.toString()
+    return (
+      <View key={this.props.index.toString()} style={{ padding: 15, borderBottomColor: 'red', borderBottomWidth: 1, }}>
+        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 15, }}>#{this.props.item.id} - {this.props.item?.title} - {this.props.item?.name}</Text>
+      </View>
+    ) 
+  }
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+

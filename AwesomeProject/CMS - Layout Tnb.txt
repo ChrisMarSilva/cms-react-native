@@ -1,0 +1,186 @@
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import Icon from 'react-native-vector-icons/FontAwesome'
+// import Feather from 'react-native-vector-icons/Feather'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
+// import Fontisto from 'react-native-vector-icons/Feather'
+// import { Ionicons, Feather, Feather, Fontisto, MaterialCommunityIcons, } from '@expo/vector-icons'
+import { LinearGradient, Fontisto } from 'expo-linear-gradient'
+import { AnimatedCircularProgress } from 'react-native-circular-progress'
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+export default class App extends React.Component {
+
+   constructor(props) {
+    super(props)  
+    this.state = { valor: '000' }
+  }
+
+  componentDidMount() {
+    this.setState({ valor: '111', })
+  }
+
+  async _onPress01 () {
+    this.setState({ valor: '222', })
+  }  
+
+  render() {  
+    return (
+      // <SafeAreaView style={{ flex: 1, backgroundColor: '#ECF0F1', }}>
+      // <View style={{ flex: 1, backgroundColor: '#1f3b5a', marginLeft: 0.0, marginRight: 0.0, borderBottomStartRadius: 25, borderBottomEndRadius: 25, }}>
+      // </View>
+      // <View style={{ flex: 5, }}>
+      // <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1f3b5a' }}>#2</Text>
+      // </View>
+      // </SafeAreaView>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#152d44', }}>
+
+        <View style={{ height: 150, }}>
+            <Text style={{ fontSize: 20, color: '#FFFFFF', marginLeft: 10, marginTop: 60, marginBottom: 3, }}>Olá, <Text style={{ fontWeight: "bold", }}>Chris MarSil!</Text></Text>
+        </View>
+
+        <View style={{ height: '100%', backgroundColor: '#FFFFFF', borderTopLeftRadius: 30, borderTopRightRadius: 30, }}>
+          
+          <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: -50, backgroundColor: '#FFFFFF', alignSelf: 'center', height: 110, width: '85%', borderRadius: 15, shadowColor: "#000", shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 5, }}>
+            <Text style={{ fontSize: 10, color: '#000', }}>Seu Patrimônio Total é de</Text>
+            <Text style={{ fontSize: 30, color: '#000', fontWeight: "bold", }}>R$ 500.000,00</Text>
+            <Text style={{ fontSize: 10, color: '#000', }}>Valorização</Text>
+            <Text style={{ fontSize: 15, color: '#000', fontWeight: "bold", }}>R$ 100.000,00 <Text style={{ fontSize: 12, }}>( 10,00% )</Text></Text>
+          </View>
+          
+
+        <View style={{ flexDirection: 'row', width: '100%', alignSelf: 'center', marginTop: 20, marginBottom: 5, }}>
+          <TouchableOpacity style={{ flex: 1, width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => this.props.navigation.navigate('CardListScreen', {title: 'Restaurant'}) }>
+            <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 50, height: 50, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                {/* <Ionicons name="ios-restaurant" size={35} color="#FF6347" /> */}
+                <Icon name="line-chart" color="#FF6347"  size={32} />
+            </View>
+            <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35', }}>Restaurant{"\n"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => this.props.navigation.navigate('CardListScreen', {title: 'Fastfood Center'}) }>
+            <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 50, height: 50, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                {/* <MaterialCommunityIcons name="food-fork-drink" size={35} color="#FF6347" /> */}
+                <Icon name="line-chart" color="#FF6347"  size={32} />
+            </View>
+            <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Fastfood {"\n"}Center</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+            <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 50, height: 50, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+              {/* <MaterialCommunityIcons name="food" size={35} color="#FF6347" /> */}
+                <Icon name="line-chart" color="#FF6347"  size={32} />
+            </View>
+              <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35', }}>Snacks {"\n"}Corner</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={[{ flexDirection: 'row', width: '100%', alignSelf: 'center', marginTop: 5, marginBottom: 5, }, {marginTop: 10}]}>
+          <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+            <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 50, height: 50, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+              {/* <Fontisto name="hotel" size={35} color="#FF6347" /> */}
+                <Icon name="line-chart" color="#FF6347"  size={32} />
+            </View>
+            <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Hotels{"\n"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+            <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 50, height: 50, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+              {/* <Ionicons name="md-restaurant" size={35} color="#FF6347" /> */}
+                <Icon name="line-chart" color="#FF6347"  size={32} />
+            </View>
+            <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Dineouts{"\n"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+            <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 50, height: 50, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+              {/* <MaterialIcons name="expand-more" size={35} color="#FF6347" /> */}
+                <Icon name="line-chart" color="#FF6347"  size={32} />
+            </View>
+            <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Show {"\n"}More</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ marginRight: 10, backgroundColor: '#FFF', height: 80, marginTop: 10, padding: 10, borderTopRightRadius: 15, borderBottomRightRadius: 15, shadowColor: "#000", shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 10, }}>
+          <TouchableOpacity style={{ flex: 1, flexDirection: "row", }} onPress={() => {  }} >
+            <View style={{ flex: 1, }}>
+              <AnimatedCircularProgress size={80} width={10} fill={100} tintColor="#00e0ff" backgroundWidth={5} backgroundColor="#3d5875" arcSweepAngle={240} rotation={240} lineCap="round" >
+                {(fill) => <Text style={{ alignItems: "center", fontWeight: "bold", fontSize: 12, color:"#3d5875", }}>100%</Text>}
+              </AnimatedCircularProgress>
+            </View>
+            <View style={{ flex: 2, justifyContent: 'center', }}>
+              <Text style={{ fontWeight: "bold", fontSize: 15, marginBottom: 5, }}>AÇÃO</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 18, }}>R$ 1.000.000,00</Text>
+            </View>
+            <View style={{ flex: 1, }}>
+              
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ marginLeft: 10, backgroundColor: '#FFF', height: 80, marginTop: 10, padding: 10, borderTopLeftRadius: 15, borderBottomLeftRadius: 15, shadowColor: "#000", shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 10, }}>
+          <TouchableOpacity style={{ flex: 1, flexDirection: "row", }} onPress={() => {  }} >
+            <View style={{ flex: 1, }}>
+              
+            </View>
+            <View style={{ flex: 2, justifyContent: 'center', }}>
+              <Text style={{ fontWeight: "bold", fontSize: 15, marginBottom: 5, }}>FII</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 18, }}>R$ 1.000.000,00</Text>
+            </View>
+            <View style={{ flex: 1, }}>
+              <AnimatedCircularProgress size={80} width={10} fill={100} tintColor="#00e0ff" backgroundWidth={5} backgroundColor="#3d5875" arcSweepAngle={240} rotation={240} lineCap="round" >
+                {(fill) => <Text style={{ alignItems: "center", fontWeight: "bold", fontSize: 12, color:"#3d5875", }}>100%</Text>}
+              </AnimatedCircularProgress>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ marginRight: 10, backgroundColor: '#FFF', height: 80, marginTop: 10, padding: 10, borderTopRightRadius: 15, borderBottomRightRadius: 15, shadowColor: "#000", shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 10, }}>
+          <TouchableOpacity style={{ flex: 1, flexDirection: "row", }} onPress={() => {  }} >
+            <View style={{ flex: 1, }}>
+              <AnimatedCircularProgress size={80} width={10} fill={100} tintColor="#00e0ff" backgroundWidth={5} backgroundColor="#3d5875" arcSweepAngle={240} rotation={240} lineCap="round" >
+                {(fill) => <Text style={{ alignItems: "center", fontWeight: "bold", fontSize: 12, color:"#3d5875", }}>100%</Text>}
+              </AnimatedCircularProgress>
+            </View>
+            <View style={{ flex: 2, justifyContent: 'center', }}>
+              <Text style={{ fontWeight: "bold", fontSize: 15, marginBottom: 5, }}>ETF</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 18, }}>R$ 1.000.000,00</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ marginLeft: 10, backgroundColor: '#FFF', height: 80, marginTop: 10, padding: 10, borderTopLeftRadius: 15, borderBottomLeftRadius: 15, shadowColor: "#000", shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 10, }}>
+          <TouchableOpacity style={{ flex: 1, flexDirection: "row", }} onPress={() => {  }} >
+            <View style={{ flex: 1, }}>
+              <AnimatedCircularProgress size={80} width={10} fill={100} tintColor="#00e0ff" backgroundWidth={5} backgroundColor="#3d5875" arcSweepAngle={240} rotation={240} lineCap="round" >
+                {(fill) => <Text style={{ alignItems: "center", fontWeight: "bold", fontSize: 12, color:"#3d5875", }}>100%</Text>}
+              </AnimatedCircularProgress>
+            </View>
+            <View style={{ flex: 2, justifyContent: 'center', }}>
+              <Text style={{ fontWeight: "bold", fontSize: 15, marginBottom: 5, }}>BDR</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 18, }}>R$ 1.000.000,00</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+ 
+
+
+
+
+
+
+
+        </View>
+
+    </SafeAreaView>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+

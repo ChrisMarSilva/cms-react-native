@@ -1,0 +1,446 @@
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+GRAFICOS
+
+react-native-svg-charts   https://github.com/JesperLekland/react-native-svg-charts
+react-native-svg          https://github.com/react-native-svg/react-native-svg
+
+#Teste1
+yarn add react-native-svg-charts
+
+#Teste2 - ok
+yarn add react-native-chart-kit
+yarn add react-native-svg
+
+#Teste3
+npm i react-native-chart --save
+
+#Teste4
+npm install react-native-pathjs-charts --save
+react-native link react-native-svg
+
+#Teste5 - ok
+yarn add react-native-pure-chart
+
+#Teste6
+npm install react-native-pie-chart --save
+
+#Teste7
+npm i --save react-native-pie
+npm i --save @react-native-community/art
+
+#Teste8
+npm i @vjsingh/react-native-svg-charts
+
+#Teste9
+npm install react-native-tcharts --save
+
+
+#Teste10
+npm i --save react-native-android-circles
+
+import { Circles } from "react-native-android-circles";
+
+
+
+
+  <Circles
+    style={{width: 250, height: 250}}}
+    сontourColor="#f4f4f4"
+    rimColor="#f4f4f4"
+    barColors={["#15e064", "#17aecc", "#15e064"]}
+    value={90}
+    maxValue={100}
+    сontourSize={280}
+    rimWidth={120}
+    barWidth={100}
+    animated={true}
+  />
+
+
+
+#Teste11
+npm i --save react-native-circular-progress react-native-svg
+react-native link react-native-svg
+
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+<AnimatedCircularProgress
+  size={120}
+  width={15}
+  fill={100}
+  tintColor="#00e0ff"
+  onAnimationComplete={() => console.log('onAnimationComplete')}
+  backgroundColor="#3d5875" />
+
+  <AnimatedCircularProgress
+  size={200}
+  width={3}
+  fill={this.state.fill}
+  tintColor="#00e0ff"
+  padding={10}
+  backgroundColor="#3d5875">
+  {
+    (fill) => (
+      <Text>
+        { this.state.fill }
+      </Text>
+    )
+  }
+</AnimatedCircularProgress>
+
+
+
+
+
+
+
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { Component, StyleSheet, Text, View, Dimensions, ScrollView, } from 'react-native'; 
+import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from "react-native-chart-kit";
+import PureChart from 'react-native-pure-chart';
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center',  },
+	container2: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', },
+  chart: { width: 200, height: 200, },
+  title: { fontSize: 24, margin: 10 },
+  gauge: { position: 'absolute', width: 100, height: 160, alignItems: 'center', justifyContent: 'center', },
+  gaugeText: { backgroundColor: 'transparent', color: '#000', fontSize: 24, },
+});
+
+
+
+
+      {/* 
+
+
+    //   <Text>Bezier Line Chart</Text>
+    //   <LineChart
+    //     data={{
+    //       labels: ["January", "February", "March", "April", "May", "June"],
+    //       datasets: [ { data: [ Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100 ] } ]
+    //     }}
+    //     width={Dimensions.get("window").width} // from react-native
+    //     height={220}
+    //     yAxisLabel="$"
+    //     yAxisSuffix="k"
+    //     yAxisInterval={1} // optional, defaults to 1
+    //     chartConfig={{
+    //       backgroundColor: "#e26a00",
+    //       backgroundGradientFrom: "#fb8c00",
+    //       backgroundGradientTo: "#ffa726",
+    //       decimalPlaces: 2, // optional, defaults to 2dp
+    //       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    //       labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    //       style: { borderRadius: 16 },
+    //       propsForDots: { r: "6", strokeWidth: "2", stroke: "#ffa726" }
+    //     }}
+    //     bezier
+    //     style={{ marginVertical: 8, borderRadius: 16  }}
+    //   />
+
+
+    //   <ProgressChart
+    //     data={{ labels: ["Swim", "Bike", "Run"],  data: [0.4, 0.6, 0.8] }}
+    //     width={Dimensions.get("window").width}
+    //     height={220}
+    //     strokeWidth={16}
+    //     radius={32}
+    //     chartConfig={{
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false // optional
+}}
+    //     hideLegend={false}
+    //   />
+
+    //   <PieChart
+    //     data={[
+  {
+    name: "Seoul",
+    population: 21500000,
+    color: "rgba(131, 167, 234, 1)",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "Toronto",
+    population: 2800000,
+    color: "#F00",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "Beijing",
+    population: 527612,
+    color: "red",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "New York",
+    population: 8538000,
+    color: "#ffffff",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "Moscow",
+    population: 11920000,
+    color: "rgb(0, 0, 255)",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  }
+]}
+    //     width={Dimensions.get("window").width}
+    //     height={220}
+    //     chartConfig={{
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false // optional
+}}
+    //     accessor={"population"}
+    //     backgroundColor={"transparent"}
+    //     paddingLeft={"15"}
+    //     center={[10, 50]}
+    //     absolute
+    //   />
+    
+
+    //   <BarChart
+    //     style={{
+    //         marginVertical: 8,
+    //         ...chartConfig.style
+    //       }}
+    //     data={ {
+    //       labels: ["January", "February", "March", "April", "May", "June"],
+    //       datasets: [
+    //         {
+    //           data: [20, 45, 28, 80, 99, 43]
+    //         }
+    //       ]
+    //     }}
+    //     width={Dimensions.get("window").width}
+    //     height={220}
+    //     yAxisLabel="$"
+    //     chartConfig={{
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false // optional
+}}
+    //     verticalLabelRotation={30}
+    //     />
+      
+      
+      <PureChart data={[
+    {
+      value: 50,
+      label: 'Marketing',
+      color: 'red',
+    }, {
+      value: 40,
+      label: 'Sales',
+      color: 'blue'
+    }, {
+      value: 25,
+      label: 'Support',
+      color: 'green'
+    }
+
+  ]} type='pie' />
+
+
+  
+import Pie from 'react-native-pie';
+
+      <View style={{ paddingVertical: 15, flexDirection: 'row', width: 350, justifyContent: 'space-between', }} >
+        <Pie radius={80} sections={[ { percentage: 10, color: '#C70039', }, { percentage: 20, color: '#44CD40', }, { percentage: 30, color: '#404FCD', }, { percentage: 40, color: '#EBD22F', }, ]} strokeCap={'butt'} />
+        <Pie radius={80} innerRadius={50} sections={[ { percentage: 10, color: '#C70039', }, { percentage: 20, color: '#44CD40', }, { percentage: 30, color: '#404FCD', }, {  percentage: 40, color: '#EBD22F', }, ]} strokeCap={'butt'} />
+      </View>
+      <View style={{ paddingVertical: 15, flexDirection: 'row', width: 350, justifyContent: 'space-between', }} >
+        <Pie radius={80} innerRadius={60} sections={[ { percentage: 10, color: '#C70039', }, { percentage: 20, color: '#44CD40', }, { percentage: 30, color: '#404FCD', }, { percentage: 40, color: '#EBD22F', }, ]} dividerSize={4} strokeCap={'round'} />
+        <Pie radius={80} innerRadius={60} sections={[ { percentage: 10, color: '#C70039', }, { percentage: 20, color: '#44CD40', }, { percentage: 30, color: '#404FCD', }, { percentage: 40, color: '#EBD22F', }, ]} dividerSize={6} strokeCap={'butt'} />
+      </View>
+      <View style={{ paddingVertical: 15, width: 350, flexDirection: 'row', justifyContent: 'space-between', }} >
+        <Pie radius={80} sections={[ { percentage: 10, color: '#C70039', }, { percentage: 20, color: '#44CD40', }, { percentage: 30, color: '#404FCD', }, { percentage: 40, color: '#EBD22F', }, ]} dividerSize={6} strokeCap={'butt'} />
+        <View style={{ width: 175, alignItems: 'center' }}>
+          <Pie radius={80} innerRadius={75} sections={[ { percentage: 60, color: '#f00',  }, ]} backgroundColor="#ddd" />
+          <View style={styles.gauge} >
+            <Text style={styles.gaugeText} > 60% </Text>
+          </View>
+        </View>
+      </View>
+
+ */}
+
+
+
+
+yarn add react-native-charts-wrapper
+yarn add @babel/runtime
+
+import {PieChart} from 'react-native-charts-wrapper';
+
+ <View style={{flex: 1}}>
+        <View style={styles.container}>
+          <LineChart style={{flex: 1}}
+            data={{dataSets:[{label: "demo", values: [{y: 1}, {y: 2}, {y: 1}]}]}}
+          />
+        </View>
+      </View>
+
+
+
+
+npm install victory-native --save
+npm install react-native-svg --save
+react-native link react-native-svg
+npm audit fix
+
+import { VictoryPie, VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+
+
+const data = [
+  { quarter: 1, earnings: 13000 },
+  { quarter: 2, earnings: 16500 },
+  { quarter: 3, earnings: 14250 },
+  { quarter: 4, earnings: 19000 }
+];
+
+<View style={styles.container}>
+        <VictoryChart width={350} theme={VictoryTheme.material}>
+          <VictoryBar data={data} x="quarter" y="earnings" />
+        </VictoryChart>
+      </View>
+
+
+
+
+
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import { VictoryPie, VictoryBar, VictoryChart, VictoryTheme, VictoryLabel, } from "victory-native";
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+const screenWidth = Dimensions.get("window").width;
+
+export default class App extends React.Component {
+
+  
+  render() {
+
+    const
+      sampleData = [
+        { x: "AAA", y: 10 },
+        { x: "BBB", y: 20 },
+        { x: "CCC", y: 30 },
+        { x: "DDD", y: 40 },
+        { x: "EEE", y: 50 },
+        { x: "FFF", y: 60 },
+        { x: "AAA", y: 10 },
+        { x: "XXX", y: 20 },
+        { x: "CCC", y: 30 },
+        { x: "DDD", y: 40 },
+        { x: "EEE", y: 50 },
+        { x: "FFF", y: 60 },
+        { x: "AAA", y: 10 },
+        { x: "BBB", y: 20 },
+        { x: "CCC", y: 30 },
+        { x: "DDD", y: 40 },
+        { x: "EEE", y: 50 },
+        { x: "XXX", y: 60 },
+      ];
+    
+    return (
+      <View style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', marginTop: 100, }}>
+        
+          {/* 
+          
+          <VictoryBar
+          data={[
+          {employee: "Jane Doe", salary: 65000},
+          {employee: "John Doe", salary: 62000},
+          ]}
+          x="employee"
+          y="salary"
+          />
+ */}
+        
+        
+        <VictoryPie
+          padAngle={({ datum }) => 1 }
+          theme={VictoryTheme.material}
+          // colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+          // colorScale={["#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"]}
+          // colorScale={['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477', '#66aa00', '#b82e2e', '#316395', '#3366cc', '#994499', '#22aa99', '#aaaa11', '#6633cc', '#e67300', '#8b0707', '#651067', '#329262', '#5574a6', '#3b3eac', '#b77322', '#16d620', '#b91383', '#f4359e', '#9c5935', '#a9c413', '#2a778d', '#668d1c', '#bea413', '#0c5922', '#743411']}
+          // colorScale={['#4661EE', '#EC5657', '#1BCDD1', '#8FAABB', '#B08BEB', '#3EA0DD', '#F5A52A', '#23BFAA', '#FAA586', '#EB8CC6']}
+          // colorScale={['#EC5657', '#f28f43', '#a6c96a', '#e4d354', '#7cb5ec', '#f15c80', '#A47D7C',]}
+          // colorScale={['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE', '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92']}          
+          // width={300}
+          height={300}
+          labels={({ datum }) => `${datum.x}: ${datum.y}%`}
+          labelPosition={({ index }) => index ? "centroid" : "startAngle" }
+          innerRadius={50}
+          data={sampleData}
+          style={{
+            data: { fillOpacity: 0.9, stroke: "#fff", strokeWidth: 1 },
+            labels: { fontSize: 11, fill: "#c43a31" }
+          }}  
+        />
+        
+      </View>
+    );
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+
+
+
+
+
+
+
+-------------- 
+
+
+import ActivityRings from "react-native-activity-rings"
+
+<View>
+<ActivityRings theme={"dark"} legend={true} data={[ {label: "AÇÕES", value: 1 }, {label: "AÇÕES", value: 1 }, {label: "FIIs", value: 0.0}, {label: "ETFs", value: 0.0}, {label: "BDRs", value: 0.0}]} config={{width: 150, height: 150, radius: 32, ringSize: 14,}} /> 
+<ActivityRings theme={"dark"} legend={true} data={[{ value: 0.8 }, { value: 0.6 }, { value: 0.2 }]} config={{ width: 150, height: 150 }} /> 
+<ActivityRings theme={"light"} legend={true} data={[{ value: 0.8, }, {label: "ACTIVITY", value: 0.6, color: "#cb5f18", }, {label: "RINGS", value: 0.2, color: "#86040f", backgroundColor: "#cccccc" }]} config={{width: 150, height: 150, radius: 32, ringSize: 14,}} /> 
+</View>
+
+export const titles = { login: 'Sign in', register: 'Sign up', confirm: 'Confirm user', forget: 'Forget password', newPassword: 'New password', };
+export const colors = { bright: '#fafafa', dark: '#33395F', blue: '#1760E3', creamy: '#e6ebf0', grey: '#b5b1b3', };

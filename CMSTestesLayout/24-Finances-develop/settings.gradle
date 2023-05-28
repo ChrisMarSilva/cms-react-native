@@ -1,0 +1,34 @@
+rootProject.name = "Finances"
+include ':app'
+
+// region Core
+
+include ':core:api'
+include ':core:mvi'
+include ':core:impl'
+include ':core:test'
+include ':core:firebase'
+include ':core:pie-chart'
+include ':core:category-shares'
+include ':core:currency-choice-api'
+include ':core:currency-choice-impl'
+
+// endregion
+
+
+// region Features
+
+include ':feature:dashboard'
+include ':feature:onboarding'
+include ':feature:transaction'
+include ':feature:user-profile'
+include ':feature:authorization'
+include ':feature:categories-list'
+include ':feature:transactions-report'
+include ':feature:money-accounts-list'
+include ':feature:dashboard-setup-api'
+include ':feature:dashboard-setup-impl'
+include ':feature:money-account-details'
+include ':feature:money-account'
+
+// endregion

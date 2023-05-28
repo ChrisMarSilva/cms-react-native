@@ -1,0 +1,142 @@
+
+expo init AwesomeProject
+cd 'C:\Users\chris\Desktop\CMS React Native\AwesomeProject'
+
+npm install
+npm audit fix
+npm audit fix --force
+yarn add expo
+npm install -g react-devtools
+
+yarn start
+expo start
+npm start
+npm start --reset-cache
+expo start --localhost --android
+
+
+
+	expo publish
+	expo build:android -t apk
+
+
+-------------------------------------------------------
+-------------------------------------------------
+
+
+https://blog.rocketseat.com.br/expo-atualizacoes-automaticas-do-codigo-com-update-over-the-air/
+https://docs.expo.io/versions/latest/sdk/updates/
+expo install expo-updates
+
+
+import * as Updates from 'expo-updates';
+
+try {
+  const update = await Updates.checkForUpdateAsync();
+  if (update.isAvailable) {
+    const codigoNovo = await Updates.fetchUpdateAsync();
+    // codigoNovo.isNew 
+    // ... notify user of update ...
+    Updates.reloadAsync();
+  }
+} catch (e) {
+  // handle or log error
+}
+
+
+useEffect(() => {
+    async function updateApp() {
+      const { isAvailable } = await Updates.checkForUpdateAsync();
+      if (isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync(); // depende da sua estratégia
+      }
+    }
+    updateApp();
+  }, []);
+
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { Linking, FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import styled from 'styled-components/native'
+import cio from 'cheerio-without-node-native'
+// import NavigationBar from 'react-native-navbar-color'
+// import { RecyclerListView, DataProvider, LayoutProvider, BaseItemAnimator, } from 'recyclerlistview'
+// import Icon from 'react-native-vector-icons/FontAwesome'
+// import Feather from 'react-native-vector-icons/Feather'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
+// import Fontisto from 'react-native-vector-icons/Feather'
+// import { Ionicons, Feather, Feather, Fontisto, MaterialCommunityIcons, } from '@expo/vector-icons'
+// import { LinearGradient, Fontisto } from 'expo-linear-gradient'
+// import { AnimatedCircularProgress } from 'react-native-circular-progress'
+
+// npm i cheerio-without-node-native@0.20.2
+// yarn add cheerio@npm:react-native-cheerio && yarn add --dev @types/cheerio
+// import cio from 'cheerio-without-node-native';
+
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+const { height, width } = Dimensions.get('window')
+
+const CMSText = styled.Text`
+  font-size: 18px;
+  color: blue;
+  font-weight: 500;
+`;
+
+export default class App extends React.PureComponent {
+
+   constructor(props) {
+    super(props)  
+     this.state = {  }
+   }
+
+  componentDidMount() {
+  }
+  
+  render() {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, }}>
+        <StatusBar style="light" backgroundColor="#152d44"/>
+        <Text>CMS Teste #2</Text>
+      </SafeAreaView>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+https://reactnavigation.org/blog/2020/01/29/using-react-navigation-5-with-react-native-paper/
+
+npm install react-native-paper
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context
+
+cd 'C:\Users\chris\Desktop\CMS React Native\twitterClone-master'
+npm install
+npm start
+npm start --reset-cache
+
+
+expo publish
+expo build:android -t apk
+
+---------------------------------------------------------
+---------------------------------------------------------
+

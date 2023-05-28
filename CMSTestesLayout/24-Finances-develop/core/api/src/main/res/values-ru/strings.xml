@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+
+    <string name="error_no_network">Пожалуйста, проверьте интернет-соединение</string>
+    <string name="error_entered_amount_is_not_valid">Введеная сумма некорректна</string>
+    <string name="cash_money_account_default_name">Наличные</string>
+    <string name="bank_card_money_account_default_name">Банковская карта</string>
+    <string name="no_category">Без категории</string>
+    <string name="balance_correction_transaction">Корректировка баланса</string>
+    <string name="currencies_search_zero_data_title">Валюты не найдены</string>
+    <!--region Periods-->
+    <string name="period_type_month">Месяц</string>
+    <string name="period_type_day">День</string>
+    <string name="period_type_week">Неделя</string>
+    <string name="period_type_year">Год</string>
+    <!--endregion-->
+    <string name="income">Доходы</string>
+    <string name="expenses">Расходы</string>
+    <string name="currency_choice_hint">Искать</string>
+
+    <string name="are_you_sure">Вы уверены?</string>
+
+</resources>

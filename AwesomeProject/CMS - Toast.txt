@@ -1,0 +1,558 @@
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+https://www.npmjs.com/package/react-native-smart-tip
+
+npm i react-native-smart-tip --save 
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import { WModal, WToast, WSnackBar } from 'react-native-smart-tip'
+
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+const main_color = '#3aafff'
+
+
+export default class App extends React.Component {
+
+  _onPressToast01() {
+
+  }
+
+  _onPressToast02() {
+     WToast.show({data: 'hello world'})
+  }
+
+  _onPressToast03() {
+
+    const toastOpts = {
+      data: 'Success',
+      textColor: '#ffffff',
+      backgroundColor: '#444444',
+      duration: WToast.duration.LONG, //1.SHORT 2.LONG
+      position: WToast.position.TOP, // 1.TOP 2.CENTER 3.BOTTOM
+      icon: <Image source={require('./assets/pessoa-icon.png')} style={{width: 32,height: 32,resizeMode: 'contain'}}/>
+    }
+
+    const toast1 = {
+        data: 'Sow nothing, reap nothing',
+        backgroundColor: '#666666',
+        position: WToast.position.TOP
+    }
+
+    const toast2 = {
+        data: '1. Sow nothing, reap nothing。\n2. Sow nothing, reap nothing。\n 3. Sow nothing reap nothing。 \n4. Sow nothing, reap nothing。 \n5.Sow nothing, reap nothing。\n6. Sow nothing, reap nothing。\n7. Sow nothing, reap nothing。 \n8. Sow nothing reap nothing。 \n9. Sow nothing, reap nothing。 \n10.Sow nothing, reap nothing。',
+        textColor: '#fff',
+        backgroundColor: main_color,
+        position: WToast.position.CENTER
+    }
+
+    const toast3 = {
+        data: 'Hello World'
+    }
+
+    const toast4 = {
+        data: 'Success',
+        textColor: '#ffffff',
+        backgroundColor: '#444444',
+        position: WToast.position.TOP,
+        icon: <Image source={require('./assets/pessoa-icon.png')} style={{width: 32,height: 32,resizeMode: 'contain'}}/>
+    }
+
+    const toast5 = {
+        data: 'Loading',
+        textColor: '#fff',
+        backgroundColor: '#444444',
+        position: WToast.position.CENTER,
+        duration: WToast.duration.LONG,
+        icon: <ActivityIndicator color='#fff' size={'large'}/>
+    }
+
+    const toast6 = {
+        data: 'Very Good',
+        textColor: '#E5ECFF',
+        backgroundColor: '#444',
+        position: WToast.position.BOTTOM,
+        icon: <Image source={require('./assets/pessoa-icon.png')} style={{width: 32,height: 32,resizeMode: 'contain'}}/>,
+    }
+
+    WToast.show(toast6) // toastOpts // toastOpt1 // toastOpt2 // toast1 // toast2 // toast3 // toast4 // toast5 // toast6
+    
+  }
+
+  _onPressToast04() {
+      WSnackBar.show({data: 'hello world'})
+  }
+
+  _onPressToast05() {
+
+    const snackBarOpts = {
+      data: 'Sem internet...',
+      position: WSnackBar.position.TOP, // 1.TOP 2.BOTTOM
+      duration: WSnackBar.duration.LONG, //1.SHORT 2.LONG 3.INDEFINITE
+      textColor: '#ff490b',
+      backgroundColor: '#050405',
+        statusBarHeight: Constants.statusBarHeight + Constants.statusBarHeight + Constants.statusBarHeight,
+      actionText: 'OK',
+      actionTextColor: '#fff',
+      onActionHide: (isSlideHide)=>{
+        // Click Action
+      },
+    }
+    
+    const snackBar1 = {
+        data: 'Sow nothing, reap nothing',
+        position: WSnackBar.position.TOP,
+        backgroundColor: '#ffcb06',
+        textColor: '#ffffff',
+    }
+
+    const snackBar2 = {
+        data: 'Sow nothing, reap nothing',
+        position: WSnackBar.position.TOP,
+        duration: WSnackBar.duration.INDEFINITE,
+        backgroundColor: '#7a38ff',
+        textColor: '#1bffce',
+
+    }
+
+    const snackBar3 = {
+        data: 'Sow nothing, reap nothing',
+        position: WSnackBar.position.BOTTOM,
+        backgroundColor: '#ff8a14',
+        textColor: '#ffffff',
+    }
+
+    const snackBar4 = {
+        data: 'Please check the network first.',
+        position: WSnackBar.position.BOTTOM,
+        duration: WSnackBar.duration.LONG,
+        textColor: '#ff490b',
+        backgroundColor: '#050405',
+        actionText: 'Sure',
+        height: 64,
+        actionTextColor: '#ff490b',
+        onActionHide: (isSlideHide) => {
+            WToast.show({data:isSlideHide ? 'Sliding hide' : 'Click to hide'})
+        },
+    }
+
+    const snackBar5 = {
+        data: 'Hello World',
+        position: WSnackBar.position.TOP,
+        duration: WSnackBar.duration.INDEFINITE,
+        textColor: '#000',
+        backgroundColor: '#3aafff',
+        height: 48,
+        actionText: 'YES',
+        actionTextColor: '#000',
+        onActionHide: (isSlideHide) => {
+            WToast.show({data:isSlideHide ? 'Sliding hide' : 'Click to hide'})
+        },
+    }
+
+    WSnackBar.show(snackBar1) // snackBarOpts // snackBar1 // snackBar2 // snackBar3 // snackBar4 // snackBar5 
+
+  }
+
+  _onPressToast06() {
+    WModal.show({data: 'hello world'}) 
+    setTimeout(function(){ WModal.hide() }, 3000);
+  }
+
+
+  _onPressToast07() {
+
+    const modalOpts = {
+        data: '\nCarregando...\nPor favor, Agarde!',
+        textColor: '#fff',
+        backgroundColor: '#444444',
+        position: WModal.position.CENTER, // TOP // CENTER // BOTTOM
+        icon: <ActivityIndicator color='#fff' size={'large'} />,
+        onRequestClose: ()=>{ 
+          
+        },
+    }
+    
+    const toastOpt1 = {
+        data: 'Sow nothing, reap nothing',
+        position: WToast.position.TOP, // 1.TOP 2.CENTER 3.BOTTOM
+        textColor: '#fff',
+        backgroundColor: main_color,
+    }
+
+    const toastOpt2 = {
+        data: 'Success',
+        textColor: '#ffffff',
+        backgroundColor: '#000',
+        position: WToast.position.CENTER,
+        icon: <Image source={require('./assets/pessoa-icon.png')} style={{width: 32,height: 32,resizeMode: 'contain'}}/>
+    }
+
+    WModal.show(toastOpt2) // modalOpts // toastOpt1 // toastOpt2
+
+    setTimeout(function () { WModal.hide() }, 3000);
+    
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+
+        <Text>CMS Teste Toast</Text>
+
+         <ModalShowToastView toastInstance={this.getToastInstance} />
+
+        <TouchableOpacity onPress={this._onPressToast01} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #1</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast02} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #2</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast03} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #3</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast04} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #4</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast05} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #5</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast06} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #6</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast07} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #7</Text>
+        </TouchableOpacity>
+
+        
+      </SafeAreaView>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+    safe_container: {
+        flex: 1,
+        backgroundColor: main_color
+    },
+   container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+    header: {
+        height: 44,
+        backgroundColor: main_color,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 40
+    },
+    header_back: {
+        color: 14,
+        marginLeft: 5,
+        height: 44,
+        justifyContent: 'center',
+        paddingLeft: 5,
+        paddingRight: 5,
+        position: 'absolute',
+        top: 0,
+        left: 0
+    },
+    item: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
+    btn_view: {
+        height: 36,
+        backgroundColor: main_color,
+        borderRadius: 2,
+        paddingLeft: 10,
+        paddingRight: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10
+    },
+    btn_text: {
+        fontSize: 14,
+        color: '#fff'
+    }
+})
+
+
+
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+yarn add react-native-toast-message
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import Toast from 'react-native-toast-message'
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+
+
+const toastConfig = {
+  'success': (internalState) => (
+    <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
+      <Text>{internalState.text1}</Text>
+    </View>  
+  ),
+  'error': () => {},
+  'info': () => {},
+  'any_custom_type': () => {}
+}
+
+export default class App extends React.Component {
+
+  _onPressToast01() {
+    Toast.show({text1: 'Hello', text2: 'This is some something 👋' }) 
+  }
+
+  _onPressToast02() {
+      Toast.show({
+        type: 'info', // success | error | info
+        position: 'top', // top | bottom
+        text1: 'Hello',
+        text2: 'This is some something 👋',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,
+        onShow: () => {},
+        onHide: () => {}
+    })
+  }
+
+  _onPressToast03() {
+    //Toast.hide({ onHide: () => { } })
+    Toast.show({ type: 'any_custom_type' })
+  }
+
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+
+        <StatusBar style="light" backgroundColor="purple" />
+
+        <Text>CMS Teste Toast</Text>
+
+        {/* <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} /> */}
+        <Toast ref={(ref) => Toast.setRef(ref)} />
+
+        <TouchableOpacity onPress={this._onPressToast01} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #1</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast02} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #2</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this._onPressToast03} style={{ backgroundColor: '#152d44', alignItems: "center", justifyContent: "center", padding: 10, width: '100%', marginBottom: 5, }}>
+          <Text style={{ color: '#fff', }}>Toast #3</Text>
+        </TouchableOpacity>
+
+      </SafeAreaView>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+
+
+
+
+import Toast from 'react-native-tiny-toast'
+    // Toast.showSuccess('Pay success')
+    // Toast.show('Custom toast', { position: Toast.position.CENTER })
+    // const toast = Toast.showLoading('Loading...') // Carregando, Aguarde...
+    // setTimeout(() => { Toast.hide(toast)  }, 3000)
+
+
+
+
+export const toastError= msg => Toast.showSuccess(msg,{
+ position: Toast.position.center,
+ containerStyle:{
+  backgroundColor: '#32CD32',
+  borderRadius: 15,
+ },
+ textStyle:{
+  color:'#fff',
+ },
+ imgStyle:{},
+ mask:false,
+ maskStyle:{},
+ duration: 2000,
+ animation: true,
+})
+
+export const toastError= msg => Toast.show(msg,{
+ position: Toast.position.center,
+ containerStyle:{
+  backgroundColor: '#f00',
+  borderRadius: 15,
+ },
+ textStyle:{
+  color:'#fff',
+ },
+ imgStyle:{},
+ mask:false,
+ maskStyle:{},
+ duration: 2000,
+ animation: true,
+});
+
+Toast.show('default toast')
+Toast.showSuccess('Success toast')
+
+toastError('Quantidade solicitada não disponível!');
+toastError('Pedido efectuado com sucesso!');
+
+
+
+import Toast from 'react-native-tiny-toast'
+ 
+Toast.show('This is a default toast')
+ 
+Toast.showSuccess('Pay success')
+ 
+Toast.show('Custom toast',{
+  position: Toast.position.center,
+  containerStyle:{},
+  textStyle: {},
+  imgSource: require('xxx'),
+  imgStyle: {},
+  mask: true,
+  maskStyle:{},
+  ...
+})
+ 
+const toast = Toast.showLoading('Loading...')
+setTimeout(() => {
+  // Recommend
+  Toast.hide(toast) 
+  // or Toast.hide()
+  // If you don't pass toast，it will hide the last toast by default.
+ }, 3000)
+    
+Using a Component
+import React, {Component} from 'react-native'
+import Toast from 'react-native-tiny-toast'
+ 
+class Example extends Component {
+    state={
+      visible: false
+    }
+    
+    componentDidMount() {
+        setTimeout(() => this.setState({
+            visible: true
+        }), 1000); 
+ 
+        setTimeout(() => this.setState({
+            visible: false
+        }), 3000);
+    };
+ 
+    render() {
+        return 
+        <Toast
+            visible={this.state.visible}
+            position={50}
+            onHidden={()=>{
+              // onHidden
+            }}>This is a message
+        </Toast>
+    }
+}
+
+
+
+import Toast from 'react-native-tiny-toast'
+
+Toast.show('This is a default toast')
+
+Toast.showSuccess('Pay success')
+
+Toast.show('Custom toast',{
+  position: Toast.position.center,
+  containerStyle:{},
+  textStyle: {},
+  imgSource: require('xxx'),
+  imgStyle: {},
+  mask: true,
+  maskStyle:{},
+  ...
+})
+
+const toast = Toast.showLoading('Loading...')
+setTimeout(() => {
+  // Recommend
+  Toast.hide(toast) 
+  // or Toast.hide()
+  // If you don't pass toast，it will hide the last toast by default.
+ }, 3000)
+    
+JavaScript
+Using a Component
+import React, {Component} from 'react-native'
+import Toast from 'react-native-tiny-toast'
+
+class Example extends Component {
+    state={
+      visible: false
+    }
+    
+    componentDidMount() {
+        setTimeout(() => this.setState({
+            visible: true
+        }), 1000); 
+
+        setTimeout(() => this.setState({
+            visible: false
+        }), 3000);
+    };
+
+    render() {
+        return 
+        <Toast
+            visible={this.state.visible}
+            position={50}
+            onHidden={()=>{
+              // onHidden
+            }}>This is a message
+        </Toast>
+    }
+}
+
+

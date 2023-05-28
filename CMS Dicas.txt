@@ -1,0 +1,105 @@
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+npm i -g create-react-native-app
+npm i -g yarn
+npm i -g expo-cli
+npm i -g react-native-cli
+npm i -g eslint
+npm i -g --save-dev eslint-config-rallycoding
+npm i -g lodash
+npm i -g moment
+npm i -g react-moment
+npm i -g redux 
+npm i -g react-redux  
+npm i -g redux-saga 
+npm i -g redux-thunk
+npm i -g redux-logger 
+npm i --save-dev redux-devtools  
+
+expo install react-navigation react-native-gesture-handler react-native-reanimated react-native-screens
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context
+yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context
+
+npm i react-navigation 
+npm i react-native-gesture-handler
+npm i react-native-reanimated
+npm i react-native-screens
+npm i react-navigation-tabs 
+npm i react-navigation-stack 
+npm i react-navigation-drawer 
+npm i --save react-navigation-redux-helpers  
+
+react-native link react-native-reanimated
+react-native link react-native-gesture-handler
+react-native link react-native-screens
+react-native link react-native-safe-area-context
+
+npm i --save--dev jetifier
+
+package.json:
+"scripts": {
+  "postinstall": "jetifier -r"
+}
+
+npm i postinstall
+
+npm i --save axios  
+npm i --save redux-axios-middleware   
+
+npm i --save firebase
+
+expo init CMSTeste
+expo start --android
+expo publish
+
+npm cache clean --force 
+npm cache verify
+npm audit fix
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+Para Habilitar o PowerShell no WS
+  Get-ExecutionPolicy 
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser 
+  Set-ExecutionPolicy unrestricted
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass -Force;
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force
+
+Salvar o Arquivo ".eslintrc" no Path do Projeto
+
+Códigos:
+  {
+    "extends": "rallycoding"
+  }
+
+  
+Set EXPO_DEBUG=true
+
+npm config set registry "http://registry.npmjs.org/"
+npm config get registry prints: https://registry.npmjs.org/
+
+npm config get proxy
+
+npm config delete proxy
+npm config delete http-proxy
+npm config delete https-proxy
+
+npm config set proxy "http://cmartins:#Chrs2387@10.10.20.254:8080"
+npm config set http-proxy "http://cmartins:#Chrs2387@10.10.20.254:8080"
+npm config set https-proxy "http://cmartins:#Chrs2387@10.10.20.254:8080"
+
+node_modules\metro-config\src\defaults\blacklist.js
+
+var sharedBlacklist = [
+  /node_modules[\/\\]react[\/\\]dist[\/\\].*/,
+  /website\/node_modules\/.*/,
+  /heapCapture\/bundle\.js/,
+  /.*\/__tests__\/.*/
+];
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------

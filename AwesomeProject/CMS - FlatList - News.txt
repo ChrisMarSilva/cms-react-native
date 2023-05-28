@@ -1,0 +1,128 @@
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { Linking, FlatList, TextInput, StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, TouchableOpacity, ActivityIndicator, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import styled from 'styled-components/native'
+import cio from 'cheerio-without-node-native'
+// import NavigationBar from 'react-native-navbar-color'
+// import { RecyclerListView, DataProvider, LayoutProvider, BaseItemAnimator, } from 'recyclerlistview'
+// import Icon from 'react-native-vector-icons/FontAwesome'
+// import Feather from 'react-native-vector-icons/Feather'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
+// import Fontisto from 'react-native-vector-icons/Feather'
+// import { Ionicons, Feather, Feather, Fontisto, MaterialCommunityIcons, } from '@expo/vector-icons'
+// import { LinearGradient, Fontisto } from 'expo-linear-gradient'
+// import { AnimatedCircularProgress } from 'react-native-circular-progress'
+
+// npm i cheerio-without-node-native@0.20.2
+// yarn add cheerio@npm:react-native-cheerio && yarn add --dev @types/cheerio
+// import cio from 'cheerio-without-node-native';
+
+
+LogBox.ignoreLogs(['Warning: ...'])
+LogBox.ignoreAllLogs(true)
+const { height, width } = Dimensions.get('window')
+
+const CMSText = styled.Text`
+  font-size: 18px;
+  color: blue;
+  font-weight: 500;
+`;
+
+export default class App extends React.PureComponent {
+
+   constructor(props) {
+    super(props)  
+     this.state = { data: [], }
+   }
+
+  componentDidMount() {
+    this.setState({
+      data: [
+        'https://www.moneytimes.com.br/itausa-continua-sendo-uma-otima-opcao-para-investir-no-itau/',
+        'https://www.moneytimes.com.br/itausa-continua-sendo-uma-otima-opcao-para-investir-no-itau/',
+        'https://www.moneytimes.com.br/itausa-continua-sendo-uma-otima-opcao-para-investir-no-itau/',
+      ]
+    })
+  }
+  
+  render() {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingTop: 40, }}>
+        <StatusBar style="light" backgroundColor="#152d44"/>
+ 
+        <FlatList
+          data={this.state.data}
+          keyExtractor={(item, index) => index.toString()} 
+          renderItem={({ item, index }) => <RenderItemComponent index={index} item={item} />}
+          initialNumToRender={30} // 10 = Quantos itens renderizar no lote inicial
+          maxToRenderPerBatch={30} // 10 = quantidade de itens renderizados por lote
+          updateCellsBatchingPeriod={50} // 50 = atraso em milissegundos entre as renderizações de lote
+          windowSize={31} // 21 == 10 viewports acima, 10 abaixo e uma no meio)
+          // getItemLayout={this.getItemLayout}  //  elimina a necessidade de FlatList medir o layout dos itens da lista.
+          // initialScrollIndex={1}
+          showsVerticalScrollIndicator={false}
+          removeClippedSubviews={true} // Isso pode melhorar o desempenho de rolagem para listas grandes. // performance for large lists.
+          viewabilityConfig={{ minimumViewTime: 300, viewAreaCoveragePercentThreshold: 100, }}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+
+      </SafeAreaView>
+    )
+  }
+
+}
+       
+class RenderItemComponent extends React.PureComponent {
+
+  constructor(props) {
+    super(props)  
+     this.state = {  metaSite: '', metaTitle: '', metaImage: '', metaUrl: '', metaDescription: '', }
+  }
+
+  componentDidMount() {
+    this.loadHtml ()
+  }
+
+  async loadHtml() {
+    try {
+      const url = this.props.item 
+      const response = await fetch(url)
+      const htmlString = await response.text()
+      const $ = cio.load(htmlString) // parse HTML string
+      const metaSite = $('meta[property="og:site_name"]').attr('content')
+      const metaTitle = $('meta[property="og:title"]').attr('content') || $('title').text() || $('meta[name="title"]').attr('content')
+      const metaImage = $('meta[property="og:image"]').attr('content') || $('meta[property="og:image:url"]').attr('content')
+      const metaUrl = $('meta[property="og:url"]').attr('content')
+      const metaDescription = $('meta[property="og:description"]').attr('content') || $('meta[name="description"]').attr('content')
+      this.setState({ metaSite: metaSite, metaTitle: metaTitle, metaImage: metaImage, metaUrl: metaUrl, metaDescription: metaDescription, })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  render() {
+    return (
+      <View style={{ padding: 5, width: 300, height: 400, borderWidth: 0.5, borderColor: 'gray', marginHorizontal: 10, }}>
+        {this.state.metaImage != '' && <Image style={{ alignSelf: 'center', height: 150, width: '95%', }} source={{ uri: this.state.metaImage }} />}
+        {this.state.metaTitle != '' && <Text numberOfLines={1} style={{ fontSize: 15, fontWeight: 'bold', color: 'gray', paddingTop: 10, paddingLeft: 10, }}>{this.state.metaTitle}</Text>}
+        {this.state.metaDescription != '' && <Text numberOfLines={8} style={{ fontSize: 13, color: 'gray', paddingTop: 5, paddingLeft: 10, }}>{this.state.metaDescription}</Text>}
+        {this.state.metaSite != '' && <Text style={{ fontSize: 14, color: 'gray', textAlign: 'right', paddingTop: 5, paddingRight: 10, }}>Fonte: <Text style={{ fontWeight: 'bold', }}>{this.state.metaSite}</Text></Text>}
+        {this.state.metaUrl != '' && 
+          <TouchableOpacity style={{ marginTop: 8, borderRadius: 8, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: "#6495ed", height: 35, padding: 10, }} onPress={() => { Linking.openURL(this.state.metaUrl).catch(err => console.error("Couldn't load page", err)); }} >
+            <Text style={{ fontSize: 14, color: "#6495ed", fontWeight: 'bold', }}>LEITURA MAIS</Text>
+          </TouchableOpacity>
+        }
+      </View>
+    ) 
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+
+

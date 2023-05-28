@@ -1,0 +1,53 @@
+
+linear gradient
+
+npm install --save react-native-linear-gradient
+react-native link react-native-linear-gradient
+expo install expo-linear-gradient
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, View, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, Modal, TouchableOpacity, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import Constants from 'expo-constants'
+import { LinearGradient } from 'expo-linear-gradient'
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs(true);
+
+export default function App() {
+  
+  return (
+    // <View style={styles.container}>
+    //   <LinearGradient colors={['purple', 'white', 'transparent']}   start={{ x: 0, y: 0 }}  end={{ x: 1, y: 1 }} style={styles.background} />
+    //   <LinearGradient  colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.button}>
+    //     <Text style={styles.text}>Sign in with Facebook</Text>
+    //   </LinearGradient>
+    // </View>
+    <LinearGradient colors={['blue', 'white']} style={styles.container} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} >
+
+      <Text>Home Screen</Text>
+
+      <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.button}>
+          <Text style={styles.text}>Sign in with Facebook</Text>
+      </LinearGradient>
+
+    </LinearGradient>
+  )
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'orange', },
+  linearGradient: { alignItems: 'center', justifyContent: 'center', borderRadius: 5, height: 200, width: 350, },
+  linearGradient2: { flex: 1, paddingLeft: 15, paddingRight: 15, borderRadius: 5 },
+  buttonText: { fontSize: 18, fontFamily: 'Gill Sans', textAlign: 'center', margin: 10, color: '#ffffff', backgroundColor: 'transparent', },
+  background: { position: 'absolute', left: 0, right: 0, top: 0, height: 300, },
+  button: { padding: 15, alignItems: 'center', borderRadius: 5, },
+  text: { backgroundColor: 'transparent', fontSize: 15, color: '#fff', },
+})
+
+
+
+---------------------------------------------------------
+---------------------------------------------------------

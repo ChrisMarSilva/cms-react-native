@@ -1,0 +1,45 @@
+
+---------------------------------------------------------
+---------------------------------------------------------
+
+Monetizando seu aplicativo com Admob
+
+expo install expo-ads-admob
+
+
+import React, { Component, useState, useEffect, useRef,  } from 'react'
+import { StyleSheet, View, Animated, SafeAreaView, ScrollView, Text, Button, Vibration, Platform, Modal, TouchableOpacity, TouchableHighlight, Image, Alert, Dimensions, } from 'react-native'
+import { LogBox } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Constants from 'expo-constants'
+import { AdMobBanner, AdMobInterstitial, PublisherBanner, AdMobRewarded, setTestDeviceIDAsync, } from 'expo-ads-admob'
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs(true);
+
+
+export default class App extends React.Component {
+
+  useEffect
+
+  render() {
+    return (
+      <View style={styles.container}>
+        
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" 
+          setTestDeviceIDAsync={true}
+          servePersonalizedAds 
+          onDidFailToReceiveAdWithError={(err) => console.log(err) } />
+
+    </View>
+    )
+  }
+
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', alignContent: 'center', paddingTop: Constants.statusBarHeight, padding: 8, },
+})
+

@@ -1,0 +1,545 @@
+import {Platform, StyleSheet} from 'react-native';
+
+https://medium.com/maestral-solutions/react-native-platform-specific-code-e217db5778f
+
+
+height: Platform.OS === 'android' ? 76 : 100,
+marginTop: Platform.OS === 'ios' ? 0 : 24,
+
+
+
+const styles = StyleSheet.create({
+  header: {
+    height: Platform.OS === 'android' ? 76 : 100,
+    marginTop: Platform.OS === 'ios' ? 0 : 24,
+    ...Platform.select({
+      ios: { backgroundColor: '#f00', paddingTop: 24},
+      android: { backgroundColor: '#00f'}
+    }),
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 24
+  }
+});
+
+
+Android:
+const styles = StyleSheet.create({
+  header: {
+    height: 76,
+    marginTop: 24,
+    backgroundColor: '#00f',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 24
+  }
+});
+-----------------------------------
+iOS:
+const styles = StyleSheet.create({
+  header: {
+    height: 100,
+    marginTop: 0,
+    backgroundColor: '#f00', 
+    paddingTop: 24,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 24
+  }
+});
+const styles = StyleSheet.create({
+  height: Platform.OS === 'ios' ? 200 : 100,
+});
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    ...Platform.select({
+      ios: {
+        backgroundColor: 'red',
+      },
+      android: {
+        backgroundColor: 'blue',
+      },
+    }),
+  },
+});
+
+const Component = Platform.select({
+  ios: () => require('ComponentIOS'),
+  android: () => require('ComponentAndroid'),
+})();
+
+<Component />;
+
+
+
+
+import {styles} from "./src/theme/Style";
+import { Header } from './src/components/Header';
+import { Body } from "./src/components/Body";
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Header />
+        <Body />
+      </View>
+    );
+  }
+}
+
+
+
+BodyAndroid.js
+import React from 'react';
+import { View, Text} from 'react-native';
+import {styles} from "../theme/Style";
+export const BodyAndroid = () => (
+  <View style={styles.body}>
+    <Text style={styles.h1}>This is Android App!</Text>
+  </View>
+);
+--------------------------------
+BodyIOS.js
+import React from 'react';
+import { View, Text} from 'react-native';
+import {styles} from "../theme/Style";
+
+export const BodyIOS = () => (
+  <View style={styles.body}>
+    <Text style={styles.h1}>This is iOS App!</Text>
+  </View>
+);
+--------------------------------
+
+Body.js
+import { Platform } from 'react-native';
+import { BodyAndroid } from './BodyAndroid';
+import { BodyIOS     } from './BodyIOS'
+export const Body = Platform.select({
+  ios: BodyIOS,
+  android: BodyAndroid
+});
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+static alert(title, message?, buttons?, options? type?)
+
+Alert.alert(
+'Alert Title', 
+'My Alert Msg',
+  [
+    {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel', },
+    {text: 'OK', onPress: () => console.log('OK Pressed')},
+  ],
+  {cancelable: false},
+);
+
+
+import {Platform} from 'react-native';
+height: Platform.OS === 'ios' ? 200 : 100,
+...Platform.select({
+      ios: {
+        backgroundColor: 'red',
+      },
+      android: {
+        backgroundColor: 'blue',
+      },
+    }),
+
+
+    const Component = Platform.select({
+  ios: () => require('ComponentIOS'),
+  android: () => require('ComponentAndroid'),
+})();
+
+<Component />;
+
+
+
+if (Platform.Version === 25) {
+  console.log('Running on Nougat!');
+}
+
+const majorVersionIOS = parseInt(Platform.Version, 10);
+if (majorVersionIOS <= 9) {
+  console.log('Work around a change in behavior');
+}
+
+
+this.props.navigation.goBack()
+
+
+ const { navigate } = this.props.navigation;
+onPress={() => navigate('Profile', { name: 'Brent' })}
+
+
+const { goBack } = this.props.navigation;
+<Button onPress={() => goBack()} title="Go back from this HomeScreen" />
+<Button onPress={() => goBack(null)} title="Go back anywhere" />
+<Button  onPress={() => goBack('key-123')}
+
+
+navigation.navigate({ routeName: SCREEN, key: SCREEN_KEY_A });
+navigation.navigate({ routeName: SCREEN, key: SCREEN_KEY_B });
+navigation.navigate({ routeName: SCREEN, key: SCREEN_KEY_C });
+navigation.navigate({ routeName: SCREEN, key: SCREEN_KEY_D });
+
+
+let isFocused = this.props.navigation.isFocused();
+
+
+{
+  // o nome da configuração da rota no roteador
+  routeName: 'profile',
+  //um identificador exclusivo usado para classificar rotas
+  key: 'main0',
+  //um objeto opcional de opções de string para esta tela
+  params: { hello: 'world' }
+}
+
+ onPress={() => this.props.navigation.setParams({ name: 'Lucy' })}
+ const { name } = this.props.navigation.state.params;
+ const name = this.props.navigation.getParam('name', 'Peter');
+return <Text>Name: {this.props.navigation.state.params.name}</Text>;
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+JDSPI - Sistema de Pagamento Instantâneos
+
+04358798 - JD Bank - IF Pagadora
+84701762 - J3 Bank - IF Recebedora
+
+ - Cadastro      : POST - https://jdspi.azurewebsites.net/spi/api/chave
+ - Login         : GET  - https://jdspi.azurewebsites.net/spi/api/chave
+ - GerarQRCode   : POST - https://jdspi.azurewebsites.net/spi/api/qrcode/estatico/GerarQRCode
+ - ValidarQRCode : POST - https://jdspi.azurewebsites.net/api/qrcode
+ - PagarQRCode   : POST - https://jdspi.azurewebsites.net/api/ 
+ - Recebido      : GET  - https://jdspi.azurewebsites.net/api/{headerId}/{mensagemId}  // "https://jdspi.azurewebsites.net/api/M0435879820191222151827091859167/E0435879820191222151800098293142" 
+ - Saldo         : GET  - https://jdspi.azurewebsites.net/api/saldo/{agencia}/{conta}  // /api/saldo/0001/12346-7
+
+
+
+
+
+https://jdspi-dict.azurewebsites.net/index.html
+
+
+JD Bank VERMELHO // 4358798 // +55 11 9 4212 3333 // VERMELHO PAGADOR // https://jdspi.azurewebsites.net/index.html
+
+{
+  "recebedor": {
+    "ispb": 4358798,
+    "tipoPessoa": 0,
+    "documento": 11111111111,
+    "agencia": "0001",
+    "conta": "12346-7",
+    "tipoConta": 0,
+    "nome": "JD VERMELHO PAGADOR"
+  },
+  "tipoChave": 0,
+  "chave": "+5511942123333"
+}
+
+
+J3 Bank AZUL // 84701762 // +5511942124444 // AZUL RECEBEDOR // https://j3spi.azurewebsites.net/index.html
+
+{
+  "recebedor": {
+    "ispb": 84701762,
+    "tipoPessoa": 0,
+    "documento": 22222222222,
+    "agencia": "0002",
+    "conta": "223456-8",
+    "tipoConta": 0,
+    "nome": "J3 AZUL RECEBEDOR"
+  },
+  "tipoChave": 0,
+  "chave": "+5511942125555"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+CMS Configurações de Ambiente React Native
+
+Instaladores
+  Node.js https://nodejs.org
+  GIT https://git-scm.com.
+  Python
+  Visual Studio Code  https://code.visualstudio.com/.
+
+Para Habilitar o PowerShell no WS
+  Get-ExecutionPolicy 
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser 
+  Set-ExecutionPolicy unrestricted
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass -Force;
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force
+
+cd "D:\CMS Proj Teste\CMS React Native"
+cd "D:\CMS Proj Teste\CMS React Native\JDBankTeste"
+
+cd "D:\CMS Projeto ReactNative"
+cd "D:\CMS Projeto ReactNative\JDBankTeste"
+
+npm uninstall -g expo-cli --save-dev 
+npm uninstall -g yarn --save
+npm uninstall -g create-react-native-app --save
+npm uninstall -g axios  --save-dev 
+npm uninstall -g yarn --save-dev 
+npm uninstall -g eslint --save-dev 
+npm uninstall -g eslint-config-rallycoding --save-dev 
+
+npm i --g windows-build-tools --production
+npm i --g node-gyp
+
+npm i -g expo-cli
+npm i -g yarn
+npm i -g eslint
+npm i -g eslint-config-rallycoding --save-dev
+npm i -g react-native-cli
+npm i lodash --save
+npm i axios --save
+npm i expo-barcode-scanner --save
+npm i expo-camera --save
+npm i expo-linear-gradient --save
+npm i expo-av --save
+npm i expo-constants --save
+npm i react-native-timeline-listview --save
+npm i react-native-timeline-flatlist --save
+npm i @wwdrew/react-native-numeric-textinput --save
+npm i react-native-console-time-polyfill --save
+npm i react-native-masked-text --save
+npm i react-devtools --save
+npm i reactotron-react-native --save-dev
+npm i @aspnet/signalr --save
+npm i redux --save
+npm i react-redux --save
+npm i redux-devtools --save-dev
+npm i react-navigation-redux-helpers --save
+npm i redux-logger --save
+npm i redux-thunk --save
+npm i redux-axios-middleware  --save
+
+npm i --save lottie-react-native
+npm i --save lottie-ios@3.1.3
+react-native link lottie-ios
+react-native link lottie-react-native
+
+npm i react-navigation 
+npm i react-native-gesture-handler
+npm i react-native-reanimated
+npm i react-native-screens
+npm i react-navigation-tabs 
+npm i react-navigation-stack 
+npm i react-navigation-drawer 
+
+react-native link react-native-reanimated
+react-native link react-native-gesture-handler
+react-native link react-native-screens
+
+npm i jetifier --save-dev 
+
+package.json:
+"scripts": {
+  "postinstall": "jetifier -r"
+}
+
+npm run postinstall
+
+npm cache clean --force 
+npm cache verify
+
+npm audit fix
+
+Set EXPO_DEBUG=true
+
+expo init JDBankTeste
+expo start --android
+expo publish
+
+npm install resolve
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+https://expo.io/dashboard
+user chris.mar.silva
+pass #Chrs2387
+
+app.json
+ sdkVersion to "33.0.0",
+
+package.json
+ {
+   "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+   "expo": "^33.0.0",
+   "react": "16.8.3"
+ }
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+Variáveis de ambiente
+  Nova variável de ambiente
+  ANDROID_HOME =  C:\Users\cmartins\AppData\Local\Android\Sdk
+  ANDROID_HOME =  C:\Users\CMS\AppData\Local\Android\Sdk
+
+Na mesma janela de "Variáveis de ambiente" no Windows, clique na variável PATH e então em "Editar". Haverá uma lista de c
+aminhos e você deve adicionar 
+esses dois novos caminhos no fim da lista:
+%ANDROID_HOME%\tools
+%ANDROID_HOME%\tools\bin
+%ANDROID_HOME%\platform-tools
+
+C:\Users\cmartins\AppData\Roaming\npm\node_modules
+C:\Users\CHRIS\AppData\Roaming\npm\node_modules
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+TnB - TamoNaBolsa
+
+
+  expo build:android -t apk
+  expo build:android --clear-credentials --release-channel build-1.0.0
+  expo build:android --clear-credentials --release-channel build-1.0.1
+  expo fetch:android:keystore
+
+  Keystore password: d7399a6cae174cc7bf32b5c7319468bc
+  Key alias:         QGNocmlzLm1hci5zaWx2YS9UYW1vTmFCb2xzYQ==
+  Key password:      1907e698a9914b0bad95e0e31e4ef294
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+npm config set registry "http://registry.npmjs.org/"
+npm config get registry prints: https://registry.npmjs.org/
+
+npm config get proxy
+
+npm config delete proxy
+npm config delete http-proxy
+npm config delete https-proxy
+
+npm config set proxy "http://cmartins:#Chrs2387@10.10.20.254:8080"
+npm config set http-proxy "http://cmartins:#Chrs2387@10.10.20.254:8080"
+npm config set https-proxy "http://cmartins:#Chrs2387@10.10.20.254:8080"
+
+npm i -g create-react-native-app
+npm i -g yarn
+npm i -g eslint
+npm i -g --save-dev eslint-config-rallycoding
+
+npm i -g native-base 
+react-native link native-base
+
+npm i -g firebase
+
+npm i --save react-navigation
+yarn add redux-logger
+yarn add react-navigation-redux-helpers
+
+npm i -g redux
+npm i -g --save-dev redux-devtools
+npm i -g --save redux-thunk
+npm i -g react-redux
+
+npm i -g --save-dev babel-preset-es2015
+npm i -g --save-dev babel-preset-es2017
+npm i -g --save-dev babel-preset-expo
+npm i -g --save-dev babel-preset-react
+
+npm install --save-dev babel-preset-env 
+npm install --save-dev @babel/preset-flow
+npm install --save-dev @babel/preset-typescript
+
+
+npm i -g axios 
+npm i -g redux-axios-middleware 
+
+yarn add react-native-datepicker
+yarn add react-native-modal-datetime-picker
+yarn add react-native-datepicker-dialog 
+yarn add moment react-moment
+
+yarn add base-64
+yarn add react-native-tab-view
+
+yarn add lodash
+
+yarn add react-native-simple-dialogs
+
+yarn add --dev remote-redux-devtools
+
+yarn add rn-pdf-reader-js
+
+yarn add react-native-pure-chart
+npm i react-native-chart --save
+
+yarn add react-native-linear-gradient 
+npm link react-native-linear-gradient
+yarn add react-native-shimmer-placeholder
+
+yarn add react-native-console-time-polyfill
+
+yarn add react-native-modal
+
+yarn add react-native-segmented-control-tab
+
+npm install --global react-native-vector-icons –save
+
+yarn add react-tradingview-widget
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+Salvar o Arquivo ".eslintrc" no Path do Projeto
+Códigos:
+  {
+    "extends": "rallycoding"
+  }
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+https://stackoverflow.com/questions/58120990/how-to-resolve-the-error-on-react-native-start
+
+D:\CMS Projeto ReactNative\JDBank\node_modules\metro-config\src\defaults\blacklist.js  - NoteCMS
+D:\CMS Proj Teste\CMS React Native\JDBank\node_modules\metro-config\src\defaults\blacklist.js  - JD
+
+
+var sharedBlacklist = [
+  /node_modules[\/\\]react[\/\\]dist[\/\\].*/,
+  /website\/node_modules\/.*/,
+  /heapCapture\/bundle\.js/,
+  /.*\/__tests__\/.*/
+];
+
+cd "D:\CMS Projeto ReactNative\JDBank"  Note
+cd "D:\CMS Proj Teste\CMS React Native\JDBank"  JD
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------

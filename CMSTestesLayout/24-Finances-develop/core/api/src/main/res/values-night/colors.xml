@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#121212</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#519657</color>
+    <color name="colorAccentRipple">#42519657</color>
+    <color name="colorTextPrimary">#FFF</color>
+    <color name="colorTextSecondary">#E6FFFFFF</color>
+
+    <color name="colorIcon">#FFFFFF</color>
+
+    <!--region Navigation bar-->
+
+    <color name="colorNavbarDivider">#1FFFFFFF</color>
+
+    <!--endregion-->
+
+</resources>

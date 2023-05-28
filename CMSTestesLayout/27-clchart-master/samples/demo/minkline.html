@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Cousine|Roboto+Mono" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ClChat Demo</title>
+  <link rel="stylesheet" href="../css/client.css">
+</head>
+<body>
+  <div id="container" class="container">
+  </div>
+
+  <script src="../ClChart.js"></script>
+  <script src="../SisClient.js"></script>
+  <script src="./config.js"></script>
+  <script>
+    const container = document.getElementById('container')
+
+    const syscfg = {
+      scale: window.devicePixelRatio,
+      axisPlatform: 'web', // 'phone' | 'web'
+      container: container
+    }
+    const  mainCanvas ={
+      width: container.offsetWidth * window.devicePixelRatio,
+      height: container.offsetHeight * window.devicePixelRatio,
+    }
+    // Create a single stock Chart instance
+    const Chart = ClChart.createSingleChart(syscfg)
+
+    let isInited = false;
+
+    function initLayout() {
+      if (isInited) return; 
+      isInited = true;
+
+      Chart.clearLayout();
+
+      let mainHeight = mainCanvas.height * 2 / 3
+      // 设置画布区域布局
+      const mainLayoutCfg = {
+        layout: {
+          offset: {
+            left: 5,
+            right: 10
+          }
+        },
+        buttons: ClChart.DEF_CHART.CHART_BUTTONS,
+        config: ClChart.DEF_CHART.CHART_KBAR,
+        rectMain: {
+          left: 0,
+          top: 0,
+          width: mainCanvas.width,
+          height: mainHeight
+        }
+      }
+      Chart.createChart('user.kbar', 'system.chart', mainLayoutCfg, function (result) {
+        //  console.log(result)
+      })
+      const volumeLayoutCfg = {
+        layout: {
+          offset: {
+            left: 5,
+            right: 10
+          }
+        },
+        config: ClChart.DEF_CHART.CHART_VBAR,
+        rectMain: {
+          left: 0,
+          top: mainHeight,
+          width: mainCanvas.width,
+          height: mainCanvas.height - mainHeight
+        }
+      }
+      Chart.createChart('user.vbar', 'system.chart', volumeLayoutCfg, function (result) {
+        //  console.log(result)
+      })
+    }
+    function paintDrawline() {
+      const code = sisdb.code
+      const peroid = 'M5'
+      
+      // 应该通过设置数据属性来进行时间转换
+
+      let infoData
+      Promise.all([
+        sisClient.getData(code, 'info'),
+        sisClient.getData(code, 'min5', { search:{ start:-500,stop:-1 } })
+      ])
+      .then(([infoData, minData]) => {
+        Chart.clear()
+        Chart.initData(sisdb.tradeDate, ClChart.DEF_DATA.STOCK_TRADETIME)
+        Chart.setData('INFO', ClChart.DEF_DATA.FIELD_INFO, infoData.values)
+        Chart.setData(peroid, ClChart.DEF_DATA.FIELD_DAY, minData.values)
+
+        Chart.bindData(Chart.getChart('user.kbar'), peroid)
+        Chart.bindData(Chart.getChart('user.vbar'), peroid)
+
+        Chart.onPaint()
+      })
+    }
+      
+    window.onload = () => {
+      initLayout()
+      paintDrawline()
+    }
+  </script>
+</body>
+</html>

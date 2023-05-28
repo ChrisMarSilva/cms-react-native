@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="insetSelectionLeft">8dp</dimen>
+    <dimen name="insetSelectionRight">8dp</dimen>
+    <dimen name="insetSelectionTop">4dp</dimen>
+    <dimen name="insetSelectionBottom">4dp</dimen>
+
+</resources>

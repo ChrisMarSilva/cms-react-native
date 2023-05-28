@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:padding="32dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleTextView"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/onboarding_currency_choice_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/subtitleTextView"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/balanceEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Do you use cash?" />
+
+        <serg.chuprin.finances.core.api.presentation.view.widget.AmountEditText
+            android:id="@+id/balanceEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="32dp"
+            android:background="@null"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:text="0"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/acceptBalanceButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subtitleTextView"
+            tools:ignore="HardcodedText"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/positiveButton"
+            style="@style/MaterialButtonIconCircle"
+            android:layout_marginTop="16dp"
+            app:icon="@drawable/ic_check"
+            app:iconTint="@color/colorOnboardingGreen"
+            app:layout_constraintEnd_toStartOf="@id/negativeButton"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/balanceEditText"
+            app:rippleColor="?colorControlHighlight" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/negativeButton"
+            style="@style/MaterialButtonIconCircle"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:icon="@drawable/ic_close"
+            app:iconTint="@color/colorOnboardingRed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/positiveButton"
+            app:layout_constraintTop_toBottomOf="@id/balanceEditText"
+            app:rippleColor="@color/colorRedRipple"
+            tools:layout_marginStart="72dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/acceptBalanceButton"
+            style="@style/MaterialButtonIconCircle"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_check"
+            app:iconTint="@color/color_accept_amount_btn"
+            app:layout_constraintBottom_toTopOf="@+id/startUsingAppButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balanceEditText"
+            app:rippleColor="?colorControlHighlight"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/startUsingAppButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/onboarding_accounts_setup_start_using_app"
+            android:visibility="gone"
+            app:backgroundTint="?colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/acceptBalanceButton"
+            app:layout_constraintVertical_bias="0"
+            tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/buttonsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="negativeButton,positiveButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

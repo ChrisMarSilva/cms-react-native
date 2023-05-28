@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "parserOptions": {
+    "sourceType": "module",
+    "parser": "babel-eslint"
+  },
+  "extends": [
+    "standard"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": [
+    "html",
+    "import",
+    "node",
+    "promise"
+  ],
+  "rules": {
+    "no-console": "off",
+    "no-eval": "off"
+  }
+}

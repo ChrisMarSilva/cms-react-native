@@ -1,0 +1,58 @@
+#mainContainer{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+    border: 1px solid blue;
+}
+
+#navbarContainerDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    height: fit-content;
+}
+
+.menuNav{
+    width: 120px;
+    text-align: center;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    background-color: blue;
+    color: white;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#mainContainer{
+background-color: yellow;
+}
+
+#centralComponent{
+    height: 80vh;
+    border: 3px solid red;
+    overflow: auto;
+}
+
+#loginContainer{
+    border: 1px solid black;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inputLoginForm{
+    margin-bottom: 20px;
+}
+
+.submitLoginForm{
+    border-radius: 10%;
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+}

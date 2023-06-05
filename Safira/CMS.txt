@@ -45,6 +45,7 @@ eas update --branch preview --message "#005 - Updating the app"
 eas update --branch preview --message "#006 - Updating the app"
 eas update --branch preview --message "#007 - Updating the app"
 eas update --branch preview --message "#008 - Updating the app version 1.0.7"
+eas update --branch preview --message "#009 - Updating the app version 1.0.8"
 
 eas build --platform android --profile preview
 eas build --platform android --profile production
@@ -121,6 +122,7 @@ npm i react-native-uuid
 npm i @react-native-community/viewpager
 npm install react-native-pager-view
 npx expo install react-native-pager-view@6.1.2
+npm i react-native-easy-alert
 
 npx expo install --fix
 npx expo-doctor

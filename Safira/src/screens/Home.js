@@ -121,7 +121,7 @@ const Home = (props) => {
     _GetNomeGarcom()
   }
 
-  const _onPressExcluirProduto = async (id = '', codigo = '') => {
+  const _onPressExcluirProduto = async (id = '', codigo = '', descricao = '') => {
 
     id = id.toString().trim()
     if (id == '')
@@ -132,7 +132,7 @@ const Home = (props) => {
 
     codigo = codigo.toString().trim().padStart(4, '0')
 
-    Alert.alert("", "Excluir o Produto " + codigo,
+    Alert.alert("", "Deseja excluir o Produto " + codigo + "?\n\n" + descricao,
       [
         {
           text: "SIM",
@@ -494,7 +494,7 @@ const HomeProduoItem = (props) => {
 
       <TouchableOpacity
         style={{ flex: 1, }}
-        onPress={() => props._onPressExcluir(id, codigo)}
+        onPress={() => props._onPressExcluir(id, codigo, descricao)}
       >
         <FontAwesome name="trash-o" color={colors.cinza_escuro} size={35} />
       </TouchableOpacity>

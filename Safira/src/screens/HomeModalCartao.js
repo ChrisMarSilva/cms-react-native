@@ -119,7 +119,7 @@ const HomeModalCartao = (props) => {
         if (cartao == '')
             return
         cartao = cartao.padStart(5, '0')
-        Alert.alert("", "Deseja excluir o Cartão " + cartao,
+        Alert.alert("", "Deseja excluir o Cartão " + cartao + "?",
             [
                 {
                     text: "SIM",

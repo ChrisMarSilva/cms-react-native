@@ -2,7 +2,7 @@
   "expo": {
     "name": "Safira",
     "slug": "Safira",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -20,7 +20,7 @@
     "android": {
       "package": "br.com.cms.app.safira",
       "icon": "./assets/icon.png",
-      "versionCode": 7,
+      "versionCode": 8,
       "permissions": [
         "INTERNET",
         "ACCESS_FINE_LOCATION",

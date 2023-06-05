@@ -321,13 +321,7 @@ const HomeModalProduto = (props) => {
 
                 {
                     props.txtPedidoProdutoDescricao != '' &&
-                    <View
-                        style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: 10,
-                        }}
-                    >
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 10, }} >
                         <Text
                             style={[{ fontSize: 18, color: colors.default, fontWeight: "bold", }, (props.txtPedidoProdutoDescricao == 'Produto não localizado!' || props.txtPedidoProdutoDescricao == 'Produto inativo!') && { color: colors.error, }]}
                         >
@@ -370,7 +364,7 @@ const HomeModalProduto = (props) => {
                         }
                         renderItem={({ item, index }) =>
                             <HomeModalProdutoItem
-                                //index={index}
+                                index={index}
                                 item={item}
                                 _onPressExcluir={_onPressExcluir}
                                 _onPressObservacao={_onPressObservacao}
@@ -422,7 +416,7 @@ const HomeModalProdutoItem = (props) => {
 
     return (
         <View
-            key={id}
+            key={props.index}
             style={{ flex: 1, paddingBottom: 10, backgroundColor: colors.branco, borderBottomColor: colors.cinza, borderBottomWidth: 1, alignItems: 'center', flexDirection: "row", justifyContent: 'space-around', }}
         >
 

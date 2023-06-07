@@ -1,0 +1,479 @@
+
+----------------------------------------------------------------------------------------------------
+
+cd 'C:\Users\chris\Desktop\CMS React Native'
+expo init TamoNaBolsa
+
+cd 'C:\Users\chris\Desktop\CMS React Native\TamoNaBolsa'
+
+npm install
+npm audit fix
+npm audit fix --force
+
+npm install -g expo-cli
+
+yarn start
+expo start
+npm start
+npm start --reset-cache
+
+----------------------------------------------------------------------------------------------------
+
+install
+
+npm install -g expo-cli
+
+npm i --save moment react-moment moment-timezone
+
+npm i @react-navigation/native  
+npm i @react-navigation/stack 
+npm i @react-navigation/bottom-tabs 
+npm i @react-navigation/drawer 
+npm i @react-navigation/compat 
+npm i react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+npm uninstall react-native-reanimated
+npm i react-native-reanimated@1.13.0
+react-native link react-native-reanimated
+
+npm uninstall react-native-gesture-handler
+npm i react-native-gesture-handler@1.8.0
+
+npm uninstall react-native-screens
+npm i react-native-screens@2.15.2
+
+npm i react-native-tab-view
+react-native link react-native-reanimated
+react-native link react-native-gesture-handler
+
+npm i @reduxjs/toolkit
+npm i redux
+npm i react-redux
+npm i redux-thunk
+npm i --save redux-logger
+npm i --save-dev redux-devtools
+npm i --save react-navigation-redux-helpers
+
+npm i axios
+npm i react-native-axios
+
+npm i --save react-native-vector-icons
+react-native link react-native-vector-icons
+
+npm i @react-native-async-storage/async-storage
+react - native link @react-native - async - storage / async - storage
+ou 
+npm i @react-native-community/async-storage
+
+expo install expo-linear-gradient
+
+npm i react-native-console-time-polyfill
+
+-- https://reactnativeexample.com/react-native-toast-like-component-works-on-ios-and-android/
+npm i react-native-tiny-toast --save
+npm uninstall react-native-tiny-toast
+npm i react-native-smart-tip --save 
+
+-- https://reactnativeexample.com/a-library-that-provides-customizable-ring-visualization-of-data/
+npm i react-native-activity-rings --save
+npm i react-native-svg --save
+react-native link react-native-svg
+
+npm i --save react-native-circular-progress react-native-svg
+react-native link react-native-svg
+
+npm i react-native-modal
+
+npm i victory-native --save
+npm i react-native-svg --save
+react-native link react-native-svg
+
+npm i react-native-datepicker --save
+npm uninstall react-native-datepicker
+
+npm i @react-native-community/datetimepicker --save
+npm uninstall @react-native-community/datetimepicker
+npm i @react-native-community/datetimepicker@3.0.4 --save
+
+npm i rn-modal-picker
+react-native link rn-modal-picker
+
+npm i react-native-swipeview --save
+npm uninstall react-native-swipeview
+
+npm install --save @react-native-community/netinfo
+npm uninstall @react-native-community/netinfo
+npm i @react-native-community/netinfo@5.9.7 --save
+react-native link @react-native-community/netinfo
+npm install --save react-native-network-checker
+
+expo install expo-splash-screen
+expo uninstall expo-splash-screen
+
+npm i --save recyclerlistview
+
+npm audit fix
+npm audit fix --force
+npm install
+
+yarn cache clean
+npm cache clean --force 
+npm cache verify
+npm audit fix
+
+cd 'C:\Users\chris\Desktop\CMS React Native\TamoNaBolsa'
+npm start --reset-cache
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+import axios
+export key = 'ddd'
+const api = axios.create({baseURL: 'www.algum-coisa.com.br/'})
+export default api
+
+
+const instance = axios.create({
+  baseURL: 'https://some-domain.com/api/',
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
+
+// First we need to import axios.js
+import axios from 'axios';
+// Next we make an 'instance' of it
+const instance = axios.create({
+// .. where we make our configurations
+    baseURL: 'https://api.example.com'
+});
+
+// Where you would set stuff like your 'Authorization' header, etc ...
+instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
+
+// Also add/ configure interceptors && all the other cool stuff
+
+instance.interceptors.request...
+
+export default instance;
+
+// authAxios.js
+import axios from 'axios'
+
+const customInstance = axios.create ({
+  baseURL : 'https://axios-app.firebaseio.com'
+})
+customInstance.defaults.headers.post['Accept'] = 'application/json'
+
+// Or like this...
+const customInstance = axios.create ({
+  baseURL : 'https://axios-app.firebaseio.com',
+  headers: {'Accept': 'application/json'}
+})
+
+// import from our custom instance
+import axios from './authAxios'
+
+export default {
+  methods : {
+    onSubmit () {
+      axios.post('/users.json', formData)
+      .then(res => console.log(res))
+      .catch(error => console.log(error))
+    }
+  }
+}
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+import React, { useState, useRef, useEffect } from 'react';
+import { useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
+import { useSelector, useDispatch } from 'react-redux'
+import { Ionicons } from '@expo/vector-icons'
+
+function YourApp (props) {
+export default function YourApp() {
+
+  const [isHungry, setIsHungry] = useState(true);
+  const [enthusiasmLevel, setEnthusiasmLevel] = React.useState(props.enthusiasmLevel);
+
+  const navigation = useNavigation()
+  
+  const route = useRoute()
+  const { tipo, codigo, dtEx, dtPagto, qtd, vlrPreco, vlrPagto, corretora } = route.params // this.props.route.params
+
+  const onIncrement = () =>    setEnthusiasmLevel((enthusiasmLevel || 0) + 1);
+  const onDecrement = () =>    setEnthusiasmLevel((enthusiasmLevel || 0) - 1);
+  const getExclamationMarks = (numChars: number) =>    Array(numChars + 1).join('!');
+
+  useEffect(() => {
+    _CarregarDados()
+  }, [])
+  
+  useEffect(() => {
+    if (props.txtErroFatos != '') { 
+      HelperToast.displayMsgError(props.txtErroFatos)
+      props.modificaMsgFatos('')
+    }
+  }, [props.txtErroFatos])
+  
+  
+  const _onPressCriarConta = async () => {
+    navigation.navigate('UserCad')
+  }
+
+
+
+const counter = useSelector(state => state.counter)
+const cartItems = useSelector(state => state)
+const todo = useSelector(state => state.todos[props.id])
+return <div>{counter}</div>
+return <div>{todo.text}</div>
+
+const navigation = useNavigation()
+onPress={() => navigation.navigate('Cart')}
+
+const dispatch = useDispatch()
+const addItemToCart = item => dispatch({ type: ADD_TO_CART, payload: item })
+
+componentDidMount() {
+  window.addEventListener('mousemove', () => {})
+}
+
+componentWillUnmount() {
+  window.removeEventListener('mousemove', () => {})
+}
+
+
+useEffect(() => {
+  window.addEventListener('mousemove', () => {});
+
+  // returned function will be called on component unmount 
+  return () => {
+    window.removeEventListener('mousemove', () => {})
+  }
+}, [])
+
+
+
+useEffect(() => {
+     // componentDidMount events
+     return () => {
+       // componentWillUnmount events
+     }
+   }, []);
+
+
+useEffect(() => {
+    return () => {
+        console.log('componentWillUnmount');
+    };
+   }, []);
+
+
+useEffect(() => {
+    console.log('componentDidMount');
+
+    return () => {
+        console.log('componentWillUnmount');
+    };
+}, []);
+
+const useComponentDidMount = func => useEffect(func, []);
+useComponentWillMount(() => console.log("Runs only once before component mounts"));
+useComponentDidMount(() => console.log("Runs only once after component mounts"));
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+  performTimeConsumingTask = async() => {
+  return new Promise((resolve) =>
+    setTimeout(
+      () => { resolve('result') },
+      2000
+    )
+  );
+}
+
+
+async componentDidMount() {
+  // Preload data from an external API
+  // Preload data using AsyncStorage
+  const data = await this.performTimeConsumingTask();
+
+  if (data !== null) {
+    this.setState({ isLoading: false });
+  }
+}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+if (__DEV__) console.log('I am in debug')
+if(global.__REMOTEDEV__) console.log('Remote Debug')
+
+if(_DEV_) {
+//code is executed only in development
+}else{
+//code is executed only in release mode
+}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+                <View style={{ flexDirection: 'row', width: '90%', alignSelf: 'center', marginTop: 25, marginBottom: 10, }}>
+                  <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => this.props.navigation.navigate('CardListScreen', {title: 'Restaurant'}) }>
+                    <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 70, height: 70, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                      <Ionicons name="ios-restaurant" size={35} color="#FF6347" />
+                    </View>
+                    <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Restaurant</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => this.props.navigation.navigate('CardListScreen', {title: 'Fastfood Center'}) }>
+                    <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 70, height: 70, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                      <MaterialCommunityIcons name="food-fork-drink" size={35} color="#FF6347" />
+                    </View>
+                    <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Fastfood Center</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+                    <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 70, height: 70, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                      <MaterialCommunityIcons name="food" size={35} color="#FF6347" />
+                    </View>
+                    <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Snacks Corner</Text>
+                  </TouchableOpacity>
+                </View>
+      
+                <View style={[{ flexDirection: 'row', width: '90%', alignSelf: 'center', marginTop: 25, marginBottom: 10, }, {marginTop: 10}]}>
+                  <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+                    <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 70, height: 70, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                      <Fontisto name="hotel" size={35} color="#FF6347" />
+                    </View>
+                    <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Hotels</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+                    <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 70, height: 70, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                      <Ionicons name="md-restaurant" size={35} color="#FF6347" />
+                    </View>
+                    <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Dineouts</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flex: 1,  width: '30%', marginHorizontal: 0, alignSelf: 'center', }} onPress={() => {}}>
+                    <View style={{ borderWidth: 0, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: 70, height: 70, backgroundColor: '#fdeae7', borderRadius: 50, }}>
+                      <MaterialIcons name="expand-more" size={35} color="#FF6347" />
+                    </View>
+                    <Text style={{ alignSelf: 'center', marginTop: 5, color: '#de4f35',  }}>Show More</Text>
+                  </TouchableOpacity>
+                </View>
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+initialRouteName: "HomeStack",
+backBehavior: 'initialRoute',  para retornar à guia inicial
+backBehavior: 'order',              para retornar à guia anterior (na ordem em que são mostrados na barra de guias)
+backBehavior: 'history',            para retornar à última guia visitada
+backBehavior: 'none',               para não manusear o botão traseiro
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+export default class IconWithBadge extends React.Component {
+  render() {
+    const { name, badgeCount, color, size } = this.props;
+    return (
+      <View style={{ width: 24, height: 24, margin: 5 }}>
+        <Ionicons name={name} size={size} color={color} />
+        {badgeCount > 0 && (
+          <View style={{position: 'absolute',right: -6,top: -3,backgroundColor: 'red',borderRadius: 6,width: 12,height: 12,justifyContent: 'center',alignItems: 'center',}}>
+            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{badgeCount}</Text>
+          </View>
+        )}
+      </View>
+    );
+  }
+}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Olá Investidores!
+O TamoNaBolsa, é uma nova forma de acompanhar seus investimentos de forma SIMPLES e muito mais!
+Att, Chris MarSil.
+
+Olá Investidores!
+Fizemos pequenos ajustes, correções de bugs e melhorias de desempenho no App
+Qualquer dúvida ou sugestão, mande um e-mail para suporte@tamonabolsa.com.br
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+colocar placerholder - react-native-shimmer-placeholder
+colocar log em debug  var isDev = typeof __DEV__ === 'boolean' && __DEV__
+colocar redux-persist
+colocar Theme
+colocar styled-components
+
+Abrir Tela - Detalhado
+ - Buscar dados Redux Store ( base de dados local do app )
+ - Mostrar dados na tela
+ - Buscar dados Server ( Resquest API )
+   - Sucesso
+      - Atualizar dados Redux Store ( base de dados local do app )
+      - Mostrar dados na tela
+   - Error
+      - Exibir Msg 'Não foi possível carregar os dados'
+
+Abrir Tela - Simpleficado
+ - Exibir dados Redux Store
+ - Atualizar dados Redux Store
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+CMS Configurações de Ambiente React Native
+
+https://expo.io/dashboard
+user chris.mar.silva
+pass #Chrs2387
+
+Set EXPO_DEBUG=true
+
+TnB - TamoNaBolsa
+
+  Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+  
+  expo login
+  chris.mar.silva
+  #Chrs2387
+
+  expo publish
+  expo publish:history --platform android
+
+  expo build:android -t apk
+  expo build:android -t app-bundle
+  expo build:android --clear-credentials --release-channel build-1.0.0
+  expo build:android --clear-credentials --release-channel build-1.0.1
+  expo upload:android --latest
+
+  Você pode baixar uma cópia de backup do armazenamento de chaves executando
+  expo fetch:android:keystore    
+
+  Keystore password: d7399a6cae174cc7bf32b5c7319468bc
+  Key alias:         QGNocmlzLm1hci5zaWx2YS9UYW1vTmFCb2xzYQ==
+  Key password:      1907e698a9914b0bad95e0e31e4ef294
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

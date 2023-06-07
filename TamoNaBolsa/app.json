@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "TamoNaBolsa",
+    "slug": "TamoNaBolsa",
+    "description": "Controle dos seus Investimentos de forma SIMPLES!.",
+    "privacy": "public",
+    "version": "1.0.7",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "androidNavigationBar": {
+      "backgroundColor": "#152d44"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "br.com.cms.app.tamonanolsa",
+      "buildNumber": "1.0.7",
+      "icon": "./assets/icon.png",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "br.com.cms.app.tamonanolsa",
+      "icon": "./assets/icon.png",
+      "versionCode": 7,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "575ffbaf-4477-4170-85a0-7fdc0ff72565"
+      }
+    }
+  }
+}

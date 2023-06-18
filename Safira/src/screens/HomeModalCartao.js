@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef, } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Dimensions, FlatList, Keyboard, Alert, ActivityIndicator, } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Dimensions, FlatList, Keyboard, Alert, ActivityIndicator, } from 'react-native'
 import { FontAwesome, } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import { colors } from '../styles'
 import * as CONSTANTE from '../util/Constante'
 import { modificaUrl, } from '../store/ducks/config'
@@ -37,7 +39,8 @@ const HomeModalCartao = (props) => {
 
     useEffect(() => {
         if (props.txtCartaoErro.toString().trim() != '') {
-            Alert.alert("", props.txtCartaoErro, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgCartao('') })
+            // Alert.alert('', props.txtCartaoErro, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgCartao('') })
+            alert('', props.txtCartaoErro, { textConfirm: '     OK     ' });
             props.modificaMsgCartao('')
         }
     }, [props.txtCartaoErro])
@@ -95,7 +98,8 @@ const HomeModalCartao = (props) => {
                 if (item.cartao.toString().trim().padStart(5, '0') == cartao) {
                     existe = true
                     if (item.status == 'inc-pend' || item.status == 'inc-ok') {
-                        Alert.alert('', 'Cartão já incluído!')
+                        //Alert.alert('', 'Cartão já incluído!')
+                        alert('', 'Cartão já incluído!', { textConfirm: '     OK     ' });
                     } else {
                         item.status = 'inc-pend'
                     }
@@ -119,24 +123,39 @@ const HomeModalCartao = (props) => {
         if (cartao == '')
             return
         cartao = cartao.padStart(5, '0')
-        Alert.alert("", "Deseja excluir o Cartão " + cartao + "?",
-            [
-                {
-                    text: "SIM",
-                    onPress: () => {
-                        const lista = props.listaPedidoCartao.map(item => (item.cartao.toString().trim() == cartao ? { ...item, status: 'exc-pend' } : item))
-                        props.modificaListaPedidoCartao(lista)
-                    }
-                },
-                {
-                    text: "NÃO",
-                    style: "cancel"
-                },
-            ],
+
+        // Alert.alert('', 'Deseja excluir o Cartão ' + cartao + '?',
+        //     [
+        //         {
+        //             text: "SIM",
+        //             onPress: () => {
+        //                 const lista = props.listaPedidoCartao.map(item => (item.cartao.toString().trim() == cartao ? { ...item, status: 'exc-pend' } : item))
+        //                 props.modificaListaPedidoCartao(lista)
+        //             }
+        //         },
+        //         {
+        //             text: "NÃO",
+        //             style: "cancel"
+        //         },
+        //     ],
+        //     {
+        //         cancelable: true,
+        //     }
+        // );
+
+        alert(
+            '',
+            'Deseja excluir o Cartão ' + cartao + '?',
             {
-                cancelable: true,
-            }
-        )
+                textConfirm: '     SIM     ',
+                textCancel: '     NÃO     ',
+                onConfirm: () => {
+                    const lista = props.listaPedidoCartao.map(item => (item.cartao.toString().trim() == cartao ? { ...item, status: 'exc-pend' } : item));
+                    props.modificaListaPedidoCartao(lista);
+                },
+            },
+        );
+
     }
 
     const _onPressCancelar = async () => {
@@ -145,13 +164,26 @@ const HomeModalCartao = (props) => {
             _CancelarAlteracoes()
             return
         }
-        Alert.alert("", "Deseja cancelar as alterações?",
-            [
-                { text: "SIM", onPress: () => _CancelarAlteracoes() },
-                { text: "NÃO", style: "cancel", }, // onPress: () => _ConfirmarAlteracoes() 
-            ],
-            { cancelable: true }
-        )
+
+        // Alert.alert('', 'Deseja cancelar as alterações?',
+        //     [
+        //         { text: "SIM", onPress: () => _CancelarAlteracoes() },
+        //         { text: "NÃO", style: "cancel", }, // onPress: () => _ConfirmarAlteracoes() 
+        //     ],
+        //     { cancelable: true }
+        // );
+
+        alert(
+            '',
+            'Deseja cancelar as alterações?',
+            {
+                textConfirm: '     SIM     ',
+                textCancel: '     NÃO     ',
+                onConfirm: () => _CancelarAlteracoes(),
+                // onCancel: () => _ConfirmarAlteracoes(),
+            },
+        );
+
     }
 
     const _ConfirmarAlteracoes = async () => {
@@ -190,6 +222,7 @@ const HomeModalCartao = (props) => {
             backdropTransitionOutTiming={200}
             onBackButtonPress={() => _onPressCancelar()}
         >
+
             <View style={[{ padding: 15, borderRadius: 20, borderColor: colors.preto, backgroundColor: colors.branco, }, (props.listaPedidoCartao.length > 4) && { flex: 1, }]}>
 
                 <View style={{ marginTop: 10, flexDirection: 'row', }}>
@@ -218,6 +251,8 @@ const HomeModalCartao = (props) => {
                         />
                     </View>
                 </View>
+
+                <SuperAlert customStyle={styles.customStyle} />
 
                 <FlatList
                     ref={refFlatList}
@@ -253,6 +288,7 @@ const HomeModalCartao = (props) => {
                 </View>
 
             </View>
+
         </Modal>
     )
 }
@@ -272,6 +308,17 @@ const HomeModalCartaoItem = (props) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    customStyle: {
+        container: { backgroundColor: '#e8e8e8', borderRadius: 10, },
+        message: { color: '#4f4f4f', fontSize: 20, },
+        buttonCancel: { backgroundColor: '#c94040', borderRadius: 10, },
+        buttonConfirm: { backgroundColor: '#059918', borderRadius: 10, },
+        textButtonCancel: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+        textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+    },
+});
 
 const mapStateToProps = state => ({
 

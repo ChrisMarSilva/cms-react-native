@@ -1,11 +1,12 @@
 import React, { useEffect, } from 'react'
-import { SafeAreaView, View, Text, TextInput, Keyboard, TouchableOpacity, Alert, ActivityIndicator, FlatList, Platform, } from 'react-native'
+import { StyleSheet, SafeAreaView, View, Text, TextInput, Keyboard, TouchableOpacity, Alert, ActivityIndicator, FlatList, Platform, } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 //import { CommonActions, } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Constants from 'expo-constants'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import { colors } from '../styles'
 import * as CONSTANTE from '../util/Constante'
 import { limpaListaErro, adicionaListaErro, modificaListaErro, } from '../store/ducks/erro'
@@ -34,7 +35,8 @@ const Config = (props) => {
 
   useEffect(() => {
     if (props.txtConfigErro != '') {
-      Alert.alert("", props.txtConfigErro, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgConfig('') })
+      // Alert.alert('', props.txtConfigErro, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgConfig('') })
+      alert('', props.txtConfigErro, { textConfirm: '     OK     ' });
       props.modificaMsgConfig('')
     }
   }, [props.txtConfigErro])
@@ -111,6 +113,8 @@ const Config = (props) => {
           </TouchableOpacity>
         </View>
 
+        <SuperAlert customStyle={styles.customStyle} />
+
         <View style={{ flex: 1, width: '100%', }}>
           <FlatList
             style={{ flexGrow: 0, minHeight: 20, marginTop: 5, marginHorizontal: 10, }}
@@ -137,7 +141,9 @@ const Config = (props) => {
       </View>
 
       <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-        <Text style={{ fontSize: 12, color: colors.cinza_escuro, fontWeight: 'bold' }}>Versão EndPoint: {props.txtVsrEndPoint} - Versão App: {Constants.manifest?.version}</Text>
+        <Text style={{ fontSize: 12, color: colors.cinza_escuro, fontWeight: 'bold' }}>
+          Versão EndPoint: {props.txtVsrEndPoint} - Versão App: {CONSTANTE.VERSAO_APP}
+        </Text>
       </View>
 
     </SafeAreaView>
@@ -182,6 +188,15 @@ const ConfigItem = (props) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  customStyle: {
+    container: { backgroundColor: '#e8e8e8', borderRadius: 10, },
+    message: { color: '#4f4f4f', fontSize: 20, },
+    buttonConfirm: { backgroundColor: '#4490c7', borderRadius: 10, },
+    textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+  },
+});
 
 const mapStateToProps = state => ({
 

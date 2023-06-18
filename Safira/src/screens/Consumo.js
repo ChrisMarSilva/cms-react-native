@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, } from 'react'
-import { SafeAreaView, View, Text, TouchableOpacity, TextInput, Keyboard, Alert, ActivityIndicator, FlatList, Platform, } from 'react-native'
+import { StyleSheet, SafeAreaView, View, Text, TouchableOpacity, TextInput, Keyboard, Alert, ActivityIndicator, FlatList, Platform, } from 'react-native'
 import { FontAwesome, Ionicons, } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import { colors } from '../styles'
 import * as CONSTANTE from '../util/Constante'
 import * as HelperNumero from '../util/HelperNumero'
@@ -29,11 +31,17 @@ const Consumo = (props) => {
 
   useEffect(() => {
     if (props.txtErroConsumo != '') {
-      Alert.alert("", props.txtErroConsumo, [{ text: "OK" }], { cancelable: true, onDismiss: () => { props.modificaMsgConsumo(''); refInputCartao.current.focus(); } })
+      // Alert.alert("", props.txtErroConsumo, [{ text: "OK" }], { cancelable: true, onDismiss: () => { props.modificaMsgConsumo(''); refInputCartao.current.focus(); } })
+      alert('', props.txtErroConsumo, { textConfirm: '     OK     ', onConfirm: () => _onPressConfirmAlert(), });
       props.modificaMsgConsumo('')
-      refInputCartao.current.focus()
+      //refInputCartao.current.focus()
     }
   }, [props.txtErroConsumo])
+
+  const _onPressConfirmAlert = () => {
+    props.modificaMsgConsumo('');
+    refInputCartao.current.focus();
+  }
 
   const _LimparDados = async () => {
     props.limpaListaConsumo('')
@@ -56,7 +64,8 @@ const Consumo = (props) => {
   const _HandleOnPressPesquisar = async () => {
     let cartao = props.txtFiltroCartao.toString().trim()
     if (cartao == '') {
-      Alert.alert("", 'Cartão não informado!')
+      //Alert.alert('', 'Cartão não informado!')
+      alert('', 'Cartão não informado!', { textConfirm: '     OK     ' });
       refInputCartao.current.focus()
       return false
     }
@@ -85,6 +94,8 @@ const Consumo = (props) => {
         </TouchableOpacity>
 
       </View>
+
+      <SuperAlert customStyle={styles.customStyle} />
 
       <View style={{ flexDirection: 'row', marginTop: 10, marginHorizontal: 30, alignItems: 'center', }}>
         <Text style={{ color: colors.default, fontSize: 16, fontWeight: 'bold', }}>Informe o código do Cartão</Text>
@@ -118,7 +129,23 @@ const Consumo = (props) => {
         </View>
       }
 
-      {props.isShowLista && <FlatList style={{ flex: 1, marginTop: 10, marginBottom: 55, }} data={props.listaConsumo} scrollEnabled={true} keyExtractor={(item, index) => index.toString()} initialNumToRender={30} maxToRenderPerBatch={30} windowSize={31} removeClippedSubviews={true} updateCellsBatchingPeriod={50} showsVerticalScrollIndicator={false} viewabilityConfig={{ minimumViewTime: 300, viewAreaCoveragePercentThreshold: 100, }} renderItem={({ item, index }) => <ConsumoItem index={index} item={item} />} ListEmptyComponent={() => <Text style={{ flex: 1, fontSize: 18, fontWeight: 'bold', marginTop: 20, textAlign: 'center', }}>{!props.isLoadingConsumo ? 'Nenhum resultado encontrado...' : null}</Text>} />}
+      {props.isShowLista &&
+        <FlatList
+          style={{ flex: 1, marginTop: 10, marginBottom: 55, }}
+          data={props.listaConsumo}
+          scrollEnabled={true}
+          keyExtractor={(item, index) => index.toString()}
+          initialNumToRender={30}
+          maxToRenderPerBatch={30}
+          windowSize={31}
+          removeClippedSubviews={true}
+          updateCellsBatchingPeriod={50}
+          showsVerticalScrollIndicator={false}
+          viewabilityConfig={{ minimumViewTime: 300, viewAreaCoveragePercentThreshold: 100, }}
+          renderItem={({ item, index }) => <ConsumoItem index={index} item={item} />}
+          ListEmptyComponent={() => <Text style={{ flex: 1, fontSize: 18, fontWeight: 'bold', marginTop: 20, textAlign: 'center', }}>{!props.isLoadingConsumo ? 'Nenhum resultado encontrado...' : null}</Text>}
+        />
+      }
 
       <View style={{ position: 'absolute', bottom: 0, padding: 10, width: '100%', }}>
         <TouchableOpacity onPress={() => props.navigation.goBack()} disabled={props.isLoadingConsumo} >
@@ -147,6 +174,15 @@ const ConsumoItem = (props) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  customStyle: {
+    container: { flex: 1, backgroundColor: '#e8e8e8', borderRadius: 10, },
+    message: { color: '#4f4f4f', fontSize: 20, },
+    buttonConfirm: { backgroundColor: '#4490c7', borderRadius: 10, },
+    textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+  },
+});
 
 const mapStateToProps = state => ({
 

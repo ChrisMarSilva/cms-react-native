@@ -2,7 +2,11 @@
   "expo": {
     "name": "Safira",
     "slug": "Safira",
-    "version": "1.0.8",
+    "privacy": "public",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "version": "1.0.14",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -20,7 +24,7 @@
     "android": {
       "package": "br.com.cms.app.safira",
       "icon": "./assets/icon.png",
-      "versionCode": 8,
+      "versionCode": 14,
       "permissions": [
         "INTERNET",
         "ACCESS_FINE_LOCATION",
@@ -61,11 +65,8 @@
       }
     },
     "updates": {
+      "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/c055cbbc-00dd-4fa1-82d3-f8ea0fd86bbe"
-    },
-    "privacy": "public",
-    "runtimeVersion": {
-      "policy": "sdkVersion"
     },
     "ios": {}
   }

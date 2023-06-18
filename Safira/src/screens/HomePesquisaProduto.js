@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome, } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native'
 import { connect } from 'react-redux'
+
 import { colors } from '../styles'
 import { modificaListaProduto, } from '../store/ducks/produto'
 

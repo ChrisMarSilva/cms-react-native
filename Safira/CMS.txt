@@ -46,9 +46,19 @@ eas update --branch preview --message "#006 - Updating the app"
 eas update --branch preview --message "#007 - Updating the app"
 eas update --branch preview --message "#008 - Updating the app version 1.0.7"
 eas update --branch preview --message "#009 - Updating the app version 1.0.8"
+eas update --branch preview --message "#010 - Updating the app version 1.0.9"
+eas update --branch preview --message "#011 - Updating the app version 1.0.10"
+eas update --branch preview --message "#012 - Updating the app version 1.0.10"
+eas update --branch preview --message "#013 - Updating the app version 1.0.10"
+eas update --branch preview --message "#014 - Updating the app version 1.0.11"
+eas update --branch preview --message "#015 - Updating the app version 1.0.12"
+eas update --branch preview --message "#016 - Updating the app version 1.0.13"
+eas update --branch preview --message "#014 - Updating the app version 1.0.14"
 
 eas build --platform android --profile preview
 eas build --platform android --profile production
+
+npx expo start --clear
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

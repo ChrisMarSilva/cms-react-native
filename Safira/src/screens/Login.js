@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, } from 'react'
-import { SafeAreaView, View, Text, TextInput, Keyboard, TouchableOpacity, ActivityIndicator, Alert, KeyboardAvoidingView, Platform, } from 'react-native'
+import { StyleSheet, SafeAreaView, View, Text, TextInput, Keyboard, TouchableOpacity, ActivityIndicator, Alert, KeyboardAvoidingView, Platform, } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import Constants from 'expo-constants'
 import { FontAwesome, Feather, } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions, } from '@react-navigation/native'
 import * as Updates from 'expo-updates'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import * as CONSTANTE from '../util/Constante'
 import { colors } from '../styles'
 import { modificaEmail, modificaSenha, modificaMsgLogin, modificaLoginOKErro, autenticarUsuario, } from '../store/ducks/login'
@@ -36,7 +37,8 @@ const Login = (props) => {
 
   useEffect(() => {
     if (props.txtErroLogin != '') {
-      Alert.alert("", props.txtErroLogin, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgLogin('') })
+      // Alert.alert("", props.txtErroLogin, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgLogin('') })
+      alert('', props.txtErroLogin, { textConfirm: '     OK     ' });
       props.modificaMsgLogin('')
     }
   }, [props.txtErroLogin])
@@ -51,23 +53,15 @@ const Login = (props) => {
   const _VerificarAtualizacao = async () => {
     try {
 
-      if (__DEV__)
-        return  // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
+      if (__DEV__) return  // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
 
-      // setTxtStatusAtualizacao("Verificando atualizações...")
-      const update = await Updates.checkForUpdateAsync()
+      const update = await Updates.checkForUpdateAsync()  // setTxtStatusAtualizacao("Verificando atualizações...")
 
-      if (!update.isAvailable) {
-        // setTxtStatusAtualizacao("Você já está com a versão mais atual!!!")
-        return
-      }
+      if (!update.isAvailable) return  // setTxtStatusAtualizacao("Você já está com a versão mais atual!!!")
 
-      //setTxtStatusAtualizacao("Baixando nova versão...")
       setTxtStatusAtualizacao("NOVA VERSÃO DISPONÍVEL")
-      await Updates.fetchUpdateAsync()
-
-      // setTxtStatusAtualizacao("Reiniciando aplicativo...")
-      Updates.reloadAsync()
+      await Updates.fetchUpdateAsync()  //setTxtStatusAtualizacao("Baixando nova versão...")
+      await Updates.reloadAsync()  // setTxtStatusAtualizacao("Reiniciando aplicativo...")
 
     } catch (err) {
       setTxtStatusAtualizacao(err)
@@ -170,13 +164,28 @@ const Login = (props) => {
       </KeyboardAvoidingView>
 
       <View style={{ marginTop: 20, alignItems: 'center', }}>
-        <Text style={{ fontSize: 12, color: colors.cinza_escuro, }}>{txtStatusAtualizacao}</Text>
-        <Text style={{ fontSize: 12, color: colors.cinza_escuro, fontWeight: 'bold', }}>Versão: {Constants.manifest?.version}</Text>
+        <Text style={{ fontSize: 12, color: colors.cinza_escuro, }}>
+          {txtStatusAtualizacao}
+        </Text>
+        <Text style={{ fontSize: 12, color: colors.cinza_escuro, fontWeight: 'bold', }}>
+          Versão: {CONSTANTE.VERSAO_APP}
+        </Text>
       </View>
+
+      <SuperAlert customStyle={styles.customStyle} />
 
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  customStyle: {
+    container: { backgroundColor: '#e8e8e8', borderRadius: 10, },
+    message: { color: '#4f4f4f', fontSize: 20, },
+    buttonConfirm: { backgroundColor: '#4490c7', borderRadius: 10, },
+    textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+  },
+});
 
 const mapStateToProps = state => ({
 

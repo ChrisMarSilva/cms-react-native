@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef, } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Dimensions, FlatList, Keyboard, Alert, } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Dimensions, FlatList, Keyboard, Alert, } from 'react-native'
 import { FontAwesome, } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Modal from 'react-native-modal'
 import InputSpinner from "react-native-input-spinner"
 import uuid from 'react-native-uuid'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import { colors } from '../styles'
 import * as CONSTANTE from '../util/Constante'
 import HomeModalProdutoObservacao from './HomeModalProdutoObservacao'
@@ -105,7 +107,8 @@ const HomeModalProduto = (props) => {
         const produtos = props.listaProdutoFull.filter((item) => item.codigo.toString().trim() == codigo)
 
         if (produtos == null || produtos.length <= 0) {
-            Alert.alert("", 'Produto não localizado!')
+            //Alert.alert('', 'Produto não localizado!')
+            alert('', 'Produto não localizado!', { textConfirm: '     OK     ' });
             refInputProduto.current.focus()
             return false
         }
@@ -178,23 +181,43 @@ const HomeModalProduto = (props) => {
 
         codigo = codigo.padStart(4, '0')
 
-        Alert.alert("", "Deseja excluir o Produto " + codigo + "?\n\n" + descricao,
-            [
-                {
-                    text: "SIM",
-                    onPress: () => {
-                        const lista = props.listaPedidoProduto.map(item => (
-                            item.id.toString().trim() == id && item.codigo.toString().trim().padStart(4, '0') == codigo
-                                ? { ...item, status: 'exc-pend' }
-                                : item
-                        ))
-                        props.modificaListaPedidoProduto(lista)
-                    }
+        // Alert.alert('', 'Deseja excluir o Produto ' + codigo + '?\n\n' + descricao,
+        //     [
+        //         {
+        //             text: "SIM",
+        //             onPress: () => {
+        //                 const lista = props.listaPedidoProduto.map(item => (
+        //                     item.id.toString().trim() == id && item.codigo.toString().trim().padStart(4, '0') == codigo
+        //                         ? { ...item, status: 'exc-pend' }
+        //                         : item
+        //                 ))
+        //                 props.modificaListaPedidoProduto(lista)
+        //             }
+        //         },
+        //         { text: "NÃO", style: "cancel" },
+        //     ],
+        //     { cancelable: true, }
+        // );
+
+        alert(
+            '',
+            'Deseja excluir o Produto ' + codigo + '?\n\n' + descricao,
+            {
+                textConfirm: '     SIM     ',
+                textCancel: '     NÃO     ',
+                onConfirm: () => {
+                    const lista = props.listaPedidoProduto.map(item => (
+                        item.id.toString().trim() == id && item.codigo.toString().trim().padStart(4, '0') == codigo
+                            ? { ...item, status: 'exc-pend' }
+                            : item
+                    ))
+                    props.modificaListaPedidoProduto(lista);
+                    refInputProduto.current.focus();
                 },
-                { text: "NÃO", style: "cancel" },
-            ],
-            { cancelable: true, }
-        )
+            },
+        );
+
+
     }
 
     const _onPressObservacao = async (id = '', codigo = '', descricao = '', quantidade = 0, observacao = '') => {
@@ -214,13 +237,25 @@ const HomeModalProduto = (props) => {
             return
         }
 
-        Alert.alert("", "Deseja cancelar as alterações?",
-            [
-                { text: "SIM", onPress: () => _CancelarAlteracoes() },
-                { text: "NÃO", style: "cancel", }, // onPress: () => _ConfirmarAlteracoes() 
-            ],
-            { cancelable: true }
-        )
+        // Alert.alert('', 'Deseja cancelar as alterações?',
+        //     [
+        //         { text: "SIM", onPress: () => _CancelarAlteracoes() },
+        //         { text: "NÃO", style: "cancel", }, // onPress: () => _ConfirmarAlteracoes() 
+        //     ],
+        //     { cancelable: true }
+        // );
+
+        alert(
+            '',
+            'Deseja cancelar as alterações?',
+            {
+                textConfirm: '     SIM     ',
+                textCancel: '     NÃO     ',
+                onConfirm: () => _CancelarAlteracoes(),
+                // onCancel: () => _ConfirmarAlteracoes(),
+            },
+        );
+
     }
 
     const _LocalizarProduto = async (codigo) => {
@@ -345,6 +380,8 @@ const HomeModalProduto = (props) => {
                         />
                     </View>
                 </View>
+
+                <SuperAlert customStyle={styles.customStyle} />
 
                 <View style={{ flex: 1, }}>
                     <FlatList
@@ -482,6 +519,17 @@ const HomeModalProdutoItem = (props) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    customStyle: {
+        container: { backgroundColor: '#e8e8e8', borderRadius: 10, },
+        message: { color: '#4f4f4f', fontSize: 20, },
+        buttonCancel: { backgroundColor: '#c94040', borderRadius: 10, },
+        buttonConfirm: { backgroundColor: '#059918', borderRadius: 10, },
+        textButtonCancel: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+        textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+    },
+});
 
 const mapStateToProps = state => ({
 

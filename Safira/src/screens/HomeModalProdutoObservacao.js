@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, } from 'react'
-import { View, Text, TouchableOpacity, Dimensions, Keyboard, TextInput, Alert, Platform, } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, Keyboard, TextInput, Alert, Platform, } from 'react-native'
 import { FontAwesome, } from '@expo/vector-icons'
 import Modal from 'react-native-modal'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import { colors } from '../styles'
 
 const deviceWidth = Dimensions.get('window').width
@@ -64,13 +66,25 @@ const HomeModalProdutoObservacao = (props) => {
             return
         }
 
-        Alert.alert("", "Deseja cancelar as alterações?",
-            [
-                { text: "SIM", onPress: () => _CancelarAlteracoes() },
-                { text: "NÃO", style: "cancel", }, // onPress: () => _ConfirmarAlteracoes() 
-            ],
-            { cancelable: true }
-        )
+        // Alert.alert('', 'Deseja cancelar as alterações?',
+        //     [
+        //         { text: "SIM", onPress: () => _CancelarAlteracoes() },
+        //         { text: "NÃO", style: "cancel", }, // onPress: () => _ConfirmarAlteracoes() 
+        //     ],
+        //     { cancelable: true }
+        // );
+
+        alert(
+            '',
+            'Deseja cancelar as alterações?',
+            {
+                textConfirm: '     SIM     ',
+                textCancel: '     NÃO     ',
+                onConfirm: () => _CancelarAlteracoes(),
+                // onCancel: () => _ConfirmarAlteracoes(),
+            },
+        );
+
     }
 
     const _CancelarAlteracoes = async () => {
@@ -124,6 +138,8 @@ const HomeModalProdutoObservacao = (props) => {
                     />
                 </View>
 
+                <SuperAlert customStyle={styles.customStyle} />
+
                 <View style={{ flexDirection: 'row', height: 70, marginTop: 20, marginBottom: 10 }}>
                     <View style={{ flex: 1, alignItems: 'flex-start', }}>
                         <TouchableOpacity onPress={() => _onPressCancelar()} style={{ height: 70, width: 70, shadowColor: colors.preto, shadowOffset: { width: 0, height: 4, }, shadowOpacity: 0.32, shadowRadius: 5.46, elevation: 10, backgroundColor: colors.branco, borderRadius: 50, justifyContent: 'center', alignItems: 'center', }}>
@@ -143,6 +159,16 @@ const HomeModalProdutoObservacao = (props) => {
     )
 }
 
+const styles = StyleSheet.create({
+    customStyle: {
+        container: { backgroundColor: '#e8e8e8', borderRadius: 10, },
+        message: { color: '#4f4f4f', fontSize: 20, },
+        buttonCancel: { backgroundColor: '#c94040', borderRadius: 10, },
+        buttonConfirm: { backgroundColor: '#059918', borderRadius: 10, },
+        textButtonCancel: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+        textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+    },
+});
 
 const mapStateToProps = state => ({
 

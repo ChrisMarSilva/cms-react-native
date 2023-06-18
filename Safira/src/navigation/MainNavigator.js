@@ -4,9 +4,9 @@ import { CommonActions, } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem, } from '@react-navigation/drawer';
 import { FontAwesome, Ionicons, } from '@expo/vector-icons';
-import Constants from 'expo-constants';
 import { connect } from 'react-redux';
 
+import * as CONSTANTE from '../util/Constante'
 import { colors } from '../styles';
 import { modificaLoginOKErro, desautenticarUsuario, } from '../store/ducks/login';
 import LoginScreen from '../screens/Login';
@@ -128,7 +128,7 @@ function CustomDrawerContent(props) {
 
             <View style={{ alignItems: 'center', marginTop: 20, }}>
                 <Text style={{ color: colors.branco, fontSize: 12, fontWeight: 'bold', }}>
-                    Versão: {Constants.manifest?.version}
+                    Versão: {CONSTANTE.VERSAO_APP}
                 </Text>
             </View>
 

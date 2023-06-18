@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, } from 'react'
-import { SafeAreaView, View, Text, TouchableOpacity, Alert, FlatList, Keyboard, Platform, ActivityIndicator, } from 'react-native'
+import { StyleSheet, SafeAreaView, View, Text, TouchableOpacity, Alert, FlatList, Keyboard, Platform, ActivityIndicator, } from 'react-native'
 import { FontAwesome, Ionicons, } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Constants from 'expo-constants'
 import * as Device from 'expo-device'
 import { connect } from 'react-redux'
+import SuperAlert from "react-native-super-alert";
+
 import { colors } from '../styles'
 import * as CONSTANTE from '../util/Constante'
 import { modificaUrl, } from '../store/ducks/config'
@@ -46,7 +47,8 @@ const Home = (props) => {
 
   useEffect(() => {
     if (props.txtErroPedido != '') {
-      Alert.alert("", props.txtErroPedido, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgPedido('') })
+      // Alert.alert("", props.txtErroPedido, [{ text: "OK" }], { cancelable: true, onDismiss: () => props.modificaMsgPedido('') })
+      alert('', props.txtErroPedido, { textConfirm: '     OK     ' });
       props.modificaMsgPedido('')
     }
   }, [props.txtErroPedido])
@@ -132,19 +134,33 @@ const Home = (props) => {
 
     codigo = codigo.toString().trim().padStart(4, '0')
 
-    Alert.alert("", "Deseja excluir o Produto " + codigo + "?\n\n" + descricao,
-      [
-        {
-          text: "SIM",
-          onPress: () => {
-            const lista = props.listaPedidoProduto.filter(item => item.id.toString().trim() != id) // && item.codigo.toString().trim().padStart(4, '0') != codigo
-            props.modificaListaPedidoProduto(lista)
-          }
+    // Alert.alert('', 'Deseja excluir o Produto ' + codigo + '?\n\n' + descricao,
+    //   [
+    //     {
+    //       text: "SIM",
+    //       onPress: () => {
+    //         const lista = props.listaPedidoProduto.filter(item => item.id.toString().trim() != id) // && item.codigo.toString().trim().padStart(4, '0') != codigo
+    //         props.modificaListaPedidoProduto(lista)
+    //       }
+    //     },
+    //     { text: "NÃO", style: "cancel", },
+    //   ],
+    //   { cancelable: true, }
+    // );
+
+    alert(
+      '',
+      'Deseja excluir o Produto ' + codigo + '?\n\n' + descricao,
+      {
+        textConfirm: '     SIM     ',
+        textCancel: '     NÃO     ',
+        onConfirm: () => {
+          const lista = props.listaPedidoProduto.filter(item => item.id.toString().trim() != id); // && item.codigo.toString().trim().padStart(4, '0') != codigo
+          props.modificaListaPedidoProduto(lista);
         },
-        { text: "NÃO", style: "cancel", },
-      ],
-      { cancelable: true, }
-    )
+      },
+    );
+
   }
 
   const _onPressObservacaoProduto = async (id = '', codigo = '', descricao = '', quantidade = 0, observacao = '') => {
@@ -166,7 +182,25 @@ const Home = (props) => {
       return
     }
 
-    Alert.alert("", "Cancelar Pedido?", [{ text: "SIM", onPress: () => _LimparDados() }, { text: "NÃO", style: "cancel" }], { cancelable: true })
+    // Alert.alert('', 'Cancelar Pedido?',
+    //   [
+    //     { text: "SIM", onPress: () => _LimparDados() },
+    //     { text: "NÃO", style: "cancel" }
+    //   ],
+    //   { cancelable: true }
+    // );
+
+    alert(
+      '',
+      'Cancelar Pedido?',
+      {
+        textConfirm: '     SIM     ',
+        textCancel: '     NÃO     ',
+        onConfirm: () => _LimparDados(),
+      },
+    );
+
+
   }
 
   const _onPressShowModalProduto = async (codigo = '', descricao = '') => {
@@ -388,6 +422,9 @@ const Home = (props) => {
         </View>
 
       </View>
+
+      <SuperAlert customStyle={styles.customStyle} />
+
       <View style={{ flexDirection: 'row', marginHorizontal: 10, height: 70, marginBottom: 5, }}>
         <View style={{ flex: 1, alignItems: 'flex-start', }}>
           <TouchableOpacity
@@ -414,7 +451,7 @@ const Home = (props) => {
 
       <View style={{ alignItems: 'center', }}>
         <Text style={{ color: colors.cinza_escuro, fontSize: 12, fontWeight: 'bold', }}>
-          Versão: {Constants.manifest?.version}
+          Versão: {CONSTANTE.VERSAO_APP}
         </Text>
       </View>
 
@@ -502,6 +539,17 @@ const HomeProduoItem = (props) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  customStyle: {
+    container: { flex: 1, backgroundColor: '#e8e8e8', borderRadius: 10, },
+    message: { color: '#4f4f4f', fontSize: 20, },
+    buttonCancel: { backgroundColor: '#c94040', borderRadius: 10, },
+    buttonConfirm: { backgroundColor: '#059918', borderRadius: 10, },
+    textButtonCancel: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+    textButtonConfirm: { color: '#fff', fontWeight: 'bold', fontSize: 25, },
+  },
+});
 
 const mapStateToProps = state => ({
 

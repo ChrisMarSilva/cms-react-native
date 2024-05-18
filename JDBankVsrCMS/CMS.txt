@@ -1,0 +1,55 @@
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm install
+expo doctor --fix-dependencies
+npm install -g expo-cli
+
+yarn start
+expo start
+npm start
+
+npm start --reset-cache
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm install npm@latest -g
+npm update -g
+npm update --save
+
+npm i npm-check-updates -g
+npx npm-check-updates -u
+npm install
+
+npm update -g expo-cli
+npm update -g lottie-react-native 
+npm update -g react-native-screens
+
+
+axios                                      ^0.19.0  →    ^1.6.8
+ babel-preset-expo                           ~8.0.0  →   ~11.0.6
+ expo                                       ~36.0.0  →   ~51.0.5
+ expo-av                                     ^8.0.0  →   ^14.0.4
+ expo-barcode-scanner                        ^8.0.0  →   ^13.0.1
+ jetifier                                    ^1.6.5  →    ^2.0.0
+ lodash                                    ^4.17.15  →  ^4.17.21
+ lottie-ios                                  ^3.1.3  →    ^4.4.3
+ lottie-react-native                         ~2.6.1  →    ~6.7.2
+ react                                       16.9.0  →    18.3.1
+ react-dom                                  ~16.9.0  →   ~18.3.1
+ react-native                                0.61.5  →    0.74.1
+ react-native-console-time-polyfill          ^1.2.1  →    ^1.2.3
+ react-native-gesture-handler                ^1.5.2  →   ^2.16.2
+ react-native-reanimated                     ^1.4.0  →   ^3.11.0
+ react-native-screens                2.0.0-alpha.12  →    3.31.1
+ react-native-timeline-flatlist              ^0.5.0  →    ^0.8.0
+ react-native-web                           ~0.11.7  →  ~0.19.11
+ react-redux                                 ^7.1.3  →    ^9.1.2
+ redux                                       ^4.0.5  →    ^5.0.1
+ redux-thunk                                 ^2.3.0  →    ^3.1.0
+
+ 
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

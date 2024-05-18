@@ -1,0 +1,140 @@
+
+JDMobile2024
+
+  quinta  - 16/05/2024 18:00:00 - 17/05/2024 02:00:00 - 08h ===> util, splash, perfil, login_cadastro
+  sexta   - 17/05/2024 06:00:00 - 17/05/2024 19:00:00 - 13h ===> actions, login, cobrar_alguem, cobrar_alguem_recibo, cobrar_alguem_qrcode, pagar_transferir, pagar_transferir_confirma, pagar_transferir_recibo, movimentacao
+  sexta   - 17/05/2024 20:00:00 - 18/05/2024 01:00:00 - 05h ===> arrumar as chamadas das APIs
+  sabado  - 18/05/2024 07:00:00 - 18/05/2024 16:00:00 - 09h ===> arrumar as chamadas das APIs
+  domingo - 18/05/2024 07:00:00 - 18/05/2024 16:00:00 - 00h ===> ajustar layout
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npx create-expo-app@latest -y
+npm run reset-project
+npx expo start -c
+
+-- RECEBEDOR: npx json-server --watch db_rec.json --port 3001
+-- PAGADOR:   npx json-server --watch db_pag.json --port 3002
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npm i -D json-server
+npm install --save-dev prettier
+npm run format
+"trailingComma": "es5", // "none"
+npm init @eslint/config
+
+npm i react-native-console-time-polyfill --save
+npx expo install lodash
+npx expo install axios
+npx expo install expo-av
+npx expo install expo-camera
+npx expo install expo-linear-gradient
+npx expo install expo-barcode-scanner
+npx expo install lottie-react-native
+npx expo install @react-native-async-storage/async-storage
+#npm i  lottie-ios@3.1.3 --save
+npm i react-native-masked-text --save
+#npm i rb-react-native-masked-text
+#npm i react-native-mask-text --save
+#npm i react-native-mask-input --save
+npm i react-native-timeline-flatlist --save
+npm i @microsoft/signalr --save
+#npm i @aspnet/signalr --save
+
+npm uninstall axios
+npm uninstall lodash
+npm i axios --save
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userURL: ${userURL}`)
+console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userChave: ${userChave}`)
+console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userIspb: ${userIspb}`)
+console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userNomeBanco: ${userNomeBanco}`)
+console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userBGColor: ${userBGColor}`)
+console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userIcon: ${userIcon}`)
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+JDSPI - Sistema de Pagamento Instantâneos
+
+04358798 - JD Bank - IF Pagadora
+84701762 - J3 Bank - IF Recebedora
+
+ - Cadastro      : POST - https://jdspi.azurewebsites.net/spi/api/chave
+ - Login         : GET  - https://jdspi.azurewebsites.net/spi/api/chave
+ - GerarQRCode   : POST - https://jdspi.azurewebsites.net/spi/api/qrcode/estatico/GerarQRCode
+ - ValidarQRCode : POST - https://jdspi.azurewebsites.net/api/qrcode
+ - PagarQRCode   : POST - https://jdspi.azurewebsites.net/api/ 
+ - Recebido      : GET  - https://jdspi.azurewebsites.net/api/{headerId}/{mensagemId}  // "https://jdspi.azurewebsites.net/api/M0435879820191222151827091859167/E0435879820191222151800098293142" 
+ - Saldo         : GET  - https://jdspi.azurewebsites.net/api/saldo/{agencia}/{conta}  // /api/saldo/0001/12346-7
+
+https://jdspi-dict.azurewebsites.net/index.html
+
+JD Bank VERMELHO // 4358798 // +55 11 9 4212 3333 // VERMELHO PAGADOR // https://jdspi.azurewebsites.net/index.html
+
+{
+  "recebedor": {
+    "ispb": 4358798,
+    "tipoPessoa": 0,
+    "documento": 11111111111,
+    "agencia": "0001",
+    "conta": "12346-7",
+    "tipoConta": 0,
+    "nome": "JD VERMELHO PAGADOR"
+  },
+  "tipoChave": 0,
+  "chave": "+5511942123333"
+}
+
+
+J3 Bank AZUL // 84701762 // +5511942124444 // AZUL RECEBEDOR // https://j3spi.azurewebsites.net/index.html
+
+{
+  "recebedor": {
+    "ispb": 84701762,
+    "tipoPessoa": 0,
+    "documento": 22222222222,
+    "agencia": "0002",
+    "conta": "223456-8",
+    "tipoConta": 0,
+    "nome": "J3 AZUL RECEBEDOR"
+  },
+  "tipoChave": 0,
+  "chave": "+5511942125555"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+npm i -g eslint
+npm i -g eslint-config-rallycoding --save-dev
+npm i react-devtools --save
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+expo init JDBankTeste
+expo start --android
+expo publish
+
+https://expo.io/dashboard
+user chris.mar.silva
+pass #Chrs2387
+
+  expo build:android -t apk
+  expo build:android --clear-credentials --release-channel build-1.0.0
+  expo build:android --clear-credentials --release-channel build-1.0.1
+  expo fetch:android:keystore
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------

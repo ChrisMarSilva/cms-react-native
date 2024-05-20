@@ -1,18 +1,20 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useContext } from 'react'
 import { Text, View, Image, TouchableOpacity, ActivityIndicator, Alert, Animated, Easing } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import LottieView from 'lottie-react-native'
-import axios from 'axios'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as CONSTANTE from '@/src/util/Constante'
+import { createQrCode } from '@/src/services/qrcodeService'
 
-import imglogoJD from '@/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/assets/imgs/icon-blue.png'
+import imglogoJD from '@/src/assets/imgs/icon-red.png'
+import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
 
 export default function CobrarAlguemQrCodeScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
 	const params = useLocalSearchParams()
 
@@ -20,16 +22,17 @@ export default function CobrarAlguemQrCodeScreen() {
 	const [encodedData, setEncodedData] = useState(null)
 	const [isLoadingGerarQRCode, setIsLoadingGerarQRCode] = useState(true)
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
 	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = (params.userBGColor || CONSTANTE.BG_VERMELHO) == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 	const valor = HelperNumero.isNumber(params.valorReceber || '0') ? parseFloat(params.valorReceber || '0') : 0
 
 	useEffect(() => {
 		setEncodedData(null)
 		setIsLoadingGerarQRCode(true)
+
 		_GetGerarQRCode()
 	}, [])
 
@@ -54,7 +57,7 @@ export default function CobrarAlguemQrCodeScreen() {
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
 					<Text
 						style={{
 							marginLeft: 5,
@@ -68,8 +71,8 @@ export default function CobrarAlguemQrCodeScreen() {
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.navigate('/home')}>
+				<View>
+					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
 						<FontAwesome
 							style={{
 								marginRight: 10,
@@ -90,40 +93,18 @@ export default function CobrarAlguemQrCodeScreen() {
 			setEncodedData(null)
 			setIsLoadingGerarQRCode(true)
 
-			axios({
-				method: 'post',
-				url: (params.userURL || CONSTANTE.URL_PAGADOR) + CONSTANTE.URL_GERAR_QRCODE,
-				timeout: CONSTANTE.URL_TIMEOUT,
-				responseType: 'text',
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-				data: JSON.parse(` {"chaveIdentificacao":"${params.userChave}","nomeRecebedor":"${params.userNome}","cidade":"${params.userCidade}","valor":${valor}}`),
-			})
-				.then((response) => {
-					let data = response.data
+			const data = await createQrCode(currentUser.url, currentUser.chave, currentUser.nome, currentUser.cidade, valor)
 
-					// data = 'iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAYAAAAZtYVBAAAAAklEQVR4AewaftIAAAY1SURBVO3BQY4cy5LAQDLQ978yR0tfJZCoar34GjezP1jrEoe1LnJY6yKHtS5yWOsih7UucljrIoe1LnJY6yKHtS5yWOsih7UucljrIoe1LnJY6yKHtS7yw4dU'
-					// data = '00020101021126360014br.gov.bcb.spi0114+55119421246815204000053039865802BR5906Fulano6009São Paulo63041689' //  0,00 ok
-					// data = '00020101021126360014br.gov.bcb.spi0114+55119421200015204000053039865406100.005802BR5913Fulano de Tal6009São Paulo63041A9B' // 100,00 ok
-					// data = '00020101021126360014br.gov.bcb.spi0114+55119421200055204000053039865406100.005802BR5909Anderson 6009São Paulo63040CB1' // 100,00 ok
-					// data = '00020101021126360014br.gov.bcb.spi0114+55119421255555204000053039865406100.005802BR5917J3 AZUL RECEBEDOR6009São Paulo630417AC'
-					// data = '00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC'
-					// data = 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBQTFRF7c5J78kt+/Xm78lQ6stH5LI36bQh6rcf7sQp671G89ZZ8c9V8c5U9+u27MhJ/Pjv9txf8uCx57c937Ay5L1n58Nb67si8tVZ5sA68tJX/Pfr7dF58tBG9d5e8+Gc6chN6LM+7spN1pos6rYs6L8+47hE7cNG6bQc9uFj7sMn4rc17cMx3atG8duj+O7B686H7cAl7cEm7sRM26cq/vz5/v767NFY7tJM78Yq8s8y3agt9dte6sVD/vz15bY59Nlb8txY9+y86LpA5LxL67pE7L5H05Ai2Z4m58Vz89RI7dKr+/XY8Ms68dx/6sZE7sRCzIEN0YwZ67wi6rk27L4k9NZB4rAz7L0j5rM66bMb682a5sJG6LEm3asy3q0w3q026sqC8cxJ6bYd685U5a457cIn7MBJ8tZW7c1I7c5K7cQ18Msu/v3678tQ3aMq7tNe6chu6rgg79VN8tNH8c0w57Q83akq7dBb9Nld9d5g6cdC8dyb675F/v327NB6////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/LvB3QAAAMFJREFUeNpiqIcAbz0ogwFKm7GgCjgyZMihCLCkc0nkIAnIMVRw2UhDBGp5fcurGOyLfbhVtJwLdJkY8oscZCsFPBk5spiNaoTC4hnqk801Qi2zLQyD2NlcWWP5GepN5TOtSxg1QwrV01itpECG2kaLy3AYiCWxcRozQWyp9pNMDWePDI4QgVpbx5eo7a+mHFOqAxUQVeRhdrLjdFFQggqo5tqVeSS456UEQgWE4/RBboxyC4AKCEI9Wu9lUl8PEGAAV7NY4hyx8voAAAAASUVORK5CYII='
-					// data = 'iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='
-					data = 'iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQAAAACFI5MzAAABGUlEQVR42u2YSw7DIAxEzYpjcFM+N+UYrErtMUkjpd2WWQQlyudtLI89JpH5a8lDHvJnUkVXmkMPKcMeAg1peo70inrpRbm/ISFDwkhNX4NUSWxEo26WVFKisgc2ArWncSO3OthJvEs0nTju/bOT+NJKzJK++c5OovJWRIob2AwNsf6YXWJ3eFGbgXS4skgEGafaDGSifVONS/ZCQ/Q2YI5l8BdSS0ImwtTezehjiM9C3FG8fbVdykft/URTeEY918hlIZZFC9Yq0Rw6ns63nyxXtkTCYK6VuJv4NKvmMdgFMBHfBbRjb8JFxgoWW04RPmKfEaY2pgcZcT/OsL3GQ5baFrUN23iZZrvJ6pKjDJFXFvL8P3jIfvIGvNX7jsCaJvEAAAAASUVORK5CYII='
-
-					setEncodedData(data)
-					setIsLoadingGerarQRCode(false)
-				})
-				.catch((err) => {
-					Alert.alert('Erro Chamada: ' + err.messag)
-				})
+			setEncodedData(data)
+			setIsLoadingGerarQRCode(false)
 		} catch (err) {
+			console.error('_GetGerarQRCode:', err)
 			Alert.alert('Erro Geral: ' + err.messag)
 		}
 	}
 
 	const _goToOpenScreenCobrarAlguemAgain = () => {
-		router.navigate({
+		router.replace({
 			pathname: '/cobrar_alguem',
 			params: { valorReceber: '0' },
 		})
@@ -162,7 +143,7 @@ export default function CobrarAlguemQrCodeScreen() {
 								height: 200,
 							}}
 							ref={animation}
-							source={require('@/assets/lottie/201-simple-loader.json')}
+							source={require('@/src/assets/lottie/201-simple-loader.json')}
 							autoPlay
 							loop
 						/>

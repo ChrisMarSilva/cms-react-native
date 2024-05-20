@@ -1,28 +1,30 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useContext } from 'react'
 import { Text, View, Image, TouchableOpacity, ActivityIndicator, Animated, Easing } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import LottieView from 'lottie-react-native'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/assets/imgs/icon-blue.png'
+import imglogoJD from '@/src/assets/imgs/icon-red.png'
+import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
 
 export default function CobrarAlguemReciboScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
 	const params = useLocalSearchParams()
 	const animation = useRef(null)
 
 	const [isLoadingRecebimento, setIsLoadingRecebimento] = useState(true)
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
 	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = (params.userBGColor || CONSTANTE.BG_VERMELHO) == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		setIsLoadingRecebimento(true)
@@ -55,7 +57,7 @@ export default function CobrarAlguemReciboScreen() {
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
 					<Text
 						style={{
 							marginLeft: 5,
@@ -69,7 +71,7 @@ export default function CobrarAlguemReciboScreen() {
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
+				<View>
 					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={_OnPressHome}>
 						<FontAwesome
 							style={{
@@ -88,26 +90,13 @@ export default function CobrarAlguemReciboScreen() {
 
 	const _OnPressHome = async () => {
 		const valor = HelperNumero.isNumber(params.valorPagRec || '0,00') ? parseFloat(params.valorPagRec || '0,00') : 0
-		const saldo = HelperNumero.isNumber(params.userSaldo || '0,00') ? parseFloat(params.userSaldo || '0,00') : 0
+		const saldo = HelperNumero.isNumber(currentUser.saldo || '0,00') ? parseFloat(currentUser.saldo || '0,00') : 0
+
+		currentUser.setSaldo(saldo + valor)
 
 		router.replace({
 			pathname: '/home',
 			params: {
-				userURL: params.userURL,
-				userChave: params.userChave,
-				userIspb: params.userIspb,
-				userNomeBanco: params.userNomeBanco,
-				userTipoPessoa: params.userTipoPessoa,
-				userDocumento: params.userDocumento,
-				userAgencia: params.userAgencia,
-				userConta: params.userConta,
-				userTipoConta: params.userTipoConta,
-				userNome: params.userNome,
-				userCidade: params.userCidade,
-				userBGColor: params.userBGColor,
-				userIcon: params.userIcon,
-				userSaldo: saldo + valor,
-				visiblePagRec: false,
 				tipoPessoaPagRec: '',
 				documentoPagRec: '',
 				agenciaPagRec: '',
@@ -119,10 +108,9 @@ export default function CobrarAlguemReciboScreen() {
 	}
 
 	const _OnPressVerComprovante = async () => {
-		router.navigate({
+		router.replace({
 			pathname: '/home',
 			params: {
-				visiblePagRec: false,
 				tipoPessoaPagRec: '',
 				documentoPagRec: '',
 				agenciaPagRec: '',
@@ -159,7 +147,7 @@ export default function CobrarAlguemReciboScreen() {
 								marginBottom: 20,
 							}}
 							ref={animation}
-							source={require('@/assets/lottie/1309-smiley-stack-02.json')}
+							source={require('@/src/assets/lottie/1309-smiley-stack-02.json')}
 							autoPlay
 							loop
 						/>

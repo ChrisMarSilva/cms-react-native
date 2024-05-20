@@ -1,34 +1,42 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Text, View, TouchableOpacity, Alert, Image, BackHandler, Platform } from 'react-native'
-import { router, useNavigation, useLocalSearchParams } from 'expo-router'
+import { router, useNavigation } from 'expo-router'
 import { Audio } from 'expo-av'
 import { LinearGradient } from 'expo-linear-gradient'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
-import axios from 'axios'
 import * as signalR from '@microsoft/signalr'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as CONSTANTE from '@/src/util/Constante'
+import { getSaldo } from '@/src/services/saldoService'
 
-import imglogoJD from '@/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/assets/imgs/logo-blue.png'
-import imgBluePerson from '@/assets/imgs/person-blue.jpg'
-import imgRedPerson from '@/assets/imgs/person-red.jpg'
+import imglogoJD from '@/src/assets/imgs/logo-red.png'
+import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
+import imgBluePerson from '@/src/assets/imgs/person-blue.jpg'
+import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 
 export default function HomeScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
-	const params = useLocalSearchParams()
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const [isVisiblePagRec, setIsVisiblePagRec] = useState(false)
+	const [tipoPessoaPagRec, setTipoPessoaPagRec] = useState('')
+	const [documentoPagRec, setDocumentoPagRec] = useState('')
+	const [agenciaPagRec, setAgenciaPagRec] = useState('')
+	const [contaPagRec, setContaPagRec] = useState('')
+	const [nomePagRec, setNomePagRec] = useState('')
+	const [valorPagRec, setValorPagRec] = useState(0)
+
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userBGColorScreen = params.userBGColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
-	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userSaldo = HelperNumero.isNumber(params.userSaldo || '0,00') ? parseFloat(params.userSaldo || '0,00') : 0
-	const userIcon = params.userBGColor == CONSTANTE.BG_VERMELHO ? imgRedPerson : imgBluePerson
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
-		router.setParams({ userSaldo: 0, visiblePagRec: false })
+		currentUser.setSaldo(0)
+		setIsVisiblePagRec(false)
+
 		_getDadosSessao()
 		_getDadosSaldo()
 		_getDadosRecebimentoSignalR()
@@ -36,21 +44,20 @@ export default function HomeScreen() {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackTitleVisible: false,
 			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
 			headerLeft: () => (
 				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userlogo} />
+					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{params.userNomeBanco}</Text>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
+					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{currentUser.nomeBanco}</Text>
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
-					{params.visiblePagRec ? (
+				<View>
+					{isVisiblePagRec ? (
 						<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={_onPressNotificacao}>
 							<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="bell-o" />
 						</TouchableOpacity>
@@ -61,92 +68,59 @@ export default function HomeScreen() {
 	}, [navigation])
 
 	const _getDadosSessao = async () => {
-		router.setParams({
-			userURL: await HelperSessao.GetUserURL(),
-			userChave: await HelperSessao.GetUserChave(),
-			userIspb: await HelperSessao.GetUserIspb(),
-			userNomeBanco: await HelperSessao.GetUserNomeBanco(),
-			userTipoPessoa: await HelperSessao.GetUserTipoPessoa(),
-			userDocumento: await HelperSessao.GetUserDocumento(),
-			userAgencia: await HelperSessao.GetUserAgencia(),
-			userConta: await HelperSessao.GetUserConta(),
-			userTipoConta: await HelperSessao.GetUserTipoConta(),
-			userNome: await HelperSessao.GetUserNome(),
-			userCidade: await HelperSessao.GetUserCidade(),
-			userIcon: await HelperSessao.GetUserBGColor(),
-			userBGColor: await HelperSessao.GetUserIcon(),
-		})
+		// currentUser.setUrl(await HelperSessao.GetUserURL())
+		// currentUser.setChave(await HelperSessao.GetUserChave())
+		// currentUser.setTipoPessoa(await HelperSessao.GetUserTipoPessoa())
+		// currentUser.setNome(await HelperSessao.GetUserNome())
+		// currentUser.setDocumento(await HelperSessao.GetUserDocumento())
+		// currentUser.setCidade(await HelperSessao.GetUserCidade())
+		// currentUser.setIspb(await HelperSessao.GetUserIspb())
+		// currentUser.setNomeBanco(await HelperSessao.GetUserNomeBanco())
+		// currentUser.setAgencia(await HelperSessao.GetUserAgencia())
+		// currentUser.setTipoConta(await HelperSessao.GetUserTipoConta())
+		// currentUser.setConta(await HelperSessao.GetUserConta())
+		// currentUser.setIcon(await HelperSessao.GetUserIcon())
+		// currentUser.setBgColor(await HelperSessao.GetUserBGColor())
 	}
 
-	const _getDadosSaldo = () => {
+	const _getDadosSaldo = async () => {
 		try {
-			axios({
-				method: 'get',
-				//url: (params.userURL || CONSTANTE.URL_PAGADOR) + CONSTANTE.URL_GET_SALDO + '/' + params.userAgencia + '/' + params.userConta, // CERTO
-				url: (params.userURL || CONSTANTE.URL_PAGADOR) + CONSTANTE.URL_GET_SALDO + '/' + encodeURIComponent(escape(params.userAgencia + '+' + params.userConta)), // DESENV
-				timeout: CONSTANTE.URL_TIMEOUT,
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			})
-				.then((response) => {
-					try {
-						const saldo = response?.data?.saldo ? response.data.saldo : response.data
-						router.setParams({ userSaldo: HelperNumero.isNumber(saldo) ? parseFloat(saldo) : 0 })
-					} catch (err) {
-						Alert.alert('Erro(Response): ' + err.message)
-					}
-				})
-				.catch((err) => {
-					Alert.alert('Erro(Requição): ' + err.message)
-				})
+			const data = await getSaldo(currentUser.url, currentUser.agencia, currentUser.conta)
+
+			currentUser.setSaldo(HelperNumero.isNumber(data) ? parseFloat(data) : 0)
 		} catch (err) {
+			console.error(err)
 			Alert.alert('Erro(Geral): ' + err.message)
 		}
 	}
 
-	const _getDadosRecebimentoSignalR = () => {
-		router.setParams({
-			userURL: params.userURL,
-			userChave: params.userChave,
-			userIspb: params.userIspb,
-			userNomeBanco: params.userNomeBanco,
-			userTipoPessoa: params.userTipoPessoa,
-			userDocumento: params.userDocumento,
-			userAgencia: params.userAgencia,
-			userConta: params.userConta,
-			userTipoConta: params.userTipoConta,
-			userNome: params.userNome,
-			userCidade: params.userCidade,
-			userBGColor: params.userBGColor,
-			userIcon: params.userIcon,
-			userSaldo: params.userSaldo,
-			visiblePagRec: true,
-			tipoPessoaPagRec: 'F',
-			documentoPagRec: '111.111.111-11',
-			agenciaPagRec: '8553',
-			contaPagRec: '05245-8',
-			nomePagRec: 'Fulando de Tal',
-			valorPagRec: '3000',
-		})
+	const _getDadosRecebimentoSignalR = async () => {
+		setTimeout(() => {
+			setIsVisiblePagRec(true)
+			setTipoPessoaPagRec('F')
+			setDocumentoPagRec('111.111.111-11')
+			setAgenciaPagRec('8553')
+			setContaPagRec('05245-8')
+			setNomePagRec('Fulando de Tal')
+			setValorPagRec('3000')
+		}, 2000)
 
 		// let connection = new signalR.HubConnectionBuilder()
 		// 	.withUrl(userURL + CONSTANTE.URL_RECEBE_PAGTO, { transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling, 'content-type': 'application/json' })
 		// 	.configureLogging(signalR.LogLevel.None)
 		// 	.build()
 		// connection.on('AtualizarSaldo', (agencia, conta, valor) => {
-		// 	if (params.userAgencia == agencia && params.userConta == conta) router.setParams({ userSaldo: HelperNumero.isNumber(valor) ? parseFloat(valor) : 0 })
+		// 	if (currentUser.agencia == agencia && currentUser.conta == conta) urrentUser.setSaldo(HelperNumero.isNumber(valor) ? parseFloat(valor) : 0)
 		// })
 		// connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor) => {
 		// 	_getTocarSom()
-		// 	router.setParams({
-		// 		visiblePagRec: true,
-		// 		tipoPessoaPagRec: tipoPessoa,
-		// 		documentoPagRec: documento,
-		// 		agenciaPagRec: agencia,
-		// 		contaPagRec: conta,
-		// 		nomePagRec: nome,
-		// 		valorPagRec: HelperNumero.isNumber(valor) ? parseFloat(valor) : 0,
-		// 		userBGColor: userBGColor || CONSTANTE.BG_VERMELHO,
-		// 	})
+		// setIsVisiblePagRec(true)
+		// setTipoPessoaPagRec(tipoPessoa)
+		// setDocumentoPagRec(documento)
+		// setAgenciaPagRec(agencia)
+		// setContaPagRec(conta)
+		// setNomePagRec(nome)
+		// setValorPagRec(HelperNumero.isNumber(valor) ? parseFloat(valor) : 0)
 		// 	_getDadosSaldo()
 		// })
 		// connection
@@ -158,7 +132,7 @@ export default function HomeScreen() {
 
 	const _getTocarSom = async () => {
 		try {
-			const source = require('@/assets/sounds/02.mp3')
+			const source = require('@/src/assets/sounds/02.mp3')
 
 			await Audio.setAudioModeAsync({
 				allowsRecordingIOS: false,
@@ -186,63 +160,24 @@ export default function HomeScreen() {
 		}
 	}
 
-	const _onPressPagarTransferir = () => _onPressGenerico('/pagar_transferir')
-	const _onPressCobrarAlguem = () => _onPressGenerico('/cobrar_alguem')
-	const _onPressColocarDinheiro = () => _onPressGenerico('/colocar_dinheiro')
-	const _onPressMovimentacao = () => _onPressGenerico('/movimentacao')
-	const _onPressPerfil = () => _onPressGenerico('/perfil')
-
-	const _onPressGenerico = (nameScreen) => {
-		router.navigate({
-			pathname: nameScreen,
-			params: {
-				userURL: params.userURL || CONSTANTE.URL_PAGADOR,
-				userChave: params.userChave || '',
-				userIspb: params.userIspb || CONSTANTE.ISPB_PAGADOR,
-				userNomeBanco: params.userNomeBanco || CONSTANTE.NOME_PAGADOR,
-				userTipoPessoa: params.userTipoPessoa || '',
-				userDocumento: params.userDocumento || '',
-				userAgencia: params.userAgencia || '',
-				userConta: params.userConta || '',
-				userTipoConta: params.userTipoConta || '',
-				userNome: params.userNome || '',
-				userCidade: params.userCidade || '',
-				userSaldo: params.userSaldo || 0,
-				userBGColor: params.userBGColor || CONSTANTE.BG_VERMELHO,
-				userIcon: params.userIcon || CONSTANTE.ICON_PAGADOR,
-				valorReceber: 0,
-			},
-		})
-	}
+	const _onPressPagarTransferir = () => router.replace('/pagar_transferir')
+	const _onPressCobrarAlguem = () => router.replace('/cobrar_alguem')
+	const _onPressColocarDinheiro = () => router.replace('/colocar_dinheiro')
+	const _onPressMovimentacao = () => router.replace('/movimentacao')
+	const _onPressPerfil = () => router.replace('/perfil')
 
 	const _onPressNotificacao = () => {
-		// router.navigate({
-		// 	pathname: '/cobrar_alguem_recibo',
-		// 	params: {
-		// 		visiblePagRec: true,
-		// 		tipoPessoaPagRec: 'F',
-		// 		documentoPagRec: '350.344.118-22',
-		// 		agenciaPagRec: '8553',
-		// 		contaPagRec: '05245-8',
-		// 		nomePagRec: 'Fulano de Tal',
-		// 		valorPagRec: 1234.99,
-		// 		userBGColor: params.userBGColor || CONSTANTE.BG_VERMELHO,
-		// 		userIcon: params.userIcon,
-		// 	},
-		// })
-		// return
+		setIsVisiblePagRec(false)
 
-		router.navigate({
+		router.replace({
 			pathname: '/cobrar_alguem_recibo',
 			params: {
-				tipoPessoaPagRec: params.tipoPessoaPagRec,
-				documentoPagRec: params.documentoPagRec,
-				agenciaPagRec: params.agenciaPagRec,
-				contaPagRec: params.contaPagRec,
-				nomePagRec: params.nomePagRec,
-				valorPagRec: HelperNumero.isNumber(params.valorPagRec || '0,00') ? parseFloat(params.valorPagRec || '0,00') : 0,
-				userBGColor: params.userBGColor,
-				userIcon: params.userIcon,
+				tipoPessoaPagRec: tipoPessoaPagRec,
+				documentoPagRec: documentoPagRec,
+				agenciaPagRec: agenciaPagRec,
+				contaPagRec: contaPagRec,
+				nomePagRec: nomePagRec,
+				valorPagRec: HelperNumero.isNumber(valorPagRec || '0,00') ? parseFloat(valorPagRec || '0,00') : 0,
 			},
 		})
 	}
@@ -251,20 +186,20 @@ export default function HomeScreen() {
 		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
 			<View style={{ flex: 6, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<TouchableOpacity onPress={_onPressPerfil}>
-					<Image style={{ width: 80, height: 80, borderRadius: 60, borderWidth: 2, borderColor: '#fff', marginTop: 20, marginBottom: 10 }} source={userIcon} />
+					<Image style={{ width: 80, height: 80, borderRadius: 60, borderWidth: 2, borderColor: '#fff', marginTop: 20, marginBottom: 10 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imgRedPerson : imgBluePerson} />
 				</TouchableOpacity>
 
 				<Text style={{ color: '#fff', fontSize: 15, marginBottom: 10 }}>
-					Olá, <Text style={{ fontWeight: 'bold' }}>{params.userNome}</Text>!
+					Olá, <Text style={{ fontWeight: 'bold' }}>{currentUser.nome}</Text>!
 				</Text>
 
 				<Text style={{ color: '#fff', fontSize: 12 }}>Saldo Atual:</Text>
-				<Text style={{ color: '#fff', fontSize: 25, fontWeight: 'bold' }}> R$ {HelperNumero.GetMascaraValorDecimal(userSaldo)}</Text>
+				<Text style={{ color: '#fff', fontSize: 25, fontWeight: 'bold' }}> R$ {HelperNumero.GetMascaraValorDecimal(HelperNumero.isNumber(currentUser.saldo || '0,00') ? parseFloat(currentUser.saldo || '0,00') : 0)}</Text>
 			</View>
 
 			<View style={{ flex: 6, flexDirection: 'row', alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
 				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue', marginTop: 2, marginLeft: 10, marginRight: 5 }}>
-					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: params.userBGColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressPagarTransferir}>
+					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: currentUser.bgColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressPagarTransferir}>
 						<View style={{ alignItems: 'flex-end', borderWidth: 0, borderColor: 'red' }}>
 							<FontAwesome style={{ color: '#dcdcdc', fontSize: 50 }} name="credit-card" />
 						</View>
@@ -276,7 +211,7 @@ export default function HomeScreen() {
 				</View>
 
 				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue', marginLeft: 5, marginRight: 10 }}>
-					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: params.userBGColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressCobrarAlguem}>
+					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: currentUser.bgColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressCobrarAlguem}>
 						<View style={{ alignItems: 'flex-end', borderWidth: 0, borderColor: 'red' }}>
 							<FontAwesome style={{ color: '#dcdcdc', fontSize: 50 }} name="user-o" />
 						</View>
@@ -290,7 +225,7 @@ export default function HomeScreen() {
 
 			<View style={{ flex: 6, flexDirection: 'row', alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
 				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue', marginLeft: 10, marginRight: 5 }}>
-					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: params.userBGColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressColocarDinheiro}>
+					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: currentUser.bgColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressColocarDinheiro}>
 						<View style={{ alignItems: 'flex-end', borderWidth: 0, borderColor: 'red' }}>
 							<FontAwesome style={{ color: '#dcdcdc', fontSize: 50 }} name="dollar" />
 						</View>
@@ -302,7 +237,7 @@ export default function HomeScreen() {
 				</View>
 
 				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue', marginLeft: 5, marginRight: 10 }}>
-					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: params.userBGColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressMovimentacao}>
+					<TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'column', width: '95%', height: 140, padding: 10, borderRadius: 15, borderWidth: 1, borderColor: currentUser.bgColor, backgroundColor: '#fff', shadowOffset: { width: 10, height: 10 }, shadowColor: '#000', shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onPressMovimentacao}>
 						<View style={{ alignItems: 'flex-end', borderWidth: 0, borderColor: 'red' }}>
 							<FontAwesome style={{ color: '#dcdcdc', fontSize: 50 }} name="book" />
 						</View>

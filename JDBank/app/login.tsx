@@ -1,90 +1,81 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { View, Text, TouchableOpacity, Image, ActivityIndicator, Keyboard, KeyboardAvoidingView, Alert, BackHandler, Platform } from 'react-native'
-import { router, useLocalSearchParams } from 'expo-router'
+import { router } from 'expo-router'
 import { TextInputMask } from 'react-native-masked-text'
 import Constants from 'expo-constants'
 import { Audio } from 'expo-av'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
 
-import * as HelperSessao from '@/util/HelperSessao'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperSessao from '@/src/util/HelperSessao'
+import * as CONSTANTE from '@/src/util/Constante'
+import { getChave } from '@/src/services/chaveService'
 
-import imglogoJD from '@/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/assets/imgs/logo-blue.png'
+import imglogoJD from '@/src/assets/imgs/logo-red.png'
+import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
 
 export default function LoginScreen() {
-	const params = useLocalSearchParams()
+	const currentUser = useContext(UserContext)
 
 	const [txtChave, setTxtChave] = useState('')
 	const [isLoadingLogin, setIsLoadingLogin] = useState(false)
 
-	const userlogo = params.userBGColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = '#fff'
-
 	useEffect(() => {
-		setTxtChave('')
+		setTxtChave('+5511911111111')
 		setIsLoadingLogin(false)
-		_verificarSessaoUsuario()
+
+		_limparDadosUsuario()
+		//_verificarSessaoUsuario()
 	}, [])
 
-	const _verificarSessaoUsuario = () => {
-		AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ICON).then((value) => router.setParams({ userIcon: value }))
-		AsyncStorage.getItem(CONSTANTE.SESSAO_USER_BGCOLOR).then((value) => router.setParams({ userBGColor: value }))
-		AsyncStorage.getItem(CONSTANTE.SESSAO_USER_CHAVE).then((value) => setTxtChave(value))
-		AsyncStorage.getItem(CONSTANTE.SESSAO_USER_URL).then((value) => router.setParams({ userURL: value }))
-		AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ISPB_IF).then((value) => router.setParams({ userIspb: value }))
-		AsyncStorage.getItem(CONSTANTE.SESSAO_USER_NOME_IF).then((value) => router.setParams({ userNomeBanco: value }))
+	const _limparDadosUsuario = async () => {
+		currentUser.setChave('')
+		currentUser.setTipoPessoa('')
+		currentUser.setNome('')
+		currentUser.setDocumento('')
+		currentUser.setCidade('')
+		currentUser.setAgencia('')
+		currentUser.setTipoConta('')
+		currentUser.setConta('')
+		currentUser.setSaldo('0')
+		currentUser.setIcon('')
 	}
 
-	const _validarChaveUsuario = (userChave) => {
+	// const _verificarSessaoUsuario = () => {
+	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ICON).then((value) => currentUser.setIcon(value))
+	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_BGCOLOR).then((value) => currentUser.setBgColor(value))
+	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_CHAVE).then((value) => setTxtChave(value))
+	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_URL).then((value) => currentUser.setNomeBanco(value))
+	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ISPB_IF).then((value) => currentUser.setIspb(value))
+	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_NOME_IF).then((value) => currentUser.setNomeBanco(value))
+	// }
+
+	const _onPressLogin = async () => {
 		try {
+			Keyboard.dismiss()
 			setIsLoadingLogin(true)
 
-			userChave = userChave.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
+			if (txtChave == null || txtChave == '') {
+				setIsLoadingLogin(false)
+				Alert.alert('Informe o Telefone...')
+				return
+			}
 
-			axios({
-				method: 'get',
-				url: (params.userURL || CONSTANTE.URL_PAGADOR) + CONSTANTE.URL_GET_CHAVE + '?chave=' + encodeURIComponent(escape(userChave)),
-				timeout: CONSTANTE.URL_TIMEOUT,
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			})
-				.then((response) => {
-					try {
-						const data = Array.isArray(response.data) ? response.data[0] : response.data
+			data = await getChave(currentUser.url, txtChave)
 
-						if (data?.ispb == null || data?.ispb == '' || data?.ispb == 'undefined' || data?.ispb == undefined) {
-							setIsLoadingLogin(false)
-							Alert.alert('Telefone não cadastrado - ' + userChave)
-							return false
-						}
+			if (data?.ispb == null || data?.ispb == '' || data?.ispb == 'undefined' || data?.ispb == undefined) {
+				setIsLoadingLogin(false)
+				Alert.alert('Telefone não cadastrado - ' + txtChave)
+				return false
+			}
 
-						const ispb = data?.ispb
-						const nomeBanco = data?.nomeBanco
-						const tipoPessoa = data?.tipoPessoa
-						const documento = data?.documento
-						const agencia = data?.agencia
-						const conta = data?.conta
-						const tipoConta = data?.tipoConta
-						const nome = data?.nome
+			if (data?.ispb != currentUser.ispb) {
+				setIsLoadingLogin(false)
+				Alert.alert('Ispb não pertence ao Banco - ' + txtChave)
+				return false
+			}
 
-						if (ispb != params.userIspb) {
-							setIsLoadingLogin(false)
-							Alert.alert('Ispb não pertence ao Banco - ' + userChave)
-							return false
-						}
-
-						_realizarLogin(userChave, ispb, nomeBanco, tipoPessoa, documento, agencia, conta, tipoConta, nome)
-					} catch (error) {
-						setIsLoadingLogin(false)
-						Alert.alert('Erro(Response): ' + error.message)
-					}
-				})
-				.catch((error) => {
-					console.log(error)
-					setIsLoadingLogin(false)
-					Alert.alert('Telefone não cadastrado - ' + userChave)
-				})
+			_realizarLogin(data?.chave, data?.ispb, data?.nomeBanco, data?.tipoPessoa, data?.documento, data?.agencia, data?.conta, data?.tipoConta, data?.nome)
 		} catch (error) {
 			setIsLoadingLogin(false)
 			Alert.alert('Erro(Geral): ' + error.message)
@@ -92,97 +83,75 @@ export default function LoginScreen() {
 	}
 
 	const _realizarLogin = async (chave, ispb, nomeBanco, tipoPessoa, documento, agencia, conta, tipoConta, nome) => {
-		await HelperSessao.SetUserURL(params.userURL?.toString() || CONSTANTE.URL_PAGADOR)
-		await HelperSessao.SetUserChave(chave?.toString() || '')
-		await HelperSessao.SetUserIspb(params.userIspb?.toString() || CONSTANTE.ISPB_PAGADOR)
-		await HelperSessao.SetUserNomeBanco(params.userNomeBanco?.toString() || CONSTANTE.NOME_PAGADOR)
-		await HelperSessao.SetUserBGColor(params.userBGColor || CONSTANTE.BG_VERMELHO)
-		await HelperSessao.SetUserIcon(params.userIcon || CONSTANTE.ICON_PAGADOR)
+		await HelperSessao.SetUserURL(currentUser.url)
+		await HelperSessao.SetUserChave(chave)
+		await HelperSessao.SetUserIspb(ispb)
+		await HelperSessao.SetUserNomeBanco(nomeBanco)
+		await HelperSessao.SetUserBGColor(currentUser.bgColor)
+		await HelperSessao.SetUserIcon(currentUser.icon)
+
+		currentUser.setChave(chave)
+		currentUser.setTipoPessoa(tipoPessoa)
+		currentUser.setNome(nome)
+		currentUser.setDocumento(documento)
+		currentUser.setCidade('São Paulo')
+		currentUser.setIspb(ispb)
+		currentUser.setNomeBanco(nomeBanco)
+		currentUser.setAgencia(agencia)
+		currentUser.setTipoConta(tipoConta)
+		currentUser.setConta(conta)
+		currentUser.setSaldo('0')
+		currentUser.setLogo(currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3)
 
 		setIsLoadingLogin(false)
-
-		router.replace({
-			pathname: '/home',
-			params: {
-				userURL: params.userURL || CONSTANTE.URL_PAGADOR,
-				userChave: chave,
-				userIspb: params.userIspb || CONSTANTE.ISPB_PAGADOR,
-				userNomeBanco: params.userNomeBanco || CONSTANTE.NOME_PAGADOR,
-				userTipoPessoa: tipoPessoa,
-				userDocumento: documento,
-				userAgencia: agencia,
-				userConta: conta,
-				userTipoConta: tipoConta,
-				userNome: nome,
-				userCidade: 'São Paulo',
-				userBGColor: params.userBGColor || CONSTANTE.BG_VERMELHO,
-				userIcon: params.userIcon || CONSTANTE.ICON_PAGADOR,
-				userSaldo: '0',
-			},
-		})
-	}
-
-	const _onPressLogin = () => {
-		Keyboard.dismiss()
-		if (txtChave == null || txtChave == '') {
-			Alert.alert('Informe o Telefone...')
-			return
-		}
-		setIsLoadingLogin(false)
-		_validarChaveUsuario(txtChave)
+		router.replace('/home')
 	}
 
 	const _onPressCadastro = () => {
 		Keyboard.dismiss()
 		setTxtChave('')
 		setIsLoadingLogin(false)
-
-		router.navigate({
-			pathname: '/login_cadastro',
-			params: {
-				userURL: params.userURL,
-				userIspb: params.userIspb,
-				userNomeBanco: params.userNomeBanco,
-				userBGColor: params.userBGColor,
-				userIcon: params.userIcon,
-			},
-		})
+		router.replace('/login_cadastro')
 	}
 
 	const _onPressAlterarCorApp = async () => {
 		Keyboard.dismiss()
 
-		if ((params.userBGColor || CONSTANTE.BG_VERMELHO) == CONSTANTE.BG_VERMELHO) {
-			userURL = CONSTANTE.URL_RECEBEDOR
-			userIspb = CONSTANTE.ISPB_RECEBEDOR
-			userNomeBanco = CONSTANTE.NOME_RECEBEDOR
-			userBGColor = CONSTANTE.BG_AZUL
-			userIcon = CONSTANTE.ICON_RECEBEDOR
+		let url = ''
+		let ispb = ''
+		let nomeBanco = ''
+		let icon = ''
+		let bgColor = ''
+
+		if (currentUser.bgColor == CONSTANTE.BG_VERMELHO) {
+			url = CONSTANTE.URL_RECEBEDOR
+			ispb = CONSTANTE.ISPB_RECEBEDOR
+			nomeBanco = CONSTANTE.NOME_RECEBEDOR
+			icon = CONSTANTE.ICON_RECEBEDOR
+			bgColor = CONSTANTE.BG_AZUL
 		} else {
-			userURL = CONSTANTE.URL_PAGADOR
-			userIspb = CONSTANTE.ISPB_PAGADOR
-			userNomeBanco = CONSTANTE.NOME_PAGADOR
-			userBGColor = CONSTANTE.BG_VERMELHO
+			url = CONSTANTE.URL_PAGADOR
+			ispb = CONSTANTE.ISPB_PAGADOR
+			nomeBanco = CONSTANTE.NOME_PAGADOR
 			userIcon = CONSTANTE.ICON_PAGADOR
+			bgColor = CONSTANTE.BG_VERMELHO
 		}
 
-		await HelperSessao.SetUserURL(userURL)
-		await HelperSessao.SetUserIspb(userIspb)
-		await HelperSessao.SetUserNomeBanco(userNomeBanco)
-		await HelperSessao.SetUserBGColor(userBGColor)
-		await HelperSessao.SetUserIcon(userIcon)
+		await HelperSessao.SetUserURL(url)
+		await HelperSessao.SetUserIspb(ispb)
+		await HelperSessao.SetUserNomeBanco(nomeBanco)
+		await HelperSessao.SetUserIcon(icon)
+		await HelperSessao.SetUserBGColor(bgColor)
 
-		router.setParams({
-			userURL: userURL,
-			userIspb: userIspb,
-			userNomeBanco: userNomeBanco,
-			userBGColor: userBGColor,
-			userIcon: userIcon,
-		})
+		currentUser.setUrl(url)
+		currentUser.setIspb(ispb)
+		currentUser.setNomeBanco(nomeBanco)
+		currentUser.setIcon(icon)
+		currentUser.setBgColor(bgColor)
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: '#fff' }}>
 			<View
 				style={{
 					flex: 3,
@@ -195,7 +164,7 @@ export default function LoginScreen() {
 			>
 				<TouchableOpacity style={{ borderWidth: 0, borderColor: 'red' }} onPress={_onPressAlterarCorApp}>
 					<Image
-						source={userlogo}
+						source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3}
 						style={{
 							resizeMode: 'contain',
 							width: 200,
@@ -254,7 +223,7 @@ export default function LoginScreen() {
 						marginTop: 20,
 						marginBottom: 20,
 						width: '90%',
-						backgroundColor: params.userBGColor,
+						backgroundColor: currentUser.bgColor,
 					}}
 					activeOpacity={0.7}
 					onPress={_onPressLogin}

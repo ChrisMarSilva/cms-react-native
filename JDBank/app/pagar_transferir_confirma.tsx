@@ -1,39 +1,43 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useContext } from 'react'
 import { Text, View, Image, TouchableOpacity, Alert, ActivityIndicator, Keyboard, KeyboardAvoidingView, Animated, Easing } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import LottieView from 'lottie-react-native'
 import { TextInputMask } from 'react-native-masked-text'
-import axios from 'axios'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as CONSTANTE from '@/src/util/Constante'
+import { getChave } from '@/src/services/chaveService'
+import { payQrCode } from '@/src/services/qrcodeService'
 
-import imglogoJD from '@/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/assets/imgs/icon-blue.png'
+import imglogoJD from '@/src/assets/imgs/icon-red.png'
+import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
 
 export default function PagarTransferirConfirmaScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
 	const params = useLocalSearchParams()
-	const animation = useRef(null)
 
+	const animation = useRef(null)
 	const [isLoadingDadosRecebedor, setIsLoadingDadosRecebedor] = useState(true)
 	const [isLoadingPagamento, setIsLoadingPagamento] = useState(false)
 	const [valor, setValor] = useState(0)
 	const [valorRecebedor, setValorRecebedor] = useState(0)
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
 	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = params.userBGColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		setIsLoadingDadosRecebedor(true)
 		setIsLoadingPagamento(false)
 		setValor(HelperNumero.isNumber(params.valorRecebedor) ? parseFloat(params.valorRecebedor) : 0)
 		setValorRecebedor(HelperNumero.isNumber(params.valorRecebedor) ? parseFloat(params.valorRecebedor) : 0)
+
 		_buscarDadosRecebedor()
 	}, [])
 
@@ -46,13 +50,13 @@ export default function PagarTransferirConfirmaScreen() {
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
 					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Confirmação de Pagamento</Text>
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.navigate('home')}>
+				<View>
+					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
 						<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="close" />
 					</TouchableOpacity>
 				</View>
@@ -60,9 +64,30 @@ export default function PagarTransferirConfirmaScreen() {
 		})
 	}, [navigation])
 
-	const _buscarDadosRecebedor = () => {
+	const _buscarDadosRecebedor = async () => {
 		try {
 			setIsLoadingDadosRecebedor(true)
+
+			const data = await getChave(currentUser.url, params.chaveRecebedor)
+
+			router.setParams({
+				chaveRecebedor: params.chaveRecebedor,
+				ispbRecebedor: data?.ispb,
+				nomeBancoRecebedor: data?.nomeBanco,
+				tipoPessoaRecebedor: data?.tipoPessoa,
+				documentoRecebedor: data?.documento,
+				agenciaRecebedor: data?.agencia,
+				contaRecebedor: data?.conta,
+				tipoContaRecebedor: data?.tipoConta,
+				nomeRecebedor: data?.nome,
+			})
+
+			setIsLoadingDadosRecebedor(false)
+		} catch (err) {
+			console.error(err)
+
+			setIsLoadingDadosRecebedor(false)
+			Alert.alert('Erro(Geral): ' + err.message)
 
 			router.setParams({
 				chaveRecebedor: params.chaveRecebedor,
@@ -76,58 +101,21 @@ export default function PagarTransferirConfirmaScreen() {
 				nomeRecebedor: '',
 			})
 
-			axios({
-				method: 'GET',
-				url: params.userURL + CONSTANTE.URL_GET_CHAVE + '?chave=' + encodeURIComponent(escape(params.chaveRecebedor)),
-				timeout: CONSTANTE.URL_TIMEOUT,
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-			})
-				.then((response) => {
-					const data = Array.isArray(response.data) ? response.data[0] : response.data
-
-					router.setParams({
-						chaveRecebedor: params.chaveRecebedor,
-						ispbRecebedor: data.ispb,
-						nomeBancoRecebedor: data.nomeBanco,
-						tipoPessoaRecebedor: data.tipoPessoa,
-						documentoRecebedor: data.documento,
-						agenciaRecebedor: data.agencia,
-						contaRecebedor: data.conta,
-						tipoContaRecebedor: data.tipoConta,
-						nomeRecebedor: data.nome,
-					})
-
-					setIsLoadingDadosRecebedor(false)
-				})
-				.catch((err) => {
-					setIsLoadingDadosRecebedor(false)
-					if (err.response) {
-						Alert.alert('Telefone não cadastrada - ' + params.chaveRecebedor)
-					} else if (err.request) {
-						Alert.alert('Erro na Requição')
-					} else {
-						Alert.alert(err.message)
-					}
-					router.navigate('pagar_transferir')
-				})
-		} catch (err) {
-			setIsLoadingDadosRecebedor(false)
-			Alert.alert('Erro(Geral): ' + err.message)
-			router.navigate('pagar_transferir')
+			router.replace('/pagar_transferir')
 		}
 	}
 
 	const _onPressAgendarPagtoQRCode = () => {
 		Keyboard.dismiss()
 		Alert.alert('Pagto Agendado!')
-		router.navigate('home')
+		router.replace('/home')
 	}
 
 	const _onPressEfetuarPagtoQRCode = async () => {
 		try {
 			setIsLoadingPagamento(true)
 
-			if (params.userChave.trim() == '') {
+			if (currentUser.chave.trim() == '') {
 				Alert.alert('Dados do Pagador Vazio.')
 				setIsLoadingPagamento(false)
 				return false
@@ -147,58 +135,25 @@ export default function PagarTransferirConfirmaScreen() {
 
 			if (valorRecebedor <= 0) setValorRecebedor(parseFloat(HelperNumero.GetValorDecimal(valor)))
 
-			const data = `{"pagador":{"ispb":${params.userIspb}, "tipoPessoa":"${params.userTipoPessoa}","tipoConta":"${params.userTipoConta}","agencia":"${params.userAgencia}","conta":"${params.userConta}","documento":"${params.userDocumento}","nome":"${params.userNome}"},"recebedor":{"ispb":${params.ispbRecebedor},"tipoPessoa":"${params.tipoPessoaRecebedor}","documento":"${params.documentoRecebedor}","agencia":"${params.agenciaRecebedor}","conta":"${params.contaRecebedor}","tipoConta":"${params.tipoContaRecebedor}","nome":"${params.nomeRecebedor}"},"valor":${valorRecebedor},"customInformation":"${params.infoRecebedor}"}`
+			await payQrCode(currentUser.url, currentUser.ispb, currentUser.tipoPessoa, currentUser.tipoConta, currentUser.agencia, currentUser.conta, currentUser.documento, currentUser.nome, params.ispbRecebedor, params.tipoPessoaRecebedor, params.documentoRecebedor, params.agenciaRecebedor, params.contaRecebedor, params.tipoContaRecebedor, params.nomeRecebedor, valorRecebedor, params.infoRecebedor)
 
-			// const data = {
-			// 	pagador: { ispb: params.userIspb, tipoPessoa: params.userTipoPessoa, tipoConta: params.userTipoConta, agencia: params.userAgencia, conta: params.userConta, documento: params.userDocumento, nome: params.userNome},
-			// 	recebedor: { ispb: params.ispbRecebedor, tipoPessoa: params.tipoPessoaRecebedor, documento: params.documentoRecebedor, agencia: params.agenciaRecebedor, conta: params.contaRecebedor, tipoConta: params.tipoContaRecebedor, nome: params.nomeRecebedor },
-			// 	valor: valorRecebedor,
-			// 	customInformation: params.infoRecebedor,
-			// }
+			setIsLoadingPagamento(false)
 
-			// console.log('1-data: ', typeof data, data)
-			// console.log('2-parse: ', typeof JSON.parse(data), JSON.parse(data))
-			// console.log('3-stringify: ', typeof JSON.stringify(data), JSON.stringify(data))
-
-			axios({
-				method: 'post',
-				url: params.userURL + CONSTANTE.URL_PAGAR_QRCODE,
-				timeout: CONSTANTE.URL_TIMEOUT,
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-				data: JSON.parse(data),
+			router.replace({
+				pathname: '/pagar_transferir_recibo',
+				params: {
+					chaveRecebedor: params.chaveRecebedor,
+					ispbRecebedor: params.ispbRecebedor,
+					nomeBancoRecebedor: params.nomeBancoRecebedor,
+					tipoPessoaRecebedor: params.tipoPessoaRecebedor,
+					documentoRecebedor: params.documentoRecebedor,
+					agenciaRecebedor: params.agenciaRecebedor,
+					contaRecebedor: params.contaRecebedor,
+					tipoContaRecebedor: params.tipoContaRecebedor,
+					nomeRecebedor: params.nomeRecebedor,
+					valorRecebedor: valorRecebedor,
+				},
 			})
-				.then((response) => {
-					setIsLoadingPagamento(false)
-
-					router.navigate({
-						pathname: '/pagar_transferir_recibo',
-						params: {
-							userURL: params.userURL,
-							userSaldo: HelperNumero.isNumber(params.userSaldo) ? parseFloat(params.userSaldo) : 0,
-							userBGColor: params.userBGColor,
-							chaveRecebedor: params.chaveRecebedor,
-							ispbRecebedor: params.ispbRecebedor,
-							nomeBancoRecebedor: params.nomeBancoRecebedor,
-							tipoPessoaRecebedor: params.tipoPessoaRecebedor,
-							documentoRecebedor: params.documentoRecebedor,
-							agenciaRecebedor: params.agenciaRecebedor,
-							contaRecebedor: params.contaRecebedor,
-							tipoContaRecebedor: params.tipoContaRecebedor,
-							nomeRecebedor: params.nomeRecebedor,
-							valorRecebedor: valorRecebedor,
-						},
-					})
-				})
-				.catch((err) => {
-					setIsLoadingPagamento(false)
-					if (err.response) {
-						Alert.alert('Falha ao Realizar o Pagamento.')
-					} else if (err.request) {
-						Alert.alert('Erro na Requição')
-					} else {
-						Alert.alert(err.message)
-					}
-				})
 		} catch (err) {
 			setIsLoadingPagamento(false)
 			Alert.alert('Erro(Geral): ' + err.message)
@@ -210,7 +165,7 @@ export default function PagarTransferirConfirmaScreen() {
 			<View style={{ justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<View style={{ justifyContent: 'center', alignItems: 'center', width: '85%', height: '70%', borderRadius: 25, backgroundColor: '#fff', borderWidth: 0, borderColor: 'blue' }}>
 					{isLoadingDadosRecebedor ? (
-						<LottieView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 200 }} ref={animation} source={require('@/assets/lottie/201-simple-loader.json')} autoPlay loop />
+						<LottieView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 200 }} ref={animation} source={require('@/src/assets/lottie/201-simple-loader.json')} autoPlay loop />
 					) : (
 						<View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 							<Text style={{ color: 'gray', fontWeight: 'bold', fontSize: 16, marginBottom: 5 }}>{valorRecebedor <= 0 && 'Informe o'} Valor do Pagamento</Text>

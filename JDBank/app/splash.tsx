@@ -1,22 +1,19 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { Text, View, Image } from 'react-native'
-import { Link, router, useNavigation } from 'expo-router'
+import { Link, router } from 'expo-router'
 
-import * as HelperSessao from '@/util/HelperSessao'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperSessao from '@/src/util/HelperSessao'
+import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/assets/imgs/splash.png'
+import imglogoJD from '@/src/assets/imgs/splash.png'
 
 export default function SplashScreen() {
-	const navigation = useNavigation()
+	const currentUser = useContext(UserContext)
 
 	useEffect(() => {
 		_verificarSessaoUsuario()
 	}, [])
-
-	useEffect(() => {
-		navigation.setOptions({ headerShown: false })
-	}, [navigation])
 
 	const _verificarSessaoUsuario = async () => {
 		const userURL = await HelperSessao.GetUserURL()

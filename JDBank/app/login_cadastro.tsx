@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, ActivityIndicator, Keyboard, KeyboardAvoidingView, Alert } from 'react-native'
-import { router, useLocalSearchParams, useNavigation } from 'expo-router'
+import { router } from 'expo-router'
 import { TextInputMask } from 'react-native-masked-text'
-import axios from 'axios'
 
-import * as HelperSessao from '@/util/HelperSessao'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperSessao from '@/src/util/HelperSessao'
+import * as CONSTANTE from '@/src/util/Constante'
+import { createChave } from '@/src/services/chaveService'
 
-import imglogoJD from '@/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/assets/imgs/logo-blue.png'
+import imglogoJD from '@/src/assets/imgs/logo-red.png'
+import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
 
 export default function LoginCadastroScreen() {
-	const navigation = useNavigation()
-	const params = useLocalSearchParams()
-
-	useEffect(() => {
-		navigation.setOptions({ headerShown: false })
-	}, [navigation])
+	const currentUser = useContext(UserContext)
 
 	const [txtIspb, setTxtIspb] = useState(CONSTANTE.ISPB_RECEBEDOR)
 	const [txtIspbNm, setTxtIspbNm] = useState(CONSTANTE.NOME_RECEBEDOR)
@@ -30,128 +26,113 @@ export default function LoginCadastroScreen() {
 	const [txtChave, setTxtChave] = useState('')
 	const [isLoadingCadastro, setIsLoadingCadastro] = useState(false)
 
-	let { userURL, userChave, userIspb, userNomeBanco, userDocumento, userAgencia, userConta, userNome, userBGColor, userIcon } = useLocalSearchParams()
-	const userBGColorScreen = '#fff'
-	const userlogo = userBGColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
+	useEffect(() => {
+		//setTxtIspb(CONSTANTE.ISPB_RECEBEDOR)
+		//setTxtIspbNm(CONSTANTE.NOME_RECEBEDOR)
+		//txtTipoPessoa('0')
+		setTxtDocumento('1')
+		setTxtAgencia('x')
+		setTxtConta('')
+		// setTxtTipoConta('0')
+		setTxtNome('')
+		// setTxtTipoChave('0')
+		setTxtChave('')
+		setIsLoadingCadastro(false)
+	}, [])
 
 	const _onPressCriaConta = async () => {
 		try {
+			setIsLoadingCadastro(true)
+
 			if (txtNome == null || txtNome == '') {
 				Alert.alert('Informe o Nome...')
+				setIsLoadingCadastro(false)
 				return
 			}
 
 			if (txtDocumento == null || txtDocumento == '') {
 				Alert.alert('Informe o CPF...')
+				setIsLoadingCadastro(false)
 				return
 			}
 
 			if (txtChave == null || txtChave == '') {
 				Alert.alert('Informe o Telefone...')
+				setIsLoadingCadastro(false)
 				return
 			}
 
 			if (txtAgencia == null || txtAgencia == '') {
 				Alert.alert('Informe a Agência...')
+				setIsLoadingCadastro(false)
 				return
 			}
 
 			if (txtConta == null || txtConta == '') {
 				Alert.alert('Informe a Conta...')
+				setIsLoadingCadastro(false)
 				return
 			}
 
-			setIsLoadingCadastro(true)
+			const nome = txtNome
+			const documento = txtDocumento.replace('.', '').replace('.', '').replace('-', '').replace(' ', '')
+			const chave = txtChave.replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
+			const agencia = txtAgencia
+			const conta = txtConta
+			const ispb = txtIspb
+			const nomeBanco = txtIspbNm
+			const tipoPessoa = txtTipoPessoa
+			const tipoConta = txtTipoConta
+			const tipoChave = txtTipoChave
 
-			_cadastrarChaveUsuario(txtIspb, txtIspbNm, txtTipoPessoa, txtDocumento, txtAgencia, txtConta, txtTipoConta, txtNome, txtTipoChave, txtChave)
+			const data = await createChave(currentUser.url, ispb, tipoPessoa, documento, agencia, conta, tipoConta, nome, tipoChave, chave)
+
+			if (data.statusCode != '200') {
+				Alert.alert('Erro(Cadastro): ' + data.statusCode + ' - ' + data.message.descricao)
+				return
+			}
+
+			await HelperSessao.ClearAllSessao()
+			await HelperSessao.SetUserChave(chave)
+			await HelperSessao.SetUserIspb(ispb)
+			await HelperSessao.SetUserNomeBanco(nomeBanco)
+			await HelperSessao.SetUserTipoPessoa(tipoPessoa)
+			await HelperSessao.SetUserDocumento(documento)
+			await HelperSessao.SetUserAgencia(agencia)
+			await HelperSessao.SetUserConta(conta)
+			await HelperSessao.SetUserTipoConta(tipoConta)
+			await HelperSessao.SetUserNome(nome)
+			await HelperSessao.SetUserCidade('São Paulo')
+			await HelperSessao.SetUserBGColor(currentUser.bgColor)
+			await HelperSessao.SetUserIcon(currentUser.icon)
+
+			currentUser.setChave(chave)
+			currentUser.setTipoPessoa(tipoPessoa)
+			currentUser.setNome(nome)
+			currentUser.setDocumento(documento)
+			currentUser.setCidade('São Paulo')
+			currentUser.setIspb(ispb)
+			currentUser.setNomeBanco(nomeBanco)
+			currentUser.setAgencia(agencia)
+			currentUser.setTipoConta(tipoConta)
+			currentUser.setConta(conta)
+			currentUser.setSaldo(0)
+			currentUser.setLogo(currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3)
+
+			setIsLoadingCadastro(false)
+			// Alert.alert('Cadastro ralizado com Sucesso')
+
+			router.replace('/home')
 		} catch (err) {
+			console.error(err)
+			setIsLoadingCadastro(false)
 			Alert.alert('Erro(Geral): ' + err.messag)
 		} finally {
 		}
 	}
 
-	const _cadastrarChaveUsuario = async (ispb, IspbNm, tipoPessoa, documento, agencia, conta, tipoConta, nome, tipoChave, chave) => {
-		try {
-			documento = documento.replace('.', '').replace('.', '').replace('-', '').replace(' ', '')
-			chave = chave.replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
-
-			axios({
-				method: 'post',
-				url: (userURL || CONSTANTE.URL_PAGADOR) + CONSTANTE.URL_POST_CHAVE,
-				timeout: CONSTANTE.URL_TIMEOUT,
-				headers: { 'Content-Type': 'application/json; charset=utf-8' },
-				data: JSON.parse(`{"recebedor":{"ispb":${ispb},"tipoPessoa":${tipoPessoa},"documento":${documento},"agencia":"${agencia}","conta":"${conta}","tipoConta":${tipoConta},"nome":"${nome}"},"tipoChave":${tipoChave},"chave":"${chave}"}`),
-			})
-				.then((response) => {
-					setIsLoadingCadastro(false)
-					try {
-						if (response.data.statusCode == '200') {
-							Alert.alert('Cadastro ralizado com Sucesso')
-							_realizarLogin(chave, ispb, IspbNm, tipoPessoa, documento, agencia, conta, tipoConta, nome)
-						} else {
-							Alert.alert('Erro(Cadastro): ' + response.data.statusCode + ' - ' + response.data.message.descricao)
-						}
-					} catch (err) {
-						Alert.alert('Erro(Response): ' + err.message)
-					}
-				})
-				.catch((err) => {
-					setIsLoadingCadastro(false)
-					if (err.response) {
-						Alert.alert(JSON.parse(err.response.data.message).descricao)
-					} else if (err.request) {
-						Alert.alert('Erro na Requição')
-					} else {
-						Alert.alert(err.message)
-					}
-				})
-		} catch (err) {
-			setIsLoadingCadastro(false)
-			Alert.alert('Erro(Geral): ' + err.messag)
-		}
-	}
-
-	const _realizarLogin = async (chave, ispb, nomeBanco, tipoPessoa, documento, agencia, conta, tipoConta, nome) => {
-		await HelperSessao.ClearAllSessao()
-		await HelperSessao.SetUserURL(userURL.toString())
-		await HelperSessao.SetUserChave(chave.toString())
-		await HelperSessao.SetUserIspb(userIspb.toString())
-		await HelperSessao.SetUserNomeBanco(userNomeBanco.toString())
-		await HelperSessao.SetUserTipoPessoa(tipoPessoa.toString())
-		await HelperSessao.SetUserDocumento(documento.toString())
-		await HelperSessao.SetUserAgencia(agencia.toString())
-		await HelperSessao.SetUserConta(conta.toString())
-		await HelperSessao.SetUserTipoConta(tipoConta.toString())
-		await HelperSessao.SetUserNome(nome.toString())
-		await HelperSessao.SetUserCidade('São Paulo')
-		await HelperSessao.SetUserBGColor(userBGColor)
-		await HelperSessao.SetUserIcon(userIcon)
-
-		setIsLoadingCadastro(false)
-
-		router.navigate({
-			pathname: '/home',
-			params: {
-				userURL: userURL,
-				userChave: chave,
-				userIspb: userIspb,
-				userNomeBanco: userNomeBanco,
-				userTipoPessoa: tipoPessoa,
-				userDocumento: documento,
-				userAgencia: agencia,
-				userConta: conta,
-				userTipoConta: tipoConta,
-				userNome: nome,
-				userCidade: 'São Paulo',
-				userBGColor: userBGColor || CONSTANTE.BG_VERMELHO,
-				userIcon: userIcon || CONSTANTE.ICON_PAGADOR,
-				userSaldo: '0',
-			},
-		})
-	}
-
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: '#fff' }}>
 			<View
 				style={{
 					flex: 2,
@@ -161,7 +142,7 @@ export default function LoginCadastroScreen() {
 					borderColor: 'blue',
 				}}
 			>
-				<Image source={userlogo} style={{ width: 190, height: 90, borderWidth: 0, borderColor: 'red' }} />
+				<Image source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} style={{ width: 190, height: 90, borderWidth: 0, borderColor: 'red' }} />
 			</View>
 			<KeyboardAvoidingView
 				style={{
@@ -182,7 +163,7 @@ export default function LoginCadastroScreen() {
 						width: '95%',
 						paddingTop: 5,
 						fontSize: 18,
-						color: userBGColor,
+						color: currentUser.bgColor,
 						textAlign: 'center',
 						fontWeight: 'bold',
 					}}
@@ -199,7 +180,7 @@ export default function LoginCadastroScreen() {
 					underlineColorAndroid="transparent"
 					returnKeyType={'next'}
 					value={txtNome}
-					onChangeText={(value) => setTxtNom(value)}
+					onChangeText={(value) => setTxtNome(value)}
 					onEndEditing={() => {
 						Keyboard.dismiss
 					}}
@@ -221,7 +202,7 @@ export default function LoginCadastroScreen() {
 					editable={true}
 					autoFocus={false}
 					placeholder="CPF"
-					maxLength={11}
+					maxLength={14}
 					autoCapitalize={'none'}
 					underlineColorAndroid="transparent"
 					returnKeyType={'next'}
@@ -348,7 +329,7 @@ export default function LoginCadastroScreen() {
 							marginTop: 10,
 							marginBottom: 7,
 							width: '95%',
-							backgroundColor: userBGColor,
+							backgroundColor: currentUser.bgColor,
 						}}
 						activeOpacity={0.7}
 						onPress={() => {

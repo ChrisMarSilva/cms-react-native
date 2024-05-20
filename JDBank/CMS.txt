@@ -5,18 +5,21 @@ JDMobile2024
   sexta   - 17/05/2024 06:00:00 - 17/05/2024 19:00:00 - 13h ===> actions, login, cobrar_alguem, cobrar_alguem_recibo, cobrar_alguem_qrcode, pagar_transferir, pagar_transferir_confirma, pagar_transferir_recibo, movimentacao
   sexta   - 17/05/2024 20:00:00 - 18/05/2024 01:00:00 - 05h ===> arrumar as chamadas das APIs
   sabado  - 18/05/2024 07:00:00 - 18/05/2024 16:00:00 - 09h ===> arrumar as chamadas das APIs
-  domingo - 18/05/2024 07:00:00 - 18/05/2024 16:00:00 - 00h ===> ajustar layout
+  domingo - 19/05/2024 09:00:00 - 19/05/2024 13:00:00 - 05h ===> add userContext e userProvider
+  segunda - 20/05/2024 09:00:00 - 20/05/2024 13:00:00 - 05h ===> ajustar layout
+
+
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 npx create-expo-app@latest -y
 npm run reset-project
-npx expo start -c
 
 -- RECEBEDOR: npx json-server --watch db_rec.json --port 3001
 -- PAGADOR:   npx json-server --watch db_pag.json --port 3002
 
+npx expo start -c
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

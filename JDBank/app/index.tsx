@@ -1,20 +1,43 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { Text, View, Image } from 'react-native'
 import { router } from 'expo-router'
 
-import * as HelperSessao from '@/util/HelperSessao'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperSessao from '@/src/util/HelperSessao'
+import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/assets/imgs/splash.png'
+import imglogoJD from '@/src/assets/imgs/splash.png'
 
 export default function IndexScreen() {
+	const currentUser = useContext(UserContext)
+
 	useEffect(() => {
+		_limparDadosUsuario()
 		//_inicarSessaoUsuarioPagador()
 		//_inicarSessaoUsuarioRecebedor()
+
 		//setTimeout(() => {
 		_verificarSessaoUsuario()
 		//}, 3000)
 	}, [])
+
+	const _limparDadosUsuario = async () => {
+		currentUser.setUrl('')
+		currentUser.setChave('')
+		currentUser.setTipoPessoa('')
+		currentUser.setNome('')
+		currentUser.setDocumento('')
+		currentUser.setCidade('')
+		currentUser.setIspb('')
+		currentUser.setNomeBanco('')
+		currentUser.setAgencia('')
+		currentUser.setTipoConta('')
+		currentUser.setConta('')
+		currentUser.setSaldo('0')
+		currentUser.setIcon('')
+		currentUser.setLogo('')
+		currentUser.setBgColor('')
+	}
 
 	const _inicarSessaoUsuarioPagador = async () => {
 		//const userURL = await HelperSessao.GetUserURL()
@@ -25,6 +48,12 @@ export default function IndexScreen() {
 		await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_PAGADOR)
 		await HelperSessao.SetUserBGColor(CONSTANTE.BG_VERMELHO)
 		await HelperSessao.SetUserIcon(CONSTANTE.ICON_PAGADOR)
+
+		currentUser.setUrl(CONSTANTE.URL_PAGADOR)
+		currentUser.setIspb(CONSTANTE.ISPB_PAGADOR)
+		currentUser.setNomeBanco(CONSTANTE.NOME_PAGADOR)
+		currentUser.setLogo(CONSTANTE.BG_VERMELHO)
+		currentUser.setBGColor(CONSTANTE.ICON_PAGADOR)
 		//}
 	}
 
@@ -37,28 +66,24 @@ export default function IndexScreen() {
 		await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_RECEBEDOR)
 		await HelperSessao.SetUserBGColor(CONSTANTE.BG_AZUL)
 		await HelperSessao.SetUserIcon(CONSTANTE.ICON_RECEBEDOR)
+
+		currentUser.setUrl(CONSTANTE.URL_RECEBEDOR)
+		currentUser.setIspb(CONSTANTE.ISPB_RECEBEDOR)
+		currentUser.setNomeBanco(CONSTANTE.NOME_RECEBEDOR)
+		currentUser.setLogo(CONSTANTE.BG_AZUL)
+		currentUser.setBGColor(CONSTANTE.ICON_RECEBEDOR)
 		//}
 	}
 
 	const _verificarSessaoUsuario = async () => {
-		const userURL = await HelperSessao.GetUserURL()
-		const userChave = await HelperSessao.GetUserChave()
-		const userIspb = await HelperSessao.GetUserIspb()
-		const userNomeBanco = await HelperSessao.GetUserNomeBanco()
-		const userBGColor = await HelperSessao.GetUserBGColor()
-		const userIcon = await HelperSessao.GetUserIcon()
+		currentUser.setUrl(await HelperSessao.GetUserURL())
+		currentUser.setChave(await HelperSessao.GetUserChave())
+		currentUser.setIspb(await HelperSessao.GetUserIspb())
+		currentUser.setNomeBanco(await HelperSessao.GetUserNomeBanco())
+		currentUser.setIcon(await HelperSessao.GetUserIcon())
+		currentUser.setBgColor(await HelperSessao.GetUserBGColor())
 
-		router.replace({
-			pathname: '/login',
-			params: {
-				userURL: userURL || CONSTANTE.URL_PAGADOR,
-				userChave: userChave || '',
-				userIspb: userIspb || CONSTANTE.ISPB_PAGADOR,
-				userNomeBanco: userNomeBanco || CONSTANTE.NOME_PAGADOR,
-				userBGColor: userBGColor || CONSTANTE.BG_VERMELHO,
-				userIcon: userIcon || CONSTANTE.ICON_PAGADOR,
-			},
-		})
+		router.replace('/login')
 	}
 
 	return (

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useContext } from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, Easing, Alert } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -6,23 +6,24 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { Audio } from 'expo-av'
 import LottieView from 'lottie-react-native'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/assets/imgs/icon-blue.png'
+import imglogoJD from '@/src/assets/imgs/icon-red.png'
+import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
 
 export default function PagarTransferirReciboScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
 	const params = useLocalSearchParams()
 
 	const animation = useRef(null)
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userBGColorScreen = params.userBGColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
-	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		_getTocarSom()
@@ -33,16 +34,16 @@ export default function PagarTransferirReciboScreen() {
 			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
 			headerLeft: () => (
 				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userlogo} />
+					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
 					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Pagamento Feito!</Text>
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
+				<View>
 					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => _OnPressVerComprovante()}>
 						<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="close" />
 					</TouchableOpacity>
@@ -53,7 +54,7 @@ export default function PagarTransferirReciboScreen() {
 
 	const _getTocarSom = async () => {
 		try {
-			const source = require('@/assets/sounds/02.mp3')
+			const source = require('@/src/assets/sounds/02.mp3')
 
 			await Audio.setAudioModeAsync({
 				allowsRecordingIOS: false,
@@ -83,27 +84,10 @@ export default function PagarTransferirReciboScreen() {
 
 	const _OnPressVerComprovante = () => {
 		const valor = HelperNumero.isNumber(params.valorRecebedor || '0,00') ? parseFloat(params.valorRecebedor || '0,00') : 0
-		const saldo = HelperNumero.isNumber(params.userSaldo || '0,00') ? parseFloat(params.userSaldo || '0,00') : 0
+		const saldo = HelperNumero.isNumber(currentUser.saldo || '0,00') ? parseFloat(currentUser.saldo || '0,00') : 0
 
-		router.navigate({
-			pathname: '/home',
-			params: {
-				userURL: params.userURL,
-				userChave: params.userChave,
-				userIspb: params.userIspb,
-				userNomeBanco: params.userNomeBanco,
-				userTipoPessoa: params.userTipoPessoa,
-				userDocumento: params.userDocumento,
-				userAgencia: params.userAgencia,
-				userConta: params.userConta,
-				userTipoConta: params.userTipoConta,
-				userNome: params.userNome,
-				userCidade: params.userCidade,
-				userBGColor: params.userBGColor,
-				userIcon: params.userIcon,
-				userSaldo: saldo - valor,
-			},
-		})
+		currentUser.setSaldo(saldo - valor)
+		router.replace('/home')
 	}
 
 	return (
@@ -118,7 +102,7 @@ export default function PagarTransferirReciboScreen() {
 							borderWidth: 0,
 						}}
 						ref={animation}
-						source={require('@/assets/lottie/1127-success.json')}
+						source={require('@/src/assets/lottie/1127-success.json')}
 						autoPlay
 						loop
 					/>

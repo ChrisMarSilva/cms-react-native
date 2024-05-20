@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
-import { router, useLocalSearchParams, useNavigation } from 'expo-router'
+import { router, useNavigation } from 'expo-router'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { LinearGradient } from 'expo-linear-gradient'
 import Timeline from 'react-native-timeline-flatlist'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as HelperDate from '@/util/HelperDate'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as HelperDate from '@/src/util/HelperDate'
+import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/assets/imgs/logo-blue.png'
+import imglogoJD from '@/src/assets/imgs/logo-red.png'
+import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
 
 export default function MovimentacaoScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
-	const params = useLocalSearchParams()
 
 	const [isBtnTodosSelected, setIsBtnTodosSelected] = useState(true)
 	const [isBtnRectoSelected, setIsBtnRectoSelected] = useState(false)
@@ -22,11 +23,10 @@ export default function MovimentacaoScreen() {
 	const [dataPrinc, setDataPrinc] = useState(null)
 	const [data, setData] = useState(null)
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userBGColorScreen = params.userBGColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
-	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		setIsBtnTodosSelected(true)
@@ -34,6 +34,7 @@ export default function MovimentacaoScreen() {
 		setIsBtnPagtoSelected(false)
 		setDataPrinc(null)
 		setData(null)
+
 		_onButtonTodas()
 	}, [])
 
@@ -42,17 +43,17 @@ export default function MovimentacaoScreen() {
 			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
 			headerLeft: () => (
 				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userlogo} />
+					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
 					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Movimentações</Text>
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.navigate('/home')}>
+				<View>
+					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
 						<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="close" />
 					</TouchableOpacity>
 				</View>
@@ -110,15 +111,15 @@ export default function MovimentacaoScreen() {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
-			<View style={{ flex: 1, backgroundColor: params.userBGColor, flexDirection: 'row', justifyContent: 'center', paddingTop: 20, borderWidth: 0, borderColor: 'blue' }}>
-				<TouchableOpacity style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', width: 80, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnTodosSelected ? '#fff' : params.userBGColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onButtonTodas}>
-					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnTodosSelected ? params.userBGColor : '#fff', fontWeight: 'bold' }}> todas </Text>
+			<View style={{ flex: 1, backgroundColor: currentUser.bgColor, flexDirection: 'row', justifyContent: 'center', paddingTop: 20, borderWidth: 0, borderColor: 'blue' }}>
+				<TouchableOpacity style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', width: 80, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnTodosSelected ? '#fff' : currentUser.bgColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onButtonTodas}>
+					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnTodosSelected ? currentUser.bgColor : '#fff', fontWeight: 'bold' }}> todas </Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', width: 130, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnRectoSelected ? '#fff' : params.userBGColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} onPress={_onButtonRecebimentos}>
-					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnRectoSelected ? params.userBGColor : '#fff', fontWeight: 'bold' }}> recebimentos </Text>
+				<TouchableOpacity style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', width: 130, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnRectoSelected ? '#fff' : currentUser.bgColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} onPress={_onButtonRecebimentos}>
+					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnRectoSelected ? currentUser.bgColor : '#fff', fontWeight: 'bold' }}> recebimentos </Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={{ marginRight: 0, justifyContent: 'center', alignItems: 'center', width: 130, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnPagtoSelected ? '#fff' : params.userBGColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} onPress={_onButtonPagamentos}>
-					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnPagtoSelected ? params.userBGColor : '#fff', fontWeight: 'bold' }}> pagamentos </Text>
+				<TouchableOpacity style={{ marginRight: 0, justifyContent: 'center', alignItems: 'center', width: 130, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnPagtoSelected ? '#fff' : currentUser.bgColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} onPress={_onButtonPagamentos}>
+					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnPagtoSelected ? currentUser.bgColor : '#fff', fontWeight: 'bold' }}> pagamentos </Text>
 				</TouchableOpacity>
 			</View>
 

@@ -1,31 +1,32 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Text, View, Image, TouchableOpacity, Keyboard, KeyboardAvoidingView } from 'react-native'
-import { router, useLocalSearchParams, useNavigation } from 'expo-router'
+import { router, useNavigation } from 'expo-router'
 import { TextInputMask } from 'react-native-masked-text'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { LinearGradient } from 'expo-linear-gradient'
 
-import * as HelperNumero from '@/util/HelperNumero'
-import * as CONSTANTE from '@/util/Constante'
+import { UserContext } from '@/src/contexts/userContext'
+import * as HelperNumero from '@/src/util/HelperNumero'
+import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/assets/imgs/icon-blue.png'
+import imglogoJD from '@/src/assets/imgs/icon-red.png'
+import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
 
 export default function CobrarAlguemScreen() {
+	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
-	const params = useLocalSearchParams()
 
 	const [valor, setValor] = useState(0)
 
-	const userBGColorFim = params.userBGColor || CONSTANTE.BG_VERMELHO
+	const userBGColorFim = currentUser.bgColor
 	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
 	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
 	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = params.userBGColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
+	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		setValor(0)
-		router.setParams({ valor: 0 })
+		router.setParams({ valorReceber: 0 })
 	}, [])
 
 	useEffect(() => {
@@ -49,7 +50,7 @@ export default function CobrarAlguemScreen() {
 				</View>
 			),
 			headerTitle: () => (
-				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
 					<Text
 						style={{
 							marginLeft: 5,
@@ -63,8 +64,8 @@ export default function CobrarAlguemScreen() {
 				</View>
 			),
 			headerRight: () => (
-				<View style={{ flex: 1 }}>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.navigate('/home')}>
+				<View>
+					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
 						<FontAwesome
 							style={{
 								marginRight: 10,
@@ -81,23 +82,9 @@ export default function CobrarAlguemScreen() {
 	}, [navigation])
 
 	const _goToOpenScreenCobrarAlguemQrCode = () => {
-		router.navigate({
+		router.replace({
 			pathname: '/cobrar_alguem_qrcode',
-			params: {
-				userURL: params.userURL || CONSTANTE.URL_PAGADOR,
-				userChave: params.userChave || '',
-				userIspb: params.userIspb || '',
-				userNomeBanco: params.userNomeBanco || '',
-				userTipoPessoa: params.userTipoPessoa || '',
-				userDocumento: params.userDocumento || '',
-				userAgencia: params.userAgencia || '',
-				userConta: params.userConta || '',
-				userTipoConta: params.userTipoConta || '',
-				userNome: params.userNome || '',
-				userCidade: params.userCidade || '',
-				userBGColor: params.userBGColor || CONSTANTE.BG_VERMELHO,
-				valorReceber: parseFloat(HelperNumero.GetValorDecimal(valor)),
-			},
+			params: { valorReceber: parseFloat(HelperNumero.GetValorDecimal(valor)) },
 		})
 	}
 

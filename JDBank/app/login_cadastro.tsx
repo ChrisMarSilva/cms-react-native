@@ -42,6 +42,8 @@ export default function LoginCadastroScreen() {
 
 	const _onPressCriaConta = async () => {
 		try {
+			Keyboard.dismiss
+
 			setIsLoadingCadastro(true)
 
 			if (txtNome == null || txtNome == '') {
@@ -133,46 +135,14 @@ export default function LoginCadastroScreen() {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#fff' }}>
-			<View
-				style={{
-					flex: 2,
-					alignItems: 'center',
-					justifyContent: 'center',
-					borderWidth: 0,
-					borderColor: 'blue',
-				}}
-			>
+			<View style={{ flex: 2, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<Image source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} style={{ width: 190, height: 90, borderWidth: 0, borderColor: 'red' }} />
 			</View>
-			<KeyboardAvoidingView
-				style={{
-					flex: 4,
-					width: '100%',
-					justifyContent: 'flex-start',
-					alignItems: 'center',
-					borderWidth: 0,
-					borderColor: 'red',
-				}}
-				scrollEnabled={false}
-				resetScrollToCoords={{ x: 0, y: 0 }}
-				behavior="padding"
-				enabled
-			>
-				<Text
-					style={{
-						width: '95%',
-						paddingTop: 5,
-						fontSize: 18,
-						color: currentUser.bgColor,
-						textAlign: 'center',
-						fontWeight: 'bold',
-					}}
-				>
-					Cadastro
-				</Text>
+
+			<KeyboardAvoidingView style={{ flex: 4, width: '100%', justifyContent: 'flex-start', alignItems: 'center', borderWidth: 0, borderColor: 'red' }} scrollEnabled={false} resetScrollToCoords={{ x: 0, y: 0 }} behavior="padding" enabled>
+				<Text style={{ width: '95%', paddingTop: 5, fontSize: 18, color: currentUser.bgColor, textAlign: 'center', fontWeight: 'bold' }}>Cadastro</Text>
 
 				<TextInput
-					//ref="TextInputNome"
 					editable={true}
 					placeholder="Nome"
 					autoCapitalize={'none'}
@@ -184,20 +154,10 @@ export default function LoginCadastroScreen() {
 					onEndEditing={() => {
 						Keyboard.dismiss
 					}}
-					style={{
-						fontSize: 16,
-						color: '#000',
-						borderBottomWidth: 1,
-						borderBottomColor: '#555',
-						marginTop: 5,
-						marginBottom: 5,
-						width: '88%',
-						height: 30,
-					}}
+					style={{ fontSize: 16, color: '#000', borderBottomWidth: 1, borderBottomColor: '#555', marginTop: 5, marginBottom: 5, width: '88%', height: 30 }}
 				/>
 
 				<TextInputMask
-					//ref="TextInputDocumento"
 					type={'cpf'}
 					editable={true}
 					autoFocus={false}
@@ -213,20 +173,10 @@ export default function LoginCadastroScreen() {
 					onEndEditing={() => {
 						Keyboard.dismiss
 					}}
-					style={{
-						fontSize: 16,
-						color: '#000',
-						borderBottomWidth: 1,
-						borderBottomColor: '#555',
-						marginTop: 5,
-						marginBottom: 5,
-						width: '88%',
-						height: 30,
-					}}
+					style={{ fontSize: 16, color: '#000', borderBottomWidth: 1, borderBottomColor: '#555', marginTop: 5, marginBottom: 5, width: '88%', height: 30 }}
 				/>
 
 				<TextInputMask
-					// ref="TextInputChave"
 					type={'cel-phone'}
 					options={{ maskType: 'BRL', withDDD: true, dddMask: '(99) ' }}
 					autoFocus={false}
@@ -257,7 +207,6 @@ export default function LoginCadastroScreen() {
 
 				<View style={{ flexDirection: 'row', width: '88%', marginBottom: 10 }}>
 					<TextInput
-						//ref="TextInputAgencia"
 						autoFocus={false}
 						editable={true}
 						placeholder="Agência"
@@ -288,7 +237,6 @@ export default function LoginCadastroScreen() {
 					/>
 
 					<TextInput
-						//ref="TextInputConta"
 						autoFocus={false}
 						editable={true}
 						placeholder="Conta"
@@ -321,39 +269,12 @@ export default function LoginCadastroScreen() {
 				{isLoadingCadastro ? (
 					<ActivityIndicator color="#009688" size="large" tyle={{ color: '#fff', fontSize: 18, textAlign: 'center' }} />
 				) : (
-					<TouchableOpacity
-						style={{
-							paddingTop: 10,
-							paddingBottom: 10,
-							borderRadius: 10,
-							marginTop: 10,
-							marginBottom: 7,
-							width: '95%',
-							backgroundColor: currentUser.bgColor,
-						}}
-						activeOpacity={0.7}
-						onPress={() => {
-							Keyboard.dismiss
-							_onPressCriaConta()
-						}}
-					>
+					<TouchableOpacity style={{ paddingTop: 10, paddingBottom: 10, borderRadius: 10, marginTop: 10, marginBottom: 7, width: '95%', backgroundColor: currentUser.bgColor }} activeOpacity={0.7} onPress={_onPressCriaConta}>
 						<Text style={{ color: '#fff', fontSize: 18, textAlign: 'center' }}>CADASTRAR</Text>
 					</TouchableOpacity>
 				)}
 
-				<Text
-					style={{
-						marginTop: 10,
-						textDecorationLine: 'underline',
-						fontWeight: 'bold',
-						fontSize: 16,
-						color: '#6E7B8B',
-						textAlign: 'right',
-					}}
-					onPress={() => {
-						router.replace('/login')
-					}}
-				>
+				<Text style={{ marginTop: 10, textDecorationLine: 'underline', fontWeight: 'bold', fontSize: 16, color: '#6E7B8B', textAlign: 'right' }} onPress={() => router.replace('/login')}>
 					Voltar para Login
 				</Text>
 			</KeyboardAvoidingView>

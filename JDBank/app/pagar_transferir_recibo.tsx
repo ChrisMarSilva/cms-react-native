@@ -9,21 +9,13 @@ import LottieView from 'lottie-react-native'
 import { UserContext } from '@/src/contexts/userContext'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import * as CONSTANTE from '@/src/util/Constante'
-
-import imglogoJD from '@/src/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
+import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 export default function PagarTransferirReciboScreen() {
 	const currentUser = useContext(UserContext)
 	const navigation = useNavigation()
 	const params = useLocalSearchParams()
-
 	const animation = useRef(null)
-
-	const userBGColorFim = currentUser.bgColor
-	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		_getTocarSom()
@@ -31,24 +23,10 @@ export default function PagarTransferirReciboScreen() {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
-			headerLeft: () => (
-				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
-				</View>
-			),
-			headerTitle: () => (
-				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Pagamento Feito!</Text>
-				</View>
-			),
-			headerRight: () => (
-				<View>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => _OnPressVerComprovante()}>
-						<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="close" />
-					</TouchableOpacity>
-				</View>
-			),
+			headerBackground: () => <HeaderBackground />,
+			headerLeft: () => <HeaderLeft />,
+			headerTitle: () => <HeaderTitle titulo={'Pagamento Feito!'} />,
+			headerRight: () => <HeaderRight isVisible={true} onPress={_OnPressVerComprovante} icone={'close'} />,
 		})
 	}, [navigation])
 
@@ -91,7 +69,7 @@ export default function PagarTransferirReciboScreen() {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
 			<View style={{ flex: 4, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<View style={{ justifyContent: 'center', alignItems: 'center', width: '85%', height: '80%', borderRadius: 25, backgroundColor: '#fff', borderWidth: 0, borderColor: 'blue' }}>
 					<LottieView

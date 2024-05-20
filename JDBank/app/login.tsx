@@ -25,7 +25,7 @@ export default function LoginScreen() {
 		setIsLoadingLogin(false)
 
 		_limparDadosUsuario()
-		//_verificarSessaoUsuario()
+		_verificarSessaoUsuario()
 	}, [])
 
 	const _limparDadosUsuario = async () => {
@@ -41,14 +41,15 @@ export default function LoginScreen() {
 		currentUser.setIcon('')
 	}
 
-	// const _verificarSessaoUsuario = () => {
-	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ICON).then((value) => currentUser.setIcon(value))
-	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_BGCOLOR).then((value) => currentUser.setBgColor(value))
-	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_CHAVE).then((value) => setTxtChave(value))
-	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_URL).then((value) => currentUser.setNomeBanco(value))
-	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ISPB_IF).then((value) => currentUser.setIspb(value))
-	// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_NOME_IF).then((value) => currentUser.setNomeBanco(value))
-	// }
+	const _verificarSessaoUsuario = () => {
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_URL).then((value) => currentUser.setNomeBanco(value))
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ISPB_IF).then((value) => currentUser.setIspb(value))
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_NOME_IF).then((value) => currentUser.setNomeBanco(value))
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_CHAVE).then((value) => setTxtChave(value))
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_BGCOLOR).then((value) => currentUser.setBgColor(value))
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN).then((value) => currentUser.setBgColorScreen(value))
+		// 	AsyncStorage.getItem(CONSTANTE.SESSAO_USER_ICON).then((value) => currentUser.setIcon(value))
+	}
 
 	const _onPressLogin = async () => {
 		try {
@@ -88,6 +89,7 @@ export default function LoginScreen() {
 		await HelperSessao.SetUserIspb(ispb)
 		await HelperSessao.SetUserNomeBanco(nomeBanco)
 		await HelperSessao.SetUserBGColor(currentUser.bgColor)
+		await HelperSessao.SetUserBGColorScreen(currentUser.bgColorScreen)
 		await HelperSessao.SetUserIcon(currentUser.icon)
 
 		currentUser.setChave(chave)
@@ -101,6 +103,7 @@ export default function LoginScreen() {
 		currentUser.setTipoConta(tipoConta)
 		currentUser.setConta(conta)
 		currentUser.setSaldo('0')
+		currentUser.setBgColorScreen(currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE)
 		currentUser.setLogo(currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3)
 
 		setIsLoadingLogin(false)
@@ -111,7 +114,7 @@ export default function LoginScreen() {
 		Keyboard.dismiss()
 		setTxtChave('')
 		setIsLoadingLogin(false)
-		router.replace('/login_cadastro')
+		router.navigate('/login_cadastro')
 	}
 
 	const _onPressAlterarCorApp = async () => {
@@ -120,145 +123,64 @@ export default function LoginScreen() {
 		let url = ''
 		let ispb = ''
 		let nomeBanco = ''
-		let icon = ''
 		let bgColor = ''
+		let bgColorScreen = ''
+		let icon = ''
 
 		if (currentUser.bgColor == CONSTANTE.BG_VERMELHO) {
 			url = CONSTANTE.URL_RECEBEDOR
 			ispb = CONSTANTE.ISPB_RECEBEDOR
 			nomeBanco = CONSTANTE.NOME_RECEBEDOR
-			icon = CONSTANTE.ICON_RECEBEDOR
 			bgColor = CONSTANTE.BG_AZUL
+			bgColorScreen = CONSTANTE.BG_AZUL_FORTE
+			icon = CONSTANTE.ICON_RECEBEDOR
 		} else {
 			url = CONSTANTE.URL_PAGADOR
 			ispb = CONSTANTE.ISPB_PAGADOR
 			nomeBanco = CONSTANTE.NOME_PAGADOR
-			userIcon = CONSTANTE.ICON_PAGADOR
 			bgColor = CONSTANTE.BG_VERMELHO
+			bgColorScreen = CONSTANTE.BG_VERMELHO_FORTE
+			icon = CONSTANTE.ICON_PAGADOR
 		}
 
 		await HelperSessao.SetUserURL(url)
 		await HelperSessao.SetUserIspb(ispb)
 		await HelperSessao.SetUserNomeBanco(nomeBanco)
-		await HelperSessao.SetUserIcon(icon)
 		await HelperSessao.SetUserBGColor(bgColor)
+		await HelperSessao.SetUserBGColorScreen(bgColorScreen)
+		await HelperSessao.SetUserIcon(icon)
 
 		currentUser.setUrl(url)
 		currentUser.setIspb(ispb)
 		currentUser.setNomeBanco(nomeBanco)
-		currentUser.setIcon(icon)
 		currentUser.setBgColor(bgColor)
+		currentUser.setBgColorScreen(bgColorScreen)
+		currentUser.setIcon(icon)
 	}
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#fff' }}>
-			<View
-				style={{
-					flex: 3,
-					alignItems: 'center',
-					justifyContent: 'flex-end',
-					paddingBottom: 30,
-					borderWidth: 0,
-					borderColor: 'blue',
-				}}
-			>
+			<View style={{ flex: 3, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 30, borderWidth: 0, borderColor: 'blue' }}>
 				<TouchableOpacity style={{ borderWidth: 0, borderColor: 'red' }} onPress={_onPressAlterarCorApp}>
-					<Image
-						source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3}
-						style={{
-							resizeMode: 'contain',
-							width: 200,
-							height: 100,
-							borderWidth: 0,
-							borderColor: 'red',
-						}}
-					/>
+					<Image source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} style={{ resizeMode: 'contain', width: 200, height: 100, borderWidth: 0, borderColor: 'red' }} />
 				</TouchableOpacity>
 			</View>
 
-			<KeyboardAvoidingView
-				behavior="padding"
-				enabled
-				style={{
-					flex: 3,
-					width: '100%',
-					alignItems: 'center',
-					borderWidth: 0,
-					borderColor: 'red',
-				}}
-			>
-				<TextInputMask
-					type={'cel-phone'}
-					options={{ maskType: 'BRL', withDDD: true, dddMask: '+55 (99) ' }}
-					editable={true}
-					autoFocus={false}
-					autoCorrect={true}
-					placeholder="Telefone"
-					autoCapitalize={'none'}
-					underlineColorAndroid="transparent"
-					returnKeyType={'done'}
-					enablesReturnKeyAutomatically={true}
-					value={txtChave}
-					onChangeText={(value) => setTxtChave(value)}
-					onSubmitEditing={Keyboard.dismiss}
-					style={{
-						fontSize: 20,
-						color: '#000',
-						borderBottomWidth: 1,
-						borderBottomColor: '#555',
-						marginTop: 10,
-						marginBottom: 10,
-						width: '88%',
-						height: 40,
-						textAlign: 'center',
-					}}
-				/>
+			<KeyboardAvoidingView behavior="padding" enabled style={{ flex: 3, width: '100%', alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
+				<TextInputMask type={'cel-phone'} options={{ maskType: 'BRL', withDDD: true, dddMask: '+55 (99) ' }} editable={true} autoFocus={false} autoCorrect={true} placeholder="Telefone" autoCapitalize={'none'} underlineColorAndroid="transparent" returnKeyType={'done'} enablesReturnKeyAutomatically={true} value={txtChave} onChangeText={(value) => setTxtChave(value)} onSubmitEditing={Keyboard.dismiss} style={{ fontSize: 20, color: '#000', borderBottomWidth: 1, borderBottomColor: '#555', marginTop: 10, marginBottom: 10, width: '88%', height: 40, textAlign: 'center' }} />
 
-				<TouchableOpacity
-					style={{
-						height: 45,
-						paddingTop: 10,
-						paddingBottom: 10,
-						borderRadius: 10,
-						marginTop: 20,
-						marginBottom: 20,
-						width: '90%',
-						backgroundColor: currentUser.bgColor,
-					}}
-					activeOpacity={0.7}
-					onPress={_onPressLogin}
-				>
+				<TouchableOpacity style={{ height: 45, paddingTop: 10, paddingBottom: 10, borderRadius: 10, marginTop: 20, marginBottom: 20, width: '90%', backgroundColor: currentUser.bgColor }} activeOpacity={0.7} onPress={_onPressLogin}>
 					{isLoadingLogin ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ color: '#fff', fontSize: 20, textAlign: 'center' }}>LOGIN</Text>}
 				</TouchableOpacity>
 
-				<View
-					style={{
-						width: '90%',
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-					}}
-				>
-					<Text
-						style={{
-							textDecorationLine: 'underline',
-							fontWeight: 'bold',
-							fontSize: 16,
-							color: '#6C7B8B',
-							textAlign: 'left',
-						}}
-						onPress={_onPressCadastro}
-					>
+				<View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
+					<Text style={{ textDecorationLine: 'underline', fontWeight: 'bold', fontSize: 16, color: '#6C7B8B', textAlign: 'left' }} onPress={_onPressCadastro}>
 						Criar Conta
 					</Text>
 				</View>
 			</KeyboardAvoidingView>
 
-			<View
-				style={{
-					justifyContent: 'flex-end',
-					alignItems: 'center',
-				}}
-			>
+			<View style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
 				<Text style={{ fontWeight: 'bold', fontSize: 10, color: '#555' }}>Versão: {Constants.expoConfig.version}</Text>
 			</View>
 		</View>

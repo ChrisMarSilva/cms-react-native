@@ -9,9 +9,7 @@ import { UserContext } from '@/src/contexts/userContext'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import * as HelperDate from '@/src/util/HelperDate'
 import * as CONSTANTE from '@/src/util/Constante'
-
-import imglogoJD from '@/src/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
+import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 export default function MovimentacaoScreen() {
 	const currentUser = useContext(UserContext)
@@ -23,11 +21,6 @@ export default function MovimentacaoScreen() {
 	const [dataPrinc, setDataPrinc] = useState(null)
 	const [data, setData] = useState(null)
 
-	const userBGColorFim = currentUser.bgColor
-	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
-
 	useEffect(() => {
 		setIsBtnTodosSelected(true)
 		setIsBtnRectoSelected(false)
@@ -35,31 +28,21 @@ export default function MovimentacaoScreen() {
 		setDataPrinc(null)
 		setData(null)
 
-		_onButtonTodas()
+		setTimeout(() => {
+			_onButtonTodas()
+		}, 200)
 	}, [])
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
-			headerLeft: () => (
-				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
-				</View>
-			),
-			headerTitle: () => (
-				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Movimentações</Text>
-				</View>
-			),
-			headerRight: () => (
-				<View>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
-						<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="close" />
-					</TouchableOpacity>
-				</View>
-			),
+			headerBackground: () => <HeaderBackground />,
+			headerLeft: () => <HeaderLeft />,
+			headerTitle: () => <HeaderTitle titulo={'Movimentações'} />,
+			headerRight: () => <HeaderRight isVisible={true} onPress={_onPressHome} icone={'close'} />,
 		})
 	}, [navigation])
+
+	const _onPressHome = async () => router.replace('/home')
 
 	const _onButtonTodas = () => {
 		const dt = new Date()
@@ -110,7 +93,7 @@ export default function MovimentacaoScreen() {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
 			<View style={{ flex: 1, backgroundColor: currentUser.bgColor, flexDirection: 'row', justifyContent: 'center', paddingTop: 20, borderWidth: 0, borderColor: 'blue' }}>
 				<TouchableOpacity style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', width: 80, height: 32, borderRadius: 15, borderWidth: 2, borderColor: '#fff', backgroundColor: isBtnTodosSelected ? '#fff' : currentUser.bgColor, shadowOpacity: 0.8, shadowRadius: 6, elevation: 15 }} activeOpacity={0.7} onPress={_onButtonTodas}>
 					<Text style={{ fontSize: 16, paddingLeft: 5, textAlign: 'left', color: isBtnTodosSelected ? currentUser.bgColor : '#fff', fontWeight: 'bold' }}> todas </Text>

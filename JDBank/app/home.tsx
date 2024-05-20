@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { Text, View, TouchableOpacity, Alert, Image, BackHandler, Platform } from 'react-native'
+import { Text, View, TouchableOpacity, Alert, Image } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 import { Audio } from 'expo-av'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -9,10 +9,9 @@ import * as signalR from '@microsoft/signalr'
 import { UserContext } from '@/src/contexts/userContext'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import * as CONSTANTE from '@/src/util/Constante'
+import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 import { getSaldo } from '@/src/services/saldoService'
 
-import imglogoJD from '@/src/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
 import imgBluePerson from '@/src/assets/imgs/person-blue.jpg'
 import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 
@@ -28,11 +27,6 @@ export default function HomeScreen() {
 	const [nomePagRec, setNomePagRec] = useState('')
 	const [valorPagRec, setValorPagRec] = useState(0)
 
-	const userBGColorFim = currentUser.bgColor
-	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
-
 	useEffect(() => {
 		currentUser.setSaldo(0)
 		setIsVisiblePagRec(false)
@@ -44,26 +38,10 @@ export default function HomeScreen() {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
-			headerLeft: () => (
-				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
-				</View>
-			),
-			headerTitle: () => (
-				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{currentUser.nomeBanco}</Text>
-				</View>
-			),
-			headerRight: () => (
-				<View>
-					{isVisiblePagRec ? (
-						<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={_onPressNotificacao}>
-							<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="bell-o" />
-						</TouchableOpacity>
-					) : null}
-				</View>
-			),
+			headerBackground: () => <HeaderBackground />,
+			headerLeft: () => <HeaderLeft />,
+			headerTitle: () => <HeaderTitle titulo={currentUser.nomeBanco} />,
+			headerRight: () => <HeaderRight isVisible={isVisiblePagRec} onPress={_onPressNotificacao} icone={'bell-o'} />,
 		})
 	}, [navigation])
 
@@ -160,16 +138,16 @@ export default function HomeScreen() {
 		}
 	}
 
-	const _onPressPagarTransferir = () => router.replace('/pagar_transferir')
-	const _onPressCobrarAlguem = () => router.replace('/cobrar_alguem')
-	const _onPressColocarDinheiro = () => router.replace('/colocar_dinheiro')
-	const _onPressMovimentacao = () => router.replace('/movimentacao')
-	const _onPressPerfil = () => router.replace('/perfil')
+	const _onPressPagarTransferir = () => router.navigate('/pagar_transferir')
+	const _onPressCobrarAlguem = () => router.navigate('/cobrar_alguem')
+	const _onPressColocarDinheiro = () => router.navigate('/colocar_dinheiro')
+	const _onPressMovimentacao = () => router.navigate('/movimentacao')
+	const _onPressPerfil = () => router.navigate('/perfil')
 
 	const _onPressNotificacao = () => {
 		setIsVisiblePagRec(false)
 
-		router.replace({
+		router.navigate({
 			pathname: '/cobrar_alguem_recibo',
 			params: {
 				tipoPessoaPagRec: tipoPessoaPagRec,
@@ -183,7 +161,7 @@ export default function HomeScreen() {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
 			<View style={{ flex: 6, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<TouchableOpacity onPress={_onPressPerfil}>
 					<Image style={{ width: 80, height: 80, borderRadius: 60, borderWidth: 2, borderColor: '#fff', marginTop: 20, marginBottom: 10 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imgRedPerson : imgBluePerson} />

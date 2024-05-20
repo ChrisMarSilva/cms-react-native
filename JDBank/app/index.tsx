@@ -37,6 +37,7 @@ export default function IndexScreen() {
 		currentUser.setIcon('')
 		currentUser.setLogo('')
 		currentUser.setBgColor('')
+		currentUser.setBgColorScreen('')
 	}
 
 	const _inicarSessaoUsuarioPagador = async () => {
@@ -47,13 +48,15 @@ export default function IndexScreen() {
 		await HelperSessao.SetUserIspb(CONSTANTE.ISPB_PAGADOR)
 		await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_PAGADOR)
 		await HelperSessao.SetUserBGColor(CONSTANTE.BG_VERMELHO)
+		await HelperSessao.SetUserBGColorScreen(CONSTANTE.BG_VERMELHO_FORTE)
 		await HelperSessao.SetUserIcon(CONSTANTE.ICON_PAGADOR)
 
 		currentUser.setUrl(CONSTANTE.URL_PAGADOR)
 		currentUser.setIspb(CONSTANTE.ISPB_PAGADOR)
 		currentUser.setNomeBanco(CONSTANTE.NOME_PAGADOR)
-		currentUser.setLogo(CONSTANTE.BG_VERMELHO)
-		currentUser.setBGColor(CONSTANTE.ICON_PAGADOR)
+		currentUser.setBGColor(CONSTANTE.BG_VERMELHO)
+		currentUser.setBGColorScreen(CONSTANTE.BG_VERMELHO_FORTE)
+		currentUser.setLogo(CONSTANTE.ICON_PAGADOR)
 		//}
 	}
 
@@ -65,13 +68,15 @@ export default function IndexScreen() {
 		await HelperSessao.SetUserIspb(CONSTANTE.ISPB_RECEBEDOR)
 		await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_RECEBEDOR)
 		await HelperSessao.SetUserBGColor(CONSTANTE.BG_AZUL)
+		await HelperSessao.SetUserBGColorScreen(CONSTANTE.BG_AZUL_FORTE)
 		await HelperSessao.SetUserIcon(CONSTANTE.ICON_RECEBEDOR)
 
 		currentUser.setUrl(CONSTANTE.URL_RECEBEDOR)
 		currentUser.setIspb(CONSTANTE.ISPB_RECEBEDOR)
 		currentUser.setNomeBanco(CONSTANTE.NOME_RECEBEDOR)
-		currentUser.setLogo(CONSTANTE.BG_AZUL)
-		currentUser.setBGColor(CONSTANTE.ICON_RECEBEDOR)
+		currentUser.setBGColor(CONSTANTE.BG_AZUL)
+		currentUser.setBGColorScreen(CONSTANTE.BG_AZUL_FORTE)
+		currentUser.setLogo(CONSTANTE.ICON_RECEBEDOR)
 		//}
 	}
 
@@ -80,8 +85,9 @@ export default function IndexScreen() {
 		currentUser.setChave(await HelperSessao.GetUserChave())
 		currentUser.setIspb(await HelperSessao.GetUserIspb())
 		currentUser.setNomeBanco(await HelperSessao.GetUserNomeBanco())
-		currentUser.setIcon(await HelperSessao.GetUserIcon())
 		currentUser.setBgColor(await HelperSessao.GetUserBGColor())
+		currentUser.setBgColorScreen(await HelperSessao.GetUserBGColorScreen())
+		currentUser.setIcon(await HelperSessao.GetUserIcon())
 
 		router.replace('/login')
 		// router.replace('/page1') // para testes

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import * as CONSTANTE from '@/src/util/Constante'
 
-export const GetUserBGColor = async () => await GetSessao(CONSTANTE.SESSAO_USER_BGCOLOR)
 export const GetUserChave = async () => await GetSessao(CONSTANTE.SESSAO_USER_CHAVE)
 export const GetUserIspb = async () => await GetSessao(CONSTANTE.SESSAO_USER_ISPB_IF)
 export const GetUserNomeBanco = async () => await GetSessao(CONSTANTE.SESSAO_USER_NOME_IF)
@@ -13,6 +13,8 @@ export const GetUserTipoConta = async () => await GetSessao(CONSTANTE.SESSAO_USE
 export const GetUserNome = async () => await GetSessao(CONSTANTE.SESSAO_USER_NOME)
 export const GetUserCidade = async () => await GetSessao(CONSTANTE.SESSAO_USER_CIDADE)
 export const GetUserURL = async () => await GetSessao(CONSTANTE.SESSAO_USER_URL)
+export const GetUserBGColor = async () => await GetSessao(CONSTANTE.SESSAO_USER_BGCOLOR)
+export const GetUserBGColorScreen = async () => await GetSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN)
 export const GetUserIcon = async () => await GetSessao(CONSTANTE.SESSAO_USER_ICON)
 
 export const SetUserURL = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_URL, Value)
@@ -27,6 +29,7 @@ export const SetUserTipoConta = async (Value) => await SetSessao(CONSTANTE.SESSA
 export const SetUserNome = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_NOME, Value)
 export const SetUserCidade = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_CIDADE, Value)
 export const SetUserBGColor = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_BGCOLOR, Value)
+export const SetUserBGColorScreen = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN, Value)
 export const SetUserIcon = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_ICON, Value)
 
 export const RemoveUserURL = async () => await ClearSessao(CONSTANTE.SESSAO_USER_URL)
@@ -41,6 +44,7 @@ export const RemoveUserTipoConta = async () => await ClearSessao(CONSTANTE.SESSA
 export const RemoveUserNome = async () => await ClearSessao(CONSTANTE.SESSAO_USER_NOME)
 export const RemoveUserCidade = async () => await ClearSessao(CONSTANTE.SESSAO_USER_CIDADE)
 export const RemoveUserBGColor = async () => await ClearSessao(CONSTANTE.SESSAO_USER_BGCOLOR)
+export const RemoveUserBGColoScreenr = async () => await ClearSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN)
 export const RemoveUserIcon = async () => await ClearSessao(CONSTANTE.SESSAO_USER_ICON)
 
 export const GetSessao = async (Chave) => {

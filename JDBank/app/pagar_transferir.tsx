@@ -9,9 +9,7 @@ import { UserContext } from '@/src/contexts/userContext'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import * as CONSTANTE from '@/src/util/Constante'
 import { sendQrCode } from '@/src/services/qrcodeService'
-
-import imglogoJD from '@/src/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
+import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 export default function PagarTransferirScreen() {
 	const currentUser = useContext(UserContext)
@@ -21,12 +19,6 @@ export default function PagarTransferirScreen() {
 	const [hasCameraPermission, setHasCameraPermission] = useState(false)
 	const [hasScanned, setHasScanned] = useState(false)
 	const [permission, requestPermission] = useCameraPermissions()
-
-	const userBGColorFim = currentUser.bgColor
-	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 
 	useEffect(() => {
 		setHasScanned(false)
@@ -39,55 +31,14 @@ export default function PagarTransferirScreen() {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
-			headerLeft: () => (
-				<View>
-					<Image
-						style={{
-							resizeMode: 'cover',
-							backgroundColor: '#fff',
-							width: 35,
-							height: 35,
-							borderRadius: 63,
-							borderWidth: 2,
-							borderColor: '#fff',
-							marginLeft: 10,
-						}}
-						source={userlogo}
-					/>
-				</View>
-			),
-			headerTitle: () => (
-				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-					<Text
-						style={{
-							marginLeft: 5,
-							color: '#fff',
-							fontSize: 18,
-							fontWeight: 'bold',
-						}}
-					>
-						Pagar com Código QR
-					</Text>
-				</View>
-			),
-			headerRight: () => (
-				<View>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
-						<FontAwesome
-							style={{
-								marginRight: 10,
-								color: '#fff',
-								fontSize: 25,
-								fontWeight: 'bold',
-							}}
-							name="close"
-						/>
-					</TouchableOpacity>
-				</View>
-			),
+			headerBackground: () => <HeaderBackground />,
+			headerLeft: () => <HeaderLeft />,
+			headerTitle: () => <HeaderTitle titulo={'Pagar com Código QR'} />,
+			headerRight: () => <HeaderRight isVisible={true} onPress={_onPressHome} icone={'close'} />,
 		})
 	}, [navigation])
+
+	const _onPressHome = async () => router.replace('/home')
 
 	const _requestCameraPermission = async () => {
 		//const { status } = await Camera.requestCameraPermissionsAsync()
@@ -108,7 +59,7 @@ export default function PagarTransferirScreen() {
 			const infoRecebedor = result.additionalDataField ? result.additionalDataField : '123'
 			const chaveRecebedor = result.merchantAccountInformation.itens[1].descricao
 
-			router.replace({
+			router.navigate({
 				pathname: '/pagar_transferir_confirma',
 				params: {
 					chaveRecebedor: chaveRecebedor,
@@ -134,7 +85,7 @@ export default function PagarTransferirScreen() {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
 			<View style={{ flex: 6, justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<View style={{ width: '80%', height: '70%', alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderColor: 'blue' }}>{hasCameraPermission == null || hasCameraPermission == false ? <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 200 }}>Sem acesso à Câmera</Text> : <CameraView onBarcodeScanned={hasScanned ? undefined : _PostEnviarQRCode} style={{ height: '100%', width: '100%' }} facing={'back'} barcodeScannerSettings={{ barcodeTypes: ['qr', 'pdf417'] }} />}</View>
 

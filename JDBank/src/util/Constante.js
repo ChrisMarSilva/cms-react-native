@@ -36,6 +36,7 @@ export const SESSAO_USER_CONTA_TP = SESSAO_PADRAO + 'UserContaTp'
 export const SESSAO_USER_NOME = SESSAO_PADRAO + 'UserNome'
 export const SESSAO_USER_CIDADE = SESSAO_PADRAO + 'UserCidade'
 export const SESSAO_USER_BGCOLOR = SESSAO_PADRAO + 'UserBackgroundColor'
+export const SESSAO_USER_BGCOLOR_SCREEN = SESSAO_PADRAO + 'UserBackgroundColorScreen'
 export const SESSAO_USER_ICON = SESSAO_PADRAO + 'UserIcon'
 
 // COR

@@ -11,9 +11,7 @@ import * as HelperNumero from '@/src/util/HelperNumero'
 import * as CONSTANTE from '@/src/util/Constante'
 import { getChave } from '@/src/services/chaveService'
 import { payQrCode } from '@/src/services/qrcodeService'
-
-import imglogoJD from '@/src/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
+import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 export default function PagarTransferirConfirmaScreen() {
 	const currentUser = useContext(UserContext)
@@ -26,12 +24,6 @@ export default function PagarTransferirConfirmaScreen() {
 	const [valor, setValor] = useState(0)
 	const [valorRecebedor, setValorRecebedor] = useState(0)
 
-	const userBGColorFim = currentUser.bgColor
-	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
-
 	useEffect(() => {
 		setIsLoadingDadosRecebedor(true)
 		setIsLoadingPagamento(false)
@@ -43,26 +35,14 @@ export default function PagarTransferirConfirmaScreen() {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
-			headerLeft: () => (
-				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={userlogo} />
-				</View>
-			),
-			headerTitle: () => (
-				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-					<Text style={{ marginLeft: 5, color: '#fff', fontSize: 18, fontWeight: 'bold' }}>Confirmação de Pagamento</Text>
-				</View>
-			),
-			headerRight: () => (
-				<View>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
-						<FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name="close" />
-					</TouchableOpacity>
-				</View>
-			),
+			headerBackground: () => <HeaderBackground />,
+			headerLeft: () => <HeaderLeft />,
+			headerTitle: () => <HeaderTitle titulo={'Confirmação de Pagamento'} />,
+			headerRight: () => <HeaderRight isVisible={true} onPress={_onPressHome} icone={'close'} />,
 		})
 	}, [navigation])
+
+	const _onPressHome = async () => router.replace('/home')
 
 	const _buscarDadosRecebedor = async () => {
 		try {
@@ -101,7 +81,7 @@ export default function PagarTransferirConfirmaScreen() {
 				nomeRecebedor: '',
 			})
 
-			router.replace('/pagar_transferir')
+			router.navigate('/pagar_transferir')
 		}
 	}
 
@@ -139,7 +119,7 @@ export default function PagarTransferirConfirmaScreen() {
 
 			setIsLoadingPagamento(false)
 
-			router.replace({
+			router.navigate({
 				pathname: '/pagar_transferir_recibo',
 				params: {
 					chaveRecebedor: params.chaveRecebedor,
@@ -161,7 +141,7 @@ export default function PagarTransferirConfirmaScreen() {
 	}
 
 	return (
-		<KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
 			<View style={{ justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'blue' }}>
 				<View style={{ justifyContent: 'center', alignItems: 'center', width: '85%', height: '70%', borderRadius: 25, backgroundColor: '#fff', borderWidth: 0, borderColor: 'blue' }}>
 					{isLoadingDadosRecebedor ? (

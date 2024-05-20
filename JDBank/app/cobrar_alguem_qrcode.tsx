@@ -9,9 +9,7 @@ import { UserContext } from '@/src/contexts/userContext'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import * as CONSTANTE from '@/src/util/Constante'
 import { createQrCode } from '@/src/services/qrcodeService'
-
-import imglogoJD from '@/src/assets/imgs/icon-red.png'
-import imglogoJ3 from '@/src/assets/imgs/icon-blue.png'
+import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 export default function CobrarAlguemQrCodeScreen() {
 	const currentUser = useContext(UserContext)
@@ -22,11 +20,6 @@ export default function CobrarAlguemQrCodeScreen() {
 	const [encodedData, setEncodedData] = useState(null)
 	const [isLoadingGerarQRCode, setIsLoadingGerarQRCode] = useState(true)
 
-	const userBGColorFim = currentUser.bgColor
-	const userBGColorMeio = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-	const userBGColorIni = userBGColorFim == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-	const userlogo = userBGColorFim == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3
-	const userBGColorScreen = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE
 	const valor = HelperNumero.isNumber(params.valorReceber || '0') ? parseFloat(params.valorReceber || '0') : 0
 
 	useEffect(() => {
@@ -38,55 +31,14 @@ export default function CobrarAlguemQrCodeScreen() {
 
 	useEffect(() => {
 		navigation.setOptions({
-			headerBackground: () => <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />,
-			headerLeft: () => (
-				<View>
-					<Image
-						style={{
-							resizeMode: 'cover',
-							backgroundColor: '#fff',
-							width: 35,
-							height: 35,
-							borderRadius: 63,
-							borderWidth: 2,
-							borderColor: '#fff',
-							marginLeft: 10,
-						}}
-						source={userlogo}
-					/>
-				</View>
-			),
-			headerTitle: () => (
-				<View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-					<Text
-						style={{
-							marginLeft: 5,
-							color: '#fff',
-							fontSize: 18,
-							fontWeight: 'bold',
-						}}
-					>
-						Cobrar com Código QR
-					</Text>
-				</View>
-			),
-			headerRight: () => (
-				<View>
-					<TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => router.replace('/home')}>
-						<FontAwesome
-							style={{
-								marginRight: 10,
-								color: '#fff',
-								fontSize: 25,
-								fontWeight: 'bold',
-							}}
-							name="close"
-						/>
-					</TouchableOpacity>
-				</View>
-			),
+			headerBackground: () => <HeaderBackground />,
+			headerLeft: () => <HeaderLeft />,
+			headerTitle: () => <HeaderTitle titulo={'Cobrar com Código QR'} />,
+			headerRight: () => <HeaderRight isVisible={true} onPress={_onPressHome} icone={'close'} />,
 		})
 	}, [navigation])
+
+	const _onPressHome = async () => router.replace('/home')
 
 	const _GetGerarQRCode = async () => {
 		try {
@@ -104,14 +56,14 @@ export default function CobrarAlguemQrCodeScreen() {
 	}
 
 	const _goToOpenScreenCobrarAlguemAgain = () => {
-		router.replace({
+		router.navigate({
 			pathname: '/cobrar_alguem',
 			params: { valorReceber: '0' },
 		})
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: userBGColorScreen }}>
+		<View style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
 			<View
 				style={{
 					flex: 6,

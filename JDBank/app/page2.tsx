@@ -16,7 +16,7 @@ export default function Page2Screen() {
 			headerBackground: () => <LinearGradient colors={[CONSTANTE.BG_HEADER_INI_VERMELHO, CONSTANTE.BG_HEADER_MEIO_VERMELHO, CONSTANTE.BG_VERMELHO]} style={{ flex: 1 }} />,
 			headerLeft: () => (
 				<View>
-					<Image style={{ resizeMode: 'cover', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={imglogoJD} />
+					<Image style={{ resizeMode: 'contain', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={imglogoJD} />
 				</View>
 			),
 			headerTitle: () => (

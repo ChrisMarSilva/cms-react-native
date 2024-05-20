@@ -18,7 +18,8 @@ export const UserProvider = ({ children }) => {
 	const [icon, setIcon] = useState(null)
 	const [logo, setLogo] = useState(null)
 	const [bgColor, setBgColor] = useState(null)
-
+	const [bgColorScreen, setBgColorScreen] = useState(null)
+	
 	return (
 		<UserContext.Provider
 			value={{
@@ -52,6 +53,8 @@ export const UserProvider = ({ children }) => {
 				setLogo,
 				bgColor,
 				setBgColor,
+				bgColorScreen,
+				setBgColorScreen,
 			}}
 		>
 			{children}

@@ -84,6 +84,7 @@ export default function IndexScreen() {
 		currentUser.setBgColor(await HelperSessao.GetUserBGColor())
 
 		router.replace('/login')
+		// router.replace('/page1') // para testes
 	}
 
 	return (

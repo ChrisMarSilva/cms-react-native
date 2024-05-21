@@ -43,7 +43,7 @@ export default function HomeScreen() {
 			headerTitle: () => <HeaderTitle titulo={currentUser.nomeBanco} />,
 			headerRight: () => <HeaderRight isVisible={isVisiblePagRec} onPress={_onPressNotificacao} icone={'bell-o'} />,
 		})
-	}, [navigation])
+	}, [navigation, isVisiblePagRec])
 
 	const _getDadosSessao = async () => {
 		// currentUser.setUrl(await HelperSessao.GetUserURL())
@@ -75,12 +75,6 @@ export default function HomeScreen() {
 	const _getDadosRecebimentoSignalR = async () => {
 		setTimeout(() => {
 			setIsVisiblePagRec(true)
-			setTipoPessoaPagRec('F')
-			setDocumentoPagRec('111.111.111-11')
-			setAgenciaPagRec('8553')
-			setContaPagRec('05245-8')
-			setNomePagRec('Fulando de Tal')
-			setValorPagRec('3000')
 		}, 2000)
 
 		// let connection = new signalR.HubConnectionBuilder()
@@ -150,14 +144,26 @@ export default function HomeScreen() {
 		router.navigate({
 			pathname: '/cobrar_alguem_recibo',
 			params: {
-				tipoPessoaPagRec: tipoPessoaPagRec,
-				documentoPagRec: documentoPagRec,
-				agenciaPagRec: agenciaPagRec,
-				contaPagRec: contaPagRec,
-				nomePagRec: nomePagRec,
-				valorPagRec: HelperNumero.isNumber(valorPagRec || '0,00') ? parseFloat(valorPagRec || '0,00') : 0,
+				tipoPessoaPagRec: 'F',
+				documentoPagRec: '111.111.111-11',
+				agenciaPagRec: '8553',
+				contaPagRec: '05245-8',
+				nomePagRec: 'Fulando de Tal',
+				valorPagRec: parseFloat('1234.55'),
 			},
 		})
+
+		// router.navigate({
+		// 	pathname: '/cobrar_alguem_recibo',
+		// 	params: {
+		// 		tipoPessoaPagRec: tipoPessoaPagRec,
+		// 		documentoPagRec: documentoPagRec,
+		// 		agenciaPagRec: agenciaPagRec,
+		// 		contaPagRec: contaPagRec,
+		// 		nomePagRec: nomePagRec,
+		// 		valorPagRec: HelperNumero.isNumber(valorPagRec || '0,00') ? parseFloat(valorPagRec || '0,00') : 0,
+		// 	},
+		// })
 	}
 
 	return (

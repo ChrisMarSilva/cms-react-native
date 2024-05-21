@@ -1,60 +1,97 @@
 {
-	"chave": [
-		{
-			"chave": "+5511911111111",
-			"ispb": "84701762",
-			"nomeBanco": "J3 Bank",
-			"agencia": "1111",
-			"conta": "12345678",
-			"tipoConta": "CC",
-			"tipoPessoa": "F",
-			"nome": "Cliente REC 111",
-			"documento": "111.111.111-11",
-			"id": "371c"
-		},
-		{
-			"chave": "+5511922222222",
-			"ispb": "4358798",
-			"nomeBanco": "JD Bank",
-			"agencia": "2222",
-			"conta": "12345678",
-			"tipoConta": "CC",
-			"tipoPessoa": "F",
-			"nome": "Cliente REC 222",
-			"documento": "222.222.222-22",
-			"id": "9f83"
-		},
-		{
-			"chave": "+5511933333333",
-			"ispb": "84701762",
-			"nomeBanco": "J3 Bank",
-			"agencia": "3333",
-			"conta": "12345678",
-			"tipoConta": "CC",
-			"tipoPessoa": "F",
-			"nome": "Cliente REC 222",
-			"documento": "333.333.333-33",
-			"id": "6ae8"
-		}
-	],
-	"saldo": [
-		{
-			"id": "1111+12345678",
-			"saldo": "100"
-		},
-		{
-			"id": "2222+12345678",
-			"saldo": "200"
-		},
-		{
-			"id": "3333+12345678",
-			"saldo": "300"
-		}
-	],
-	"qrcode-gerar": [],
-	"qrcode-enviar": [],
-	"qrcode": [],
-	"login": [],
-	"payment-receive-pagto": [],
-	"payment-receive-saldo": []
+  "chave": [
+    {
+      "chave": "+5511911111111",
+      "ispb": "84701762",
+      "nomeBanco": "J3 Bank",
+      "agencia": "1111",
+      "conta": "12345678",
+      "tipoConta": "CC",
+      "tipoPessoa": "F",
+      "nome": "Cliente REC 111",
+      "documento": "111.111.111-11",
+      "id": "371c"
+    },
+    {
+      "chave": "+5511922222222",
+      "ispb": "4358798",
+      "nomeBanco": "JD Bank",
+      "agencia": "2222",
+      "conta": "12345678",
+      "tipoConta": "CC",
+      "tipoPessoa": "F",
+      "nome": "Cliente REC 222",
+      "documento": "222.222.222-22",
+      "id": "9f83"
+    },
+    {
+      "chave": "+5511933333333",
+      "ispb": "84701762",
+      "nomeBanco": "J3 Bank",
+      "agencia": "3333",
+      "conta": "12345678",
+      "tipoConta": "CC",
+      "tipoPessoa": "F",
+      "nome": "Cliente REC 222",
+      "documento": "333.333.333-33",
+      "id": "6ae8"
+    }
+  ],
+  "saldo": [
+    {
+      "id": "1111+12345678",
+      "saldo": "100"
+    },
+    {
+      "id": "2222+12345678",
+      "saldo": "200"
+    },
+    {
+      "id": "3333+12345678",
+      "saldo": "300"
+    }
+  ],
+  "qrcode-gerar": [
+    {
+      "id": "fef8",
+      "chaveIdentificacao": "+5511911111111",
+      "name": "Cliente REC 111",
+      "cidade": "São Paulo",
+      "valor": 11000.99
+    }
+  ],
+  "qrcode-enviar": [
+    {
+      "id": "cf08",
+      "emv": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    }
+  ],
+  "qrcode": [
+    {
+      "id": "b82a",
+      "pagador": {
+        "ispb": 84701762,
+        "tipoPessoa": "F",
+        "tipoConta": "CC",
+        "agencia": "1111",
+        "conta": "12345678",
+        "documento": "111.111.111-11",
+        "nome": "Cliente REC 111"
+      },
+      "recebedor": {
+        "ispb": 84701762,
+        "tipoPessoa": "F",
+        "documento": "333.333.333-33",
+        "agencia": "3333",
+        "conta": "12345678",
+        "tipoConta": "CC",
+        "nome": "Cliente REC 222"
+      },
+      "valor": 100.99,
+      "customInformation": "45645646"
+    }
+  ],
+  "login": [],
+  "payment-receive-pagto": [],
+  "payment-receive-saldo": []
 }

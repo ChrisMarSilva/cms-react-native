@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
+    "lint2": "eslint . **/*.ts *.tsx",
     "format": "prettier --write '**/*.tsx'",
     "fix": "prettier . --write && eslint . --fix"
   },
@@ -23,7 +24,6 @@
     "axios": "^1.6.8",
     "expo": "~51.0.8",
     "expo-av": "~14.0.5",
-    "expo-barcode-scanner": "~13.0.1",
     "expo-camera": "~15.0.9",
     "expo-constants": "~16.0.1",
     "expo-font": "~12.0.5",

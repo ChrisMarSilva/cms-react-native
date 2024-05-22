@@ -28,14 +28,17 @@ npm install --save-dev prettier
 npm run format
 "trailingComma": "es5", // "none"
 npm init @eslint/config
+npm i -g react-devtools --save-dev
 
 npm i react-native-console-time-polyfill --save
-npx expo install lodash
+#npx expo install lodash
+#npm uninstall lodash
 npx expo install axios
 npx expo install expo-av
 npx expo install expo-camera
 npx expo install expo-linear-gradient
-npx expo install expo-barcode-scanner
+#npx expo install expo-barcode-scanner
+#npm uninstall expo-barcode-scanner
 npx expo install lottie-react-native
 npx expo install @react-native-async-storage/async-storage
 #npm i  lottie-ios@3.1.3 --save
@@ -46,10 +49,6 @@ npm i react-native-masked-text --save
 npm i react-native-timeline-flatlist --save
 npm i @microsoft/signalr --save
 #npm i @aspnet/signalr --save
-
-npm uninstall axios
-npm uninstall lodash
-npm i axios --save
 
 
 ----------------------------------------------------------------------------------------------------

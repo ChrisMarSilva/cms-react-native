@@ -51,7 +51,7 @@ const usePagarTransferir = () => {
 
             const result = await sendQrCode(currentUser.url, data)
 
-            const valor = HelperNumero.isNumber(result.transactionAmount) ? parseFloat(result.transactionAmount.toString() || '0') : 0
+            const valor = HelperNumero.isNumber(result.transactionAmount.toString()) ? parseFloat(result.transactionAmount.toString() || '0') : 0
             const info = result.additionalDataField ? result.additionalDataField : '123'
             const chave = result.merchantAccountInformation.itens[1].descricao
 

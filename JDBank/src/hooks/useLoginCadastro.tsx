@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Image, ActivityIndicator, Keyboard, KeyboardAvoidingView, Alert } from 'react-native'
+import { Keyboard, Alert } from 'react-native'
 import { router } from 'expo-router'
-import { TextInputMask } from 'react-native-masked-text'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperSessao from '@/src/util/HelperSessao'

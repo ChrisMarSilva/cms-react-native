@@ -17,20 +17,20 @@ export const GetUserBGColor = async () => await GetSessao(CONSTANTE.SESSAO_USER_
 export const GetUserBGColorScreen = async () => await GetSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN)
 export const GetUserIcon = async () => await GetSessao(CONSTANTE.SESSAO_USER_ICON)
 
-export const SetUserURL = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_URL, Value)
-export const SetUserChave = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_CHAVE, Value)
-export const SetUserIspb = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_ISPB_IF, Value)
-export const SetUserNomeBanco = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_NOME_IF, Value)
-export const SetUserTipoPessoa = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_DOC_TP, Value)
-export const SetUserDocumento = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_DOC_NRO, Value)
-export const SetUserAgencia = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_AGENCIA, Value)
-export const SetUserConta = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_CONTA_NRO, Value)
-export const SetUserTipoConta = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_CONTA_TP, Value)
-export const SetUserNome = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_NOME, Value)
-export const SetUserCidade = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_CIDADE, Value)
-export const SetUserBGColor = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_BGCOLOR, Value)
-export const SetUserBGColorScreen = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN, Value)
-export const SetUserIcon = async (Value) => await SetSessao(CONSTANTE.SESSAO_USER_ICON, Value)
+export const SetUserURL = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_URL, value)
+export const SetUserChave = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_CHAVE, value)
+export const SetUserIspb = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_ISPB_IF, value)
+export const SetUserNomeBanco = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_NOME_IF, value)
+export const SetUserTipoPessoa = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_DOC_TP, value)
+export const SetUserDocumento = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_DOC_NRO, value)
+export const SetUserAgencia = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_AGENCIA, value)
+export const SetUserConta = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_CONTA_NRO, value)
+export const SetUserTipoConta = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_CONTA_TP, value)
+export const SetUserNome = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_NOME, value)
+export const SetUserCidade = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_CIDADE, value)
+export const SetUserBGColor = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_BGCOLOR, value)
+export const SetUserBGColorScreen = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN, value)
+export const SetUserIcon = async (value: string) => await SetSessao(CONSTANTE.SESSAO_USER_ICON, value)
 
 export const RemoveUserURL = async () => await ClearSessao(CONSTANTE.SESSAO_USER_URL)
 export const RemoveUserChave = async () => await ClearSessao(CONSTANTE.SESSAO_USER_CHAVE)
@@ -47,36 +47,36 @@ export const RemoveUserBGColor = async () => await ClearSessao(CONSTANTE.SESSAO_
 export const RemoveUserBGColoScreenr = async () => await ClearSessao(CONSTANTE.SESSAO_USER_BGCOLOR_SCREEN)
 export const RemoveUserIcon = async () => await ClearSessao(CONSTANTE.SESSAO_USER_ICON)
 
-export const GetSessao = async (Chave) => {
-	try {
-		const value = await AsyncStorage.getItem(Chave)
+export const GetSessao = async (Chave: string) => {
+    try {
+        const value = await AsyncStorage.getItem(Chave)
 
-		return value || ''
-	} catch (error) {
-		return ''
-	}
+        return value || ''
+    } catch (error) {
+        return ''
+    }
 }
 
-export const SetSessao = async (Chave, Value) => {
-	try {
-		return await AsyncStorage.setItem(Chave, Value.toString())
-	} catch (error) {
-		return false
-	}
+export const SetSessao = async (Chave: string, value: string) => {
+    try {
+        return await AsyncStorage.setItem(Chave, value.toString())
+    } catch (error) {
+        return false
+    }
 }
 
-export const ClearSessao = async (Chave) => {
-	try {
-		return await AsyncStorage.removeItem(Chave)
-	} catch (error) {
-		return false
-	}
+export const ClearSessao = async (Chave: string) => {
+    try {
+        return await AsyncStorage.removeItem(Chave)
+    } catch (error) {
+        return false
+    }
 }
 
 export const ClearAllSessao = async () => {
-	try {
-		await AsyncStorage.clear()
-	} catch (error) {
-		return false
-	}
+    try {
+        await AsyncStorage.clear()
+    } catch (error) {
+        return false
+    }
 }

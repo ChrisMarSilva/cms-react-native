@@ -8,7 +8,20 @@ JDMobile2024
   domingo - 19/05/2024 09:00:00 - 19/05/2024 13:00:00 - 05h ===> add userContext e userProvider
   segunda - 20/05/2024 09:00:00 - 20/05/2024 13:00:00 - 05h ===> ajustar layout
 
-
+Tradução CSC - JDBankMobileV1.docx
+  0h retirar tela de splash
+  8h criar nova tela de login
+  2h alterar nomes da tela Enrollment
+  2h alterar nomes da tela home
+  4h alterar nomes da tela Personal Info e alterar layout
+  4h alterar nomes da tela Transaction History e alterar layout
+  2h alterar nomes da tela Request for Pay through QR Code
+  2h alterar nomes da tela Request for Pay through QR Code - confirmation
+  2h alterar nomes da tela Pay through QR Code
+  8h alterar nomes da tela Review & Send
+  6h alterar nomes da tela Payment Send e alterar layout
+  8h criar tela de Recepients
+  0h retirar tela pagar via qr code recibo
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -116,26 +129,7 @@ J3 Bank AZUL // 84701762 // +5511942124444 // AZUL RECEBEDOR // https://j3spi.az
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 
-npm i -g eslint
-npm i -g eslint-config-rallycoding --save-dev
-npm i react-devtools --save
 
-
---------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------
-
-expo init JDBankTeste
-expo start --android
-expo publish
-
-https://expo.io/dashboard
-user chris.mar.silva
-pass #Chrs2387
-
-  expo build:android -t apk
-  expo build:android --clear-credentials --release-channel build-1.0.0
-  expo build:android --clear-credentials --release-channel build-1.0.1
-  expo fetch:android:keystore
 
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------

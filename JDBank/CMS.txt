@@ -562,3 +562,36 @@ const lngs = {
 
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
+
+
+
+importar criar de  'zustand' ; 
+
+const useCountStore = create ( ( set ) => ({ 
+  count : 0 , 
+  increment : () =>  set ( ( state ) => ({ count : state. count + 1 })), 
+  decrement : () =>  set ( ( estado ) => ({ contagem : estado. contagem - 1 })), 
+})); 
+
+função  Contador ( ) { 
+  const contagem = useCountStore ( ( estado ) => estado.contagem ) ; 
+  const incremento = useCountStore ( ( estado ) => estado.incremento ) ; 
+  const decremento = useCountStore ( ( estado ) => estado.decremento ) ; 
+
+  return ( 
+    <div> 
+      <p>Contagem: {count}</p> 
+      <button onClick={increment}>Incremento</button> 
+      <button onClick={decrement}>Decremento</button> 
+    </div> 
+  ); 
+}
+
+
+// Configuração da loja Zustand 
+import create from 'zustand'; 
+
+const useStore = create((set) => ({ 
+  todos: [], 
+  addTodo: (text) => set((state) => ({ todos: [...state.todos, text] })), 
+} ));

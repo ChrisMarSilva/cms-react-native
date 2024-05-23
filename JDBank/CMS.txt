@@ -63,10 +63,8 @@ npm i react-native-timeline-flatlist --save
 npm i @microsoft/signalr --save
 #npm i @aspnet/signalr --save
 
-
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-
 
 console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userURL: ${userURL}`)
 console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userChave: ${userChave}`)
@@ -128,6 +126,437 @@ J3 Bank AZUL // 84701762 // +5511942124444 // AZUL RECEBEDOR // https://j3spi.az
 
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
+
+import React from 'react';
+import { View, Text, TextInput, Button, Image } from 'react-native';
+
+const LoginScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <Text style={styles.title}>Bank of America</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry={true}
+      />
+
+      <Button title="LOG IN" style={styles.loginButton} onPress={() => {}} />
+
+      <Button title="Forgot ID/Password" style={styles.forgotButton} onPress={() => {}} />
+
+      <View style={styles.optionsContainer}>
+        <Button title="My Balance" style={styles.optionButton} onPress={() => {}} />
+        <Button title="Enroll" style={styles.optionButton} onPress={() => {}} />
+      </View>
+    </View>
+  );
+};
+
+export default LoginScreen;
+
+
+
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  input: {
+    width: 300,
+    height: 40,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginBottom: 10,
+  },
+  loginButton: {
+    width: 300,
+    height: 40,
+    backgroundColor: '#007bff',
+    color: '#fff',
+    padding: 10,
+  },
+  forgotButton: {
+    width: 300,
+    height: 40,
+    backgroundColor: '#fff',
+    color: '#007bff',
+    borderWidth: 1,
+    borderColor: '#007bff',
+    padding: 10,
+    marginTop: 10,
+  },
+  optionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 300,
+    marginTop: 20,
+  },
+  optionButton: {
+    width: 150,
+    height: 40,
+    backgroundColor: '#fff',
+    color: '#007bff',
+    borderWidth: 1,
+    borderColor: '#007bff',
+    padding: 10,
+  },
+});
+
+
+
+
+import React from 'react';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+
+const LoginScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Image source={{uri: 'https://path-to-your-logo/bank-of-america-logo.png'}} style={styles.logo} />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="mblay****"
+          placeholderTextColor="#000"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#000"
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.faceIdContainer}>
+          <Text style={styles.faceIdText}>Set up Face ID</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>LOG IN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.forgotContainer}>
+          <Text style={styles.forgotText}>Forgot ID/Password</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.footerContainer}>
+        <TouchableOpacity>
+          <Text style={styles.footerText}>My Balance®</Text>
+        </TouchableOpacity>
+        <Text style={styles.footerSeparator}>|</Text>
+        <TouchableOpacity>
+          <Text style={styles.footerText}>Enroll</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  logo: {
+    width: 200,
+    height: 50,
+    marginBottom: 30,
+    resizeMode: 'contain',
+  },
+  inputContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+  faceIdContainer: {
+    marginBottom: 20,
+  },
+  faceIdText: {
+    color: '#007aff',
+    fontSize: 16,
+  },
+  button: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#007aff',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  forgotContainer: {
+    marginBottom: 30,
+  },
+  forgotText: {
+    color: '#007aff',
+    fontSize: 16,
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  footerText: {
+    color: '#007aff',
+    fontSize: 16,
+  },
+  footerSeparator: {
+    color: '#000',
+    fontSize: 16,
+    marginHorizontal: 10,
+  },
+});
+
+export default LoginScreen;
+
+
+
+
+import React from 'react';
+import { Image } from 'react-native';
+
+const Logo = () => {
+  return (
+    <Image source={require('../assets/logo.png')} style={styles.logo} />
+  );
+};
+
+const styles = StyleSheet.create({
+  logo: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+  },
+});
+
+
+
+import React from 'react';
+import { View, Svg } from 'react-native';
+import { Path, Defs, G } from 'react-native-svg';
+
+const Logo = () => {
+  return (
+    <View style={styles.container}>
+      <Svg width="150" height="150" viewBox="0 0 150 150">
+        <Defs>
+          <RadialGradient id="gradient" fx="50%" fy="50%" cx="50%" cy="50%">
+            <stop offset="0%" stopColor="#007bff" />
+            <stop offset="100%" stopColor="#0056b3" />
+          </RadialGradient>
+        </Defs>
+        <G>
+          <Path
+            d="M75,75 L75,25 C50,25 25,50 25,75 L25,125 C50,125 75,150 75,150 L75,125 C100,125 125,100 125,75 L125,25 C100,25 75,0 75,0 L75,75 Z"
+            fill="url(#gradient)"
+          />
+          <Path
+            d="M75,100 L50,125 L25,100 L50,75 Z"
+            fill="#fff"
+          />
+        </G>
+      </Svg>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: 150,
+    height: 150,
+  },
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+i18n
+└─src
+  └─locales/translations
+    index.js
+    en-US.js
+    pt-BR.js
+
+
+index.js
+
+import { Platform, NativeModules } from 'react-native'
+import I18n from 'i18n-js'
+import en from './en-US' // importa o objeto de traduções para o idioma inglês
+import pt from './pt-BR' // importa o objeto de traduções para o idioma português
+
+// Função que irá nos auxiliar a normalizar as traduções que serão recebidas pela função getLanguageByDevice
+// Isso é necessário pois no android e no iOS o retorno do mesmo idioma pode ser diferente
+// Exemplo: no iOS podemos receber pt_US e no android pt_BR para o idioma português Brasil.
+const normalizeTranslate = {
+  'en_US': 'en_US',
+  'pt_BR': 'pt_BR',
+  'en': 'en_US',
+  'pt_US': 'pt_BR',
+}
+
+// Função responsável por adquirir o idioma utilizado no device
+const getLanguageByDevice = () => {
+  return Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale // Adquire o idioma no device iOS
+    : NativeModules.I18nManager.localeIdentifier // Adquire o idioma no device Android
+}
+
+// Aqui setamos os idiomas que o I18N irá dar suporte
+I18n.translations = {
+  'en_US': en,
+  'pt_BR': pt,
+}
+
+// Função responsável por verificar se o idioma atual do divice está sendo suportado, caso não ele irá setar como 'en_US'
+const setLanguageToI18n = () => {
+  const language = getLanguageByDevice()
+  const translateNormalize = normalizeTranslate[language]
+  const iHaveThisLanguage = I18n.translations.hasOwnProperty(translateNormalize)
+  iHaveThisLanguage
+    ? I18n.locale = translateNormalize
+    : I18n.defaultLocale = 'en_US'
+}
+
+setLanguageToI18n()
+
+export const translate = key => I18n.t(key)
+
+
+
+// en-US.js
+export default = {
+  hello: 'Hello World',
+}
+
+// pt-BR.js
+export default = {
+  hello: 'Olá Mundo',
+}
+
+
+import React, { Component } from 'react'
+import { Text, View } from 'react-native'
+import styles from './styles'
+import { translate } from './locales'
+
+class App extends Component {
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>i18N</Text>
+        <Text>{translate('hello')}</Text>
+      </View>
+    )
+  }
+}
+
+export default App
+
+
+
+-------------
+
+i18n/locales/pt-br.js
+export default {
+  translations: { // Mesmo valor usado nas configurações (defaultNS)
+    home: {
+      message: 'Olá Mundo!'
+    }
+  }
+}
+
+
+i18n/locales/en-us.js
+
+export default {
+  translations: { // Mesmo valor usado nas configurações (defaultNS)
+    home: {
+      message: 'Hello World!'
+    }
+  }
+}
+
+i18n/locales/index.js
+// Por último, importamos tudo e exportamos um único objeto
+
+import ptBrTranslations from './pt-br'
+import enUsTranslations from './en-us'
+
+export default {
+  'pt-BR': ptBrTranslations,  // Atente-se a usar as abreviaturas corretas
+  'en-US': enUsTranslations   // https://support.mozilla.org/pt-BR/kb/abreviacao-de-localizacao
+}
+
+
+
+
+
+const lngs = {
+  en: { nativeName: 'English' },
+  de: { nativeName: 'Deutsch' }
+};
 
 
 

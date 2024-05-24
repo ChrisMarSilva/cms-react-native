@@ -1,41 +1,80 @@
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, Keyboard, KeyboardAvoidingView } from 'react-native'
-import { TextInputMask } from 'react-native-masked-text'
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Switch } from 'react-native'
 import Constants from 'expo-constants'
 
-import * as CONSTANTE from '@/src/util/Constante'
-import useLogin from "@/src/hooks/useLogin"
-
-import imglogoJD from '@/src/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
+import useLogin from '@/src/hooks/useLogin'
 
 export default function LoginScreen() {
-	const {currentUser, txtChave, setTxtChave, isLoadingLogin, _onPressLogin, _onPressCadastro, _onPressAlterarCorApp} = useLogin()
+    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, toggleSwitch, handleLogin, handleEnroll, handleChangeBank } = useLogin()
 
-	return (
-		<View style={{ flex: 1, backgroundColor: '#fff' }}>
-			<View style={{ flex: 3, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 30, borderWidth: 0, borderColor: 'blue' }}>
-				<TouchableOpacity style={{ borderWidth: 0, borderColor: 'red' }} onPress={_onPressAlterarCorApp}>
-					<Image source={(currentUser as any).bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} style={{ resizeMode: 'contain', width: 200, height: 100, borderWidth: 0, borderColor: 'red' }} />
-				</TouchableOpacity>
-			</View>
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity onPress={handleChangeBank}>
+                <Image source={imglogo} style={styles.logo} />
+            </TouchableOpacity>
 
-			<KeyboardAvoidingView behavior="padding" enabled style={{ flex: 3, width: '100%', alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
-				<TextInputMask type={'cel-phone'} options={{ maskType: 'BRL', withDDD: true, dddMask: '+55 (99) ' }} editable={true} autoFocus={false} autoCorrect={true} placeholder="Telefone" autoCapitalize={'none'} underlineColorAndroid="transparent" returnKeyType={'done'} enablesReturnKeyAutomatically={true} value={txtChave} onChangeText={(value) => setTxtChave(value)} onSubmitEditing={Keyboard.dismiss} style={{ fontSize: 20, color: '#000', borderBottomWidth: 1, borderBottomColor: '#555', marginTop: 10, marginBottom: 10, width: '88%', height: 40, textAlign: 'center' }} />
+            <KeyboardAvoidingView style={styles.loginCard}>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
+                </View>
 
-				<TouchableOpacity style={{ height: 45, paddingTop: 10, paddingBottom: 10, borderRadius: 10, marginTop: 20, marginBottom: 20, width: '90%', backgroundColor: (currentUser as any).bgColor }} activeOpacity={0.7} onPress={_onPressLogin}>
-					{isLoadingLogin ? <ActivityIndicator color="#fff" size="small" /> : <Text style={{ color: '#fff', fontSize: 20, textAlign: 'center' }}>LOGIN</Text>}
-				</TouchableOpacity>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input} placeholder="Password" secureTextEntry={true} value={txtPassword} onChangeText={(value) => setTxtPassword(value)} />
+                </View>
 
-				<View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Text style={{ textDecorationLine: 'underline', fontWeight: 'bold', fontSize: 16, color: '#6C7B8B', textAlign: 'left' }} onPress={_onPressCadastro}>
-						Criar Conta
-					</Text>
-				</View>
-			</KeyboardAvoidingView>
+                <View style={styles.switchContainer}>
+                    <Switch style={styles.switch} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={isEnabledFaceID ? '#4177cc' : '#f4f3f4'} ios_backgroundColor="#3e3e3e" onValueChange={toggleSwitch} value={isEnabledFaceID} />
+                    <Text style={styles.switchText} onPress={toggleSwitch}>
+                        Set up Face ID
+                    </Text>
+                </View>
 
-			<View style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-				<Text style={{ fontWeight: 'bold', fontSize: 10, color: '#555' }}>Versão: {Constants.expoConfig?.version}</Text>
-			</View>
-		</View>
-	)
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
+                        {isLoading ? <ActivityIndicator color="#fff" size="small" /> : <Text style={styles.loginButtonText}>LOG IN</Text>}
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.forgotPasswordContainer}>
+                    <Text style={styles.forgotPassword}>Forgot ID/Password</Text>
+                </View>
+            </KeyboardAvoidingView>
+
+            <View style={styles.enrollContainer}>
+                <Text style={styles.enrollText} onPress={handleEnroll}>
+                    Enroll
+                </Text>
+            </View>
+
+            <View style={styles.versionContainer}>
+                <Text style={styles.ersionText}>Versão: {Constants.expoConfig?.version}</Text>
+            </View>
+        </View>
+    )
 }
+
+const styles = StyleSheet.create({
+    container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f9f9f9' },
+
+    logo: { width: 150, height: 150, resizeMode: 'contain', marginBottom: 10 },
+
+    loginCard: { width: '90%', backgroundColor: '#ffffff', padding: 5, borderRadius: 10, marginTop: 0, paddingTop: 50, shadowColor: '#000000', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.21, shadowRadius: 6.65, elevation: 9 },
+    inputContainer: { paddingHorizontal: 10 },
+    input: { fontSize: 14, height: 40, width: '100%', paddingHorizontal: 10, marginBottom: 20, borderWidth: 0, borderBottomWidth: 1, borderColor: '#dddddd' },
+
+    switchContainer: { flexDirection: 'row', alignItems: 'center' },
+    switch: { marginLeft: 10 },
+    switchText: { fontSize: 16, color: '#007aff' },
+
+    buttonContainer: { marginBottom: 20, alignSelf: 'center' },
+    loginButton: { width: 150, height: 40, backgroundColor: '#2a5ab2', borderRadius: 50, alignItems: 'center', justifyContent: 'center', marginTop: 20 },
+    loginButtonText: { fontSize: 16, fontWeight: 'bold', color: '#fff' },
+
+    forgotPasswordContainer: { alignItems: 'center', margin: 0, marginBottom: 20 },
+    forgotPassword: { marginTop: 10, fontSize: 14, color: '#007aff' },
+
+    enrollContainer: { alignItems: 'center', justifyContent: 'center', marginTop: 20 },
+    enrollText: { fontSize: 16, fontWeight: 'bold', color: '#007aff' },
+
+    versionContainer: { position: 'absolute', bottom: 0, alignItems: 'center', marginBottom: 5 },
+    ersionText: { fontWeight: 'bold', fontSize: 10, color: '#555' },
+})

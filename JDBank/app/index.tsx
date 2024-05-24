@@ -4,7 +4,6 @@ import useSplash from '@/src/hooks/useSplash'
 import imglogoJD from '@/src/assets/imgs/splash.png'
 
 export default function IndexScreen() {
-    //SplashScreen
     const { currentUser } = useSplash()
 
     return (

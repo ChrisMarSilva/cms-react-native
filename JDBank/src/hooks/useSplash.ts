@@ -3,7 +3,7 @@ import { router } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperSessao from '@/src/util/HelperSessao'
-import * as CONSTANTE from '@/src/util/Constante'
+//import * as CONSTANTE from '@/src/util/Constante'
 
 const useSplash = () => {
     const currentUser = useCurrentUser()
@@ -37,45 +37,43 @@ const useSplash = () => {
         currentUser.setBgColorScreen('')
     }
 
-    const _inicarSessaoUsuarioPagador = async () => {
-        //const userURL = await HelperSessao.GetUserURL()
-        //if (userURL == null || userURL == '' || userURL == 'undefined') {
-        await HelperSessao.ClearAllSessao()
-        await HelperSessao.SetUserURL(CONSTANTE.URL_PAGADOR)
-        await HelperSessao.SetUserIspb(CONSTANTE.ISPB_PAGADOR)
-        await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_PAGADOR)
-        await HelperSessao.SetUserBGColor(CONSTANTE.BG_VERMELHO)
-        await HelperSessao.SetUserBGColorScreen(CONSTANTE.BG_VERMELHO_FORTE)
-        await HelperSessao.SetUserIcon(CONSTANTE.ICON_PAGADOR)
+    // const _inicarSessaoUsuarioPagador = async () => {
+    //     // //const userURL = await HelperSessao.GetUserURL()
+    //     // //if (userURL == null || userURL == '' || userURL == 'undefined') {
+    //     // await HelperSessao.ClearAllSessao()
+    //     // await HelperSessao.SetUserURL(CONSTANTE.URL_PAGADOR)
+    //     // await HelperSessao.SetUserIspb(CONSTANTE.ISPB_PAGADOR)
+    //     // await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_PAGADOR)
+    //     // await HelperSessao.SetUserBGColor(CONSTANTE.BG_VERMELHO)
+    //     // await HelperSessao.SetUserBGColorScreen(CONSTANTE.BG_VERMELHO_FORTE)
+    //     // await HelperSessao.SetUserIcon(CONSTANTE.ICON_PAGADOR)
+    //     // currentUser.setUrl(CONSTANTE.URL_PAGADOR)
+    //     // currentUser.setIspb(CONSTANTE.ISPB_PAGADOR)
+    //     // currentUser.setNomeBanco(CONSTANTE.NOME_PAGADOR)
+    //     // currentUser.setBgColor(CONSTANTE.BG_VERMELHO)
+    //     // currentUser.setBgColorScreen(CONSTANTE.BG_VERMELHO_FORTE)
+    //     // currentUser.setLogo(CONSTANTE.ICON_PAGADOR)
+    //     // //}
+    // }
 
-        currentUser.setUrl(CONSTANTE.URL_PAGADOR)
-        currentUser.setIspb(CONSTANTE.ISPB_PAGADOR)
-        currentUser.setNomeBanco(CONSTANTE.NOME_PAGADOR)
-        currentUser.setBgColor(CONSTANTE.BG_VERMELHO)
-        currentUser.setBgColorScreen(CONSTANTE.BG_VERMELHO_FORTE)
-        currentUser.setLogo(CONSTANTE.ICON_PAGADOR)
-        //}
-    }
-
-    const _inicarSessaoUsuarioRecebedor = async () => {
-        //const userURL = await HelperSessao.GetUserURL()
-        //if (userURL == null || userURL == '' || userURL == 'undefined') {
-        await HelperSessao.ClearAllSessao()
-        await HelperSessao.SetUserURL(CONSTANTE.URL_RECEBEDOR)
-        await HelperSessao.SetUserIspb(CONSTANTE.ISPB_RECEBEDOR)
-        await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_RECEBEDOR)
-        await HelperSessao.SetUserBGColor(CONSTANTE.BG_AZUL)
-        await HelperSessao.SetUserBGColorScreen(CONSTANTE.BG_AZUL_FORTE)
-        await HelperSessao.SetUserIcon(CONSTANTE.ICON_RECEBEDOR)
-
-        currentUser.setUrl(CONSTANTE.URL_RECEBEDOR)
-        currentUser.setIspb(CONSTANTE.ISPB_RECEBEDOR)
-        currentUser.setNomeBanco(CONSTANTE.NOME_RECEBEDOR)
-        currentUser.setBgColor(CONSTANTE.BG_AZUL)
-        currentUser.setBgColorScreen(CONSTANTE.BG_AZUL_FORTE)
-        currentUser.setLogo(CONSTANTE.ICON_RECEBEDOR)
-        //}
-    }
+    // const _inicarSessaoUsuarioRecebedor = async () => {
+    //     // //const userURL = await HelperSessao.GetUserURL()
+    //     // //if (userURL == null || userURL == '' || userURL == 'undefined') {
+    //     // await HelperSessao.ClearAllSessao()
+    //     // await HelperSessao.SetUserURL(CONSTANTE.URL_RECEBEDOR)
+    //     // await HelperSessao.SetUserIspb(CONSTANTE.ISPB_RECEBEDOR)
+    //     // await HelperSessao.SetUserNomeBanco(CONSTANTE.NOME_RECEBEDOR)
+    //     // await HelperSessao.SetUserBGColor(CONSTANTE.BG_AZUL)
+    //     // await HelperSessao.SetUserBGColorScreen(CONSTANTE.BG_AZUL_FORTE)
+    //     // await HelperSessao.SetUserIcon(CONSTANTE.ICON_RECEBEDOR)
+    //     // currentUser.setUrl(CONSTANTE.URL_RECEBEDOR)
+    //     // currentUser.setIspb(CONSTANTE.ISPB_RECEBEDOR)
+    //     // currentUser.setNomeBanco(CONSTANTE.NOME_RECEBEDOR)
+    //     // currentUser.setBgColor(CONSTANTE.BG_AZUL)
+    //     // currentUser.setBgColorScreen(CONSTANTE.BG_AZUL_FORTE)
+    //     // currentUser.setLogo(CONSTANTE.ICON_RECEBEDOR)
+    //     // //}
+    // }
 
     const _verificarSessaoUsuario = async () => {
         currentUser.setUrl(await HelperSessao.GetUserURL())
@@ -86,8 +84,7 @@ const useSplash = () => {
         currentUser.setBgColorScreen(await HelperSessao.GetUserBGColorScreen())
         currentUser.setIcon(await HelperSessao.GetUserIcon())
 
-        router.replace('/login')
-        // router.replace('/page1') // para testes
+        router.replace('/page1') // login // page1 - para testes
     }
 
     return {

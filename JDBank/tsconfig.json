@@ -12,6 +12,6 @@
 		".expo/types/**/*.ts", 
 		"expo-env.d.ts",
 		"src/**/*",
-		"src/@types/images.d.ts",
+		"src/@types/images.d.ts", "app/pageNewPerfil.tsx",
 	]
 }

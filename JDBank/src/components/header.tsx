@@ -35,7 +35,7 @@ export interface HeaderTitleProps {
 export const HeaderTitle: React.FC<HeaderTitleProps> = (props) => {
     return (
         <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ marginLeft: 5, color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{props.titulo}</Text>
+            <Text style={{ marginLeft: 5, color: '#fff', fontSize: 16, fontWeight: 'bold' }}>{props.titulo}</Text>
         </View>
     )
 }

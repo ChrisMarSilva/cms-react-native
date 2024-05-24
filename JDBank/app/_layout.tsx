@@ -22,7 +22,6 @@ export default function RootLayout() {
                 <Stack.Screen name="home" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="cobrar_alguem" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="cobrar_alguem_qrcode" options={{ headerBackVisible: false }} />
-                <Stack.Screen name="cobrar_alguem_recibo" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="pagar_transferir" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="pagar_transferir_confirma" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="pagar_transferir_recibo" options={{ headerBackVisible: false }} />

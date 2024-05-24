@@ -1,12 +1,43 @@
 
 JDMobile2024
 
+Recuperação do codigo de 2019
   quinta  - 16/05/2024 18:00:00 - 17/05/2024 02:00:00 - 08h ===> util, splash, perfil, login_cadastro
   sexta   - 17/05/2024 06:00:00 - 17/05/2024 19:00:00 - 13h ===> actions, login, cobrar_alguem, cobrar_alguem_recibo, cobrar_alguem_qrcode, pagar_transferir, pagar_transferir_confirma, pagar_transferir_recibo, movimentacao
   sexta   - 17/05/2024 20:00:00 - 18/05/2024 01:00:00 - 05h ===> arrumar as chamadas das APIs
   sabado  - 18/05/2024 07:00:00 - 18/05/2024 16:00:00 - 09h ===> arrumar as chamadas das APIs
   domingo - 19/05/2024 09:00:00 - 19/05/2024 13:00:00 - 05h ===> add userContext e userProvider
   segunda - 20/05/2024 09:00:00 - 20/05/2024 13:00:00 - 05h ===> ajustar layout
+
+Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
+  quinta  - 23/05/2024 18:00:00 - 24/05/2024 01:00:00 - 07h ===> xxxxxxxxx
+    0h retirar tela de splash
+    8h criar nova tela de login
+    2h alterar nomes da tela Enrollment
+    2h alterar nomes da tela home
+    4h alterar nomes da tela Personal Info e alterar layout
+  sexta   - 24/05/2024 09:00:00 - 24/05/2024 00:00:00 - 00h ===> xxxxxxxxx
+    4h alterar nomes da tela Transaction History e alterar layout
+    2h alterar nomes da tela Request for Pay through QR Code
+    2h alterar nomes da tela Request for Pay through QR Code - confirmation
+    2h alterar nomes da tela Pay through QR Code
+    8h alterar nomes da tela Review & Send
+    6h alterar nomes da tela Payment Send e alterar layout
+    8h criar tela de Recepients
+    0h retirar tela pagar via qr code recibo
+
+  sabado  - 25/05/2024 09:00:00 - 25/05/2024 00:00:00 - 00h ===> xxxxxxxxx
+  domingo - 26/05/2024 09:00:00 - 26/05/2024 00:00:00 - 00h ===> xxxxxxxxx
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
 
 Tradução CSC - JDBankMobileV1.docx
   0h retirar tela de splash
@@ -126,301 +157,6 @@ J3 Bank AZUL // 84701762 // +5511942124444 // AZUL RECEBEDOR // https://j3spi.az
 
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
-
-import React from 'react';
-import { View, Text, TextInput, Button, Image } from 'react-native';
-
-const LoginScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <Text style={styles.title}>Bank of America</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-      />
-
-      <Button title="LOG IN" style={styles.loginButton} onPress={() => {}} />
-
-      <Button title="Forgot ID/Password" style={styles.forgotButton} onPress={() => {}} />
-
-      <View style={styles.optionsContainer}>
-        <Button title="My Balance" style={styles.optionButton} onPress={() => {}} />
-        <Button title="Enroll" style={styles.optionButton} onPress={() => {}} />
-      </View>
-    </View>
-  );
-};
-
-export default LoginScreen;
-
-
-
-import { StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: 300,
-    height: 40,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginBottom: 10,
-  },
-  loginButton: {
-    width: 300,
-    height: 40,
-    backgroundColor: '#007bff',
-    color: '#fff',
-    padding: 10,
-  },
-  forgotButton: {
-    width: 300,
-    height: 40,
-    backgroundColor: '#fff',
-    color: '#007bff',
-    borderWidth: 1,
-    borderColor: '#007bff',
-    padding: 10,
-    marginTop: 10,
-  },
-  optionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 300,
-    marginTop: 20,
-  },
-  optionButton: {
-    width: 150,
-    height: 40,
-    backgroundColor: '#fff',
-    color: '#007bff',
-    borderWidth: 1,
-    borderColor: '#007bff',
-    padding: 10,
-  },
-});
-
-
-
-
-import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-
-const LoginScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Image source={{uri: 'https://path-to-your-logo/bank-of-america-logo.png'}} style={styles.logo} />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="mblay****"
-          placeholderTextColor="#000"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#000"
-          secureTextEntry
-        />
-        <TouchableOpacity style={styles.faceIdContainer}>
-          <Text style={styles.faceIdText}>Set up Face ID</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>LOG IN</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.forgotContainer}>
-          <Text style={styles.forgotText}>Forgot ID/Password</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.footerContainer}>
-        <TouchableOpacity>
-          <Text style={styles.footerText}>My Balance®</Text>
-        </TouchableOpacity>
-        <Text style={styles.footerSeparator}>|</Text>
-        <TouchableOpacity>
-          <Text style={styles.footerText}>Enroll</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  logo: {
-    width: 200,
-    height: 50,
-    marginBottom: 30,
-    resizeMode: 'contain',
-  },
-  inputContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
-  faceIdContainer: {
-    marginBottom: 20,
-  },
-  faceIdText: {
-    color: '#007aff',
-    fontSize: 16,
-  },
-  button: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#007aff',
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  forgotContainer: {
-    marginBottom: 30,
-  },
-  forgotText: {
-    color: '#007aff',
-    fontSize: 16,
-  },
-  footerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 30,
-  },
-  footerText: {
-    color: '#007aff',
-    fontSize: 16,
-  },
-  footerSeparator: {
-    color: '#000',
-    fontSize: 16,
-    marginHorizontal: 10,
-  },
-});
-
-export default LoginScreen;
-
-
-
-
-import React from 'react';
-import { Image } from 'react-native';
-
-const Logo = () => {
-  return (
-    <Image source={require('../assets/logo.png')} style={styles.logo} />
-  );
-};
-
-const styles = StyleSheet.create({
-  logo: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
-  },
-});
-
-
-
-import React from 'react';
-import { View, Svg } from 'react-native';
-import { Path, Defs, G } from 'react-native-svg';
-
-const Logo = () => {
-  return (
-    <View style={styles.container}>
-      <Svg width="150" height="150" viewBox="0 0 150 150">
-        <Defs>
-          <RadialGradient id="gradient" fx="50%" fy="50%" cx="50%" cy="50%">
-            <stop offset="0%" stopColor="#007bff" />
-            <stop offset="100%" stopColor="#0056b3" />
-          </RadialGradient>
-        </Defs>
-        <G>
-          <Path
-            d="M75,75 L75,25 C50,25 25,50 25,75 L25,125 C50,125 75,150 75,150 L75,125 C100,125 125,100 125,75 L125,25 C100,25 75,0 75,0 L75,75 Z"
-            fill="url(#gradient)"
-          />
-          <Path
-            d="M75,100 L50,125 L25,100 L50,75 Z"
-            fill="#fff"
-          />
-        </G>
-      </Svg>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    width: 150,
-    height: 150,
-  },
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

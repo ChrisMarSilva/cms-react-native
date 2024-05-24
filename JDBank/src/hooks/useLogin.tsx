@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Keyboard, Alert } from 'react-native'
 import { router } from 'expo-router'
 
@@ -18,16 +18,32 @@ const useLogin = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isEnabledFaceID, setIsEnabledFaceID] = useState<boolean>(false)
 
+    const refTxtUsername = useRef(null)
+    const refTxtPassword = useRef(null)
+
     let imglogo = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imglogoJD : imglogoJ3
 
     useEffect(() => {
+        _clearCurrentUser()
         _loadCurrentUser()
+
+        return () => {
+            _clearCurrentUser()
+        }
     }, [])
 
-    const _loadCurrentUser = async () => {
-        setTxtUsername(currentUser.username)
+    const _clearCurrentUser = () => {
+        Keyboard.dismiss()
+
+        setTxtUsername('')
         setTxtPassword('')
         setIsLoading(false)
+    }
+
+    const _loadCurrentUser = () => {
+        refTxtUsername.current.focus()
+        //if (refTxtUsername && refTxtUsername.current)  refTxtUsername.current.focus()
+        setTxtUsername(currentUser.username)
     }
 
     const toggleSwitch = () => setIsEnabledFaceID((previousState) => !previousState)
@@ -37,15 +53,10 @@ const useLogin = () => {
             Keyboard.dismiss()
             setIsLoading(true)
 
-            if (txtUsername == '') {
+            if (txtUsername == '' || txtPassword == '') {
                 setIsLoading(false)
-                Alert.alert('Enter the username!')
-                return
-            }
-
-            if (txtPassword == '') {
-                setIsLoading(false)
-                Alert.alert('Enter the password!')
+                if (txtUsername == '') Alert.alert('Enter the Username!')
+                else if (txtPassword == '') Alert.alert('Enter the Password!')
                 return
             }
 
@@ -59,22 +70,14 @@ const useLogin = () => {
             currentUser.setBalance(0)
 
             setIsLoading(false)
-            Alert.alert('ok') //router.replace('/home')
+            router.replace('/home')
         } catch (error: any) {
             setIsLoading(false)
             Alert.alert(error?.message)
         }
     }
 
-    const handleEnroll = () => {
-        Keyboard.dismiss()
-
-        setTxtUsername('')
-        setTxtPassword('')
-        setIsLoading(false)
-
-        router.navigate('/enrollment')
-    }
+    const handleEnroll = () => router.navigate('/enrollment')
 
     const handleChangeBank = async () => {
         Keyboard.dismiss()
@@ -107,6 +110,8 @@ const useLogin = () => {
         setTxtPassword,
         isLoading,
         isEnabledFaceID,
+        refTxtUsername,
+        refTxtPassword,
         toggleSwitch,
         handleLogin,
         handleEnroll,

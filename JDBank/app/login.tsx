@@ -4,7 +4,7 @@ import Constants from 'expo-constants'
 import useLogin from '@/src/hooks/useLogin'
 
 export default function LoginScreen() {
-    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, toggleSwitch, handleLogin, handleEnroll, handleChangeBank } = useLogin()
+    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, refTxtUsername, refTxtPassword, toggleSwitch, handleLogin, handleEnroll, handleChangeBank } = useLogin()
 
     return (
         <View style={styles.container}>
@@ -14,11 +14,11 @@ export default function LoginScreen() {
 
             <KeyboardAvoidingView style={styles.loginCard}>
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
+                    <TextInput style={styles.input} ref={refTxtUsername} onSubmitEditing={() => refTxtPassword.current.focus()} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} placeholder="Password" secureTextEntry={true} value={txtPassword} onChangeText={(value) => setTxtPassword(value)} />
+                    <TextInput style={styles.input} ref={refTxtPassword} onSubmitEditing={handleLogin} returnKeyType={'done'} placeholder="Password" secureTextEntry={true} value={txtPassword} onChangeText={(value) => setTxtPassword(value)} />
                 </View>
 
                 <View style={styles.switchContainer}>

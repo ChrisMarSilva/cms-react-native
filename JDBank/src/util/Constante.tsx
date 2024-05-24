@@ -1,6 +1,7 @@
 // URL
 export const URL_TIMEOUT = 10 * 1000 // 10Segundos
-export const URL_LOGIN = 'login' //  'spi/api/login'
+export const URL_LOGIN = 'login'
+export const URL_ENROLL = 'login'
 // export const URL_GERAR_QRCODE = 'qrcode-gerar' // 'spi/api/qrcode/estatico/GerarQRCode'
 // export const URL_ENVIAR_QRCODE = 'qrcode-enviar' // 'api/qrcode'
 // export const URL_GET_CHAVE = 'chave' // 'spi/api/chave'

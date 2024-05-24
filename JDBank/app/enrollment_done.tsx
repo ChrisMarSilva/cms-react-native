@@ -1,54 +1,33 @@
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native'
-import { router, useNavigation } from 'expo-router'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 
-import imglogoJD from '@/src/assets/imgs/logo-red.png'
+import useEnrollmentDone from '@/src/hooks/useEnrollmentDone'
 
 export default function PageScreen() {
-    const navigation = useNavigation()
-
-    useEffect(() => {
-        navigation.setOptions({ headerShown: false })
-    }, [navigation, (router as any).params])
-
-    const handleEnroll = () => console.log('Enroll')
-    const handleBackToLogin = () => console.log('Back to Login')
+    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, refTxtUsername, refTxtPassword, handleBackToLogin, handleEnrollDone } = useEnrollmentDone()
 
     return (
         <View style={styles.container}>
-            <Image source={imglogoJD} style={styles.logo} />
+            <Image source={imglogo} style={styles.logo} />
 
             <KeyboardAvoidingView style={styles.card} behavior="padding" enabled>
                 <Text style={styles.title}>Enrollment</Text>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} placeholder="Legal Name" />
+                    <TextInput style={styles.input} ref={refTxtUsername} onSubmitEditing={() => refTxtPassword.current.focus()} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} placeholder="Physical Address" />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} inputMode={'tel'} placeholder="Phone" />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} inputMode={'email'} placeholder="Email" />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} inputMode={'numeric'} placeholder="Card or Account Number" />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} inputMode={'numeric'} placeholder="Social Security Number(SSN)/Tax ID Number(TIN)" />
+                    <TextInput style={styles.input} ref={refTxtPassword} onSubmitEditing={handleEnrollDone} returnKeyType={'done'} placeholder="Password" secureTextEntry={true} value={txtPassword} onChangeText={(value) => setTxtPassword(value)} />
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={handleEnroll} style={styles.loginButton} activeOpacity={0.7}>
-                        <Text style={styles.loginButtonText}>NEXT</Text>
-                    </TouchableOpacity>
+                    {isLoading ? (
+                        <ActivityIndicator color="#2a5ab2" size="large" />
+                    ) : (
+                        <TouchableOpacity onPress={handleEnrollDone} style={styles.loginButton} activeOpacity={0.7}>
+                            <Text style={styles.loginButtonText}>ENROLL</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             </KeyboardAvoidingView>
 

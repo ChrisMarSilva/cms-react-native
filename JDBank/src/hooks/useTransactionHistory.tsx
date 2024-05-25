@@ -24,6 +24,10 @@ const useTransactionHistory = () => {
         setTimeout(() => {
             handleBtnAll()
         }, 200)
+        
+        // return () => {
+        //     _clearData()
+        // }
     }, [])
 
     useEffect(() => {

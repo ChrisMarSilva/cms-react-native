@@ -1,105 +1,65 @@
 {
-  "login": [
-    {
-      "id": "1",
-      "username": "clientpay1",
-      "password": "123",
-      "name": "Client Pay 01",
-      "email": "client.pay1@gmail.com",
-      "phone": "(949) 402-4538",
-      "socialSecurity": "000–00–0000",
-      "birth": "01/01/2020",
-      "country": "United States",
-      "citizen": "Yes",
-      "address": "123 Main St, Anytown",
-      "cardOrAccount": "1111112222"
-    },
-    {
-      "id": "2",
-      "username": "clientpay2",
-      "password": "123",
-      "name": "Client Pay 02",
-      "email": "client.pay2@gmail.com",
-      "phone": "(949) 402-4538",
-      "socialSecurity": "000–00–0000",
-      "birth": "01/01/2020",
-      "country": "United States",
-      "citizen": "Yes",
-      "address": "123 Main St, Anytown",
-      "cardOrAccount": "1111112222"
-    },
-    {
-      "id": "3",
-      "username": "chris",
-      "password": "123",
-      "name": "Cristiano M Silva",
-      "email": "chris.mar.silva@gmail.com",
-      "phone": "(11) 94212-4681",
-      "socialSecurity": "000.000.000-00",
-      "birth": "03/20/1987",
-      "country": "Brasil",
-      "citizen": "No",
-      "address": "Rua Cônego Vicente, 798, Lins/SP",
-      "cardOrAccount": "1234 12345-6"
-    }
-  ],
-  "balance": [
-    {
-      "id": "1",
-      "username": "clientpay1",
-      "balance": "100.99"
-    },
-    {
-      "id": "2",
-      "username": "clientpay2",
-      "balance": "2000.98"
-    },
-    {
-      "id": "3",
-      "username": "chris",
-      "balance": "3000000.97"
-    }
-  ],
-  "qr-code-generate": [
-    {
-      "id": "b1dd",
-      "username": "chris",
-      "value": 1000300.99
-    },
-    {
-      "id": "2b7c",
-      "username": "chris",
-      "value": 1000300.99
-    },
-    {
-      "id": "87b4",
-      "username": "chris",
-      "value": 1000300.99
-    },
-    {
-      "id": "2d85",
-      "username": "chris",
-      "value": 99.99
-    },
-    {
-      "id": "c084",
-      "username": "chris",
-      "value": 99.99
-    },
-    {
-      "id": "7ac4",
-      "username": "chris",
-      "value": 8.96
-    },
-    {
-      "id": "8ea7",
-      "username": "chris",
-      "value": 99999.99
-    },
-    {
-      "id": "581b",
-      "username": "chris",
-      "value": 6699.99
-    }
-  ]
+    "login": [
+        {
+            "id": "1",
+            "username": "clientpay1",
+            "password": "123",
+            "name": "Client Pay 01",
+            "email": "client.pay1@gmail.com",
+            "phone": "(949) 402-4538",
+            "socialSecurity": "000–00–0000",
+            "birth": "01/01/2020",
+            "country": "United States",
+            "citizen": "Yes",
+            "address": "123 Main St, Anytown",
+            "cardOrAccount": "1111112222"
+        },
+        {
+            "id": "2",
+            "username": "clientpay2",
+            "password": "123",
+            "name": "Client Pay 02",
+            "email": "client.pay2@gmail.com",
+            "phone": "(949) 402-4538",
+            "socialSecurity": "000–00–0000",
+            "birth": "01/01/2020",
+            "country": "United States",
+            "citizen": "Yes",
+            "address": "123 Main St, Anytown",
+            "cardOrAccount": "1111112222"
+        },
+        {
+            "id": "3",
+            "username": "chris",
+            "password": "123",
+            "name": "Cristiano M Silva",
+            "email": "chris.mar.silva@gmail.com",
+            "phone": "(11) 94212-4681",
+            "socialSecurity": "000.000.000-00",
+            "birth": "03/20/1987",
+            "country": "Brasil",
+            "citizen": "No",
+            "address": "Rua Cônego Vicente, 798, Lins/SP",
+            "cardOrAccount": "1234 12345-6"
+        }
+    ],
+    "balance": [
+        {
+            "id": "1",
+            "username": "clientpay1",
+            "balance": "100.99"
+        },
+        {
+            "id": "2",
+            "username": "clientpay2",
+            "balance": "2000.98"
+        },
+        {
+            "id": "3",
+            "username": "chris",
+            "balance": "3000000.97"
+        }
+    ],
+    "qr-code-generate": [],
+    "qr-code-send": []
 }

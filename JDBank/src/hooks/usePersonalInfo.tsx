@@ -12,6 +12,14 @@ const usePersonalInfo = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
 
+    // useEffect(() => {
+    //     _clearData()
+
+    //     // return () => {
+    //     //     _clearData()
+    //     // }
+    // }, [])
+
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,

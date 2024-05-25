@@ -25,26 +25,21 @@ export const createQrCode = async (urlDefault: string, username: string, value: 
     }
 }
 
-// export const sendQrCode = async (urlDefault: string, emv: string) => {
-//     try {
-//         const url = urlDefault + CONSTANTE.URL_ENVIAR_QRCODE
-//         const body = JSON.stringify({ emv: emv })
-//         const response = await api.post(url, body)
+export const sendQrCode = async (urlDefault: string, username: string, qrcode: string) => {
+    try {
+        const url = urlDefault + CONSTANTE.URL_QRCODE_SEND
+        const body = JSON.stringify({ username: username.trim(), data: qrcode })
+        const response = await api.post(url, body)
 
-//         // const data = response.data // certo
+        // const data = response.data // certo
+        const data = { value: 12346.99 }
 
-//         const data = {
-//             transactionAmount: 100.99,
-//             additionalDataField: '45645646',
-//             merchantAccountInformation: { itens: [{ descricao: '' }, { descricao: '+5511933333333' }] },
-//         }
-
-//         return data
-//     } catch (error: any) {
-//         console.error('sendQrCode:', error)
-//         throw error
-//     }
-// }
+        return data
+    } catch (error: any) {
+        console.error('sendQrCode:', error)
+        throw error
+    }
+}
 
 // export const payQrCode = async (urlDefault: string, pagIspb: string, pagTipoPessoa: string, pagTipoConta: string, pagAgencia: string, pagConta: string, pagDocumento: string, pagNome: string, recIspb: string, recTipoPessoa: string, recDocumento: string, recAgencia: string, recConta: string, recTipoConta: string, recNome: string, recValor: string, recInfo: string) => {
 //     try {

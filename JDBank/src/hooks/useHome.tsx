@@ -18,6 +18,10 @@ const useHome = () => {
 
     useEffect(() => {
         _getBalance()
+        
+        // return () => {
+        //     _clearData()
+        // }
     }, [])
 
     useEffect(() => {
@@ -40,19 +44,19 @@ const useHome = () => {
         }
     }
 
-    const handleLogout = () => router.replace('/login')
-    const handleSend = () => router.navigate('/pagar_transferir')
-    const handleRequestForPay = () => router.navigate('/request_pay_qrcode')
+    const handleSendPayQrCode = () => router.navigate('/send_pay_qrcode')
+    const handleRequestPayQrCode = () => router.navigate('/request_pay_qrcode')
     const handleRecipients = () => router.navigate('/colocar_dinheiro')
     const handleTransactionHistory = () => router.navigate('/transaction_history')
     const handlePersonalInfo = () => router.navigate('/personal_info')
+    const handleLogout = () => router.replace('/login')
 
     return {
         currentUser,
         imgPerson,
         handlePersonalInfo,
-        handleSend,
-        handleRequestForPay,
+        handleSendPayQrCode,
+        handleRequestPayQrCode,
         handleRecipients,
         handleTransactionHistory,
     }

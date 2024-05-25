@@ -6,7 +6,7 @@ import { TextInputMask } from 'react-native-masked-text'
 import usePagarTransferirConfirma from '@/src/hooks/usePagarTransferirConfirma'
 import * as HelperNumero from '@/src/util/HelperNumero'
 
-export default function PagarTransferirConfirmaScreen() {
+export default function SendPayQrCodeViewScreen() {
     const { currentUser, animation, isLoadingRecebedor, isLoadingPagamento, chave, nome, banco, agencia, conta, valor, setValor, _onPressEfetuarPagtoQRCode, _onPressAgendarPagtoQRCode } = usePagarTransferirConfirma()
 
     return (

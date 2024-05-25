@@ -61,8 +61,8 @@ npx create-expo-app@latest -y
 npm run reset-project
 
 npx expo start -c
-npx json-server --watch db_rec.json --port 3001
 npx json-server --watch db_pag.json --port 3002
+npx json-server --watch db_rec.json --port 3001
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

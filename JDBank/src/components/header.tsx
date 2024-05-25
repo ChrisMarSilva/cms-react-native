@@ -13,6 +13,10 @@ export const HeaderBackground = () => {
     return <LinearGradient colors={['#fff', '#fff']} style={{ flex: 1 }} />
 }
 
+export const HeaderBlackBackground = () => {
+    return <LinearGradient colors={['#000', '#000']} style={{ flex: 1 }} />
+}
+
 export const HeaderLeft = () => {
     const currentUser = useCurrentUser()
 

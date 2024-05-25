@@ -5,7 +5,7 @@ import * as HelperNumero from '@/src/util/HelperNumero'
 import useHome from '@/src/hooks/useHome'
 
 export default function HomeScreen() {
-    const { currentUser, imgPerson, handlePersonalInfo, handleSend, handleRequestForPay, handleRecipients, handleTransactionHistory } = useHome()
+    const { currentUser, imgPerson, handlePersonalInfo, handleSendPayQrCode, handleRequestPayQrCode, handleRecipients, handleTransactionHistory } = useHome()
 
     return (
         <View style={styles.container}>
@@ -25,12 +25,12 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.menuContainer}>
-                <TouchableOpacity style={styles.menuItem} onPress={handleSend}>
+                <TouchableOpacity style={styles.menuItem} onPress={handleSendPayQrCode}>
                     <MaterialIcons name="send" size={40} color="#888" style={styles.menuIcon} />
                     <Text style={styles.menuText}>Send</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem} onPress={handleRequestForPay}>
+                <TouchableOpacity style={styles.menuItem} onPress={handleRequestPayQrCode}>
                     <MaterialIcons name="attach-money" size={40} color="#888" style={styles.menuIcon} />
                     <Text style={styles.menuText}>Request for Pay</Text>
                 </TouchableOpacity>

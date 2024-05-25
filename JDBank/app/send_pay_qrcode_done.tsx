@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native'
 import usePagarTransferirRecibo from '@/src/hooks/usePagarTransferirRecibo'
 import * as HelperNumero from '@/src/util/HelperNumero'
 
-export default function PagarTransferirReciboScreen() {
+export default function SendPayQrCodeDoneScreen() {
     const { currentUser, animation, nome, chave, banco, agencia, conta, valor, _OnPressVerComprovante } = usePagarTransferirRecibo()
 
     return (

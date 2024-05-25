@@ -57,8 +57,13 @@ const useLogin = () => {
 
             if (txtUsername == '' || txtPassword == '') {
                 setIsLoading(false)
-                if (txtUsername == '') Alert.alert('Enter the Username!')
-                else if (txtPassword == '') Alert.alert('Enter the Password!')
+                if (txtUsername == '') {
+                    Alert.alert('Enter the Username!')
+                    refTxtUsername.current.focus()
+                } else if (txtPassword == '') {
+                    Alert.alert('Enter the Password!')
+                    refTxtPassword.current.focus()
+                }
                 return
             }
 

@@ -42,7 +42,7 @@ const useHome = () => {
     const handleSend = () => router.navigate('/pagar_transferir')
     const handleRequestForPay = () => router.navigate('/cobrar_alguem')
     const handleRecipients = () => router.navigate('/colocar_dinheiro')
-    const handleTransactionHistory = () => router.navigate('/movimentacao')
+    const handleTransactionHistory = () => router.navigate('/transaction_history')
     const handlePerfil = () => router.navigate('/perfil')
 
     return {

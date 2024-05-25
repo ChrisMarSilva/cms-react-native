@@ -21,7 +21,7 @@ export const GetValorInteiro = (value: string) => {
 }
 
 //export const GetMascaraValorDecimal = (value: number) => value.toFixed(2).replace(/(\d)(?=(\d{3})+\,)/g, '$1.')
-export const GetMascaraValorDecimal = (value: number) => new Intl.NumberFormat('en-IN').format(value)
+export const GetMascaraValorDecimal = (value: number) => new Intl.NumberFormat('en-NZ', { minimumFractionDigits: 2 }).format(value)
 
 export const colcarFormacataoInteiro = (value: string) => {
     return String(value)

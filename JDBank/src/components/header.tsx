@@ -2,30 +2,20 @@ import { Text, View, TouchableOpacity, Image } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 
-import useCurrentUser from '@/src/hooks/useCurrentUser'
-import * as CONSTANTE from '@/src/util/Constante'
+// import useCurrentUser from '@/src/hooks/useCurrentUser'
+// import * as CONSTANTE from '@/src/util/Constante'
 
-import imglogoJD from '@/src/assets/imgs/logo-red.png'
-import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
+// import imglogoJD from '@/src/assets/imgs/logo-red.png'
+// import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
 
 export const HeaderBackground = () => {
-    const currentUser = useCurrentUser()
-
-    const userBGColorIni = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_INI_VERMELHO : CONSTANTE.BG_HEADER_INI_AZUL
-    const userBGColorMeio = currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_HEADER_MEIO_VERMELHO : CONSTANTE.BG_HEADER_MEIO_AZUL
-    const userBGColorFim = currentUser.bgColor
-
-    return <LinearGradient colors={[userBGColorIni, userBGColorMeio, userBGColorFim]} style={{ flex: 1 }} />
+    return <LinearGradient colors={['#fff', '#fff', '#fff']} style={{ flex: 1 }} />
 }
 
 export const HeaderLeft = () => {
-    const currentUser = useCurrentUser()
+    //const currentUser = useCurrentUser()
 
-    return (
-        <View>
-            <Image style={{ resizeMode: 'contain', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} />
-        </View>
-    )
+    return <View>{/* <Image style={{ resizeMode: 'contain', backgroundColor: '#fff', width: 35, height: 35, borderRadius: 63, borderWidth: 2, borderColor: '#fff', marginLeft: 10 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imglogoJD : imglogoJ3} /> */}</View>
 }
 
 export interface HeaderTitleProps {
@@ -35,7 +25,7 @@ export interface HeaderTitleProps {
 export const HeaderTitle: React.FC<HeaderTitleProps> = (props) => {
     return (
         <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ marginLeft: 5, color: '#fff', fontSize: 16, fontWeight: 'bold' }}>{props.titulo}</Text>
+            <Text style={{ marginLeft: 5, color: '#888', fontSize: 16, fontWeight: 'bold' }}>{props.titulo}</Text>
         </View>
     )
 }

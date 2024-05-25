@@ -41,9 +41,11 @@ const useLogin = () => {
     }
 
     const _loadCurrentUser = () => {
-        refTxtUsername.current.focus()
-        //if (refTxtUsername && refTxtUsername.current)  refTxtUsername.current.focus()
         setTxtUsername(currentUser.username)
+
+        if (currentUser.username == '') refTxtUsername.current.focus()
+        //if (refTxtUsername && refTxtUsername.current)  refTxtUsername.current.focus()
+        if (currentUser.username != '') refTxtPassword.current.focus()
     }
 
     const toggleSwitch = () => setIsEnabledFaceID((previousState) => !previousState)

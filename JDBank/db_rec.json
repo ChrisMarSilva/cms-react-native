@@ -10,5 +10,17 @@
             "username": "clientrec2",
             "name": "Client Receive 02"
         }
+    ],
+    "sabalanceldo": [
+        {
+            "id": "1",
+            "username": "clientrec1",
+            "balance": "100.99"
+        },
+        {
+            "id": "2",
+            "username": "clientrec2",
+            "balance": "2000.98"
+        }
     ]
 }

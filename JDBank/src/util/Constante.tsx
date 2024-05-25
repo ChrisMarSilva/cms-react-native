@@ -2,12 +2,12 @@
 export const URL_TIMEOUT = 10 * 1000 // 10Segundos
 export const URL_LOGIN = 'login'
 export const URL_ENROLL = 'login'
+export const URL_BALANCE = 'balance'
 // export const URL_GERAR_QRCODE = 'qrcode-gerar' // 'spi/api/qrcode/estatico/GerarQRCode'
 // export const URL_ENVIAR_QRCODE = 'qrcode-enviar' // 'api/qrcode'
 // export const URL_GET_CHAVE = 'chave' // 'spi/api/chave'
 // export const URL_POST_CHAVE = 'chave' // 'spi/api/chave'
 // export const URL_PAGAR_QRCODE = 'qrcode' // 'api'
-// export const URL_GET_SALDO = 'saldo' // 'api/saldo'
 // export const URL_RECEBE_PAGTO = 'payment-receive-pagto' // 'hubs/receive/payment' // SignaR ao Receber um Credio
 // export const URL_RECEBE_SALDO = 'payment-receive-saldo' // 'hubs/receive/payment'  // SignaR ao Atualizar o Saldo
 

@@ -2,36 +2,45 @@
     "login": [
         {
             "id": "1",
-            "name": "Client Pay 01",
-            "address": "Rua Cônego Vicente ",
-            "phone": "12345655",
-            "email": "chris.mar.silva@gmail.com",
-            "cardOrAccount": "1111112222",
-            "socialSecurity": "3333464666",
             "username": "clientpay1",
-            "password": "123"
+            "password": "123",
+            "name": "Client Pay 01",
+            "email": "client.pay1@gmail.com",
+            "phone": "(949) 402-4538",
+            "socialSecurity": "000–00–0000",
+            "birth": "01/01/2020",
+            "country": "United States",
+            "citizen": "Yes",
+            "address": "123 Main St, Anytown",
+            "cardOrAccount": "1111112222"
         },
         {
             "id": "2",
-            "name": "Client Pay 02",
-            "address": "Rua Cônego Vicente ",
-            "phone": "12345655",
-            "email": "chris.mar.silva@gmail.com",
-            "cardOrAccount": "1111112222",
-            "socialSecurity": "3333464666",
             "username": "clientpay2",
-            "password": "123"
+            "password": "123",
+            "name": "Client Pay 02",
+            "email": "client.pay2@gmail.com",
+            "phone": "(949) 402-4538",
+            "socialSecurity": "000–00–0000",
+            "birth": "01/01/2020",
+            "country": "United States",
+            "citizen": "Yes",
+            "address": "123 Main St, Anytown",
+            "cardOrAccount": "1111112222"
         },
         {
-            "id": "6278",
-            "name": "Chris",
-            "address": "Rua Cônego Vicente ",
-            "phone": "12345655",
-            "email": "chris.mar.silva@gmail.com",
-            "cardOrAccount": "1111112222",
-            "socialSecurity": "3333464666",
+            "id": "3",
             "username": "chris",
-            "password": "123"
+            "password": "123",
+            "name": "Cristiano M Silva",
+            "email": "chris.mar.silva@gmail.com",
+            "phone": "(11) 94212-4681",
+            "socialSecurity": "000.000.000-00",
+            "birth": "03/20/1987",
+            "country": "Brasil",
+            "citizen": "No",
+            "address": "Rua Cônego Vicente, 798, Lins/SP",
+            "cardOrAccount": "1234 12345-6"
         }
     ],
     "balance": [

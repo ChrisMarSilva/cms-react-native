@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Text } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
@@ -16,6 +15,7 @@ const usePerfil = () => {
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
+            //headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo="Personal Info" />,
         })
     }, [navigation])

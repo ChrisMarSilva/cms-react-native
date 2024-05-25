@@ -23,8 +23,8 @@ const useHome = () => {
 
     useEffect(() => {
         navigation.setOptions({
-            headerLeft: () => <HeaderLeft />,
             headerBackground: () => <HeaderBackground />,
+            headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={currentUser.bank} />,
             headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
         })

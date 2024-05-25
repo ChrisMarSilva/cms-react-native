@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { router, useNavigation } from 'expo-router'
-import { LinearGradient } from 'expo-linear-gradient'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import Constants from 'expo-constants'
 
 import usePerfil from '@/src/hooks/usePerfil'
@@ -10,66 +7,68 @@ export default function PerfilScreen() {
     const { currentUser, imgPerson, handleLogout } = usePerfil()
 
     return (
-        <View style={styles.container}>
-            <View style={styles.estilo2}>
-                <Image style={styles.estilo3} source={imgPerson} />
-
-                <Text style={styles.estilo5}>
-                    Legal name: <Text style={styles.estilo6}>{currentUser.name}</Text>
-                </Text>
-
-                <Text style={styles.estilo5}>
-                    Social Security/Tax ID number: <Text style={styles.estilo6}>000 – 00 – 0000</Text>
-                </Text>
-
-                <Text style={styles.estilo5}>
-                    Date of birth: <Text style={styles.estilo6}>MM/DD/YYYY</Text>
-                </Text>
-
-                <Text style={styles.estilo5}>
-                    Phone: <Text style={styles.estilo6}>(949) 402-4538</Text>
-                </Text>
-
-                <Text style={styles.estilo5}>
-                    Email <Text style={styles.estilo6}>pay01@gmail.com / rec01@gmail.com</Text>
-                </Text>
-
-                <Text style={styles.estilo5}>
-                    U.S. Citizen?<Text style={styles.estilo6}>Y/N</Text>
-                </Text>
-
-                <Text style={styles.estilo5}>
-                    Country of Residence:<Text style={styles.estilo6}>United States</Text>
-                </Text>
-
-                <Text style={styles.estilo7}>
-                    Physical Address: <Text style={styles.estilo6}>787, Central Avenue</Text>
-                </Text>
+        <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.profileHeader}>
+                <Image source={imgPerson} style={styles.userPhoto} />
+                <Text style={styles.userName}>{currentUser.name}</Text>
             </View>
 
-            <View style={styles.estilo8}>
-                <TouchableOpacity style={styles.estilo9} activeOpacity={0.7} onPress={handleLogout}>
-                    <Text style={styles.estilo10}>LOGOUT</Text>
-                </TouchableOpacity>
-                <View style={styles.estilo11}>
-                    <Text style={styles.estilo12}>Version: {Constants.expoConfig?.version}</Text>
+            <View style={styles.profileDetails}>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Social Security/Tax ID:</Text>
+                    <Text style={styles.detailValue}>{currentUser.socialSecurity}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Date of Birth:</Text>
+                    <Text style={styles.detailValue}>{currentUser.birth}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Phone:</Text>
+                    <Text style={styles.detailValue}>{currentUser.phone}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Email:</Text>
+                    <Text style={styles.detailValue}>{currentUser.email}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Citizen?</Text>
+                    <Text style={styles.detailValue}>{currentUser.citizen}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Country:</Text>
+                    <Text style={styles.detailValue}>{currentUser.country}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Physical:</Text>
+                    <Text style={styles.detailValue}>{currentUser.address}</Text>
                 </View>
             </View>
-        </View>
+
+            <View style={styles.logoutContainer}>
+                <TouchableOpacity style={styles.buttonLogout} activeOpacity={0.7} onPress={handleLogout}>
+                    <Text style={styles.buttonTextLogout}>LOGOUT</Text>
+                </TouchableOpacity>
+
+                <Text style={styles.footerText}>Version {Constants.expoConfig?.version}</Text>
+            </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', justifyContent: 'center' },
-    estilo2: { alignItems: 'center' },
-    estilo3: { opacity: 0.7, width: 100, height: 100, borderRadius: 63, borderWidth: 1, borderColor: '#000', marginTop: 0, marginBottom: 20 },
+    container: { flexGrow: 1, backgroundColor: '#ffffff', justifyContent: 'space-between' },
 
-    estilo5: { width: '100%', fontSize: 14, justifyContent: 'space-between' },
-    estilo6: { fontWeight: 'bold' },
-    estilo7: { fontSize: 18 },
-    estilo8: { justifyContent: 'flex-end', marginLeft: 15, marginRight: 15, marginBottom: 15 },
-    estilo9: { height: 50, justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 5, borderRadius: 10, marginBottom: 10, width: '100%', backgroundColor: '#fff' },
-    estilo10: { fontWeight: 'bold', fontSize: 18, textAlign: 'center' },
-    estilo11: { alignItems: 'center' },
-    estilo12: { fontWeight: 'bold', fontSize: 10 },
+    profileHeader: { alignItems: 'center', marginTop: 30 },
+    userPhoto: { width: 100, height: 100, borderRadius: 50, marginBottom: 10 },
+    userName: { fontSize: 24, fontWeight: 'bold' },
+
+    profileDetails: { marginHorizontal: 20, backgroundColor: '#ffffff', padding: 20, borderRadius: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 2, elevation: 2, marginTop: 10 },
+    detailItem: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
+    detailLabel: { fontSize: 13, color: '#888' },
+    detailValue: { fontSize: 15, fontWeight: 'bold' },
+
+    logoutContainer: { marginHorizontal: 20, alignItems: 'center' },
+    buttonLogout: { height: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 10, width: '100%', backgroundColor: '#d9534f' },
+    buttonTextLogout: { fontWeight: 'bold', fontSize: 18, color: '#ffffff' },
+    footerText: { color: '#888', fontWeight: 'bold', fontSize: 12, marginTop: 5, marginBottom: 10 },
 })

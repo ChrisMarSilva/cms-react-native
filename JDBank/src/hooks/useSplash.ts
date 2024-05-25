@@ -21,7 +21,16 @@ const useSplash = () => {
     const _clearCurrentUser = async () => {
         currentUser.setUrl('')
         currentUser.setUsername('')
+        currentUser.setName('')
+        currentUser.setEmail('')
+        currentUser.setPhone('')
+        currentUser.setSocialSecurity('')
+        currentUser.setBirth('')
+        currentUser.setCountry('')
+        currentUser.setCitizen('')
+        currentUser.setAddress('')
         currentUser.setBank('')
+        currentUser.setBalance(0)
     }
 
     const _loadSessionUser = async () => {

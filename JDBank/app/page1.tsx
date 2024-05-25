@@ -26,53 +26,62 @@ export default function PageScreen() {
     const handlePerfil = () => console.log('Perfil')
 
     const userName = 'John Doe'
-    const userBalance = '$12,345.67'
     const userPhoto = 'https://randomuser.me/api/portraits/men/1.jpg'
+    const personalInfo = {
+        legalName: 'Pay 01',
+        ssn: '000 – 00 – 0000',
+        dob: '01/01/1980',
+        phone: '(949) 402-4538',
+        email: 'pay01@gmail.com',
+        usCitizen: 'Yes',
+        countryOfResidence: 'United States',
+        address: '123 Main St, Anytown, USA',
+    }
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <MaterialIcons name="account-balance" size={30} />
-                <Text style={styles.bankName}>Banco Americano</Text>
-                <MaterialIcons name="logout" size={30} onPress={() => console.log('Logout pressed')} />
+            <View style={styles.profileHeader}>
+                <Image source={{ uri: userPhoto }} style={styles.userPhoto} />
+                <Text style={styles.userName}>{userName}</Text>
             </View>
 
-            <View style={styles.userInfo}>
-                <Image source={{ uri: userPhoto }} style={styles.userPhoto} />
-                <View>
-                    <Text style={styles.greeting}>Hello,</Text>
-                    <Text style={styles.userName}>{userName}</Text>
+            <View style={styles.profileDetails}>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Legal Name:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.legalName}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Social Security/Tax ID:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.ssn}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Date of Birth:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.dob}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Phone:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.phone}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Email:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.email}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>U.S. Citizen?</Text>
+                    <Text style={styles.detailValue}>{personalInfo.usCitizen}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Country of Residence:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.countryOfResidence}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                    <Text style={styles.detailLabel}>Physical Address:</Text>
+                    <Text style={styles.detailValue}>{personalInfo.address}</Text>
                 </View>
             </View>
 
-            <View style={styles.balanceCard}>
-                <Text style={styles.balanceLabel}>Saldo</Text>
-                <Text style={styles.balanceValue}>{userBalance}</Text>
-            </View>
-
-            <View style={styles.menuContainer}>
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Transfer pressed')}>
-                    <MaterialIcons name="send" size={40} color="#888" style={styles.menuIcon} />
-                    <Text style={styles.menuText}>Transferir</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Receive pressed')}>
-                    <MaterialIcons name="call-received" size={40} color="#888" style={styles.menuIcon} />
-                    <Text style={styles.menuText}>Receber</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Contacts pressed')}>
-                    <MaterialIcons name="contacts" size={40} color="#888" style={styles.menuIcon} />
-                    <Text style={styles.menuText}>Contatos</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Movements pressed')}>
-                    <MaterialIcons name="list" size={40} color="#888" style={styles.menuIcon} />
-                    <Text style={styles.menuText}>Movimentações</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.footer}>
+            <View style={styles.logoutContainer}>
+                <Button title="Logout" color="#d9534f" onPress={() => console.log('Logout pressed')} />
                 <Text style={styles.footerText}>Versão 1.0.0</Text>
             </View>
         </ScrollView>
@@ -84,93 +93,54 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         padding: 20,
         backgroundColor: '#ffffff',
-    },
-    header: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 20,
     },
-    bankName: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    userInfo: {
-        flexDirection: 'row',
+    profileHeader: {
         alignItems: 'center',
         marginBottom: 20,
     },
     userPhoto: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        marginRight: 15,
-    },
-    greeting: {
-        fontSize: 18,
-        color: '#888',
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        marginBottom: 10,
     },
     userName: {
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    balanceCard: {
-        backgroundColor: '#ffffff',
-        padding: 20,
-        borderRadius: 10,
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        elevation: 2,
-    },
-    balanceLabel: {
-        fontSize: 18,
-        color: '#888',
-    },
-    balanceValue: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'green',
-        marginTop: 5,
     },
-    menuContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-    },
-    menuItem: {
+    profileDetails: {
         backgroundColor: '#ffffff',
         padding: 20,
         borderRadius: 10,
-        width: '45%',
-        marginBottom: 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
         elevation: 2,
-        position: 'relative',
+        marginTop: 10,
     },
-    menuIcon: {
-        position: 'absolute',
-        top: 10,
-        right: 10,
+    detailItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10,
     },
-    menuText: {
-        marginTop: 50,
-        fontSize: 16,
+    detailLabel: {
+        fontSize: 13,
+        color: '#888',
+    },
+    detailValue: {
+        fontSize: 15,
         fontWeight: 'bold',
-        textAlign: 'left',
     },
-    footer: {
-        alignItems: 'center',
+    logoutContainer: {
         marginTop: 20,
+        alignItems: 'center',
     },
     footerText: {
         color: '#888',
         fontSize: 14,
+        marginTop: 10,
     },
 })
 

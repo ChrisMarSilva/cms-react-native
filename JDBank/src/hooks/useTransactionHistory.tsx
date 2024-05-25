@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { router, useNavigation } from 'expo-router'
+import { useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
@@ -35,7 +35,8 @@ const useTransactionHistory = () => {
 
     const handleBtnAll = () => {
         const dt = new Date()
-        const dataAtual = ('0' + (dt.getMonth() + 1)).substr(-2) + '/' + ('0' + dt.getDate()).substr(-2) + '/' + dt.getFullYear()
+        //const dataAtual = ('0' + (dt.getMonth() + 1)).substr(-2) + '/' + ('0' + dt.getDate()).substr(-2) + '/' + dt.getFullYear()
+        const dataAtual = (dt.getMonth() + 1).toString().padStart(2, '0') + '/' + dt.getDate().toString().padStart(2, '0') + '/' + dt.getFullYear()
 
         const result = [
             { time: dataAtual, title: 'Received', description: 'Person 1', lineColor: 'transparent', type: 'R', value: 123456.99 },

@@ -1,18 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-//import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
-//import Ionicons from '@expo/vector-icons/Ionicons'
 
 import * as HelperNumero from '@/src/util/HelperNumero'
 import useHome from '@/src/hooks/useHome'
 
 export default function HomeScreen() {
-    const { currentUser, imgPerson, handlePerfil, handleSend, handleRequestForPay, handleRecipients, handleTransactionHistory } = useHome()
+    const { currentUser, imgPerson, handlePersonalInfo, handleSend, handleRequestForPay, handleRecipients, handleTransactionHistory } = useHome()
 
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
-                <TouchableOpacity onPress={handlePerfil}>
+                <TouchableOpacity onPress={handlePersonalInfo}>
                     <Image source={imgPerson} style={styles.userPhoto} />
                 </TouchableOpacity>
                 <View>
@@ -23,31 +21,27 @@ export default function HomeScreen() {
 
             <View style={styles.balanceCard}>
                 <Text style={styles.balanceLabel}>Account Balance:</Text>
-                <Text style={styles.balanceValue}>${HelperNumero.GetMascaraValorDecimal(currentUser.balance)}</Text>
+                <Text style={styles.balanceValue}>{HelperNumero.FormatCurrency(currentUser.balance)}</Text>
             </View>
 
             <View style={styles.menuContainer}>
                 <TouchableOpacity style={styles.menuItem} onPress={handleSend}>
                     <MaterialIcons name="send" size={40} color="#888" style={styles.menuIcon} />
-                    {/* <Ionicons name="swap-horizontal" size={50} color="#000" /> */}
                     <Text style={styles.menuText}>Send</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} onPress={handleRequestForPay}>
-                    <MaterialIcons name="call-received" size={40} color="#888" style={styles.menuIcon} />
-                    {/* <MaterialIcons name="request-page" size={50} color="#000" /> */}
+                    <MaterialIcons name="attach-money" size={40} color="#888" style={styles.menuIcon} />
                     <Text style={styles.menuText}>Request for Pay</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} onPress={handleRecipients}>
                     <MaterialIcons name="contacts" size={40} color="#888" style={styles.menuIcon} />
-                    {/* <FontAwesome6 name="contact-card" size={50} color="#000" /> */}
                     <Text style={styles.menuText}>Recipients</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuItem} onPress={handleTransactionHistory}>
                     <MaterialIcons name="list" size={40} color="#888" style={styles.menuIcon} />
-                    {/* <FontAwesome6 name="contact-card" size={50} color="#000" /> */}
                     <Text style={styles.menuText}>Transaction History</Text>
                 </TouchableOpacity>
             </View>

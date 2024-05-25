@@ -22,9 +22,9 @@ const useCobrarAlguemRecibo = () => {
         //animation.current?.play(30, 120)
 
         setTimeout(() => {
-            setAgencia(params.agenciaPagRec?.toString() || '') // Provide a default value for the state setter function
+            setAgencia(params.agenciaPagRec?.toString() || '')
             setConta(params.contaPagRec?.toString() || '')
-            setValor(parseFloat(params.valorPagRec?.toString() || '0')) // HelperNumero.isNumber(valorPagRec || '0,00') ? parseFloat(valorPagRec || '0,00') : 0
+            setValor(parseFloat(params.valorPagRec?.toString() || '0'))
             setIsLoadingRecebimento(false)
         }, 200)
     }, [])

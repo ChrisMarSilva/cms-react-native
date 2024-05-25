@@ -12,6 +12,6 @@
 		".expo/types/**/*.ts", 
 		"expo-env.d.ts",
 		"src/**/*",
-		"src/@types/images.d.ts", "app/pageNewPerfil.tsx",
+		"src/@types/images.d.ts", "app/pageNewPerfil.tsx", "app/request_pay_qrcode.tsx",
 	]
 }

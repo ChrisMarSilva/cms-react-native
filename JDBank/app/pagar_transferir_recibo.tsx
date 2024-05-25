@@ -13,7 +13,7 @@ export default function PagarTransferirReciboScreen() {
                 <View style={{ justifyContent: 'center', alignItems: 'center', width: '85%', height: '80%', borderRadius: 25, backgroundColor: '#fff', borderWidth: 0, borderColor: 'blue' }}>
                     <LottieView style={{ height: 200, width: 500, marginBottom: 5, borderWidth: 0 }} ref={animation} source={require('@/src/assets/lottie/1127-success.json')} autoPlay loop />
 
-                    <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 30, marginBottom: 10 }}> R$ {HelperNumero.GetMascaraValorDecimal(parseFloat(valor))} </Text>
+                    <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 30, marginBottom: 10 }}> R$ {HelperNumero.FormatCurrency(parseFloat(valor))} </Text>
 
                     <Text style={{ color: '#555', fontSize: 18, marginBottom: 5 }}>
                         para <Text style={{ color: '#000', fontWeight: 'bold', fontSize: 20 }}>{nome}</Text>

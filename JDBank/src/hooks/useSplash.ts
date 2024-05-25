@@ -10,7 +10,7 @@ import * as CONSTANTE from '@/src/util/Constante'
 const useSplash = () => {
     const currentUser = useCurrentUser()
 
-    const [txtStatusAtualizacao, setTxtStatusAtualizacao] = useState<string>('')
+    //const [txtStatusAtualizacao, setTxtStatusAtualizacao] = useState<string>('')
 
     useEffect(() => {
         _clearCurrentUser()
@@ -51,27 +51,21 @@ const useSplash = () => {
 
     const _verificarAtualizacao = async () => {
         try {
-            console.log('Verificando atualizações...')
-            if (__DEV__) {
-                // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
-
-                console.log('saiu')
-                return
-            }
-            console.log('entrou')
+            if (__DEV__) return // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
 
             // setTxtStatusAtualizacao("Verificando atualizações...")
             const update = await Updates.checkForUpdateAsync()
 
             if (!update.isAvailable) return // setTxtStatusAtualizacao("Você já está com a versão mais atual!!!")
 
-            setTxtStatusAtualizacao('NOVA VERSÃO DISPONÍVEL')
+            //setTxtStatusAtualizacao('NOVA VERSÃO DISPONÍVEL')
             await Updates.fetchUpdateAsync() //setTxtStatusAtualizacao("Baixando nova versão...")
             await Updates.reloadAsync() // setTxtStatusAtualizacao("Reiniciando aplicativo...")
 
             //<Text style={{ fontSize: 12, color: colors.cinza_escuro, }}>{txtStatusAtualizacao}  </Text>
         } catch (error: any) {
-            setTxtStatusAtualizacao(error) // alert(`Error fetching latest Expo update: ${error}`)
+            console.log('Error fetching latest Expo update:', error)
+            //setTxtStatusAtualizacao(error) // alert(`Error fetching latest Expo update: ${error}`)
         }
     }
 

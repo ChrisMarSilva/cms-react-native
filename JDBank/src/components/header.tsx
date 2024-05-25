@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, Image } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
+//import FontAwesome from '@expo/vector-icons/FontAwesome'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
@@ -45,8 +45,8 @@ export const HeaderRight: React.FC<HeaderRightProps> = (props) => {
     return (
         <View>
             <TouchableOpacity onPress={props.onPress}>
-                {/* <FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} name={props.icone} /> */}
-                <MaterialIcons name={props.icone} size={25} color={'#888'} />
+                {/* <FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} /> */}
+                <MaterialIcons name={props.icone} size={25} color={'#888'} style={{ fontSize: 25, fontWeight: 'bold' }} />
             </TouchableOpacity>
         </View>
     )

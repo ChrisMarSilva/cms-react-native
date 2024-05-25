@@ -3,7 +3,6 @@ import { Alert } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
-import * as HelperNumero from '@/src/util/HelperNumero'
 import * as CONSTANTE from '@/src/util/Constante'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 import { getBalance } from '@/src/services/balanceService'
@@ -34,7 +33,7 @@ const useHome = () => {
         try {
             const data = await getBalance(currentUser.url, currentUser.username)
 
-            currentUser.setBalance(HelperNumero.isNumber(data) ? parseFloat(data) : 0)
+            currentUser.setBalance(parseFloat(data) || 0)
         } catch (error: any) {
             console.error(error)
             Alert.alert(error.message)
@@ -43,15 +42,15 @@ const useHome = () => {
 
     const handleLogout = () => router.replace('/login')
     const handleSend = () => router.navigate('/pagar_transferir')
-    const handleRequestForPay = () => router.navigate('/cobrar_alguem')
+    const handleRequestForPay = () => router.navigate('/request_pay_qrcode')
     const handleRecipients = () => router.navigate('/colocar_dinheiro')
     const handleTransactionHistory = () => router.navigate('/transaction_history')
-    const handlePerfil = () => router.navigate('/perfil')
+    const handlePersonalInfo = () => router.navigate('/personal_info')
 
     return {
         currentUser,
         imgPerson,
-        handlePerfil,
+        handlePersonalInfo,
         handleSend,
         handleRequestForPay,
         handleRecipients,

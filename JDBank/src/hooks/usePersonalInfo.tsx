@@ -8,7 +8,7 @@ import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/co
 import imgBluePerson from '@/src/assets/imgs/person-blue.jpg'
 import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 
-const usePerfil = () => {
+const usePersonalInfo = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
 
@@ -31,4 +31,4 @@ const usePerfil = () => {
     }
 }
 
-export default usePerfil
+export default usePersonalInfo

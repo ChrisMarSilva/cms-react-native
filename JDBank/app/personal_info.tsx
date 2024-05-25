@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import Constants from 'expo-constants'
 
-import usePerfil from '@/src/hooks/usePerfil'
+import usePersonalInfo from '@/src/hooks/usePersonalInfo'
 
-export default function PerfilScreen() {
-    const { currentUser, imgPerson, handleLogout } = usePerfil()
+export default function PersonalInfoScreen() {
+    const { currentUser, imgPerson, handleLogout } = usePersonalInfo()
 
     return (
         <ScrollView contentContainerStyle={styles.container}>

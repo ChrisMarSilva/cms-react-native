@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import Timeline from 'react-native-timeline-flatlist'
 
 import * as HelperNumero from '@/src/util/HelperNumero'
@@ -12,7 +12,7 @@ export default function TransactionHistoryScreen() {
             <View style={styles.detailContainer}>
                 <Text style={styles.detailTitle}>{rowData.title}</Text>
                 <Text style={styles.detailDescription}>{rowData.description}</Text>
-                <Text style={[styles.detailValue, { color: rowData.value >= 0 ? '#0d7027' : '#ab0606' }]}>$ {HelperNumero.GetMascaraValorDecimal(rowData.value)}</Text>
+                <Text style={[styles.detailValue, { color: rowData.value >= 0 ? '#0d7027' : '#ab0606' }]}>{HelperNumero.FormatCurrency(rowData.value)}</Text>
             </View>
         )
     }

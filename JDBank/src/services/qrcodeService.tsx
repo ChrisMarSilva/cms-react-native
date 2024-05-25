@@ -1,11 +1,10 @@
 import api from '@/src/services/api'
 import * as CONSTANTE from '@/src/util/Constante'
 
-export const createQrCode = async (urlDefault: string, chave: string, nome: string, cidade: string, valor: number) => {
+export const createQrCode = async (urlDefault: string, username: string, value: number) => {
     try {
-        const url = urlDefault + CONSTANTE.URL_GERAR_QRCODE + '?chave=' + encodeURIComponent(escape(chave))
-        // const body = JSON.parse(` {"chaveIdentificacao":"${chave}","nomeRecebedor":"${nome}","cidade":"${cidade}","valor":${valor}}`)
-        const body = { chaveIdentificacao: chave, name: nome, cidade: cidade, valor: valor }
+        const url = urlDefault + CONSTANTE.URL_QRCODE_GENERATE
+        const body = { username: username.trim(), value: value }
         const response = await api.post(url, body)
 
         // const data = response.data // certo
@@ -26,49 +25,49 @@ export const createQrCode = async (urlDefault: string, chave: string, nome: stri
     }
 }
 
-export const sendQrCode = async (urlDefault: string, emv: string) => {
-    try {
-        const url = urlDefault + CONSTANTE.URL_ENVIAR_QRCODE
-        const body = JSON.stringify({ emv: emv })
-        const response = await api.post(url, body)
+// export const sendQrCode = async (urlDefault: string, emv: string) => {
+//     try {
+//         const url = urlDefault + CONSTANTE.URL_ENVIAR_QRCODE
+//         const body = JSON.stringify({ emv: emv })
+//         const response = await api.post(url, body)
 
-        // const data = response.data // certo
+//         // const data = response.data // certo
 
-        const data = {
-            transactionAmount: 100.99,
-            additionalDataField: '45645646',
-            merchantAccountInformation: { itens: [{ descricao: '' }, { descricao: '+5511933333333' }] },
-        }
+//         const data = {
+//             transactionAmount: 100.99,
+//             additionalDataField: '45645646',
+//             merchantAccountInformation: { itens: [{ descricao: '' }, { descricao: '+5511933333333' }] },
+//         }
 
-        return data
-    } catch (error: any) {
-        console.error('sendQrCode:', error)
-        throw error
-    }
-}
+//         return data
+//     } catch (error: any) {
+//         console.error('sendQrCode:', error)
+//         throw error
+//     }
+// }
 
-export const payQrCode = async (urlDefault: string, pagIspb: string, pagTipoPessoa: string, pagTipoConta: string, pagAgencia: string, pagConta: string, pagDocumento: string, pagNome: string, recIspb: string, recTipoPessoa: string, recDocumento: string, recAgencia: string, recConta: string, recTipoConta: string, recNome: string, recValor: string, recInfo: string) => {
-    try {
-        const url = urlDefault + CONSTANTE.URL_PAGAR_QRCODE
-        const body = JSON.parse(`{"pagador":{"ispb":${pagIspb}, "tipoPessoa":"${pagTipoPessoa}","tipoConta":"${pagTipoConta}","agencia":"${pagAgencia}","conta":"${pagConta}","documento":"${pagDocumento}","nome":"${pagNome}"},"recebedor":{"ispb":${recIspb},"tipoPessoa":"${recTipoPessoa}","documento":"${recDocumento}","agencia":"${recAgencia}","conta":"${recConta}","tipoConta":"${recTipoConta}","nome":"${recNome}"},"valor":${recValor},"customInformation":"${recInfo}"}`)
+// export const payQrCode = async (urlDefault: string, pagIspb: string, pagTipoPessoa: string, pagTipoConta: string, pagAgencia: string, pagConta: string, pagDocumento: string, pagNome: string, recIspb: string, recTipoPessoa: string, recDocumento: string, recAgencia: string, recConta: string, recTipoConta: string, recNome: string, recValor: string, recInfo: string) => {
+//     try {
+//         const url = urlDefault + CONSTANTE.URL_PAGAR_QRCODE
+//         const body = JSON.parse(`{"pagador":{"ispb":${pagIspb}, "tipoPessoa":"${pagTipoPessoa}","tipoConta":"${pagTipoConta}","agencia":"${pagAgencia}","conta":"${pagConta}","documento":"${pagDocumento}","nome":"${pagNome}"},"recebedor":{"ispb":${recIspb},"tipoPessoa":"${recTipoPessoa}","documento":"${recDocumento}","agencia":"${recAgencia}","conta":"${recConta}","tipoConta":"${recTipoConta}","nome":"${recNome}"},"valor":${recValor},"customInformation":"${recInfo}"}`)
 
-        // const body = {
-        // 	pagador: { ispb: ispb, tipoPessoa: tipoPessoa, tipoConta: tipoConta, agencia: agencia, conta: conta, documento: documento, nome: nome},
-        // 	recebedor: { ispb: params.ispbRecebedor, tipoPessoa: params.tipoPessoaRecebedor, documento: params.documentoRecebedor, agencia: params.agenciaRecebedor, conta: params.contaRecebedor, tipoConta: params.tipoContaRecebedor, nome: params.nomeRecebedor },
-        // 	valor: valorRecebedor,
-        // 	customInformation: params.infoRecebedor,
-        // }
+//         // const body = {
+//         // 	pagador: { ispb: ispb, tipoPessoa: tipoPessoa, tipoConta: tipoConta, agencia: agencia, conta: conta, documento: documento, nome: nome},
+//         // 	recebedor: { ispb: params.ispbRecebedor, tipoPessoa: params.tipoPessoaRecebedor, documento: params.documentoRecebedor, agencia: params.agenciaRecebedor, conta: params.contaRecebedor, tipoConta: params.tipoContaRecebedor, nome: params.nomeRecebedor },
+//         // 	valor: valorRecebedor,
+//         // 	customInformation: params.infoRecebedor,
+//         // }
 
-        // console.log('1-body: ', typeof body, body)
-        // console.log('2-parse: ', typeof JSON.parse(body), JSON.parse(body))
-        // console.log('3-stringify: ', typeof JSON.stringify(body), JSON.stringify(body))
+//         // console.log('1-body: ', typeof body, body)
+//         // console.log('2-parse: ', typeof JSON.parse(body), JSON.parse(body))
+//         // console.log('3-stringify: ', typeof JSON.stringify(body), JSON.stringify(body))
 
-        const response = await api.post(url, body)
+//         const response = await api.post(url, body)
 
-        const data = response.data
-        return data
-    } catch (error: any) {
-        console.error('payQrCode:', error)
-        throw error
-    }
-}
+//         const data = response.data
+//         return data
+//     } catch (error: any) {
+//         console.error('payQrCode:', error)
+//         throw error
+//     }
+// }

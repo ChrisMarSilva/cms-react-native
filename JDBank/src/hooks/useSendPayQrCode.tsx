@@ -17,11 +17,12 @@ const useSendPayQrCode = () => {
 
     useEffect(() => {
         _clearData()
+        router.setParams({ value: '0', name: '' })
         _requestCameraPermission() //setTimeout(() => { }, 150)
 
-        // return () => {
-        //     _clearData()
-        // }
+        return () => {
+            _clearData()
+        }
     }, [])
 
     useEffect(() => {
@@ -35,8 +36,6 @@ const useSendPayQrCode = () => {
 
     const _clearData = () => {
         setHasScanned(false)
-        setHasCameraPermission(false)
-        router.setParams({ value: '0' })
     }
 
     const _requestCameraPermission = async () => {
@@ -61,12 +60,12 @@ const useSendPayQrCode = () => {
 
             const result = await sendQrCode(currentUser.url, currentUser.username, data)
 
-            const value = parseFloat(result.value.toString() || '0')
-
+            setHasScanned(false)
             router.navigate({
                 pathname: '/send_pay_qrcode_view',
                 params: {
-                    value: value,
+                    value: parseFloat(result.value.toString() || '0'),
+                    name: result.name.toString() || '',
                 },
             })
         } catch (error: any) {
@@ -75,7 +74,6 @@ const useSendPayQrCode = () => {
     }
 
     return {
-        currentUser,
         hasCameraPermission,
         hasScanned,
         setHasScanned,

@@ -38,7 +38,7 @@ const useRequestPayQrCode = () => {
     const handleCancel = async () => {
         _clearData()
         router.setParams({ value: '0' })
-        router.replace('/home')
+        router.navigate('/home')
     }
 
     const handleContinue = () => {

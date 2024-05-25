@@ -1,46 +1,49 @@
 import { useRef, useEffect, useState } from 'react'
-import { Alert } from 'react-native'
+//import { Alert } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
+import LottieView from 'lottie-react-native'
 import { Audio } from 'expo-av'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
-//import * as HelperNumero from '@/src/util/HelperNumero'
+import * as HelperNumero from '@/src/util/HelperNumero'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
-const usePagarTransferirRecibo = () => {
+const useSendPayQrCodeDone = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
     const params = useLocalSearchParams()
-    const animation = useRef(null)
+    const animation = useRef<LottieView>(null)
 
-    const [chave, setChave] = useState<string>('')
-    const [nome, setNome] = useState<string>('')
-    const [banco, setBanco] = useState<string>('')
-    const [agencia, setAgencia] = useState<string>('')
-    const [conta, setConta] = useState<string>('')
-    const [valor, setValor] = useState<string>('0')
+    const [value, setValue] = useState<number>(0)
+    const [name, setName] = useState<string>('')
 
     useEffect(() => {
-        _getTocarSom()
+        _clearData() //  setTimeout(() => {}, 200)
+        _paySong()
 
-        setChave(params.chaveRecebedor?.toString() || '')
-        setNome(params.nomeRecebedor?.toString() || '')
-        setBanco(params.nomeBancoRecebedor?.toString() || '')
-        setAgencia(params.agenciaRecebedor?.toString() || '')
-        setConta(params.contaRecebedor?.toString() || '')
-        setValor(params.valorRecebedor?.toString() || '0')
+        return () => {
+            _clearData()
+        }
     }, [])
 
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
-            headerLeft: () => <HeaderLeft />,
-            headerTitle: () => <HeaderTitle titulo={'Pagamento Feito!'} />,
-            headerRight: () => <HeaderRight isVisible={true} onPress={_OnPressVerComprovante} icone={'close'} />,
+            //headerLeft: () => <HeaderLeft />,
+            headerTitle: () => <HeaderTitle titulo={'Payment sent'} />,
+            headerRight: () => <HeaderRight isVisible={true} onPress={handleHome} icone={'close'} />,
         })
     }, [navigation])
 
-    const _getTocarSom = async () => {
+    const _clearData = () => {
+        animation.current?.reset()
+        animation.current?.play() // animation.current?.play(30, 120)
+
+        setValue(HelperNumero.convertToCurrency(params.value?.toString() || '0'))
+        setName(params.name?.toString() || '')
+    }
+
+    const _paySong = async () => {
         try {
             const source = require('@/src/assets/sounds/02.mp3')
 
@@ -64,28 +67,26 @@ const usePagarTransferirRecibo = () => {
             const { sound } = await Audio.Sound.createAsync(source, initialStatus)
 
             await sound.playAsync() //  Play the Music
-        } catch (error) {
+        } catch (error: any) {
             // sound.unloadAsync()
-            Alert.alert('Erro ao tocar som: ' + error)
+            // Alert.alert(error)
+            console.log(error)
         }
     }
 
-    const _OnPressVerComprovante = () => {
-        currentUser.setSaldo(currentUser.saldo - parseFloat(valor))
-        router.replace('/home')
+    const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
+
+    const handleSeeReceipt = () => {
+        // currentUser.setBalance(currentUser.balance - value)
+        router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
     }
 
     return {
-        currentUser,
         animation,
-        chave,
-        nome,
-        banco,
-        agencia,
-        conta,
-        valor,
-        _OnPressVerComprovante,
+        name,
+        value,
+        handleSeeReceipt,
     }
 }
 
-export default usePagarTransferirRecibo
+export default useSendPayQrCodeDone

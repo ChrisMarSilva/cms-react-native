@@ -1,65 +1,288 @@
 {
-    "login": [
-        {
-            "id": "1",
-            "username": "clientpay1",
-            "password": "123",
-            "name": "Client Pay 01",
-            "email": "client.pay1@gmail.com",
-            "phone": "(949) 402-4538",
-            "socialSecurity": "000–00–0000",
-            "birth": "01/01/2020",
-            "country": "United States",
-            "citizen": "Yes",
-            "address": "123 Main St, Anytown",
-            "cardOrAccount": "1111112222"
-        },
-        {
-            "id": "2",
-            "username": "clientpay2",
-            "password": "123",
-            "name": "Client Pay 02",
-            "email": "client.pay2@gmail.com",
-            "phone": "(949) 402-4538",
-            "socialSecurity": "000–00–0000",
-            "birth": "01/01/2020",
-            "country": "United States",
-            "citizen": "Yes",
-            "address": "123 Main St, Anytown",
-            "cardOrAccount": "1111112222"
-        },
-        {
-            "id": "3",
-            "username": "chris",
-            "password": "123",
-            "name": "Cristiano M Silva",
-            "email": "chris.mar.silva@gmail.com",
-            "phone": "(11) 94212-4681",
-            "socialSecurity": "000.000.000-00",
-            "birth": "03/20/1987",
-            "country": "Brasil",
-            "citizen": "No",
-            "address": "Rua Cônego Vicente, 798, Lins/SP",
-            "cardOrAccount": "1234 12345-6"
-        }
-    ],
-    "balance": [
-        {
-            "id": "1",
-            "username": "clientpay1",
-            "balance": "100.99"
-        },
-        {
-            "id": "2",
-            "username": "clientpay2",
-            "balance": "2000.98"
-        },
-        {
-            "id": "3",
-            "username": "chris",
-            "balance": "3000000.97"
-        }
-    ],
-    "qr-code-generate": [],
-    "qr-code-send": []
+  "login": [
+    {
+      "id": "1",
+      "username": "clientpay1",
+      "password": "123",
+      "name": "Client Pay 01",
+      "email": "client.pay1@gmail.com",
+      "phone": "(949) 402-4538",
+      "socialSecurity": "000–00–0000",
+      "birth": "01/01/2020",
+      "country": "United States",
+      "citizen": "Yes",
+      "address": "123 Main St, Anytown",
+      "cardOrAccount": "1111112222"
+    },
+    {
+      "id": "2",
+      "username": "clientpay2",
+      "password": "123",
+      "name": "Client Pay 02",
+      "email": "client.pay2@gmail.com",
+      "phone": "(949) 402-4538",
+      "socialSecurity": "000–00–0000",
+      "birth": "01/01/2020",
+      "country": "United States",
+      "citizen": "Yes",
+      "address": "123 Main St, Anytown",
+      "cardOrAccount": "1111112222"
+    },
+    {
+      "id": "3",
+      "username": "chris",
+      "password": "123",
+      "name": "Cristiano M Silva",
+      "email": "chris.mar.silva@gmail.com",
+      "phone": "(11) 94212-4681",
+      "socialSecurity": "000.000.000-00",
+      "birth": "03/20/1987",
+      "country": "Brasil",
+      "citizen": "No",
+      "address": "Rua Cônego Vicente, 798, Lins/SP",
+      "cardOrAccount": "1234 12345-6"
+    }
+  ],
+  "balance": [
+    {
+      "id": "1",
+      "username": "clientpay1",
+      "balance": "100.99"
+    },
+    {
+      "id": "2",
+      "username": "clientpay2",
+      "balance": "2000.98"
+    },
+    {
+      "id": "3",
+      "username": "chris",
+      "balance": "3000000.97"
+    }
+  ],
+  "qr-code-generate": [],
+  "qr-code-send": [
+    {
+      "id": "466b",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "474a",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "4f19",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "c9f8",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "52c4",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "eb5f",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "31bf",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "d2fc",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "ac94",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "dc72",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "5588",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "66ae",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "7b6f",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "feb6",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "e25a",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "2c94",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "8550",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "a4f6",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "fd6d",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "bd0d",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "b245",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "f056",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "9127",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "88c8",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "969e",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    },
+    {
+      "id": "a074",
+      "username": "chris",
+      "data": "00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC"
+    }
+  ],
+  "qr-code-pay": [
+    {
+      "id": "2a27",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "c37d",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "6620",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "4986",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "9eb5",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "3d91",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "168a",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "45b2",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "0832",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "5108",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "5be6",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "8305",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "de44",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "5f9d",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    },
+    {
+      "id": "3017",
+      "username": "chris",
+      "value": 12346.99,
+      "name": "Allieeee"
+    }
+  ]
 }

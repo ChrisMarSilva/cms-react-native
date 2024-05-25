@@ -51,12 +51,7 @@ const useRequestPayQrCodeDone = () => {
         }
     }
 
-    const handleHome = async () => {
-        router.replace({
-            pathname: '/home',
-            params: { value: 0 },
-        })
-    }
+    const handleHome =  () => router.navigate({pathname: '/home', params: { value: 0 }})
 
     return {
         animation,

@@ -1,6 +1,6 @@
 // export const isNumber = (value: string) => !isNaN(parseFloat(value)) && isFinite(parseFloat(value))
 
-export const convertToCurrency = (value: string) => parseFloat(value.replace(/[,$]/g, '')).toFixed(2)
+export const convertToCurrency = (value: string) => parseFloat(value.replace(/[,$]/g, '')) //.toFixed(2)
 
 export const FormatCurrency = (value: number) =>
     new Intl.NumberFormat('en-US', {

@@ -31,8 +31,8 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
         const body = JSON.stringify({ username: username.trim(), data: qrcode })
         const response = await api.post(url, body)
 
-        // const data = response.data // certo
-        const data = { value: 12346.99 }
+        // const data = response.data
+        const data = { value: 12346.99, name: 'Allieeee' }
 
         return data
     } catch (error: any) {
@@ -41,28 +41,17 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
     }
 }
 
-// export const payQrCode = async (urlDefault: string, pagIspb: string, pagTipoPessoa: string, pagTipoConta: string, pagAgencia: string, pagConta: string, pagDocumento: string, pagNome: string, recIspb: string, recTipoPessoa: string, recDocumento: string, recAgencia: string, recConta: string, recTipoConta: string, recNome: string, recValor: string, recInfo: string) => {
-//     try {
-//         const url = urlDefault + CONSTANTE.URL_PAGAR_QRCODE
-//         const body = JSON.parse(`{"pagador":{"ispb":${pagIspb}, "tipoPessoa":"${pagTipoPessoa}","tipoConta":"${pagTipoConta}","agencia":"${pagAgencia}","conta":"${pagConta}","documento":"${pagDocumento}","nome":"${pagNome}"},"recebedor":{"ispb":${recIspb},"tipoPessoa":"${recTipoPessoa}","documento":"${recDocumento}","agencia":"${recAgencia}","conta":"${recConta}","tipoConta":"${recTipoConta}","nome":"${recNome}"},"valor":${recValor},"customInformation":"${recInfo}"}`)
+export const payQrCode = async (urlDefault: string, username: string, value: number, name: string) => {
+    try {
+        const url = urlDefault + CONSTANTE.URL_QRCODE_PAY
+        const body = JSON.stringify({ username: username.trim(), value: value, name: name })
 
-//         // const body = {
-//         // 	pagador: { ispb: ispb, tipoPessoa: tipoPessoa, tipoConta: tipoConta, agencia: agencia, conta: conta, documento: documento, nome: nome},
-//         // 	recebedor: { ispb: params.ispbRecebedor, tipoPessoa: params.tipoPessoaRecebedor, documento: params.documentoRecebedor, agencia: params.agenciaRecebedor, conta: params.contaRecebedor, tipoConta: params.tipoContaRecebedor, nome: params.nomeRecebedor },
-//         // 	valor: valorRecebedor,
-//         // 	customInformation: params.infoRecebedor,
-//         // }
+        const response = await api.post(url, body)
 
-//         // console.log('1-body: ', typeof body, body)
-//         // console.log('2-parse: ', typeof JSON.parse(body), JSON.parse(body))
-//         // console.log('3-stringify: ', typeof JSON.stringify(body), JSON.stringify(body))
-
-//         const response = await api.post(url, body)
-
-//         const data = response.data
-//         return data
-//     } catch (error: any) {
-//         console.error('payQrCode:', error)
-//         throw error
-//     }
-// }
+        const data = response.data
+        return data
+    } catch (error: any) {
+        console.error('payQrCode:', error)
+        throw error
+    }
+}

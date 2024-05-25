@@ -29,8 +29,8 @@ export default function RootLayout() {
 
                 <Stack.Screen name="personal_info" options={{ headerTintColor: '#888' }} />
 
-                {/* <Stack.Screen name="page1" options={{ headerBackVisible: false }} />
-                <Stack.Screen name="page2" /> */}
+                <Stack.Screen name="page1" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="page2" options={{ headerBackVisible: true, headerTintColor: '#888' }} />
             </Stack>
         </UserProvider>
     )

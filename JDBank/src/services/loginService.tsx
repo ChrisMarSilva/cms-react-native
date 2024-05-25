@@ -21,6 +21,10 @@ export const createLogin = async (urlDefault: string, name: string, address: str
         const body = { name: name, address: address, phone: phone, email: email, cardOrAccount: cardOrAccount, socialSecurity: socialSecurity, username: username, password: password }
         const response = await api.post<any>(url, body)
 
+        // console.log('1-body: ', typeof body, body)
+        // console.log('2-parse: ', typeof JSON.parse(body), JSON.parse(body))
+        // console.log('3-stringify: ', typeof JSON.stringify(body), JSON.stringify(body))
+
         const data = response.data
         // const data = { statusCode: '200', message: { descricao: 'Chave criada com sucesso!' } } // DESENV
 

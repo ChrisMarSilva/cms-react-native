@@ -1,9 +1,13 @@
 import { useEffect } from 'react'
+import { Text } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
-//import * as HelperSessao from '@/src/util/HelperSessao'
+import * as CONSTANTE from '@/src/util/Constante'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+
+import imgBluePerson from '@/src/assets/imgs/person-blue.jpg'
+import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 
 const usePerfil = () => {
     const currentUser = useCurrentUser()
@@ -12,28 +16,18 @@ const usePerfil = () => {
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
-            headerLeft: () => <HeaderLeft />,
-            headerTitle: () => <HeaderTitle titulo={'Perfil'} />,
-            headerRight: () => <HeaderRight isVisible={true} onPress={_onPressHome} icone={'close'} />,
+            headerTitle: () => <HeaderTitle titulo="Personal Info" />,
         })
     }, [navigation])
 
-    const _onPressLogout = async () => {
-        // await HelperSessao.ClearAllSessao()
-        // await HelperSessao.SetUserURL(currentUser.url)
-        // await HelperSessao.SetUserIspb(currentUser.ispb)
-        // await HelperSessao.SetUserNomeBanco(currentUser.nomeBanco)
-        // await HelperSessao.SetUserIcon(currentUser.icon)
-        // await HelperSessao.SetUserBGColor(currentUser.bgColor)
-        router.replace('/login')
-    }
+    const imgPerson = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imgBluePerson : imgRedPerson
 
-    const _onPressHome = () => router.replace('/home')
+    const handleLogout = () => router.replace('/login')
 
     return {
         currentUser,
-        _onPressLogout,
-        _onPressHome,
+        imgPerson,
+        handleLogout,
     }
 }
 

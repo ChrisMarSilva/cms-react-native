@@ -38,18 +38,4 @@ export const SESSAO_BANK = SESSAO_PADRAO + 'Bank'
 // export const SESSAO_USER_BGCOLOR_SCREEN = SESSAO_PADRAO + 'UserBackgroundColorScreen'
 // export const SESSAO_USER_ICON = SESSAO_PADRAO + 'UserIcon'
 
-// // COR
-// export const BG_BRANCO = '#fff'
-
-// // COR Vermelha
-// export const BG_VERMELHO = '#800000' // #800000 // #8B0000 // #B22222 // #A52A2A //#801515  #AA3939  #D46A6A #FFAAAA
-// export const BG_HEADER_MEIO_VERMELHO = '#B22222'
-// export const BG_HEADER_INI_VERMELHO = '#c64747'
-// export const BG_VERMELHO_FRACO = '#fff8f8'
-// export const BG_VERMELHO_FORTE = '#A52A2A'
-// // COR Azul
-// export const BG_AZUL = '#19275B'
-// export const BG_HEADER_MEIO_AZUL = '#3b5998'
-// export const BG_HEADER_INI_AZUL = '#4c669f'
-// export const BG_AZUL_FRACO = '#f0f8ff'
-// export const BG_AZUL_FORTE = '#303F76'
+// export const VERSAO_APP = '1.0.14'; // Constants.manifest?.version ||

@@ -1,42 +1,75 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { router, useNavigation } from 'expo-router'
+import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants'
 
 import usePerfil from '@/src/hooks/usePerfil'
-import * as HelperNumero from '@/src/util/HelperNumero'
-import * as CONSTANTE from '@/src/util/Constante'
-
-import imgBluePerson from '@/src/assets/imgs/person-blue.jpg'
-import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 
 export default function PerfilScreen() {
-    const { currentUser, _onPressLogout, _onPressHome } = usePerfil()
+    const { currentUser, imgPerson, handleLogout } = usePerfil()
 
     return (
-        <View style={{ flex: 1, backgroundColor: currentUser.bgColorScreen }}>
-            <View style={{ flex: 1, justifyContent: 'center', borderWidth: 0, borderColor: 'blue', alignItems: 'center' }}>
-                <Image style={{ opacity: 0.7, width: 100, height: 100, borderRadius: 63, borderWidth: 1, borderColor: '#fff', marginTop: 0, marginBottom: 20 }} source={currentUser.bgColor == CONSTANTE.BG_VERMELHO ? imgRedPerson : imgBluePerson} />
-                <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>{currentUser.nome}</Text>
-                <Text style={{ color: '#fff', fontSize: 14 }}>
-                    CPF: <Text style={{ fontWeight: 'bold' }}>{HelperNumero.GetMascaraCPF(currentUser.documento)}</Text>
+        <View style={styles.container}>
+            <View style={styles.estilo2}>
+                <Image style={styles.estilo3} source={imgPerson} />
+
+                <Text style={styles.estilo5}>
+                    Legal name: <Text style={styles.estilo6}>{currentUser.name}</Text>
                 </Text>
-                <Text style={{ color: '#fff', fontSize: 14, marginBottom: 20 }}>
-                    Celular: <Text style={{ fontWeight: 'bold' }}>{HelperNumero.GetMascaraTelefone(currentUser.chave)}</Text>
+
+                <Text style={styles.estilo5}>
+                    Social Security/Tax ID number: <Text style={styles.estilo6}>000 – 00 – 0000</Text>
                 </Text>
-                <Text style={{ color: '#fff', fontSize: 18 }}>
-                    <Text style={{ fontWeight: 'bold' }}>{currentUser.nomeBanco}</Text>
+
+                <Text style={styles.estilo5}>
+                    Date of birth: <Text style={styles.estilo6}>MM/DD/YYYY</Text>
                 </Text>
-                <Text style={{ color: '#fff', fontSize: 14 }}>
-                    Agência: <Text style={{ fontWeight: 'bold' }}>{currentUser.agencia}</Text> || Conta: <Text style={{ fontWeight: 'bold' }}>{currentUser.conta}</Text>
+
+                <Text style={styles.estilo5}>
+                    Phone: <Text style={styles.estilo6}>(949) 402-4538</Text>
+                </Text>
+
+                <Text style={styles.estilo5}>
+                    Email <Text style={styles.estilo6}>pay01@gmail.com / rec01@gmail.com</Text>
+                </Text>
+
+                <Text style={styles.estilo5}>
+                    U.S. Citizen?<Text style={styles.estilo6}>Y/N</Text>
+                </Text>
+
+                <Text style={styles.estilo5}>
+                    Country of Residence:<Text style={styles.estilo6}>United States</Text>
+                </Text>
+
+                <Text style={styles.estilo7}>
+                    Physical Address: <Text style={styles.estilo6}>787, Central Avenue</Text>
                 </Text>
             </View>
-            <View style={{ justifyContent: 'flex-end', marginLeft: 15, marginRight: 15, marginBottom: 15, borderWidth: 0, borderColor: 'blue' }}>
-                <TouchableOpacity style={{ height: 50, justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 5, borderRadius: 10, marginBottom: 10, width: '100%', backgroundColor: '#fff' }} activeOpacity={0.7} onPress={_onPressLogout}>
-                    <Text style={{ color: currentUser.bgColor == CONSTANTE.BG_VERMELHO ? CONSTANTE.BG_VERMELHO_FORTE : CONSTANTE.BG_AZUL_FORTE, fontWeight: 'bold', fontSize: 18, textAlign: 'center' }}>TROCA DE CONTA</Text>
+
+            <View style={styles.estilo8}>
+                <TouchableOpacity style={styles.estilo9} activeOpacity={0.7} onPress={handleLogout}>
+                    <Text style={styles.estilo10}>LOGOUT</Text>
                 </TouchableOpacity>
-                <View style={{ alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 10, color: '#fff' }}>Versão: {Constants.expoConfig?.version}</Text>
+                <View style={styles.estilo11}>
+                    <Text style={styles.estilo12}>Version: {Constants.expoConfig?.version}</Text>
                 </View>
             </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: { flex: 1, backgroundColor: '#fff', justifyContent: 'center' },
+    estilo2: { alignItems: 'center' },
+    estilo3: { opacity: 0.7, width: 100, height: 100, borderRadius: 63, borderWidth: 1, borderColor: '#000', marginTop: 0, marginBottom: 20 },
+
+    estilo5: { width: '100%', fontSize: 14, justifyContent: 'space-between' },
+    estilo6: { fontWeight: 'bold' },
+    estilo7: { fontSize: 18 },
+    estilo8: { justifyContent: 'flex-end', marginLeft: 15, marginRight: 15, marginBottom: 15 },
+    estilo9: { height: 50, justifyContent: 'center', alignItems: 'center', paddingTop: 10, paddingBottom: 5, borderRadius: 10, marginBottom: 10, width: '100%', backgroundColor: '#fff' },
+    estilo10: { fontWeight: 'bold', fontSize: 18, textAlign: 'center' },
+    estilo11: { alignItems: 'center' },
+    estilo12: { fontWeight: 'bold', fontSize: 10 },
+})

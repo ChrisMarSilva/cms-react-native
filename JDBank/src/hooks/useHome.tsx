@@ -15,7 +15,7 @@ const useHome = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
 
-    let imgPerson = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imgBluePerson : imgRedPerson
+    const imgPerson = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imgBluePerson : imgRedPerson
 
     useEffect(() => {
         _getBalance()
@@ -23,8 +23,10 @@ const useHome = () => {
 
     useEffect(() => {
         navigation.setOptions({
+            headerLeft: () => <HeaderLeft />,
             headerBackground: () => <HeaderBackground />,
             headerTitle: () => <HeaderTitle titulo={currentUser.bank} />,
+            headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
         })
     }, [navigation])
 
@@ -39,6 +41,7 @@ const useHome = () => {
         }
     }
 
+    const handleLogout = () => router.replace('/login')
     const handleSend = () => router.navigate('/pagar_transferir')
     const handleRequestForPay = () => router.navigate('/cobrar_alguem')
     const handleRecipients = () => router.navigate('/colocar_dinheiro')

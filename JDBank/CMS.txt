@@ -16,7 +16,7 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
     2h alterar nomes da tela Enrollment
     2h alterar nomes da tela home
     4h alterar nomes da tela Personal Info e alterar layout
-  sexta   - 24/05/2024 09:00:00 - 24/05/2024 00:00:00 - 00h ===> xxxxxxxxx
+  sexta   - 24/05/2024 09:00:00 - 24/05/2024 23:00:00 - 14h ===> xxxxxxxxx
     4h alterar nomes da tela Transaction History e alterar layout
     2h alterar nomes da tela Request for Pay through QR Code
     2h alterar nomes da tela Request for Pay through QR Code - confirmation
@@ -93,6 +93,10 @@ npm i react-native-masked-text --save
 npm i react-native-timeline-flatlist --save
 npm i @microsoft/signalr --save
 #npm i @aspnet/signalr --save
+
+npx expo install expo-updates
+eas update:configure
+
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

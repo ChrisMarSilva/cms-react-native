@@ -1,4 +1,6 @@
 {
+    "name": "JDBank",
+    "displayName": "JD Bank",
     "expo": {
         "name": "JD Bank",
         "slug": "JDBank",
@@ -7,6 +9,7 @@
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "userInterfaceStyle": "automatic",
+        "runtimeVersion": "1.0.0",
         "splash": {
             "image": "./assets/images/splash.png",
             "resizeMode": "contain",
@@ -16,7 +19,7 @@
             "supportsTablet": true
         },
         "android": {
-            "package": "br.com.app.jdconsultores.jdspi",
+            "package": "br.com.jdconsultores.jdbank",
             "icon": "./assets/images/icon.png",
             "versionCode": 1,
             "adaptiveIcon": {
@@ -33,6 +36,14 @@
         "plugins": ["expo-router", "expo-camera"],
         "experiments": {
             "typedRoutes": true
+        },
+        "extra": {
+            "eas": {
+                "projectId": "c055cbbc-00dd-4fa1-82d3-f8ea0fd86bbe-xxx"
+            }
+        },
+        "updates": {
+            "url": "https://u.expo.dev/c055cbbc-00dd-4fa1-82d3-f8ea0fd86bbe-xxx"
         }
     }
 }

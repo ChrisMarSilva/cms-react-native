@@ -17,7 +17,8 @@ export default function RootLayout() {
                 <Stack.Screen name="enrollment_done" options={{ headerShown: false }} />
 
                 <Stack.Screen name="home" options={{ headerBackVisible: false }} />
-                <Stack.Screen name="transaction_history" options={{ headerBackVisible: false }} />
+                <Stack.Screen name="transaction_history" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="perfil" options={{ headerTintColor: '#888' }} />
 
                 {/*
                 <Stack.Screen name="cobrar_alguem" options={{ headerBackVisible: false }} />
@@ -25,10 +26,10 @@ export default function RootLayout() {
                 <Stack.Screen name="pagar_transferir" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="pagar_transferir_confirma" options={{ headerBackVisible: false }} />
                 <Stack.Screen name="pagar_transferir_recibo" options={{ headerBackVisible: false }} />
-                <Stack.Screen name="perfil" options={{ headerBackVisible: false }} /> 
-                <Stack.Screen name="page1" options={{ headerBackVisible: false }} />
-                <Stack.Screen name="page2" options={{ headerBackVisible: false }} /> 
                 */}
+
+                <Stack.Screen name="page1" options={{ headerBackVisible: false }} />
+                <Stack.Screen name="page2" options={{ headerBackVisible: false }} />
             </Stack>
         </UserProvider>
     )

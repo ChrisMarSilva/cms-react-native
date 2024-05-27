@@ -5,9 +5,24 @@ export const getLogin = async (urlDefault: string, username: string, password: s
     try {
         //const url = urlDefault + CONSTANTE.URL_LOGIN + '?username=' + encodeURIComponent(escape(username.trim())) + '&password=' + encodeURIComponent(escape(password.trim()))
         const url = urlDefault + CONSTANTE.URL_LOGIN + '?username=' + encodeURIComponent(escape(username.trim()))
-        const response = await api.get<any>(url)
+        //const response = await api.get<any>(url)
 
-        const data = Array.isArray(response.data) ? response.data[0] : response.data
+        //const data = Array.isArray(response.data) ? response.data[0] : response.data
+        const data = {
+            id: '1',
+            username: 'clientpay1',
+            password: '123',
+            name: 'Client Pay 01',
+            email: 'client.pay1@gmail.com',
+            phone: '(949) 402-4538',
+            socialSecurity: '000–00–0000',
+            birth: '01/01/2020',
+            country: 'United States',
+            citizen: 'Yes',
+            address: '123 Main St, Anytown',
+            cardOrAccount: '1111112222',
+        }
+
         return data
     } catch (error: any) {
         console.error('getLogin:', error)
@@ -20,14 +35,28 @@ export const createLogin = async (urlDefault: string, name: string, address: str
         const url = urlDefault + CONSTANTE.URL_ENROLL
         // JSON.stringify({"garcom": garcom.toString()}),
         const body = { name: name, address: address, phone: phone, email: email, cardOrAccount: cardOrAccount, socialSecurity: socialSecurity, username: username, password: password }
-        const response = await api.post<any>(url, body)
+        //const response = await api.post<any>(url, body)
 
         // console.log('1-body: ', typeof body, body)
         // console.log('2-parse: ', typeof JSON.parse(body), JSON.parse(body))
         // console.log('3-stringify: ', typeof JSON.stringify(body), JSON.stringify(body))
 
-        const data = response.data
-        // const data = { statusCode: '200', message: { descricao: 'Chave criada com sucesso!' } } // DESENV
+        //const data = response.data
+
+        const data = {
+            id: '123',
+            username: username,
+            password: password,
+            name: name,
+            email: email,
+            phone: phone,
+            socialSecurity: socialSecurity,
+            birth: '01/01/2020',
+            country: 'United States',
+            citizen: 'Yes',
+            address: address,
+            cardOrAccount: cardOrAccount,
+        }
 
         return data
     } catch (error: any) {

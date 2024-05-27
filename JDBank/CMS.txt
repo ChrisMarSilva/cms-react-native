@@ -37,32 +37,31 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-
-
-Tradução CSC - JDBankMobileV1.docx
-  0h retirar tela de splash
-  8h criar nova tela de login
-  2h alterar nomes da tela Enrollment
-  2h alterar nomes da tela home
-  4h alterar nomes da tela Personal Info e alterar layout
-  4h alterar nomes da tela Transaction History e alterar layout
-  2h alterar nomes da tela Request for Pay through QR Code
-  2h alterar nomes da tela Request for Pay through QR Code - confirmation
-  2h alterar nomes da tela Pay through QR Code
-  8h alterar nomes da tela Review & Send
-  6h alterar nomes da tela Payment Send e alterar layout
-  8h criar tela de Recepients
-  0h retirar tela pagar via qr code recibo
-
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
-
 npx create-expo-app@latest -y
 npm run reset-project
 
 npx expo start -c
 npx json-server --watch db_pag.json --port 3002
 npx json-server --watch db_rec.json --port 3001
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+npx expo login
+chris.mar.silva@gmail.com
+
+npm install -g eas-cli
+eas login
+chris.mar.silva@gmail.com
+
+eas build:configure
+eas build --platform android
+eas build --platform android --message "#001 - Updating the app version 1.0.0"
+
+npx expo install expo-updates
+eas update:configure
+eas update --branch development --message "#001 - Updating the app version 1.0.0"
+eas update --branch development --message "#001 - Updating the app version 1.0.1"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -98,7 +97,6 @@ npm i react-native-modal
 npx expo install expo-updates
 eas update:configure
 
-
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -109,67 +107,8 @@ console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().g
 console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userBGColor: ${userBGColor}`)
 console.log(`[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()},${new Date().getMilliseconds()}]: userIcon: ${userIcon}`)
 
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
-
-JDSPI - Sistema de Pagamento Instantâneos
-
-04358798 - JD Bank - IF Pagadora
-84701762 - J3 Bank - IF Recebedora
-
- - Cadastro      : POST - https://jdspi.azurewebsites.net/spi/api/chave
- - Login         : GET  - https://jdspi.azurewebsites.net/spi/api/chave
- - GerarQRCode   : POST - https://jdspi.azurewebsites.net/spi/api/qrcode/estatico/GerarQRCode
- - ValidarQRCode : POST - https://jdspi.azurewebsites.net/api/qrcode
- - PagarQRCode   : POST - https://jdspi.azurewebsites.net/api/ 
- - Recebido      : GET  - https://jdspi.azurewebsites.net/api/{headerId}/{mensagemId}  // "https://jdspi.azurewebsites.net/api/M0435879820191222151827091859167/E0435879820191222151800098293142" 
- - Saldo         : GET  - https://jdspi.azurewebsites.net/api/saldo/{agencia}/{conta}  // /api/saldo/0001/12346-7
-
-https://jdspi-dict.azurewebsites.net/index.html
-
-JD Bank VERMELHO // 4358798 // +55 11 9 4212 3333 // VERMELHO PAGADOR // https://jdspi.azurewebsites.net/index.html
-
-{
-  "recebedor": {
-    "ispb": 4358798,
-    "tipoPessoa": 0,
-    "documento": 11111111111,
-    "agencia": "0001",
-    "conta": "12346-7",
-    "tipoConta": 0,
-    "nome": "JD VERMELHO PAGADOR"
-  },
-  "tipoChave": 0,
-  "chave": "+5511942123333"
-}
-
-
-J3 Bank AZUL // 84701762 // +5511942124444 // AZUL RECEBEDOR // https://j3spi.azurewebsites.net/index.html
-
-{
-  "recebedor": {
-    "ispb": 84701762,
-    "tipoPessoa": 0,
-    "documento": 22222222222,
-    "agencia": "0002",
-    "conta": "223456-8",
-    "tipoConta": 0,
-    "nome": "J3 AZUL RECEBEDOR"
-  },
-  "tipoChave": 0,
-  "chave": "+5511942125555"
-}
-
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
 
 i18n
 └─src
@@ -291,20 +230,13 @@ export default {
 }
 
 
-
-
-
 const lngs = {
   en: { nativeName: 'English' },
   de: { nativeName: 'Deutsch' }
 };
 
-
-
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
-
-
 
 importar criar de  'zustand' ; 
 
@@ -336,3 +268,6 @@ const useStore = create((set) => ({
   todos: [], 
   addTodo: (text) => set((state) => ({ todos: [...state.todos, text] })), 
 } ));
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------

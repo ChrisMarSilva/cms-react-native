@@ -5,7 +5,7 @@ export const createQrCode = async (urlDefault: string, username: string, value: 
     try {
         const url = urlDefault + CONSTANTE.URL_QRCODE_GENERATE
         const body = { username: username.trim(), value: value }
-        const response = await api.post(url, body)
+        //const response = await api.post(url, body)
 
         // const data = response.data // certo
         // const data = 'iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAYAAAAZtYVBAAAAAklEQVR4AewaftIAAAY1SURBVO3BQY4cy5LAQDLQ978yR0tfJZCoar34GjezP1jrEoe1LnJY6yKHtS5yWOsih7UucljrIoe1LnJY6yKHtS5yWOsih7UucljrIoe1LnJY6yKHtS7yw4dU'
@@ -29,7 +29,7 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
     try {
         const url = urlDefault + CONSTANTE.URL_QRCODE_SEND
         const body = JSON.stringify({ username: username.trim(), data: qrcode })
-        const response = await api.post(url, body)
+        //const response = await api.post(url, body)
 
         // const data = response.data
         const data = { value: 12346.99, name: 'Allieeee' }
@@ -46,9 +46,10 @@ export const payQrCode = async (urlDefault: string, username: string, value: num
         const url = urlDefault + CONSTANTE.URL_QRCODE_PAY
         const body = JSON.stringify({ username: username.trim(), value: value, name: name })
 
-        const response = await api.post(url, body)
+        //const response = await api.post(url, body)
 
-        const data = response.data
+        //const data = response.data
+        const data = { id: '123', username: username.trim(), value: value, name: name }
         return data
     } catch (error: any) {
         console.error('payQrCode:', error)

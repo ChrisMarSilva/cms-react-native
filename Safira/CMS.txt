@@ -29,11 +29,9 @@ npm install -g eas-cli
 
 eas login
 chris.mar.silva@gmail.com
-#Chrs2387
 
 npx expo login
 chris.mar.silva@gmail.com
-#Chrs2387
 
 eas update:configure
 eas build:configure

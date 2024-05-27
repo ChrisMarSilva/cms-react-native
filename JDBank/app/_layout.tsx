@@ -18,6 +18,9 @@ export default function RootLayout() {
 
                 <Stack.Screen name="home" options={{ headerBackVisible: false }} />
 
+                <Stack.Screen name="recipients" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="recipients/modal" options={{ presentation: 'modal' }} />
+
                 <Stack.Screen name="send_pay_qrcode" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="send_pay_qrcode_view" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="send_pay_qrcode_done" options={{ headerBackVisible: false, headerTintColor: '#888' }} />

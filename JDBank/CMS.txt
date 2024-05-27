@@ -10,29 +10,29 @@ Recuperação do codigo de 2019
   segunda - 20/05/2024 09:00:00 - 20/05/2024 13:00:00 - 05h ===> ajustar layout
 
 Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
-  quinta  - 23/05/2024 18:00:00 - 24/05/2024 01:00:00 - 07h ===> xxxxxxxxx
+
+  quinta  - 23/05/2024 18:00:00 - 24/05/2024 01:00:00 - 07h
     0h retirar tela de splash
     8h criar nova tela de login
     2h alterar nomes da tela Enrollment
     2h alterar nomes da tela home
     4h alterar nomes da tela Personal Info e alterar layout
-  sexta   - 24/05/2024 09:00:00 - 24/05/2024 23:00:00 - 14h ===> xxxxxxxxx
+
+  sexta   - 24/05/2024 09:00:00 - 24/05/2024 23:00:00 - 14h
     4h alterar nomes da tela Transaction History e alterar layout
     2h alterar nomes da tela Request for Pay through QR Code
     2h alterar nomes da tela Request for Pay through QR Code - confirmation
     2h alterar nomes da tela Pay through QR Code
+
+  sabado  - 25/05/2024 06:00:00 - 25/05/2024 17:00:00 - 11h
     8h alterar nomes da tela Review & Send
     6h alterar nomes da tela Payment Send e alterar layout
-    8h criar tela de Recepients
     0h retirar tela pagar via qr code recibo
 
-  sabado  - 25/05/2024 09:00:00 - 25/05/2024 00:00:00 - 00h ===> xxxxxxxxx
-  domingo - 26/05/2024 09:00:00 - 26/05/2024 00:00:00 - 00h ===> xxxxxxxxx
+  domingo - 26/05/2024 09:00:00 - 26/05/2024 00:00:00 - 00h
 
-
-
-
-
+  segunda - 27/05/2024 09:00:00 - 27/05/2024 17:00:00 - 08h
+    8h criar tela de Recepients
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -93,6 +93,7 @@ npm i react-native-masked-text --save
 npm i react-native-timeline-flatlist --save
 npm i @microsoft/signalr --save
 #npm i @aspnet/signalr --save
+npm i react-native-modal
 
 npx expo install expo-updates
 eas update:configure

@@ -16,7 +16,7 @@ const useSplash = () => {
         _clearCurrentUser()
         _loadSessionUser() //setTimeout(() => { //}, 3000)
         _verificarAtualizacao()
-        
+
         // return () => {
         //     _clearData()
         // }

@@ -8,7 +8,7 @@ export default function LoginScreen() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleChangeBank}>
+            <TouchableOpacity onPress={handleChangeBank} disabled={isLoading}>
                 <Image source={imglogo} style={styles.logo} />
             </TouchableOpacity>
 
@@ -23,7 +23,7 @@ export default function LoginScreen() {
 
                 <View style={styles.switchContainer}>
                     <Switch style={styles.switch} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={isEnabledFaceID ? '#4177cc' : '#f4f3f4'} ios_backgroundColor="#3e3e3e" onValueChange={toggleSwitch} value={isEnabledFaceID} />
-                    <Text style={styles.switchText} onPress={toggleSwitch}>
+                    <Text style={styles.switchText} onPress={toggleSwitch} disabled={isLoading}>
                         Set up Face ID
                     </Text>
                 </View>
@@ -40,7 +40,7 @@ export default function LoginScreen() {
             </KeyboardAvoidingView>
 
             <View style={styles.enrollContainer}>
-                <Text style={styles.enrollText} onPress={handleEnroll}>
+                <Text style={styles.enrollText} onPress={handleEnroll} disabled={isLoading}>
                     Enroll
                 </Text>
             </View>

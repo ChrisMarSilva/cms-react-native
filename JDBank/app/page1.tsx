@@ -1,451 +1,189 @@
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Image } from 'react-native'
-import { useNavigation } from 'expo-router'
+import { useEffect } from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { router, useNavigation } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
 
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import Ionicons from '@expo/vector-icons/Ionicons'
+import * as CONSTANTE from '@/src/util/Constante'
+import imglogoJD from '@/src/assets/imgs/icon-red.png'
 
-import imgPerson from '@/src/assets/imgs/person-blue.jpg'
-
-export default function PageScreen() {
+export default function Page1Screen() {
     const navigation = useNavigation()
 
     useEffect(() => {
         navigation.setOptions({
-            headerBackground: () => <LinearGradient colors={['#fff', '#fff', '#fff']} style={{ flex: 1 }} />,
-            headerTitle: () => (
-                <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ marginLeft: 5, color: '#888', fontSize: 16, fontWeight: 'bold' }}>JD Bank</Text>
-                </View>
-            ),
+            headerBackground: () => <LinearGradient colors={['#fff', '#fff']} style={{ flex: 1 }} />,
+            headerTitle: () => <Text style={{ marginLeft: 5, fontSize: 18, fontWeight: 'bold' }}>PAGE 2</Text>,
         })
     }, [navigation])
 
-    const handlePerfil = () => console.log('Perfil')
-
-    const userName = 'John Doe'
-    const userPhoto = 'https://randomuser.me/api/portraits/men/1.jpg'
-    const personalInfo = {
-        legalName: 'Pay 01',
-        ssn: '000 – 00 – 0000',
-        dob: '01/01/1980',
-        phone: '(949) 402-4538',
-        email: 'pay01@gmail.com',
-        usCitizen: 'Yes',
-        countryOfResidence: 'United States',
-        address: '123 Main St, Anytown, USA',
-    }
+    const _onPress = () => router.navigate('/page2') // push // navigate
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.profileHeader}>
-                <Image source={{ uri: userPhoto }} style={styles.userPhoto} />
-                <Text style={styles.userName}>{userName}</Text>
-            </View>
-
-            <View style={styles.profileDetails}>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Legal Name:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.legalName}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Social Security/Tax ID:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.ssn}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Date of Birth:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.dob}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Phone:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.phone}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Email:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.email}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>U.S. Citizen?</Text>
-                    <Text style={styles.detailValue}>{personalInfo.usCitizen}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Country of Residence:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.countryOfResidence}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                    <Text style={styles.detailLabel}>Physical Address:</Text>
-                    <Text style={styles.detailValue}>{personalInfo.address}</Text>
-                </View>
-            </View>
-
-            <View style={styles.logoutContainer}>
-                <Button title="Logout" color="#d9534f" onPress={() => console.log('Logout pressed')} />
-                <Text style={styles.footerText}>Versão 1.0.0</Text>
-            </View>
-        </ScrollView>
+        <View style={{ flex: 1 }}>
+            <TouchableOpacity style={{ height: 50, width: 200, marginTop: 20, justifyContent: 'center', alignItems: 'center' }} activeOpacity={0.7} onPress={_onPress}>
+                <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Ir para Pagina 2</Text>
+            </TouchableOpacity>
+        </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
-        padding: 20,
-        backgroundColor: '#ffffff',
-        justifyContent: 'space-between',
-    },
-    profileHeader: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    userPhoto: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 10,
-    },
-    userName: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    profileDetails: {
-        backgroundColor: '#ffffff',
-        padding: 20,
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        elevation: 2,
-        marginTop: 10,
-    },
-    detailItem: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 10,
-    },
-    detailLabel: {
-        fontSize: 13,
-        color: '#888',
-    },
-    detailValue: {
-        fontSize: 15,
-        fontWeight: 'bold',
-    },
-    logoutContainer: {
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    footerText: {
-        color: '#888',
-        fontSize: 14,
-        marginTop: 10,
-    },
-})
 
 /*
 
+import React, { useState } from 'react'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import Modal from './Modal'
 
+const App = () => {
+  const [modal, setModal] = useState(false)
 
+  return(
+    <View style={styles.container}>
+      <Text style={styles.title}>Animated Modal RN</Text>
+      <TouchableOpacity style={styles.button} onPress={() => setModal(true)}>
+        <Text>Open Modal</Text>
+      </TouchableOpacity>
 
--------------
-
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Button, Image } from 'react-native'
-import { useNavigation } from 'expo-router'
-import { LinearGradient } from 'expo-linear-gradient'
-
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import Ionicons from '@expo/vector-icons/Ionicons'
-
-import imgPerson from '@/src/assets/imgs/person-blue.jpg'
-
-export default function PageScreen() {
-    const navigation = useNavigation()
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerBackground: () => <LinearGradient colors={['#fff', '#fff', '#fff']} style={{ flex: 1 }} />,
-            headerTitle: () => (
-                <View style={{ marginLeft: 10, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ marginLeft: 5, color: '#888', fontSize: 16, fontWeight: 'bold' }}>JD Bank</Text>
-                </View>
-            ),
-        })
-    }, [navigation])
-
-    const handlePerfil = () => console.log('Perfil')
-
-    const userName = 'John Doe'
-    const userBalance = '$12,345.67'
-    const userPhoto = 'https://randomuser.me/api/portraits/men/1.jpg'
-
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.userInfo}>
-                    <Image source={imgPerson} style={styles.userPhoto} />
-                    <View>
-                        <Text style={styles.userTxtName}>Hello,</Text>
-                        <Text style={styles.userName}>{userName}</Text>
-                    </View>
-                </View>
-            </View>
-
-            <View style={styles.balanceContainer}>
-                <Text style={styles.userTxtBalance}>Balance</Text>
-                <Text style={styles.userBalance}>{userBalance}</Text>
-            </View>
-
-            <View style={styles.menuContainer}>
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Transfer pressed')}>
-                    <MaterialIcons name="send" size={40} />
-                    <Text style={styles.menuText}>Transferir</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Receive pressed')}>
-                    <MaterialIcons name="call-received" size={40} />
-                    <Text style={styles.menuText}>Receber</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Contacts pressed')}>
-                    <MaterialIcons name="contacts" size={40} />
-                    <Text style={styles.menuText}>Contatos</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.menuItem} onPress={() => console.log('Movements pressed')}>
-                    <MaterialIcons name="list" size={40} />
-                    <Text style={styles.menuText}>Movimentações</Text>
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
-    )
+      <Modal 
+        show={modal}
+        close={() => setModal(false)}
+      />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
-        padding: 20,
-        backgroundColor: '#f5f5f5',
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    userInfo: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    userPhoto: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        marginRight: 15,
-    },
-    userTxtName: {
-        fontSize: 16,
-    },
-    userName: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    balanceContainer: {
-        marginBottom: 20,
-    },
-    userTxtBalance: {
-        fontSize: 16,
-    },
-    userBalance: {
-        fontSize: 20,
-        color: 'green',
-        fontWeight: 'bold',
-    },
-    menuContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-    },
-    menuItem: {
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-        padding: 20,
-        borderRadius: 10,
-        width: '45%',
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        elevation: 2,
-    },
-    menuText: {
-        marginTop: 10,
-        fontSize: 16,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#9b59b6',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  title: {
+    color: '#fff',
+    fontSize: 22
+  },
+  button: {
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 300,
+    marginTop: 20
+  }
 })
 
+export default App
 
 
-----
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native'
 
+const { height } = Dimensions.get('window')
+
+const Modal = ({ show, close }) => {
+  const [state, setState] = useState({
+    opacity: new Animated.Value(0),
+    container: new Animated.Value(height),
+    modal: new Animated.Value(height)
+  })
+
+  const openModal = () => {
+    Animated.sequence([
+      Animated.timing(state.container, { toValue: 0, duration: 100 }),
+      Animated.timing(state.opacity, { toValue: 1, duration: 300 }),
+      Animated.spring(state.modal, { toValue: 0, bounciness: 5, useNativeDriver: true })
+    ]).start()
+  }
+
+  const closeModal = () => {
+    Animated.sequence([
+      Animated.timing(state.modal, { toValue: height, duration: 250, useNativeDriver: true }),
+      Animated.timing(state.opacity, { toValue: 0, duration: 300 }),
+      Animated.timing(state.container, { toValue: height, duration: 100 })
+    ]).start()
+  }
+
+  useEffect(() => {
+    if(show){
+      openModal()
+    }else{
+      closeModal()
+    }
+  }, [show])
+
+  return( 
+    <Animated.View 
+      style={[styles.container, {
+        opacity: state.opacity,
+        transform: [
+          { translateY: state.container }
+        ]
+      }]}
+    >
+      <Animated.View 
+        style={[styles.modal, {
+          transform: [
+            { translateY: state.modal }
+          ]
+        }]}
+      >
+        <View style={styles.indicator} />
+
+        <Text style={styles.text}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae massa odio. Quisque ante sem, tempor eget massa vel, mollis tincidunt metus. Ut sed felis lectus. Nam semper molestie urna, quis ultricies quam semper ut. Maecenas aliquet id urna a convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas leo lectus, dictum vitae erat eget, luctus dapibus sapien. Integer at hendrerit quam. Vivamus tempor, arcu non fringilla laoreet, enim nibh porttitor enim, eget pellentesque eros nulla congue neque. Suspendisse et lobortis enim, nec fermentum est. Aliquam accumsan viverra vehicula. Proin tempus sagittis auctor. Vivamus quam ligula, laoreet eget eros et, hendrerit iaculis risus. Nam a nulla in purus fermentum rhoncus eu et erat. Aliquam tempus felis lorem, id hendrerit tortor vestibulum ac.
+        </Text>
+
+        <TouchableOpacity style={styles.btn} onPress={close}>
+          <Text style={{ color: '#fff' }}>Close</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    </Animated.View>
+  )
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F0F0F0',
-    },
-
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#FFFFFF',
-    },
-
-    userPhoto: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        marginRight: 15,
-    },
-
-    userName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-
-    currentBalance: {
-        fontSize: 16,
-        color: '#009900', // Verde para saldo positivo
-    },
-
-    mainMenu: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 20,
-        backgroundColor: '#FFFFFF',
-    },
-
-    menuItemButton: {
-        alignItems: 'center',
-    },
-
-    menuItemIcon: {
-        width: 24,
-        height: 24,
-        marginBottom: 5,
-    },
-
-    menuItemText: {
-        fontSize: 14,
-    },
-
-    mainContent: {
-        flex: 1,
-        padding: 20,
-    },
-
-    highlightSection: {
-        marginBottom: 20,
-    },
-
-    highlightTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-
-    highlightSubtitle: {
-        fontSize: 16,
-        color: '#666666',
-        marginBottom: 20,
-    },
-
-    highlightCard: {
-        backgroundColor: '#F2F2F2',
-        padding: 15,
-        borderRadius: 10,
-    },
-
-    highlightCardValue: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#009900', // Verde para valor positivo
-        marginBottom: 5,
-    },
-
-    highlightCardDescription: {
-        fontSize: 14,
-        color: '#666666',
-        marginBottom: 10,
-    },
-
-    highlightCardButton: {
-        backgroundColor: '#007bff',
-        padding: 10,
-        borderRadius: 5,
-    },
-
-    highlightCardButtonText: {
-        fontSize: 14,
-        color: '#FFFFFF',
-    },
-
-    shortcutsSection: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
-
-    shortcutButton: {
-        alignItems: 'center',
-        width: 80,
-        height: 80,
-        marginBottom: 15,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        shadowColor: '#000000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-
-    shortcutIcon: {
-        width: 32,
-        height: 32,
-        marginBottom: 5,
-    },
-
-    shortcutText: {
-        fontSize: 14,
-    },
-
-    logoutButton: {
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        backgroundColor: '#FF0000',
-        padding: 15,
-        borderRadius: 5,
-    },
-
-    logoutButtonText: {
-        fontSize: 16,
-        color: '#FFFFFF',
-    },
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    position: 'absolute'
+  },
+  modal: {
+    bottom: 0,
+    position: 'absolute',
+    height: '50%',
+    backgroundColor: '#fff',
+    width: '100%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingLeft: 25,
+    paddingRight: 25
+  },
+  indicator: {
+    width: 50,
+    height: 5,
+    backgroundColor: '#ccc',
+    borderRadius: 50,
+    alignSelf: 'center',
+    marginTop: 5
+  },
+  text: {
+    marginTop: 50,
+    textAlign: 'center'
+  },
+  btn: {
+    width: '100%',
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: '#9b59b6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30
+  }
 })
 
-
-
-backgroundColor: '#f5f5f5',
-
+export default Modal
 
 */

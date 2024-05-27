@@ -28,7 +28,7 @@ export default function RequestPayQrCodeDoneScreen() {
 
             {/* 
             <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', marginLeft: 15, marginRight: 15, marginBottom: 15, borderWidth: 0, borderColor: 'blue' }}>
-                <TouchableOpacity style={{ borderRadius: 10, width: 300, height: 50, padding: 12, backgroundColor: '#fff' }} onPress={_goToOpenScreenCobrarAlguemAgain}>
+                <TouchableOpacity style={{ borderRadius: 10, width: 300, height: 50, padding: 12, backgroundColor: '#fff' }} onPress={_goToOpenScreenCobrarAlguemAgain}  disabled={isLoading}>
                     <Text style={{ paddingLeft: 5, textAlign: 'center', color: '#555', fontSize: 18 }}> criar novo Código QR </Text>
                 </TouchableOpacity>
             </View>

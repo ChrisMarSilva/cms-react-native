@@ -20,5 +20,6 @@ export const SESSAO_PADRAO = '@JDSPI:'
 export const SESSAO_URL = SESSAO_PADRAO + 'Url'
 export const SESSAO_USERNAME = SESSAO_PADRAO + 'Username'
 export const SESSAO_BANK = SESSAO_PADRAO + 'Bank'
+export const SESSAO_RECIPIENTS = SESSAO_PADRAO + 'Recipients'
 
 // export const VERSAO_APP = '1.0.14'; // Constants.manifest?.version ||

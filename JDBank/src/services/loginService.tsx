@@ -18,6 +18,7 @@ export const getLogin = async (urlDefault: string, username: string, password: s
 export const createLogin = async (urlDefault: string, name: string, address: string, phone: string, email: string, cardOrAccount: string, socialSecurity: string, username: string, password: string) => {
     try {
         const url = urlDefault + CONSTANTE.URL_ENROLL
+        // JSON.stringify({"garcom": garcom.toString()}),
         const body = { name: name, address: address, phone: phone, email: email, cardOrAccount: cardOrAccount, socialSecurity: socialSecurity, username: username, password: password }
         const response = await api.post<any>(url, body)
 

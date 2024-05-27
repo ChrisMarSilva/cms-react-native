@@ -73,8 +73,8 @@ const useLogin = () => {
             await HelperSessao.SetUsername(data?.username)
 
             // currentUser.setUrl(currentUser.url)
-            currentUser.setUsername(data?.username || '')
-            currentUser.setName(data?.name || '')
+            currentUser.setUsername(data?.username?.toString().trim() || '')
+            currentUser.setName(data?.name?.toString().trim() || '')
             currentUser.setEmail(data?.email || '')
             currentUser.setPhone(data?.phone || '')
             currentUser.setSocialSecurity(data?.socialSecurity || '')

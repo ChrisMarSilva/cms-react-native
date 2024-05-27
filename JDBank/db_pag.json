@@ -60,7 +60,13 @@
       "balance": "3000000.97"
     }
   ],
-  "qr-code-generate": [],
+  "qr-code-generate": [
+    {
+      "id": "5f86",
+      "username": "clientpay1",
+      "value": 99.99
+    }
+  ],
   "qr-code-send": [
     {
       "id": "466b",

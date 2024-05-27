@@ -39,10 +39,11 @@ const useRecipients = () => {
     }, [recipients])
 
     const _clearData = () => {
-        Keyboard.dismiss()
+        //Keyboard.dismiss()
         setSearch('')
         setRecipients([])
-        refTxtName.current.focus()
+
+        refTxtName?.current?.focus()
     }
 
     const _loadData = async () => {

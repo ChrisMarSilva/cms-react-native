@@ -5,7 +5,7 @@ export const URL_ENROLL = 'login'
 export const URL_BALANCE = 'balance'
 export const URL_QRCODE_GENERATE = 'qr-code-generate'
 export const URL_QRCODE_SEND = 'qr-code-send'
-export const URL_QRCODE_PAY = 'qr-code-pay'
+export const URL_QRCODE_PAY = 'api' // 'qr-code-pay'
 
 // RECEIVE BANK
 export const RECEIVE_BANK_NAME = 'J3 Bank'

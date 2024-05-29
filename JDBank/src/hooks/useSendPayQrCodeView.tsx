@@ -84,6 +84,7 @@ const useSendPayQrCodeView = () => {
 
             router.navigate({ pathname: '/send_pay_qrcode_done', params: { value: value, name: name } })
         } catch (error: any) {
+            console.error('useSendPayQrCodeView.handleSend:', error)
             setIsLoadingPay(false)
             Alert.alert(error.message)
         }

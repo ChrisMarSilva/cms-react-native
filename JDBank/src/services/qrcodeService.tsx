@@ -1,4 +1,5 @@
 import api from '@/src/services/api'
+
 import * as CONSTANTE from '@/src/util/Constante'
 
 export const createQrCode = async (urlDefault: string, username: string, value: number) => {
@@ -43,13 +44,39 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
 
 export const payQrCode = async (urlDefault: string, username: string, value: number, name: string) => {
     try {
-        const url = urlDefault + CONSTANTE.URL_QRCODE_PAY
-        const body = JSON.stringify({ username: username.trim(), value: value, name: name })
+        // const url = urlDefault + CONSTANTE.URL_QRCODE_PAY // DESENV
+        // const body = JSON.stringify({ username: username.trim(), value: value, name: name }) // DESENV
 
-        //const response = await api.post(url, body)
+        const url = 'https://e028-67-159-235-142.ngrok-free.app/api'
 
-        //const data = response.data
-        const data = { id: '123', username: username.trim(), value: value, name: name }
+        const body = JSON.stringify({
+            pagador: {
+                ispb: 4358798,
+                tipoPessoa: 0,
+                tipoConta: 0,
+                agencia: '0004',
+                conta: '4444',
+                documento: 22222222222,
+                nome: 'JD VERMELHO PAGADOR',
+            },
+            recebedor: {
+                ispb: 84701762,
+                tipoPessoa: 0,
+                documento: 22222222222,
+                agencia: '0002',
+                conta: '2222',
+                tipoConta: 0,
+                nome: 'AZUL RECEBEDOR',
+            },
+            valor: value, // 15088.98
+            customInformation: '123',
+        })
+
+        const response = await api.post(url, body)
+
+        const data = response.data
+        //const data = { id: '123', username: username.trim(), value: value, name: name }
+
         return data
     } catch (error: any) {
         console.error('payQrCode:', error)

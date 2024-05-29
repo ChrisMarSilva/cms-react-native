@@ -5,6 +5,7 @@ import * as CONSTANTE from '@/src/util/Constante'
 const api = axios.create({
 	baseURL: '',
 	timeout: CONSTANTE.URL_TIMEOUT,
+    // httpsAgent: new https.Agent({ rejectUnauthorized: false }),
 	headers: {
 		'Cache-Control': 'no-cache',
 		'Content-Type': 'application/json; charset=utf-8',

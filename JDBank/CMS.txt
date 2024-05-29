@@ -34,6 +34,8 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
   segunda - 27/05/2024 09:00:00 - 27/05/2024 17:00:00 - 08h
     8h criar tela de Recepients
 
+  quarta - 29/05/2024 12:00:00 - 29/05/2024 16:00:00 - 04h ===> add chamada para a API débito - https://localhost:50180/api
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -61,17 +63,21 @@ eas build --platform android --message "#001 - Updating the app version 1.0.0"
 npx expo install expo-updates
 eas update:configure
 eas update --branch development --message "#001 - Updating the app version 1.0.0"
-eas update --branch development --message "#001 - Updating the app version 1.0.1"
+eas update --branch development --message "#002 - Updating the app version 1.0.1"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 npm i -D json-server
+npm install -g json-server
 npm install --save-dev prettier
 npm run format
 "trailingComma": "es5", // "none"
 npm init @eslint/config
 npm i -g react-devtools --save-dev
+
+
+
 
 npm i react-native-console-time-polyfill --save
 #npx expo install lodash
@@ -96,6 +102,9 @@ npm i react-native-modal
 
 npx expo install expo-updates
 eas update:configure
+npx expo install expo
+npx expo install expo-constants
+npx expo install expo-font
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

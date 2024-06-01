@@ -68,6 +68,21 @@ eas update --branch development --message "#002 - Updating the app version 1.0.1
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+React Native CLI  npx react-native@latest init MyApp   / npx react-native start
+TypeScript
+React Navigation
+React Query
+Zustand
+React Hook Form + Zod
+MMKV Storage  https://github.com/mrousavy/react-native-mmkv
+Restyle Shopify https://github.com/Shopify/restyle
+Jest e React Native Testing Library   https://jestjs.io/pt-BR/  https://callstack.github.io/react-native-testing-library/
+Detox (Testes E2E)
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
 npm i -D json-server
 npm install -g json-server
 npm install --save-dev prettier
@@ -75,9 +90,6 @@ npm run format
 "trailingComma": "es5", // "none"
 npm init @eslint/config
 npm i -g react-devtools --save-dev
-
-
-
 
 npm i react-native-console-time-polyfill --save
 #npx expo install lodash

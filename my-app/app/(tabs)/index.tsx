@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Platform, Text, LogBox } from "react-native";
-import axios from "axios";
-//import { hubConnection } from "signalr-no-jquery";
 import * as SignalR from "@microsoft/signalr";
+//import * as SignalR from "@aspnet/signalr";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -16,91 +15,72 @@ export default function HomeScreen() {
   const [message, setMessage] = useState("Aguardando mensagem...");
 
   useEffect(() => {
-    //_signalrByNoJquery();
-    //_signalrByMicrosoft();
-    _signalrByWebSocket();
+    _signalrByMicrosoft();
+    //_signalrByWebSocket();
     // return () => { }
   }, []);
 
-  // const _signalrByNoJquery = () => {
-  //   try {
-  //     console.log("SignalR by signalr-no-jquery");
-
-  //     const connection = hubConnection("https://localhost:41557");
-  //     const hubProxy = connection.createHubProxy("chat");
-
-  //     hubProxy.on("ReceiveMessage", (user, message): void => {
-  //       console.log("connection.ReceiveMessage: ", `${user}: ${message}`);
-  //     });
-
-  //     connection
-  //       .start() // { jsonp: true }
-  //       .done(() => console.log("Conectado ao SignalR"))
-  //       .fail((error: any) =>
-  //         console.log("Erro ao conectar ao SignalR: ", error)
-  //       );
-
-  //     // const connection = new signalR.HubConnectionBuilder().withUrl(url).build()
-  //     // connection.on('ReceiveMessage', (user, message) => {
-  //     // console.log("connection.ReceiveMessage: ", `${user}: ${message}`);
-  //     // });
-
-  //     // connection
-  //     //     .start()
-  //     //     .then(() => {
-  //     //         console.log('Conexão com SignalR estabelecida com sucesso.')
-  //     //     })
-  //     //     .catch((error) => {
-  //     //         console.error('Erro ao estabelecer conexão com SignalR:', error)
-  //     //     })
-
-  //     // connection.onclose(() => {
-  //     //     console.log('connection.onclose')
-  //     //     connection.start() // trying to reconnect
-  //     // })
-  //   } catch (error: any) {
-  //     console.error(error);
-  //   }
-  // };
-
   const _signalrByMicrosoft = () => {
     try {
-      console.log("SignalR by signalr-no-jquery");
-
-      const connection = new SignalR.HubConnectionBuilder()
-        .withUrl("https://localhost:41557/chat", {
-          // wss://localhost:41557/chat?id=XtsIQgeTXpEako_UN3w2PQ // "https://localhost:41557/chat"
-
-          transport:
-            ///SignalR.HttpTransportType.WebSockets |
-            SignalR.HttpTransportType.LongPolling,
-          headers: {
-            "content-type": "application/json",
-          },
-        })
+      let connection = new SignalR.HubConnectionBuilder()
+        // .withUrl("https://192.168.1.107:41557/chat", {
+        //   transport:
+        //     SignalR.HttpTransportType.WebSockets |
+        //     SignalR.HttpTransportType.LongPolling,
+        //   headers: { "content-type": "application/json" },
+        // })
+        .withUrl("https://192.168.1.107:41557/chat")
         .configureLogging(SignalR.LogLevel.Trace)
         .build();
 
-      connection.on("broadcastMessage", (name, message) => {
-        // ReceiveMessage
-        // message
-        console.log(`Mensagem recebida: ${name}: ${message}`);
-        setMessage(`${name}: ${message}`);
-      });
+      // broadcastMessage // ReceiveMessage
+      // connection.on("broadcastMessage", (name, message) => {
+      //   console.log(`Mensagem recebida: ${name}: ${message}`);
+      //   setMessage(`${name}: ${message}`);
+      // });
+
+      /*
+
+      */
 
       connection
         .start()
         .then(() => {
+          //this.initalAttemptForChat = true;
+          setMessage(`Conexão com SignalR estabelecida com sucesso.`);
           console.log("Conexão com SignalR estabelecida com sucesso.");
-
-          connection.invoke("send", "ReactNative", "teste123");
         })
         .catch((error: any) => {
-          setMessage(
-            `Erro ao estabelecer conexão com SignalR: ${error.message}`
-          );
-          console.error(error.message);
+          //this.initalAttemptForChat = false;
+          setMessage(`Erro com SignalR: ${error.toString()}`);
+          console.error(error);
         });
+
+      /*
+  connection
+        .start()
+        .then(  ()    => { 
+              
+ 
+            
+
+             //connection.invoke("ReceivePayment", {});
+            //  proxy.invoke('helloServer', 'Hello Server, how are you?')
+            //   .done((directResponse) => {
+            //     console.log('direct-response-from-server', directResponse);
+            //   }).fail(() => {
+            //     console.warn('Something went wrong when calling server, it might not be up and running?')
+            //   });
+
+          })
+        .catch( (err) => { 
+           this.initalAttemptForChat = false;
+          // console.error(err, 'red');
+           //HelperLog.texto(`${ClassName}._getDadosRecebimentoSignalR`, `04 - Erro de Conexão para a Chave ${HelperNumero.GetMascaraTelefone(userChave)}: ${err}`);
+         });
+         
+
+*/
     } catch (error: any) {
       console.error(error);
       setMessage(`Erro-Geral: ${error.message}`);
@@ -110,6 +90,9 @@ export default function HomeScreen() {
   const _signalrByWebSocket = () => {
     try {
       const ws = new WebSocket("wss://localhost:41557/chat"); // wss://localhost:41557/chat
+
+      //'https://localhost:41557/chat'
+      //'https://192.168.1.107:41557/chat'
 
       ws.onopen = () => {
         console.log("Conectado ao WebSocket");

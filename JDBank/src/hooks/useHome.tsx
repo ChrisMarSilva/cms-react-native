@@ -73,27 +73,48 @@ const useHome = () => {
         try {
             console.log('Notifications By SignalR')
 
-            const url = 'https://localhost:41557/chat' //currentUser.url + CONSTANTE.URL_RECEBE_PAGTO
-            console.log(url)
+            const url = 'https://192.168.1.107:41557/chat' // 'https://localhost:41557/chat' //currentUser.url + CONSTANTE.URL_RECEBE_PAGTO
 
-            const connection = new signalR.HubConnectionBuilder().withUrl(url).build()
+            const options = {
+                // withCredentials: false,
+                headers: {
+                    'content-type': 'application/json;charset=UTF-8',
+                    //     Accept: "*/*",
+                    //     "Access-Control-Allow-Origin": "*",
+                    //     "Access-Control-Allow-Headers": "Authorization",
+                    //     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
+                    //     protocol: "json",
+                    //     version: 1,
+                },
+                transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling | signalR.HttpTransportType.ServerSentEvents,
+                logMessageContent: true,
+                logger: signalR.LogLevel.Trace,
+                //   cors: {
+                //     origin: "*", // Especifique as origens permitidas
+                //     methods: ["GET", "POST"], // Especifique os métodos HTTP permitidos
+                //     allowedHeaders: ["Content-Type", "Authorization"], // Especifique os cabeçalhos HTTP permitidos
+                //   },
+            }
+
+            const connection = new signalR.HubConnectionBuilder()
+                //.withUrl(url)
+                .withUrl(url, options)
+                .configureLogging(signalR.LogLevel.Information) // Trace
+                //.withHubProtocol(new signalR.JsonHubProtocol({ name: 'json', version: 1 }))
+                .build()
 
             connection
                 .start()
-                .then(() => {
-                    console.log('Conexão com SignalR estabelecida com sucesso.')
-                })
-                .catch((error) => {
-                    console.error('Erro ao estabelecer conexão com SignalR:', error)
-                })
+                .then(() => console.log('Conectado!'))
+                .catch((error) => console.error(error.toString()))
 
             // connection.onclose(() => {
-            //     console.log('connection.onclose')
+            //     console.warn('connection.onclose')
             //     connection.start() // trying to reconnect
             // })
 
-            connection.on('ReceiveMessage', (user, message) => {
-                console.log('connection.ReceiveMessage: ', `${user}: ${message}`)
+            connection.on('broadcastMessage', function (name, message) {
+                console.log('Mensagem recebida de ' + name + ': ' + message)
             })
 
             // connection.on('AtualizarSaldo', (agencia, conta, valor) => {

@@ -41,6 +41,7 @@ export interface HeaderRightProps {
     isVisible?: boolean
     onPress?: () => void
     icone?: string
+    color?: string
 }
 
 export const HeaderRight: React.FC<HeaderRightProps> = (props) => {
@@ -50,7 +51,7 @@ export const HeaderRight: React.FC<HeaderRightProps> = (props) => {
         <View>
             <TouchableOpacity onPress={props.onPress}>
                 {/* <FontAwesome style={{ marginRight: 10, color: '#fff', fontSize: 25, fontWeight: 'bold' }} /> */}
-                <MaterialIcons name={props.icone} size={25} color={'#888'} style={{ fontSize: 25, fontWeight: 'bold' }} />
+                <MaterialIcons name={props.icone} size={25} color={!props.color || props.color.length === 0 ? '#888' : props.color} style={{ fontSize: 25, fontWeight: 'bold' }} />
             </TouchableOpacity>
         </View>
     )

@@ -1,6 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
-import { router, useNavigation } from 'expo-router'
+import { router, useNavigation, useLocalSearchParams } from 'expo-router'
+import * as signalR from '@microsoft/signalr'
+import { Audio } from 'expo-av'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as CONSTANTE from '@/src/util/Constante'
@@ -13,15 +15,18 @@ import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 const useHome = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
+    const params = useLocalSearchParams()
 
+    const [isActiveNotification, setIsActiveNotification] = useState<boolean>(false)
     const imgPerson = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imgBluePerson : imgRedPerson
 
     useEffect(() => {
-        _getBalance()
+        _cleaData()
+        _loadData()
 
-        // return () => {
-        //     _clearData()
-        // }
+        return () => {
+            _cleaData()
+        }
     }, [])
 
     useEffect(() => {
@@ -29,9 +34,29 @@ const useHome = () => {
             headerBackground: () => <HeaderBackground />,
             headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={currentUser.bank} />,
-            headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
+            //headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
+            headerRight: () => (isActiveNotification ? <HeaderRight isVisible={true} onPress={handleNotification} icone={'notifications-on'} color={'#138a17'} /> : null),
         })
-    }, [navigation])
+    }, [navigation, isActiveNotification])
+
+    const _cleaData = () => {
+        setIsActiveNotification(false)
+
+        // router.setParams({
+        //     //personType: tipoPessoa,
+        //     //document: documento,
+        //     //agency: agencia,
+        //     //account: conta,
+        //     name: '',
+        //     value: 0,
+        //     datetime: '',
+        // })
+    }
+
+    const _loadData = () => {
+        _getBalance()
+        _getNotificationsBySignalR()
+    }
 
     const _getBalance = async () => {
         try {
@@ -44,12 +69,104 @@ const useHome = () => {
         }
     }
 
+    const _getNotificationsBySignalR = async () => {
+        try {
+            console.log('Notifications By SignalR')
+
+            const url = 'https://localhost:41557/chat' //currentUser.url + CONSTANTE.URL_RECEBE_PAGTO
+            console.log(url)
+
+            const connection = new signalR.HubConnectionBuilder().withUrl(url).build()
+
+            connection
+                .start()
+                .then(() => {
+                    console.log('Conexão com SignalR estabelecida com sucesso.')
+                })
+                .catch((error) => {
+                    console.error('Erro ao estabelecer conexão com SignalR:', error)
+                })
+
+            // connection.onclose(() => {
+            //     console.log('connection.onclose')
+            //     connection.start() // trying to reconnect
+            // })
+
+            connection.on('ReceiveMessage', (user, message) => {
+                console.log('connection.ReceiveMessage: ', `${user}: ${message}`)
+            })
+
+            // connection.on('AtualizarSaldo', (agencia, conta, valor) => {
+            //     console.log('connection.AtualizarSaldo')
+            //     // if ((props.navigation.getParam('userAgencia', '') == agencia) && ( props.navigation.getParam('userConta', '') == conta))
+            //     currentUser.setBalance(parseFloat(valor) || 0)
+            // })
+
+            // connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor) => {
+            //     console.log('connection.ReceivePayment')
+            //     setIsActiveNotification(true)
+
+            //     const d = new Date()
+            //     router.setParams({
+            //         //personType: tipoPessoa,
+            //         //document: documento,
+            //         //agency: agencia,
+            //         //account: conta,
+            //         name: nome,
+            //         value: parseFloat(valor) || 0,
+            //         datetime: `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`,
+            //     })
+
+            //     _playSound()
+            //     _getBalance()
+            // })
+        } catch (error: any) {
+            console.error(error)
+        }
+    }
+
+    const _playSound = async () => {
+        try {
+            const source = require('@/src/assets/sounds/02.mp3')
+
+            await Audio.setAudioModeAsync({
+                allowsRecordingIOS: false,
+                interruptionModeIOS: 1, // Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+                playsInSilentModeIOS: true,
+                interruptionModeAndroid: 2, // Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+                shouldDuckAndroid: true,
+                playThroughEarpieceAndroid: false,
+            })
+
+            const initialStatus = {
+                shouldPlay: true, // Play by default
+                rate: 1.0, // Control the speed
+                shouldCorrectPitch: true, // Correct the pitch
+                volume: 1.0, // Control the Volume
+                isMuted: false, // mute the Audio
+            }
+
+            const { sound } = await Audio.Sound.createAsync(source, initialStatus)
+
+            await sound.playAsync() //  Play the Music
+        } catch (error: any) {
+            // sound.unloadAsync()
+            // Alert.alert(error)
+            console.log(error)
+        }
+    }
+
     const handleSendPayQrCode = () => router.navigate('/send_pay_qrcode')
     const handleRequestPayQrCode = () => router.navigate('/request_pay_qrcode')
     const handleRecipients = () => router.navigate('/recipients')
     const handleTransactionHistory = () => router.navigate('/transaction_history')
     const handlePersonalInfo = () => router.navigate('/personal_info')
     const handleLogout = () => router.replace('/login')
+    const handleNotification = () => {
+        setIsActiveNotification(false)
+        router.navigate({ pathname: '/notification_detail', params: { value: params.value, name: params.name, datetime: params.datetime } })
+        // router.navigate('/notification_detail') // notification
+    }
 
     return {
         currentUser,

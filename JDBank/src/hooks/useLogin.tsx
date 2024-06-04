@@ -36,7 +36,7 @@ const useLogin = () => {
         Keyboard.dismiss()
 
         setTxtUsername('')
-        setTxtPassword('')
+        setTxtPassword('1231111111')
         setIsLoading(false)
     }
 

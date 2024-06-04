@@ -19,7 +19,7 @@ const useSendPayQrCodeDone = () => {
 
     useEffect(() => {
         _clearData() //  setTimeout(() => {}, 200)
-        _paySong()
+        _playSound()
 
         return () => {
             _clearData()
@@ -43,7 +43,7 @@ const useSendPayQrCodeDone = () => {
         setName(params.name?.toString() || '')
     }
 
-    const _paySong = async () => {
+    const _playSound = async () => {
         try {
             const source = require('@/src/assets/sounds/02.mp3')
 

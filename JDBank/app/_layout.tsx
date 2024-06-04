@@ -19,7 +19,7 @@ export default function RootLayout() {
                 <Stack.Screen name="home" options={{ headerBackVisible: false }} />
 
                 <Stack.Screen name="recipients" options={{ headerTintColor: '#888' }} />
-                <Stack.Screen name="recipients/modal" options={{ presentation: 'modal' }} />
+                <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
 
                 <Stack.Screen name="send_pay_qrcode" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="send_pay_qrcode_view" options={{ headerTintColor: '#888' }} />
@@ -31,6 +31,9 @@ export default function RootLayout() {
                 <Stack.Screen name="transaction_history" options={{ headerTintColor: '#888' }} />
 
                 <Stack.Screen name="personal_info" options={{ headerTintColor: '#888' }} />
+
+                <Stack.Screen name="notification" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="notification_detail" options={{ headerTintColor: '#888' }} />
 
                 <Stack.Screen name="page1" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="page2" options={{ headerBackVisible: true, headerTintColor: '#888' }} />

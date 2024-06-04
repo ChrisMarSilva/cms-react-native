@@ -61,6 +61,7 @@ const useSendPayQrCode = () => {
             const result = await sendQrCode(currentUser.url, currentUser.username, data)
 
             setHasScanned(false)
+
             router.navigate({
                 pathname: '/send_pay_qrcode_view',
                 params: {

@@ -35,6 +35,8 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
     8h criar tela de Recepients
 
   quarta - 29/05/2024 12:00:00 - 29/05/2024 16:00:00 - 04h ===> add chamada para a API débito - https://localhost:50180/api
+  
+ segunda - 03/06/2024 17:00:00 - 03/06/2024 21:00:00 - 04h ===> add SingalR e a tela de notificação
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -117,6 +119,7 @@ eas update:configure
 npx expo install expo
 npx expo install expo-constants
 npx expo install expo-font
+npx expo install expo-router
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

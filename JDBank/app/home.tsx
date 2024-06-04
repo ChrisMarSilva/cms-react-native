@@ -54,16 +54,16 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: { flexGrow: 1, backgroundColor: '#FFFFFF' },
+    container: { flexGrow: 1 },
 
-    userInfo: { flexDirection: 'row', alignItems: 'center', padding: 20, marginBottom: 10 },
-    userPhoto: { width: 80, height: 80, borderRadius: 50, marginRight: 15 },
+    userInfo: { flexDirection: 'row', alignItems: 'center', padding: 20, marginBottom: 10, backgroundColor: '#FFFFFF' },
+    userPhoto: { width: 80, height: 80, borderRadius: 50, marginRight: 15, borderColor: '#ccc', borderWidth: 1 },
     greeting: { fontSize: 16, color: '#888' },
     userName: { fontSize: 22, fontWeight: 'bold' },
 
     balanceCard: { backgroundColor: '#FFFFFF', padding: 20, marginHorizontal: 20, borderRadius: 10, marginBottom: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5 },
     balanceLabel: { fontSize: 14, color: '#888' },
-    balanceValue: { fontSize: 24, fontWeight: 'bold', color: 'green', marginTop: 5 },
+    balanceValue: { fontSize: 24, fontWeight: 'bold', color: '#138a17', marginTop: 5 },
 
     menuContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', padding: 10 },
     menuItem: { backgroundColor: '#FFFFFF', padding: 20, borderRadius: 10, width: '45%', marginBottom: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, position: 'relative' },

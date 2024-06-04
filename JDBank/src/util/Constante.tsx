@@ -6,6 +6,8 @@ export const URL_BALANCE = 'balance'
 export const URL_QRCODE_GENERATE = 'qr-code-generate'
 export const URL_QRCODE_SEND = 'qr-code-send'
 export const URL_QRCODE_PAY = 'api' // 'qr-code-pay'
+//export const URL_RECEBE_SALDO  = 'hubs/receive/payment';  // SignaR ao Atualizar o Saldo
+export const URL_RECEBE_PAGTO = 'receive-payment' // 'hubs/receive/payment';  // SignaR ao Receber um Credio
 
 // RECEIVE BANK
 export const RECEIVE_BANK_NAME = 'J3 Bank'

@@ -1,61 +1,142 @@
-import { Image, StyleSheet, Platform } from "react-native";
+import { useEffect, useState } from "react";
+import { Image, StyleSheet, Platform, Text, LogBox } from "react-native";
 import axios from "axios";
-import { useEffect } from "react";
+//import { hubConnection } from "signalr-no-jquery";
+import * as SignalR from "@microsoft/signalr";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-const fetchDataByFetch = async () => {
-  fetch("http://192.168.1.107:3002/chave/", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-  })
-    .then((response) => console.log(response))
-    // .then((response) => response.json())
-    // .then((data) => console.log(data))
-    .catch((error) => console.error("Error fetch:", error));
-};
-
-const fetchDataByAxios = async () => {
-  try {
-    // axios.defaults.headers.get["Access-Control-Allow-Origin"] = "*";
-    //axios.defaults.headers.get["Content-Type"] = "application/json";
-    const response = await axios.get("http://192.168.1.107:3002/chave/", {
-      crossdomain: true,
-      timeout: 1000 * 30,
-      withCredentials: false,
-      accesscontrolalloworigin: "*",
-      headers: {
-        "Cache-Control": "no-cache",
-        "Content-Type": "application/json; charset=utf-8", //  "application/x-www-form-urlencoded",
-        "Access-Control-Allow-Credentials": "false",
-        "Access-Control-Allow-Methods":
-          "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-        "Access-Control-Allow-Origin": "", // "http://localhost:3002", // "*",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "",
-        "Access-Control-Expose-Headers": "*",
-        Accept: "application/json",
-        mode: "no-cors",
-      },
-    });
-    console.log(response.data);
-  } catch (error) {
-    console.error("Error axios:", error);
-  }
-};
+LogBox.ignoreLogs(["Warning: ..."]);
+LogBox.ignoreAllLogs(true);
 
 export default function HomeScreen() {
+  const [message, setMessage] = useState("Aguardando mensagem...");
+
   useEffect(() => {
-    fetchDataByFetch();
-    fetchDataByAxios();
+    //_signalrByNoJquery();
+    //_signalrByMicrosoft();
+    _signalrByWebSocket();
+    // return () => { }
   }, []);
+
+  // const _signalrByNoJquery = () => {
+  //   try {
+  //     console.log("SignalR by signalr-no-jquery");
+
+  //     const connection = hubConnection("https://localhost:41557");
+  //     const hubProxy = connection.createHubProxy("chat");
+
+  //     hubProxy.on("ReceiveMessage", (user, message): void => {
+  //       console.log("connection.ReceiveMessage: ", `${user}: ${message}`);
+  //     });
+
+  //     connection
+  //       .start() // { jsonp: true }
+  //       .done(() => console.log("Conectado ao SignalR"))
+  //       .fail((error: any) =>
+  //         console.log("Erro ao conectar ao SignalR: ", error)
+  //       );
+
+  //     // const connection = new signalR.HubConnectionBuilder().withUrl(url).build()
+  //     // connection.on('ReceiveMessage', (user, message) => {
+  //     // console.log("connection.ReceiveMessage: ", `${user}: ${message}`);
+  //     // });
+
+  //     // connection
+  //     //     .start()
+  //     //     .then(() => {
+  //     //         console.log('Conexão com SignalR estabelecida com sucesso.')
+  //     //     })
+  //     //     .catch((error) => {
+  //     //         console.error('Erro ao estabelecer conexão com SignalR:', error)
+  //     //     })
+
+  //     // connection.onclose(() => {
+  //     //     console.log('connection.onclose')
+  //     //     connection.start() // trying to reconnect
+  //     // })
+  //   } catch (error: any) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const _signalrByMicrosoft = () => {
+    try {
+      console.log("SignalR by signalr-no-jquery");
+
+      const connection = new SignalR.HubConnectionBuilder()
+        .withUrl("https://localhost:41557/chat", {
+          // wss://localhost:41557/chat?id=XtsIQgeTXpEako_UN3w2PQ // "https://localhost:41557/chat"
+
+          transport:
+            ///SignalR.HttpTransportType.WebSockets |
+            SignalR.HttpTransportType.LongPolling,
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+        .configureLogging(SignalR.LogLevel.Trace)
+        .build();
+
+      connection.on("broadcastMessage", (name, message) => {
+        // ReceiveMessage
+        // message
+        console.log(`Mensagem recebida: ${name}: ${message}`);
+        setMessage(`${name}: ${message}`);
+      });
+
+      connection
+        .start()
+        .then(() => {
+          console.log("Conexão com SignalR estabelecida com sucesso.");
+
+          connection.invoke("send", "ReactNative", "teste123");
+        })
+        .catch((error: any) => {
+          setMessage(
+            `Erro ao estabelecer conexão com SignalR: ${error.message}`
+          );
+          console.error(error.message);
+        });
+    } catch (error: any) {
+      console.error(error);
+      setMessage(`Erro-Geral: ${error.message}`);
+    }
+  };
+
+  const _signalrByWebSocket = () => {
+    try {
+      const ws = new WebSocket("wss://localhost:41557/chat"); // wss://localhost:41557/chat
+
+      ws.onopen = () => {
+        console.log("Conectado ao WebSocket");
+        setMessage(`Conectado ao WebSocket`);
+        //ws.send("Hello Server!"); // Envie uma mensagem ao servidor WebSocket
+      };
+
+      ws.onmessage = (e) => {
+        const receivedMessage = e.data;
+        console.log("receivedMessage: ", receivedMessage);
+        setMessage(receivedMessage);
+      };
+
+      ws.onerror = (error: any) => {
+        setMessage(`WebSocket Error: ${error.message}`);
+        console.log("WebSocket Error: ", error.message);
+      };
+
+      ws.onclose = (e) => {
+        console.log("WebSocket Closed: ", e.code, e.reason);
+        setMessage(`WebSocket Closed: ${e.code} -  ${e.reason}`);
+      };
+    } catch (error: any) {
+      console.error(error);
+      setMessage(`Erro-Geral: ${error.message}`);
+    }
+  };
 
   return (
     <ParallaxScrollView
@@ -71,50 +152,52 @@ export default function HomeScreen() {
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+
+      {/* <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
+          Edit
+          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>
+          to see changes. Press
           <ThemedText type="defaultSemiBold">
             {Platform.select({ ios: "cmd + d", android: "cmd + m" })}
-          </ThemedText>{" "}
+          </ThemedText>
           to open developer tools.
         </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+      </ThemedView> */}
+
+      {/* <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 2: Explore</ThemedText>
         <ThemedText>
           Tap the Explore tab to learn more about what's included in this
           starter app.
         </ThemedText>
       </ThemedView>
+       */}
+      {/*        
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
-          When you're ready, run{" "}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText>{" "}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
-          directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
+          When you're ready, run
+          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText>
+          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>
+          directory. This will move the current
+          <ThemedText type="defaultSemiBold">app</ThemedText> to
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
+      </ThemedView> */}
+
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 4: SignalR</ThemedText>
+        <ThemedText>{message}</ThemedText>
       </ThemedView>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
+  titleContainer: { flexDirection: "row", alignItems: "center", gap: 8 },
+  stepContainer: { gap: 8, marginBottom: 8 },
   reactLogo: {
     height: 178,
     width: 290,

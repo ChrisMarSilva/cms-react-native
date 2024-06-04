@@ -2,7 +2,6 @@
 npx create-expo-app@latest -y
 npm run reset-project
 
-
 npx expo start -c
 
 

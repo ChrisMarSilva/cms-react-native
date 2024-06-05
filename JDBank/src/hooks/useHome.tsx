@@ -34,8 +34,7 @@ const useHome = () => {
             headerBackground: () => <HeaderBackground />,
             headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={currentUser.bank} />,
-            //headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
-            headerRight: () => (isActiveNotification ? <HeaderRight isVisible={true} onPress={handleNotification} icone={'notifications-on'} color={'#138a17'} /> : null),
+            headerRight: () => (isActiveNotification ? <HeaderRight isVisible={true} onPress={handleNotification} icone={'notifications-on'} color={'#138a17'} /> : <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />),
         })
     }, [navigation, isActiveNotification])
 
@@ -71,76 +70,52 @@ const useHome = () => {
 
     const _getNotificationsBySignalR = async () => {
         try {
-            console.log('Notifications By SignalR')
-
-            const url = 'https://192.168.1.107:41557/chat' // 'https://localhost:41557/chat' //currentUser.url + CONSTANTE.URL_RECEBE_PAGTO
+            const url = currentUser.url + CONSTANTE.URL_RECEBE_PAGTO // 'https://89e6-67-159-235-142.ngrok-free.app/hubs/receive/payment' // 'https://192.168.1.107:41557/chat' // 'https://localhost:41557/chat' //
+            console.log('url:', url)
 
             const options = {
-                // withCredentials: false,
-                headers: {
-                    'content-type': 'application/json;charset=UTF-8',
-                    //     Accept: "*/*",
-                    //     "Access-Control-Allow-Origin": "*",
-                    //     "Access-Control-Allow-Headers": "Authorization",
-                    //     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE",
-                    //     protocol: "json",
-                    //     version: 1,
-                },
-                transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling | signalR.HttpTransportType.ServerSentEvents,
+                headers: { 'content-type': 'application/json;charset=UTF-8' },
+                transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling,
                 logMessageContent: true,
                 logger: signalR.LogLevel.Trace,
-                //   cors: {
-                //     origin: "*", // Especifique as origens permitidas
-                //     methods: ["GET", "POST"], // Especifique os métodos HTTP permitidos
-                //     allowedHeaders: ["Content-Type", "Authorization"], // Especifique os cabeçalhos HTTP permitidos
-                //   },
             }
 
-            const connection = new signalR.HubConnectionBuilder()
-                //.withUrl(url)
-                .withUrl(url, options)
-                .configureLogging(signalR.LogLevel.Information) // Trace
-                //.withHubProtocol(new signalR.JsonHubProtocol({ name: 'json', version: 1 }))
-                .build()
+            const connection = new signalR.HubConnectionBuilder().withUrl(url, options).configureLogging(signalR.LogLevel.Trace).build()
+
+            connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor) => {
+                console.log('connection.ReceivePayment - agencia: ', agencia, ' - conta: ', conta, ' - documento: ', documento, ' - tipoPessoa: ', tipoPessoa, ' - nome: ', nome, ' - valor: ', valor)
+                setIsActiveNotification(true)
+
+                const d = new Date()
+                router.setParams({
+                    //personType: tipoPessoa,
+                    //document: documento,
+                    //agency: agencia,
+                    //account: conta,
+                    name: nome,
+                    value: parseFloat(valor).toString() || '0.0',
+                    datetime: `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`,
+                })
+
+                _playSound()
+                currentUser.setBalance(currentUser.balance - (parseFloat(valor) || 0)) //_getBalance()
+            })
+
+            connection.on('AtualizarSaldo', (agencia, conta, valor) => {
+                console.log('AtualizarSaldo - agencia: ', agencia, ' - conta: ', conta, ' - valor: ', valor)
+                // if ((props.navigation.getParam('userAgencia', '') == agencia) && ( props.navigation.getParam('userConta', '') == conta))
+                currentUser.setBalance(parseFloat(valor) || 0)
+            })
 
             connection
                 .start()
                 .then(() => console.log('Conectado!'))
                 .catch((error) => console.error(error.toString()))
 
-            // connection.onclose(() => {
-            //     console.warn('connection.onclose')
-            //     connection.start() // trying to reconnect
-            // })
-
-            connection.on('broadcastMessage', function (name, message) {
-                console.log('Mensagem recebida de ' + name + ': ' + message)
+            connection.onclose(() => {
+                console.warn('connection.onclose')
+                connection.start()
             })
-
-            // connection.on('AtualizarSaldo', (agencia, conta, valor) => {
-            //     console.log('connection.AtualizarSaldo')
-            //     // if ((props.navigation.getParam('userAgencia', '') == agencia) && ( props.navigation.getParam('userConta', '') == conta))
-            //     currentUser.setBalance(parseFloat(valor) || 0)
-            // })
-
-            // connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor) => {
-            //     console.log('connection.ReceivePayment')
-            //     setIsActiveNotification(true)
-
-            //     const d = new Date()
-            //     router.setParams({
-            //         //personType: tipoPessoa,
-            //         //document: documento,
-            //         //agency: agencia,
-            //         //account: conta,
-            //         name: nome,
-            //         value: parseFloat(valor) || 0,
-            //         datetime: `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`,
-            //     })
-
-            //     _playSound()
-            //     _getBalance()
-            // })
         } catch (error: any) {
             console.error(error)
         }

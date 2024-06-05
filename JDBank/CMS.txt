@@ -38,6 +38,10 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
   
  segunda - 03/06/2024 17:00:00 - 03/06/2024 21:00:00 - 04h ===> add SingalR e a tela de notificação
 
+ segunda - 04/06/2024 19:00:00 - 04/06/2024 21:00:00 - 02h ===> add SingalR e a tela de notificação, e geração d APK
+
+ segunda - 05/06/2024 18:00:00 - 05/06/2024 22:00:00 - 00h ===> add tela de Configuração da URL
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -58,14 +62,16 @@ npm install -g eas-cli
 eas login
 chris.mar.silva@gmail.com
 
-eas build:configure
-eas build --platform android
-eas build --platform android --message "#001 - Updating the app version 1.0.0"
-
 npx expo install expo-updates
 eas update:configure
 eas update --branch development --message "#001 - Updating the app version 1.0.0"
 eas update --branch development --message "#002 - Updating the app version 1.0.1"
+
+eas build:configure
+eas build --platform android
+eas build --platform android --message "#001 - Updating the app version 1.0.0"
+eas build -p android --profile preview
+
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

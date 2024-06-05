@@ -11,11 +11,11 @@ export const URL_RECEBE_PAGTO = 'receive-payment' // 'hubs/receive/payment';  //
 
 // RECEIVE BANK
 export const RECEIVE_BANK_NAME = 'J3 Bank'
-export const RECEIVE_BANK_URL = 'http://192.168.1.107:3001/'
+export const RECEIVE_BANK_URL = 'https://5e54-67-159-235-142.ngrok-free.app/' // 'http://192.168.1.107:3001/'
 
 // PAYMENT BANK
 export const PAYMENT_BANK_NAME = 'JD Bank'
-export const PAYMENT_BANK_URL = 'http://192.168.1.107:3002/'
+export const PAYMENT_BANK_URL = 'https://5e54-67-159-235-142.ngrok-free.app/' // 'http://192.168.1.107:3002/'
 
 // SESSAO
 export const SESSAO_PADRAO = '@JDSPI:'

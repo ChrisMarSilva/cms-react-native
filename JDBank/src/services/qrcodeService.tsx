@@ -33,7 +33,7 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
         //const response = await api.post(url, body)
 
         // const data = response.data
-        const data = { value: 12346.99, name: 'Allieeee' }
+        const data = { value: 10000.0, name: 'Allieeee' }
 
         return data
     } catch (error: any) {
@@ -44,10 +44,9 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
 
 export const payQrCode = async (urlDefault: string, username: string, value: number, name: string) => {
     try {
-        // const url = urlDefault + CONSTANTE.URL_QRCODE_PAY // DESENV
+        // const url = 'https://89e6-67-159-235-142.ngrok-free.app/api'// DESENV
+        const url = urlDefault + CONSTANTE.URL_QRCODE_PAY
         // const body = JSON.stringify({ username: username.trim(), value: value, name: name }) // DESENV
-
-        const url = 'https://e028-67-159-235-142.ngrok-free.app/api'
 
         const body = JSON.stringify({
             pagador: {

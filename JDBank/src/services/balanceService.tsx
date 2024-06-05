@@ -15,7 +15,7 @@ export const getBalance = async (urlDefault: string, username: string) => {
         //         : response.data
 
         // const data = { id: '1', username: 'clientpay1',  balance: '1234.56'}
-        const data = 1234.56
+        const data = 1000000.0
 
         return data
     } catch (error: any) {

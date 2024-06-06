@@ -1,23 +1,11 @@
-import { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
 import * as HelperNumero from '@/src/util/HelperNumero'
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import useNotificationDetail from '@/src/hooks/useNotificationDetail'
 
 export default function NotificationDetailScreen() {
-    const navigation = useNavigation()
-    const params = useLocalSearchParams()
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerBackground: () => <HeaderBackground />,
-            headerTitle: () => <HeaderTitle titulo={'Notifications'} />,
-        })
-    }, [navigation])
-
-    const handleSeeReceipt = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
+    const { params, handleSeeReceipt } = useNotificationDetail()
 
     return (
         <View style={styles.container}>

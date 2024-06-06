@@ -15,11 +15,12 @@ export default function RootLayout() {
                 <Stack.Screen name="login" options={{ headerShown: false }} />
                 <Stack.Screen name="enrollment" options={{ headerShown: false }} />
                 <Stack.Screen name="enrollment_done" options={{ headerShown: false }} />
+                <Stack.Screen name="config" options={{ headerShown: false }} />
 
                 <Stack.Screen name="home" options={{ headerBackVisible: false }} />
 
                 <Stack.Screen name="recipients" options={{ headerTintColor: '#888' }} />
-                <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+                {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
 
                 <Stack.Screen name="send_pay_qrcode" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="send_pay_qrcode_view" options={{ headerTintColor: '#888' }} />

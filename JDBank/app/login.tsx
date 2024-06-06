@@ -4,7 +4,7 @@ import Constants from 'expo-constants'
 import useLogin from '@/src/hooks/useLogin'
 
 export default function LoginScreen() {
-    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, refTxtUsername, refTxtPassword, toggleSwitch, handleLogin, handleEnroll, handleChangeBank } = useLogin()
+    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, refTxtUsername, refTxtPassword, toggleSwitch, handleLogin, handleEnroll, handleConfig, handleChangeBank } = useLogin()
 
     return (
         <View style={styles.container}>
@@ -43,6 +43,12 @@ export default function LoginScreen() {
                 <Text style={styles.enrollText} onPress={handleEnroll} disabled={isLoading}>
                     Enroll
                 </Text>
+                <Text style={styles.enrollText} onPress={handleEnroll} disabled={isLoading}>
+                    {'  '}|{'  '}
+                </Text>
+                <Text style={styles.enrollText} onPress={handleConfig} disabled={isLoading}>
+                    Configuration
+                </Text>
             </View>
 
             <View style={styles.versionContainer}>
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
     forgotPasswordContainer: { alignItems: 'center', margin: 0, marginBottom: 20 },
     forgotPassword: { marginTop: 10, fontSize: 14, color: '#007aff' },
 
-    enrollContainer: { alignItems: 'center', justifyContent: 'center', marginTop: 20 },
+    enrollContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 15 },
     enrollText: { fontSize: 16, fontWeight: 'bold', color: '#007aff' },
 
     versionContainer: { position: 'absolute', bottom: 0, alignItems: 'center', marginBottom: 5 },

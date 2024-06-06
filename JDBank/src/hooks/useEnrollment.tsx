@@ -29,10 +29,8 @@ const useEnrollment = () => {
 
     useEffect(() => {
         _clearData()
-        
-        // return () => {
-        //     _clearData()
-        // }
+
+        // return () => {  _clearData() }
     }, [])
 
     const _clearData = () => {

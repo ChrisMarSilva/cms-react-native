@@ -4,6 +4,10 @@ import { UserProviderProps } from '@/src/@types/user'
 
 //export const UserProvider: React.FC<{children: UserProviderProps}> = ({ children }: UserProviderProps) => {
 export const UserProvider = ({ children }: UserProviderProps) => {
+	const [nameReceiveBank, setNameReceiveBank] = useState<string>('')
+	const [urlReceiveBank, setUrlReceiveBank] = useState<string>('')
+	const [namePaymentBank, setNamePaymentBank] = useState<string>('')
+	const [urlPaymentBank, setUrlPaymentBank] = useState<string>('')
 	const [url, setUrl] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
 	const [name, setName] = useState<string>('')
@@ -20,6 +24,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 	return (
 		<UserContext.Provider
 			value={{
+				nameReceiveBank, setNameReceiveBank,
+				urlReceiveBank, setUrlReceiveBank,
+				namePaymentBank, setNamePaymentBank,
+				urlPaymentBank, setUrlPaymentBank,
 				url, setUrl,
 				username, setUsername,
 				name, setName,

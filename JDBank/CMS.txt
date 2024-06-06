@@ -40,7 +40,7 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
 
  segunda - 04/06/2024 19:00:00 - 04/06/2024 21:00:00 - 02h ===> add SingalR e a tela de notificação, e geração d APK
 
- segunda - 05/06/2024 18:00:00 - 05/06/2024 22:00:00 - 00h ===> add tela de Configuração da URL
+ segunda - 05/06/2024 19:00:00 - 05/06/2024 23:00:00 - 04h ===> add tela de Configuração da URL
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -64,14 +64,16 @@ chris.mar.silva@gmail.com
 
 npx expo install expo-updates
 eas update:configure
-eas update --branch development --message "#001 - Updating the app version 1.0.0"
-eas update --branch development --message "#002 - Updating the app version 1.0.1"
+eas update --branch development --message "#003 - Updating the app version 1.0.3"
+eas update --branch preview --message "#003 - Updating the app version 1.0.3"
+eas update --branch preview2 --message "#003 - Updating the app version 1.0.3"
+eas update --branch preview3 --message "#003 - Updating the app version 1.0.3"
+eas update --branch preview4 --message "#003 - Updating the app version 1.0.3"
+eas update --branch production --message "#003 - Updating the app version 1.0.3"
 
 eas build:configure
-eas build --platform android
-eas build --platform android --message "#001 - Updating the app version 1.0.0"
 eas build -p android --profile preview
-
+eas build --platform android --profile preview --message "#003 - Updating the app version 1.0.3"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -119,13 +121,18 @@ npm i react-native-timeline-flatlist --save
 npm i @microsoft/signalr --save
 #npm i @aspnet/signalr --save
 npm i react-native-modal
+npx expo install expo-splash-screen
 
 npx expo install expo-updates
 eas update:configure
+
 npx expo install expo
 npx expo install expo-constants
 npx expo install expo-font
 npx expo install expo-router
+
+npx expo install expo
+npx expo install expo-system-ui
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

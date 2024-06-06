@@ -72,7 +72,6 @@ const useLogin = () => {
             await HelperSessao.SetUrl(currentUser.url)
             await HelperSessao.SetUsername(data?.username)
 
-            // currentUser.setUrl(currentUser.url)
             currentUser.setUsername(data?.username?.toString().trim() || '')
             currentUser.setName(data?.name?.toString().trim() || '')
             currentUser.setEmail(data?.email || '')
@@ -82,7 +81,6 @@ const useLogin = () => {
             currentUser.setCountry(data?.country || '')
             currentUser.setCitizen(data?.citizen || '')
             currentUser.setAddress(data?.address || '')
-            // currentUser.setBank(currentUser.bank)
             currentUser.setBalance(0)
 
             setIsLoading(false)
@@ -94,6 +92,7 @@ const useLogin = () => {
     }
 
     const handleEnroll = () => router.navigate('/enrollment')
+    const handleConfig = () => router.navigate('/config')
 
     const handleChangeBank = async () => {
         Keyboard.dismiss()
@@ -101,13 +100,13 @@ const useLogin = () => {
         let url = ''
         let bank = ''
 
-        if ((currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL) {
-            url = CONSTANTE.RECEIVE_BANK_URL
-            bank = CONSTANTE.RECEIVE_BANK_NAME
+        if (currentUser.url == currentUser.urlPaymentBank) {
+            url = currentUser.urlReceiveBank
+            bank = currentUser.nameReceiveBank
             imglogo = imglogoJD
         } else {
-            url = CONSTANTE.PAYMENT_BANK_URL
-            bank = CONSTANTE.PAYMENT_BANK_NAME
+            url = currentUser.urlPaymentBank
+            bank = currentUser.namePaymentBank
             imglogo = imglogoJ3
         }
 
@@ -131,6 +130,7 @@ const useLogin = () => {
         toggleSwitch,
         handleLogin,
         handleEnroll,
+        handleConfig,
         handleChangeBank,
     }
 }

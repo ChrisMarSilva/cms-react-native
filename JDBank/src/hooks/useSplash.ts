@@ -1,28 +1,28 @@
 import { useEffect, useState } from 'react'
 import { router } from 'expo-router'
-//import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Updates from 'expo-updates'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperSessao from '@/src/util/HelperSessao'
-import * as CONSTANTE from '@/src/util/Constante'
 
 const useSplash = () => {
     const currentUser = useCurrentUser()
 
-    //const [txtStatusAtualizacao, setTxtStatusAtualizacao] = useState<string>('')
+    const [txtStatusAtualizacao, setTxtStatusAtualizacao] = useState<string>('')
 
     useEffect(() => {
         _clearCurrentUser()
-        _loadSessionUser() //setTimeout(() => { //}, 3000)
+        _loadSessionUser()
         _verificarAtualizacao()
 
-        // return () => {
-        //     _clearData()
-        // }
+        // return () => {  _clearData() } //setTimeout(() => { //}, 3000)
     }, [])
 
     const _clearCurrentUser = async () => {
+        currentUser.setNameReceiveBank('')
+        currentUser.setUrlReceiveBank('')
+        currentUser.setNamePaymentBank('')
+        currentUser.setUrlPaymentBank('')
         currentUser.setUrl('')
         currentUser.setUsername('')
         currentUser.setName('')
@@ -38,43 +38,62 @@ const useSplash = () => {
     }
 
     const _loadSessionUser = async () => {
-        // AsyncStorage.getItem(CONSTANTE.SESSAO_URL).then((value) => currentUser.setUrl(value || CONSTANTE.PAYMENT_BANK_URL))
-        // AsyncStorage.getItem(CONSTANTE.SESSAO_USERNAME).then((value) => currentUser.setUsername(value || ''))
-        // AsyncStorage.getItem(CONSTANTE.SESSAO_BANK).then((value) => currentUser.setBank(value || CONSTANTE.PAYMENT_BANK_NAME))
-
         const url = await HelperSessao.GetUrl()
-        const username = await HelperSessao.GetUsername()
         const bank = await HelperSessao.GetBank()
+        const username = await HelperSessao.GetUsername()
+        const bankReceive = await HelperSessao.GetReceiveBank()
+        const urlReceive = await HelperSessao.GetReceiveUrl()
+        const bankPayment = await HelperSessao.GetPaymentBank()
+        const urlPayment = await HelperSessao.GetPaymentUrl()
 
-        currentUser.setUrl(url || CONSTANTE.PAYMENT_BANK_URL)
+        currentUser.setUrl(url || '')
+        currentUser.setBank(bank || '')
         currentUser.setUsername(username || '')
-        currentUser.setBank(bank || CONSTANTE.PAYMENT_BANK_NAME)
+        currentUser.setNameReceiveBank(bankReceive || '')
+        currentUser.setUrlReceiveBank(urlReceive || '')
+        currentUser.setNamePaymentBank(bankPayment || '')
+        currentUser.setUrlPaymentBank(urlPayment || '')
 
         router.replace('/login') // login // page1 - para testes
     }
 
     const _verificarAtualizacao = async () => {
         try {
-            if (__DEV__) return // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
+            setTxtStatusAtualizacao('')
 
-            // setTxtStatusAtualizacao("Verificando atualizações...")
+            if (__DEV__) {
+                console.log('Modo de desenvolvimento, ignorando a verificação de atualizações')
+                setTxtStatusAtualizacao('Development mode, skipping check for updates...')
+                return // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
+            }
+
+            console.log('Verificando atualizações')
+            setTxtStatusAtualizacao('Checking for updates...')
             const update = await Updates.checkForUpdateAsync()
 
-            if (!update.isAvailable) return // setTxtStatusAtualizacao("Você já está com a versão mais atual!!!")
+            if (!update.isAvailable) {
+                console.log('Nenhuma atualização disponível')
+                setTxtStatusAtualizacao('No updates available!')
+                return
+            }
 
-            //setTxtStatusAtualizacao('NOVA VERSÃO DISPONÍVEL')
-            await Updates.fetchUpdateAsync() //setTxtStatusAtualizacao("Baixando nova versão...")
-            await Updates.reloadAsync() // setTxtStatusAtualizacao("Reiniciando aplicativo...")
+            console.log('Nova atualização disponível, baixando...')
+            setTxtStatusAtualizacao('New update available, downloading...')
+            await Updates.fetchUpdateAsync()
 
-            //<Text style={{ fontSize: 12, color: colors.cinza_escuro, }}>{txtStatusAtualizacao}  </Text>
+            console.log('Atualização baixada, reiniciando o aplicativo')
+            setTxtStatusAtualizacao('Update downloaded, restarting app...')
+            await Updates.reloadAsync()
+
+            console.log('App restarted!')
         } catch (error: any) {
-            console.log('Error fetching latest Expo update:', error)
-            //setTxtStatusAtualizacao(error) // alert(`Error fetching latest Expo update: ${error}`)
+            console.error(error)
+            setTxtStatusAtualizacao(error)
         }
     }
 
     return {
-        currentUser,
+        txtStatusAtualizacao,
     }
 }
 

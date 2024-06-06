@@ -1,6 +1,18 @@
 import React, { useState } from 'react'
 
 export interface UserContextType {
+    nameReceiveBank: string
+    setNameReceiveBank: React.Dispatch<React.SetStateAction<string>>
+
+    urlReceiveBank: string
+    setUrlReceiveBank: React.Dispatch<React.SetStateAction<string>>
+
+    namePaymentBank: string
+    setNamePaymentBank: React.Dispatch<React.SetStateAction<string>>
+
+    urlPaymentBank: string
+    setUrlPaymentBank: React.Dispatch<React.SetStateAction<string>>
+
     url: string
     setUrl: React.Dispatch<React.SetStateAction<string>>
 

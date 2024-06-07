@@ -21,14 +21,12 @@ const useEnrollmentDone = () => {
     const refTxtUsername = useRef(null)
     const refTxtPassword = useRef(null)
 
-    let imglogo = currentUser.bank == currentUser.namePaymentBank ? imglogoJD : imglogoJ3
+    let imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
 
     useEffect(() => {
         _clearData()
 
-        // return () => {
-        //     _clearData()
-        // }
+        // return () => { _clearData() }
     }, [])
 
     const _clearData = () => {

@@ -3,8 +3,9 @@ import { Keyboard, Alert } from 'react-native'
 import { router } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
-import * as HelperSessao from '@/src/util/HelperSessao'
 import { getLogin } from '@/src/services/loginService'
+import * as CONSTANTE from '@/src/util/Constante'
+import * as HelperSessao from '@/src/util/HelperSessao'
 
 import imglogoJD from '@/src/assets/imgs/logo-red.png'
 import imglogoJ3 from '@/src/assets/imgs/logo-blue.png'
@@ -20,7 +21,7 @@ const useLogin = () => {
     const refTxtUsername = useRef(null)
     const refTxtPassword = useRef(null)
 
-    let imglogo = currentUser.bank == currentUser.namePaymentBank ? imglogoJD : imglogoJ3
+    const imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
 
     useEffect(() => {
         _clearCurrentUser()
@@ -41,19 +42,12 @@ const useLogin = () => {
 
     const _loadCurrentUser = () => {
         setTxtUsername(currentUser.username)
-        setTxtPassword('123')
+        setTxtPassword('')
 
-        console.log('')
-        console.log('useLogin._loadCurrentUser')
-        console.log('ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
-        console.log('ispbReceive:', currentUser.ispbReceiveBank, ', bankReceive:', currentUser.nameReceiveBank, ', urlReceive:', currentUser.urlReceiveBank)
-        console.log('ispbPayment:', currentUser.ispbPaymentBank, ', bankPayment:', currentUser.namePaymentBank, ', urlPayment:', currentUser.urlPaymentBank)
-        console.log('-----------------------------')
-        console.log('')
+        console.log('useLogin._loadCurrentUser - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
 
-        if (currentUser.username == '') refTxtUsername.current.focus()
-        //if (refTxtUsername && refTxtUsername.current)  refTxtUsername.current.focus()
-        if (currentUser.username != '') refTxtPassword.current.focus()
+        if (currentUser.username == '') refTxtUsername?.current?.focus() // if (refTxtUsername && refTxtUsername.current)  refTxtUsername.current.focus()
+        if (currentUser.username != '') refTxtPassword?.current?.focus()
     }
 
     const toggleSwitch = () => setIsEnabledFaceID((previousState) => !previousState)
@@ -63,15 +57,15 @@ const useLogin = () => {
             Keyboard.dismiss()
             setIsLoading(true)
 
-            if (txtUsername == '' || txtPassword == '') {
+            if (txtUsername == '' /*|| txtPassword == '' */) {
                 setIsLoading(false)
                 if (txtUsername == '') {
                     Alert.alert('Enter the Username!')
-                    refTxtUsername.current.focus()
-                } else if (txtPassword == '') {
+                    refTxtUsername?.current?.focus()
+                } /*else if (txtPassword == '') {
                     Alert.alert('Enter the Password!')
                     refTxtPassword.current.focus()
-                }
+                } */
                 return
             }
 
@@ -94,9 +88,9 @@ const useLogin = () => {
             currentUser.setAgencia(data?.agencia || '')
             currentUser.setConta(data?.conta || '')
             currentUser.setBalance(0)
-            // data?.ispb
-            // data?.nomeBanco
-            // data?.tipoConta
+            // currentUser.setIspb(data?.ispb || '')
+            // currentUser.setBank(data?.nomeBanco || '')
+            // currentUser.setTipoConta(data?.tipoConta || '')
 
             setIsLoading(false)
             router.replace('/home')
@@ -108,45 +102,6 @@ const useLogin = () => {
 
     const handleEnroll = () => router.navigate('/enrollment')
     const handleConfig = () => router.navigate('/config')
-
-    const handleChangeBank = async () => {
-        let url = ''
-        let ispb = 0
-        let bank = ''
-        let username = 'client'
-
-        if (currentUser.bank == currentUser.namePaymentBank) {
-            imglogo = imglogoJD
-            url = currentUser.urlReceiveBank.toString().trim()
-            ispb = currentUser.ispbReceiveBank
-            bank = currentUser.nameReceiveBank.toString().trim()
-            //username = 'clientrec1'
-        } else {
-            imglogo = imglogoJ3
-            url = currentUser.urlPaymentBank.toString().trim()
-            ispb = currentUser.ispbPaymentBank
-            bank = currentUser.namePaymentBank.toString().trim()
-            //username = 'clientpay1'
-        }
-
-        console.log('')
-        console.log('useLogin.handleChangeBank')
-        console.log('ispb:', ispb, ', bank:', bank, ', username:', username, ', url:', url)
-        console.log('-----------------------------')
-        console.log('')
-
-        setTxtUsername(username)
-
-        await HelperSessao.SetUrl(url)
-        await HelperSessao.SetIspb(ispb.toString())
-        await HelperSessao.SetBank(bank)
-
-        currentUser.setUrl(url)
-        currentUser.setIspb(ispb)
-        currentUser.setBank(bank)
-
-        Keyboard.dismiss()
-    }
 
     return {
         imglogo,
@@ -162,7 +117,6 @@ const useLogin = () => {
         handleLogin,
         handleEnroll,
         handleConfig,
-        handleChangeBank,
     }
 }
 

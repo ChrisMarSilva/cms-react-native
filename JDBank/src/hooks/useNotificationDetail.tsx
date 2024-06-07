@@ -7,6 +7,8 @@ const useNotificationDetail = () => {
     const navigation = useNavigation()
     const params = useLocalSearchParams()
 
+    console.log('useNotificationDetail - datetime: ', params.datetime, ', name: ', params.name, ', value: ', params.value)
+
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
@@ -14,15 +16,7 @@ const useNotificationDetail = () => {
         })
     }, [navigation])
 
-    const handleSeeReceipt = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
-
-    console.log('')
-    console.log('useNotificationDetail')
-    console.log('datetime: ', params.datetime)
-    console.log('name: ', params.name)
-    console.log('value: ', params.value)
-    console.log('-----------------------------')
-    console.log('')
+    const handleSeeReceipt = () => router.navigate({ pathname: '/home', params: { value: '0', name: '', datetime: '' } })
 
     return {
         params,

@@ -13,7 +13,7 @@ export default function PageScreen() {
                 <Text style={styles.title}>Enrollment</Text>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtUsername} onSubmitEditing={() => refTxtPassword.current.focus()} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
+                    <TextInput style={styles.input} ref={refTxtUsername} onSubmitEditing={() => refTxtPassword?.current?.focus()} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>

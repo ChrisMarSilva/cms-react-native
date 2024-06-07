@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { Keyboard } from 'react-native'
-import { router, useNavigation } from 'expo-router'
+import { useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperSessao from '@/src/util/HelperSessao'
@@ -49,31 +48,17 @@ const useRecipients = () => {
     const _loadData = async () => {
         const existingRecipient = await HelperSessao.GetRecipients()
         const lista = existingRecipient != null ? JSON.parse(existingRecipient) : []
-
-        // [
-        //     { id: '1', name: 'Alice', email: 'alice@example.com' },
-        //     { id: '2', name: 'Bob', email: 'bob@example.com' },
-        //     { id: '3', name: 'Carol', email: 'carol@example.com' },
-        // ]
-
         setRecipients(lista)
     }
 
     const _saveData = async () => {
         console.log('saveData:', recipients)
-        // const lista = existingRecipient != null ? JSON.parse(existingRecipient) : []
-        // const item     = {'datahora': datetime, 'tela': tela, 'url': url, 'params': JSON.stringify(params), 'statuscod': statuscod, 'message': JSON.stringify(message)}
-        // lista.push(item) // push-ultimo // unshift-primeiro
         await HelperSessao.SetRecipients(JSON.stringify(recipients))
-
-        //AsyncStorage.setItem(CONSTANTE.SESSAO_ERROR, JSON.stringify([]))
     }
-
-    // const toggleModal = () => setModalVisible(!isModalVisible)
 
     const handleAdd = () => {
         setCurrentRecipient({ id: '', name: '', email: '' })
-        setModalVisible(true) // router.push('/recipients/modal') toggleModal()
+        setModalVisible(true)
     }
 
     const handleEdit = (id: any, name: any, email: any) => {
@@ -84,7 +69,6 @@ const useRecipients = () => {
     const handleSave = () => {
         try {
             if (currentRecipient.name == '') {
-                //  || currentRecipient.email == ''
                 closeModal()
                 return
             }
@@ -94,7 +78,6 @@ const useRecipients = () => {
                 setRecipients(updatedRecipients)
             } else {
                 setRecipients([...recipients, { id: Math.random().toString(), name: currentRecipient.name, email: currentRecipient.email }])
-                // setRecipients([...recipients, currentRecipient])
             }
 
             setCurrentRecipient({ id: '', name: '', email: '' })

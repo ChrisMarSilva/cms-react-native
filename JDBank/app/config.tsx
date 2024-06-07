@@ -5,65 +5,36 @@ import Constants from 'expo-constants'
 import useConfig from '@/src/hooks/useConfig'
 
 export default function ConfigScreen() {
-    const { refIspbReceiveBank, refNameReceiveBank, refUrlReceiveBank, refIspbPaymentBank, refNamePaymentBank, refUrlPaymentBank, ispbReceiveBank, setIspbReceiveBank, nameReceiveBank, setNameReceiveBank, urlReceiveBank, setUrlReceiveBank, ispbPaymentBank, setIspbPaymentBank, namePaymentBank, setNamePaymentBank, urlPaymentBank, setUrlPaymentBank, updateAppStatus, handleSave, handleCancel, handleUpdateApp } = useConfig()
+    const { refIspb, refBank, refUrl, ispb, setIspb, bank, setBank, url, setUrl, status, handleSave, handleCancel, handleUpdateApp } = useConfig()
 
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView style={styles.card} behavior="padding" enabled>
                 <Text style={styles.title}>Configuration</Text>
 
-                {/* ------------------------------------------- */}
-
-                <Text style={styles.inputTitle}>Another Bank: ISPB</Text>
+                <Text style={styles.inputTitle}>ISPB</Text>
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refIspbReceiveBank} onSubmitEditing={() => refNameReceiveBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="..." value={ispbReceiveBank} onChangeText={(value) => setIspbReceiveBank(value)} />
-                    <TouchableOpacity onPress={() => setIspbReceiveBank('')}>
+                    <TextInput style={styles.input} ref={refIspb} onSubmitEditing={() => refBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="..." value={ispb} onChangeText={(value) => setIspb(value)} />
+                    <TouchableOpacity onPress={() => setIspb('')}>
                         <FontAwesome name="close" color={'#999'} size={25} />
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.inputTitle}>Another Bank: NAME</Text>
+                <Text style={styles.inputTitle}>BANK</Text>
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refNameReceiveBank as React.RefObject<TextInput>} onSubmitEditing={() => refUrlReceiveBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="..." value={nameReceiveBank} onChangeText={(value) => setNameReceiveBank(value)} />
-                    <TouchableOpacity onPress={() => setNameReceiveBank('')}>
+                    <TextInput style={styles.input} ref={refBank as React.RefObject<TextInput>} onSubmitEditing={() => refUrl?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="..." value={bank} onChangeText={(value) => setBank(value)} />
+                    <TouchableOpacity onPress={() => setBank('')}>
                         <FontAwesome name="close" color={'#999'} size={25} />
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.inputTitle}>Another Bank: URL</Text>
+                <Text style={styles.inputTitle}>URL</Text>
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refUrlReceiveBank} onSubmitEditing={() => refIspbPaymentBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} placeholder="..." value={urlReceiveBank} onChangeText={(value) => setUrlReceiveBank(value)} />
-                    <TouchableOpacity onPress={() => setUrlReceiveBank('')}>
+                    <TextInput style={styles.input} ref={refUrl} onSubmitEditing={handleSave} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'done'} autoFocus={false} autoCapitalize="none" autoCorrect={false} enablesReturnKeyAutomatically={true} placeholder="..." value={url} onChangeText={(value) => setUrl(value)} />
+                    <TouchableOpacity onPress={() => setUrl('')}>
                         <FontAwesome name="close" color={'#999'} size={25} />
                     </TouchableOpacity>
                 </View>
-
-                {/* ------------------------------------------- */}
-
-                <Text style={styles.inputTitle}>My Bank: ISPB</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refIspbPaymentBank} onSubmitEditing={() => refNamePaymentBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} placeholder="..." value={ispbPaymentBank} onChangeText={(value) => setIspbPaymentBank(value)} />
-                    <TouchableOpacity onPress={() => setIspbPaymentBank('')}>
-                        <FontAwesome name="close" color={'#999'} size={25} />
-                    </TouchableOpacity>
-                </View>
-
-                <Text style={styles.inputTitle}>My Bank: NAME</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refNamePaymentBank} onSubmitEditing={() => refUrlPaymentBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} placeholder="..." value={namePaymentBank} onChangeText={(value) => setNamePaymentBank(value)} />
-                    <TouchableOpacity onPress={() => setNamePaymentBank('')}>
-                        <FontAwesome name="close" color={'#999'} size={25} />
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.inputTitle}>My Bank: URL</Text>
-                <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refUrlPaymentBank} onSubmitEditing={handleSave} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'done'} autoFocus={false} autoCapitalize="none" autoCorrect={false} enablesReturnKeyAutomatically={true} placeholder="..." value={urlPaymentBank} onChangeText={(value) => setUrlPaymentBank(value)} />
-                    <TouchableOpacity onPress={() => setUrlPaymentBank('')}>
-                        <FontAwesome name="close" color={'#999'} size={25} />
-                    </TouchableOpacity>
-                </View>
-
-                {/* ------------------------------------------- */}
 
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
@@ -79,7 +50,7 @@ export default function ConfigScreen() {
                 <Text style={styles.updateAppText} onPress={handleUpdateApp}>
                     Update App
                 </Text>
-                <Text style={styles.versionText}>{updateAppStatus}</Text>
+                <Text style={styles.versionText}>{status}</Text>
             </View>
 
             <View style={styles.versionContainer}>

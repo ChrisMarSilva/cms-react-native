@@ -20,7 +20,7 @@ export const HeaderBlackBackground = () => {
 export const HeaderLeft = () => {
     const currentUser = useCurrentUser()
 
-    const imglogo = currentUser.bank == currentUser.namePaymentBank ? imglogoJD : imglogoJ3
+    const imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
 
     return (
         <View>

@@ -1,24 +1,6 @@
 import React, { useState } from 'react'
 
 export interface UserContextType {
-    ispbReceiveBank: number
-    setIspbReceiveBank: React.Dispatch<React.SetStateAction<number>>
-
-    nameReceiveBank: string
-    setNameReceiveBank: React.Dispatch<React.SetStateAction<string>>
-
-    urlReceiveBank: string
-    setUrlReceiveBank: React.Dispatch<React.SetStateAction<string>>
-
-    ispbPaymentBank: number
-    setIspbPaymentBank: React.Dispatch<React.SetStateAction<number>>
-
-    namePaymentBank: string
-    setNamePaymentBank: React.Dispatch<React.SetStateAction<string>>
-
-    urlPaymentBank: string
-    setUrlPaymentBank: React.Dispatch<React.SetStateAction<string>>
-
     url: string
     setUrl: React.Dispatch<React.SetStateAction<string>>
 

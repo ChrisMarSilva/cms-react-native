@@ -56,12 +56,11 @@ npx json-server --watch db_rec.json --port 3001
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
+// https://localhost:51235/spi/api/chave?chave=33333333333  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":33333333333,"agencia":"6","conta":"6666","tipoConta":0,"nome":"Machado de Assis"}
+// https://localhost:51235/spi/api/chave?chave=44444444444  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":44444444444,"agencia":"7","conta":"7777","tipoConta":0,"nome":"Vinicius de Moraes"}
 
-J3: "ISPB": 84701762
-JD: 04358798
-
-        // https://localhost:51235/spi/api/chave?chave=33333333333  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":33333333333,"agencia":"6","conta":"6666","tipoConta":0,"nome":"Machado de Assis"}
-        // https://localhost:51235/spi/api/chave?chave=44444444444  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":44444444444,"agencia":"7","conta":"7777","tipoConta":0,"nome":"Vinicius de Moraes"}
+JJ4Bank - login: 11111111111:    url: https://61b8-191-181-56-59.ngrok-free.app - 04358798
+J Bank  - login: 44444444444444: url: https://2a73-191-181-56-59.ngrok-free.app - 84701762
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -75,11 +74,11 @@ chris.mar.silva@gmail.com
 
 npx expo install expo-updates
 eas update:configure
-eas update --branch development --message "#008 - Updating the app version 1.0.8"  // development / production / preview / preview2 / preview3 / preview4
+eas update --branch development --message "#012 - Updating the app version 1.0.12"  // development / production / preview / preview2 / preview3 / preview4
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#011 - Updating the app version 1.0.11"
+eas build --platform android --profile preview --message "#013 - Updating the app version 1.0.13"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

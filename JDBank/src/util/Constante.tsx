@@ -15,19 +15,9 @@ export const SESSAO_BANK = SESSAO_PADRAO + 'Bank'
 export const SESSAO_ISPB = SESSAO_PADRAO + 'Ispb'
 export const SESSAO_USERNAME = SESSAO_PADRAO + 'Username'
 export const SESSAO_RECIPIENTS = SESSAO_PADRAO + 'Recipients'
-export const SESSAO_RECEIVE_BANK_ISPB = SESSAO_PADRAO + 'RecIspb'
-export const SESSAO_RECEIVE_BANK_NAME = SESSAO_PADRAO + 'RecBank'
-export const SESSAO_RECEIVE_BANK_URL = SESSAO_PADRAO + 'RecUrl'
-export const SESSAO_PAYMENT_BANK_ISPB = SESSAO_PADRAO + 'PayIspb'
-export const SESSAO_PAYMENT_BANK_NAME = SESSAO_PADRAO + 'PayBank'
-export const SESSAO_PAYMENT_BANK_URL = SESSAO_PADRAO + 'PayUrl'
+
+// ISPBs
+export const ISPB_JD = '04358798'
+export const ISPB_JJ4 = '84701762'
 
 // export const VERSAO_APP = '1.0.14'; // Constants.manifest?.version ||
-
-// // RECEIVE BANK
-// export const RECEIVE_BANK_NAME = 'J3 Bank'
-// export const RECEIVE_BANK_URL = 'https://5e54-67-159-235-142.ngrok-free.app/' // 'http://192.168.1.107:3001/'
-
-// // PAYMENT BANK
-// export const PAYMENT_BANK_NAME = 'JD Bank'
-// export const PAYMENT_BANK_URL = 'https://5e54-67-159-235-142.ngrok-free.app/' // 'http://192.168.1.107:3002/'

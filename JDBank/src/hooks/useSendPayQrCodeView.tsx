@@ -7,6 +7,7 @@ import { getLogin } from '@/src/services/loginService'
 import { payQrCode } from '@/src/services/qrcodeService'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import * as CONSTANTE from '@/src/util/Constante'
 
 const useSendPayQrCodeView = () => {
     const currentUser = useCurrentUser()
@@ -14,7 +15,6 @@ const useSendPayQrCodeView = () => {
     const params = useLocalSearchParams()
 
     //const animation = useRef(null)
-    //const [isLoadingClient, setIsLoadingClient] = useState<boolean>(true)
     const [isLoadingPay, setIsLoadingPay] = useState<boolean>(false)
     const [value, setValue] = useState<number>(0)
     const [name, setName] = useState<string>('')
@@ -23,7 +23,6 @@ const useSendPayQrCodeView = () => {
 
     useEffect(() => {
         _clearData()
-        _loadClient() // setTimeout(() => { }, 200)
 
         return () => {
             _clearData()
@@ -49,20 +48,6 @@ const useSendPayQrCodeView = () => {
         setChave(params.chave?.toString() || '')
     }
 
-    const _loadClient = async () => {
-        // try {
-        //     setIsLoadingClient(true)
-        //     const data = await getCliente(currentUser.url, currentUser.username)
-        //     setName(data?.name)
-        //     router.setParams({ name: data?.name || ''})
-        //     setIsLoadingClient(false)
-        // } catch (error: any) {
-        //     setIsLoadingClient(false)
-        //     Alert.alert(error.message)
-        //     router.navigate('/send_pay_qrcode')
-        // }
-    }
-
     const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '', info: '', chave: '' } })
 
     const handleSchedule = () => {
@@ -82,15 +67,15 @@ const useSendPayQrCodeView = () => {
                 return false
             }
 
-            // const data = await getLogin(currentUser.url, currentUser.username, chave)
+            const data = await getLogin(currentUser.url, chave)
 
-            const ispbRec = currentUser.bank == currentUser.namePaymentBank ? currentUser.ispbPaymentBank : currentUser.ispbReceiveBank // data?.ispb //
-            const agenciaRec = '0002'
-            const tipoContaRec = 0 //data?.tipoConta
-            const contaRec = '2222'
-            const tipoPessoaRec = 0 //data?.tipoPessoa
-            const documentoRec = 22222222222 // data?.documento
-            const nameRec = name // data?.name
+            const ispbRec = parseInt(data?.ispb) // currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? parseInt(CONSTANTE.ISPB_JJ4) : parseInt(CONSTANTE.ISPB_JD) //
+            const agenciaRec = data?.agencia // '0002'
+            const tipoContaRec = parseInt(data?.tipoConta) // 0 //
+            const contaRec = data?.conta // '2222'
+            const tipoPessoaRec = parseInt(data?.tipoPessoa) // 0 //
+            const documentoRec = parseInt(data?.documento) // 22222222222 //
+            const nameRec = data?.name // name //
 
             await payQrCode(currentUser.url, currentUser.ispb, currentUser.agencia, 0, currentUser.conta, 0, currentUser.documento, currentUser.name, ispbRec, agenciaRec, tipoContaRec, contaRec, tipoPessoaRec, documentoRec, nameRec, info, value)
 

@@ -1,3 +1,4 @@
+node_modules/
 node_modules/**/*
 .expo/*
 dist/
@@ -16,4 +17,3 @@ web-report/
 
 # Project
 .tmp/*
-

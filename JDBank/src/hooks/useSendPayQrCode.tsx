@@ -47,15 +47,10 @@ const useSendPayQrCode = () => {
 
     const handlSendQRCode = async ({ type, data }: { type: any; data: any }) => {
         try {
-            // remove this line
-            //data = '00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC'
-
-            // setHasScanned(false)
             if (data.trim() == '') return
             setHasScanned(true)
 
             const result = await sendQrCode(currentUser.url, data)
-
             setHasScanned(false)
 
             router.navigate({

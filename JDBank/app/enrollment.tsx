@@ -14,23 +14,23 @@ export default function EnrollmentScreen() {
                 <Text style={styles.title}>Enrollment</Text>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtName} onSubmitEditing={() => refTxtAddress.current.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Legal Name" value={txtName} onChangeText={(value) => setTxtName(value)} />
+                    <TextInput style={styles.input} ref={refTxtName} onSubmitEditing={() => refTxtAddress?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Legal Name" value={txtName} onChangeText={(value) => setTxtName(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtAddress} onSubmitEditing={() => refTxtPhone.current.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} placeholder="Physical Address" value={txtAddress} onChangeText={(value) => setTxtAddress(value)} />
+                    <TextInput style={styles.input} ref={refTxtAddress} onSubmitEditing={() => refTxtPhone?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} placeholder="Physical Address" value={txtAddress} onChangeText={(value) => setTxtAddress(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtPhone} onSubmitEditing={() => refTxtEmail.current.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} inputMode={'tel'} placeholder="Phone" value={txtPhone} onChangeText={(value) => setTxtPhone(value)} />
+                    <TextInput style={styles.input} ref={refTxtPhone} onSubmitEditing={() => refTxtEmail?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} inputMode={'tel'} placeholder="Phone" value={txtPhone} onChangeText={(value) => setTxtPhone(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtEmail} onSubmitEditing={() => refTxtCardOrAccount.current.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} inputMode={'email'} placeholder="Email" value={txtEmail} onChangeText={(value) => setTxtEmail(value)} />
+                    <TextInput style={styles.input} ref={refTxtEmail} onSubmitEditing={() => refTxtCardOrAccount?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} inputMode={'email'} placeholder="Email" value={txtEmail} onChangeText={(value) => setTxtEmail(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtCardOrAccount} onSubmitEditing={() => refTxtSocialSecurity.current.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} inputMode={'numeric'} placeholder="Card or Account Number" value={txtCardOrAccount} onChangeText={(value) => setTxtCardOrAccount(value)} />
+                    <TextInput style={styles.input} ref={refTxtCardOrAccount} onSubmitEditing={() => refTxtSocialSecurity?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={false} autoCapitalize="none" autoCorrect={false} inputMode={'numeric'} placeholder="Card or Account Number" value={txtCardOrAccount} onChangeText={(value) => setTxtCardOrAccount(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>

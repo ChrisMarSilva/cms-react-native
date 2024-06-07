@@ -5,26 +5,18 @@ import * as Updates from 'expo-updates'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperSessao from '@/src/util/HelperSessao'
-//import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 const useConfig = () => {
     const currentUser = useCurrentUser()
-    //const navigation = useNavigation()
 
-    const [ispbReceiveBank, setIspbReceiveBank] = useState<string>('')
-    const [nameReceiveBank, setNameReceiveBank] = useState<string>('')
-    const [urlReceiveBank, setUrlReceiveBank] = useState<string>('')
-    const [ispbPaymentBank, setIspbPaymentBank] = useState<string>('')
-    const [namePaymentBank, setNamePaymentBank] = useState<string>('')
-    const [urlPaymentBank, setUrlPaymentBank] = useState<string>('')
-    const [updateAppStatus, setUpdateAppStatus] = useState<string>('')
+    const [ispb, setIspb] = useState<string>('')
+    const [bank, setBank] = useState<string>('')
+    const [url, setUrl] = useState<string>('')
+    const [status, setStatus] = useState<string>('')
 
-    const refIspbReceiveBank = useRef(null)
-    const refNameReceiveBank = useRef(null)
-    const refUrlReceiveBank = useRef(null)
-    const refIspbPaymentBank = useRef(null)
-    const refNamePaymentBank = useRef(null)
-    const refUrlPaymentBank = useRef(null)
+    const refIspb = useRef(null)
+    const refBank = useRef(null)
+    const refUrl = useRef(null)
 
     useEffect(() => {
         _clearData()
@@ -41,33 +33,20 @@ const useConfig = () => {
     // }, [navigation])
 
     const _clearData = () => {
-        setIspbReceiveBank('')
-        setNameReceiveBank('')
-        setUrlReceiveBank('')
-        setIspbPaymentBank('')
-        setNamePaymentBank('')
-        setUrlPaymentBank('')
+        setIspb('')
+        setBank('')
+        setUrl('')
+
         Keyboard.dismiss()
     }
 
     const _loadData = () => {
-        setIspbReceiveBank(currentUser.ispbReceiveBank.toString())
-        setNameReceiveBank(currentUser.nameReceiveBank.toString().trim())
-        setUrlReceiveBank(currentUser.urlReceiveBank.toString().trim())
+        setIspb(currentUser.ispb.toString())
+        setBank(currentUser.bank.toString().trim())
+        setUrl(currentUser.url.toString().trim())
+        console.log('useConfig._loadData - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
 
-        setIspbPaymentBank(currentUser.ispbPaymentBank.toString())
-        setNamePaymentBank(currentUser.namePaymentBank.toString().trim())
-        setUrlPaymentBank(currentUser.urlPaymentBank.toString().trim())
-
-        console.log('')
-        console.log('useConfig._loadData')
-        console.log('ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
-        console.log('ispbReceive:', currentUser.ispbReceiveBank, ', bankReceive:', currentUser.nameReceiveBank, ', urlReceive:', currentUser.urlReceiveBank)
-        console.log('ispbPayment:', currentUser.ispbPaymentBank, ', bankPayment:', currentUser.namePaymentBank, ', urlPayment:', currentUser.urlPaymentBank)
-        console.log('-----------------------------')
-        console.log('')
-
-        refIspbReceiveBank.current.focus()
+        refIspb?.current?.focus()
     }
 
     const ensureTrailingSlash = (text) => {
@@ -77,55 +56,29 @@ const useConfig = () => {
     }
 
     const handleSave = async () => {
-        if (ispbReceiveBank == '' || nameReceiveBank == '' || urlReceiveBank == '' || namePaymentBank == '' || urlPaymentBank == '' || ispbPaymentBank == '') {
-            if (ispbReceiveBank == '') {
-                Alert.alert('Warning', 'ISPB Receive Bank is required')
-                refIspbReceiveBank.current.focus()
-            } else if (nameReceiveBank == '') {
-                Alert.alert('Warning', 'Name Receive Bank is required')
-                refNameReceiveBank.current.focus()
-            } else if (urlReceiveBank == '') {
-                Alert.alert('Warning', 'Url Receive Bank is required')
-                refUrlReceiveBank.current.focus()
-            } else if (ispbPaymentBank == '') {
-                Alert.alert('Warning', 'ISPB Payment Bank is required')
-                refIspbPaymentBank.current.focus()
-            } else if (namePaymentBank == '') {
-                Alert.alert('Warning', 'Name Payment Bank is required')
-                refNamePaymentBank.current.focus()
-            } else if (urlPaymentBank == '') {
-                Alert.alert('Warning', 'Url Payment Bank is required')
-                refUrlPaymentBank.current.focus()
+        if (ispb == '' || bank == '' || url == '') {
+            if (ispb == '') {
+                Alert.alert('Warning', 'ISPB is required')
+                refIspb?.current?.focus()
+            } else if (bank == '') {
+                Alert.alert('Warning', 'Bank is required')
+                refBank?.current?.focus()
+            } else if (url == '') {
+                Alert.alert('Warning', 'Url is required')
+                refUrl?.current?.focus()
             }
             return
         }
 
-        console.log('')
-        console.log('useConfig.handleSave')
-        console.log('ispbReceive:', ispbReceiveBank, ', bankReceive:', nameReceiveBank, ', urlReceive:', urlReceiveBank)
-        console.log('ispbPayment:', ispbPaymentBank, ', bankPayment:', namePaymentBank, ', urlPayment:', urlPaymentBank)
-        console.log('-----------------------------')
-        console.log('')
+        console.log('useConfig.handleSave - ispb:', ispb, ', bank:', bank, ', url:', url)
 
-        currentUser.setIspbReceiveBank(parseInt(ispbReceiveBank || '0'))
-        currentUser.setNameReceiveBank(nameReceiveBank.toString().trim())
-        currentUser.setUrlReceiveBank(ensureTrailingSlash(urlReceiveBank.toString().trim()))
-        currentUser.setIspbPaymentBank(parseInt(ispbPaymentBank || '0'))
-        currentUser.setNamePaymentBank(namePaymentBank.toString().trim())
-        currentUser.setUrlPaymentBank(ensureTrailingSlash(urlPaymentBank.toString().trim()))
-        currentUser.setIspb(parseInt(ispbPaymentBank || '0'))
-        currentUser.setBank(namePaymentBank.toString().trim())
-        currentUser.setUrl(ensureTrailingSlash(urlPaymentBank.toString().trim()))
+        currentUser.setIspb(parseInt(ispb || '0'))
+        currentUser.setBank(bank.toString().trim())
+        currentUser.setUrl(ensureTrailingSlash(url.toString().trim()))
 
-        await HelperSessao.SetReceiveIspb(ispbReceiveBank)
-        await HelperSessao.SetReceiveBank(nameReceiveBank.toString().trim())
-        await HelperSessao.SetReceiveUrl(urlReceiveBank.toString().trim())
-        await HelperSessao.SetPaymentIspb(ispbPaymentBank)
-        await HelperSessao.SetPaymentBank(namePaymentBank.toString().trim())
-        await HelperSessao.SetPaymentUrl(urlPaymentBank)
-        await HelperSessao.SetIspb(ispbPaymentBank)
-        await HelperSessao.SetBank(namePaymentBank.toString().trim())
-        await HelperSessao.SetUrl(urlPaymentBank.toString().trim())
+        await HelperSessao.SetIspb(ispb)
+        await HelperSessao.SetBank(bank.toString().trim())
+        await HelperSessao.SetUrl(url.toString().trim())
 
         Keyboard.dismiss()
         router.replace('/login')
@@ -173,25 +126,16 @@ const useConfig = () => {
     }
 
     return {
-        refIspbReceiveBank,
-        refNameReceiveBank,
-        refUrlReceiveBank,
-        refIspbPaymentBank,
-        refNamePaymentBank,
-        refUrlPaymentBank,
-        ispbReceiveBank,
-        setIspbReceiveBank,
-        nameReceiveBank,
-        setNameReceiveBank,
-        urlReceiveBank,
-        setUrlReceiveBank,
-        ispbPaymentBank,
-        setIspbPaymentBank,
-        namePaymentBank,
-        setNamePaymentBank,
-        urlPaymentBank,
-        setUrlPaymentBank,
-        updateAppStatus,
+        refIspb,
+        refBank,
+        refUrl,
+        ispb,
+        setIspb,
+        bank,
+        setBank,
+        url,
+        setUrl,
+        status,
         handleSave,
         handleCancel,
         handleUpdateApp,

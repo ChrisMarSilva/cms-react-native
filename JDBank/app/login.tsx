@@ -4,17 +4,15 @@ import Constants from 'expo-constants'
 import useLogin from '@/src/hooks/useLogin'
 
 export default function LoginScreen() {
-    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, refTxtUsername, refTxtPassword, toggleSwitch, handleLogin, handleEnroll, handleConfig, handleChangeBank } = useLogin()
+    const { imglogo, txtUsername, setTxtUsername, txtPassword, setTxtPassword, isLoading, isEnabledFaceID, refTxtUsername, refTxtPassword, toggleSwitch, handleLogin, handleEnroll, handleConfig } = useLogin()
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleChangeBank} disabled={isLoading}>
-                <Image source={imglogo} style={styles.logo} />
-            </TouchableOpacity>
+            <Image source={imglogo} style={styles.logo} />
 
             <KeyboardAvoidingView style={styles.loginCard}>
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.input} ref={refTxtUsername} onSubmitEditing={() => refTxtPassword.current.focus()} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
+                    <TextInput style={styles.input} ref={refTxtUsername} onSubmitEditing={() => refTxtPassword?.current?.focus()} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="Username" value={txtUsername} onChangeText={(value) => setTxtUsername(value)} />
                 </View>
 
                 <View style={styles.inputContainer}>

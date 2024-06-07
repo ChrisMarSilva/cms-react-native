@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
-import { router, useNavigation, useLocalSearchParams } from 'expo-router'
+import { router, useNavigation } from 'expo-router'
 import * as signalR from '@microsoft/signalr'
 //import { Audio } from 'expo-av'
 
@@ -15,9 +15,8 @@ import imgRedPerson from '@/src/assets/imgs/person-red.jpg'
 const useHome = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
-    const params = useLocalSearchParams()
 
-    const imgPerson = currentUser.bank == currentUser.namePaymentBank ? imgBluePerson : imgRedPerson
+    const imgPerson = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imgBluePerson : imgRedPerson
 
     const [nameRec, setNameRec] = useState<string>('')
     const [valueRec, setValueRec] = useState<number>(0)
@@ -47,44 +46,22 @@ const useHome = () => {
         setValueRec(0)
         setDatetimeRec('')
         setIsActiveNotification(false)
-
-        // router.setParams({
-        //     //personType: tipoPessoa,
-        //     //document: documento,
-        //     //agency: agencia,
-        //     //account: conta,
-        //     name: '',
-        //     value: 0,
-        //     datetime: '',
-        // })
     }
 
     const _loadData = () => {
+        console.log('useHome._loadData - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
+
         _getBalance()
         _getNotificationsBySignalR()
-
-        console.log('')
-        console.log('useHome._loadData')
-        console.log('ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
-        console.log('ispbReceive:', currentUser.ispbReceiveBank, ', bankReceive:', currentUser.nameReceiveBank, ', urlReceive:', currentUser.urlReceiveBank)
-        console.log('ispbPayment:', currentUser.ispbPaymentBank, ', bankPayment:', currentUser.namePaymentBank, ', urlPayment:', currentUser.urlPaymentBank)
-        console.log('-----------------------------')
-        console.log('')
     }
 
     const _getBalance = async () => {
         try {
-            console.log('')
-            console.log('useHome._getBalance')
-
-            console.log('agencia:', currentUser.agencia)
-            console.log('conta:', currentUser.conta)
+            console.log('useHome._getBalance - agencia:', currentUser.agencia)
+            console.log('useHome._getBalance - conta:', currentUser.conta)
 
             const data = await getBalance(currentUser.url, currentUser.agencia, currentUser.conta)
-
-            console.log('data:', data)
-            console.log('-----------------------------')
-            console.log('')
+            console.log('useHome._getBalance - data:', data)
 
             currentUser.setBalance(parseFloat(data.toString()) || 0)
         } catch (error: any) {
@@ -95,71 +72,35 @@ const useHome = () => {
 
     const _getNotificationsBySignalR = async () => {
         try {
-            const urlDefault = currentUser.url //  == currentUser.urlPaymentBank ? currentUser.urlReceiveBank : currentUser.urlPaymentBank
-            const url = urlDefault + CONSTANTE.URL_RECEBE_PAGTO
-
-            console.log('')
-            console.log('useHome._getNotificationsBySignalR')
-            console.log('urlAtual:', currentUser.url)
-            console.log('urlDefault:', urlDefault)
-            console.log('url:', url)
-            console.log('-----------------------------')
-            console.log('')
+            const url = currentUser.url + CONSTANTE.URL_RECEBE_PAGTO
+            console.log('useHome._getNotificationsBySignalR - url:', url)
 
             const options = {
                 headers: { 'content-type': 'application/json;charset=UTF-8' },
                 transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling,
                 logMessageContent: true,
-                logger: signalR.LogLevel.Information, // Trace // Information
+                logger: signalR.LogLevel.None, // Trace // Information
             }
 
-            const connection = new signalR.HubConnectionBuilder().withUrl(url, options).configureLogging(signalR.LogLevel.Information).build()
+            const connection = new signalR.HubConnectionBuilder().withUrl(url, options).configureLogging(signalR.LogLevel.None).build()
 
             connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor) => {
-                console.log('')
-                console.log('useHome._getNotificationsBySignalR.ReceivePayment')
-                console.log('agencia: ', agencia)
-                console.log('conta: ', conta)
-                console.log('documento: ', documento)
-                console.log('tipoPessoa: ', tipoPessoa)
-                console.log('nome: ', nome)
-                console.log('valor: ', valor)
-                console.log('balanceOld: ', currentUser.balance)
-                console.log('-----------------------------')
-                console.log('')
+                console.log('useHome._getNotificationsBySignalR.ReceivePayment - agencia: ', agencia, ', conta: ', conta, ', documento: ', documento, ', tipoPessoa: ', tipoPessoa, ', nome: ', nome, ', valor: ', valor, ', balanceOld: ', currentUser.balance)
 
                 const d = new Date()
-
                 setDatetimeRec(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
                 setNameRec(nome)
                 setValueRec(parseFloat(valor))
                 setIsActiveNotification(true)
 
-                // router.setParams({
-                //     personType: tipoPessoa,
-                //     document: documento,
-                //     agency: agencia,
-                //     account: conta,
-                //     name: nome,
-                //     value: parseFloat(valor),
-                //     datetime: `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`,
-                // })
-
-                //_playSound()
-                // currentUser.setBalance(currentUser.balance - parseFloat(valor))
                 _getBalance()
+                //_playSound()
+
+                handleNotification()
             })
 
             connection.on('AtualizarSaldo', (agencia, conta, valor) => {
-                console.log('')
-                console.log('useHome._getNotificationsBySignalR.AtualizarSaldo')
-                console.log('agencia: ', agencia)
-                console.log('conta: ', conta)
-                console.log('valor: ', valor)
-                console.log('currentUser.agencia: ', currentUser.agencia)
-                console.log('currentUser.conta: ', currentUser.conta)
-                console.log('-----------------------------')
-                console.log('')
+                console.log('useHome._getNotificationsBySignalR.AtualizarSaldo - agencia: ', agencia, ', conta: ', conta, ', valor: ', valor, ', currentUser.agencia: ', currentUser.agencia, ', currentUser.conta: ', currentUser.conta)
 
                 if (parseInt(currentUser.agencia) == parseInt(agencia) && parseInt(currentUser.conta) == parseInt(conta)) currentUser.setBalance(parseFloat(valor))
             })
@@ -217,20 +158,11 @@ const useHome = () => {
     const handleLogout = () => router.replace('/login')
 
     const handleNotification = () => {
+        console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
+
         setIsActiveNotification(false)
-
-        console.log('')
-        console.log('useHome.handleNotification')
-        console.log('datetime: ', datetimeRec) // params.datetime
-        console.log('name: ', nameRec) // params.name
-        console.log('value: ', valueRec) // params.value
-        console.log('-----------------------------')
-        console.log('')
-
         if (nameRec.toString().trim() != '' && nameRec != 'undefined' && nameRec != undefined) {
-            // params.name != '' && params.name != 'undefined' && params.name != undefined
             router.navigate({ pathname: '/notification_detail', params: { value: valueRec, name: nameRec, datetime: datetimeRec } })
-            // value: params.value, name: params.name, datetime: params.datetime
         }
     }
 

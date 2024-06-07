@@ -1,15 +1,12 @@
 import { useRef, useEffect, useState } from 'react'
-//import { Alert } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import LottieView from 'lottie-react-native'
 //import { Audio } from 'expo-av'
 
-import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 const useSendPayQrCodeDone = () => {
-    const currentUser = useCurrentUser()
     const navigation = useNavigation()
     const params = useLocalSearchParams()
     const animation = useRef<LottieView>(null)
@@ -77,7 +74,6 @@ const useSendPayQrCodeDone = () => {
     const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
 
     const handleSeeReceipt = () => {
-        // currentUser.setBalance(currentUser.balance - value)
         router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
     }
 

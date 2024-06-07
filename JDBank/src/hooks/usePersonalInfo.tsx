@@ -12,14 +12,6 @@ const usePersonalInfo = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
 
-    // useEffect(() => {
-    //     _clearData()
-
-    //     // return () => {
-    //     //     _clearData()
-    //     // }
-    // }, [])
-
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
@@ -28,7 +20,7 @@ const usePersonalInfo = () => {
         })
     }, [navigation])
 
-    const imgPerson = currentUser.bank == currentUser.namePaymentBank ? imgBluePerson : imgRedPerson
+    const imgPerson = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imgBluePerson : imgRedPerson
 
     const handleLogout = () => router.replace('/login')
 

@@ -20,7 +20,7 @@ export const HeaderBlackBackground = () => {
 export const HeaderLeft = () => {
     const currentUser = useCurrentUser()
 
-    const imglogo = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imglogoJD : imglogoJ3
+    const imglogo = currentUser.bank == currentUser.namePaymentBank ? imglogoJD : imglogoJ3
 
     return (
         <View>

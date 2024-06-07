@@ -52,7 +52,7 @@ export default function LoginScreen() {
             </View>
 
             <View style={styles.versionContainer}>
-                <Text style={styles.ersionText}>Version: {Constants.expoConfig?.version}</Text>
+                <Text style={styles.ersionText}>Version: {Constants.expoConfig?.runtimeVersion?.toString()}</Text>
             </View>
         </View>
     )

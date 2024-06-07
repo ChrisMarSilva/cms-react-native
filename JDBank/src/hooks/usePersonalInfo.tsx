@@ -28,7 +28,7 @@ const usePersonalInfo = () => {
         })
     }, [navigation])
 
-    const imgPerson = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imgBluePerson : imgRedPerson
+    const imgPerson = currentUser.bank == currentUser.namePaymentBank ? imgBluePerson : imgRedPerson
 
     const handleLogout = () => router.replace('/login')
 

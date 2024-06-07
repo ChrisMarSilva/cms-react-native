@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 
 export interface UserContextType {
+    ispbReceiveBank: number
+    setIspbReceiveBank: React.Dispatch<React.SetStateAction<number>>
+
     nameReceiveBank: string
     setNameReceiveBank: React.Dispatch<React.SetStateAction<string>>
 
     urlReceiveBank: string
     setUrlReceiveBank: React.Dispatch<React.SetStateAction<string>>
+
+    ispbPaymentBank: number
+    setIspbPaymentBank: React.Dispatch<React.SetStateAction<number>>
 
     namePaymentBank: string
     setNamePaymentBank: React.Dispatch<React.SetStateAction<string>>
@@ -21,6 +27,12 @@ export interface UserContextType {
 
     name: string
     setName: React.Dispatch<React.SetStateAction<string>>
+
+    tipoPessoa: number
+    setTipoPessoa: React.Dispatch<React.SetStateAction<number>>
+
+    documento: number
+    setDocumento: React.Dispatch<React.SetStateAction<number>>
 
     email: string
     setEmail: React.Dispatch<React.SetStateAction<string>>
@@ -43,8 +55,17 @@ export interface UserContextType {
     address: string
     setAddress: React.Dispatch<React.SetStateAction<string>>
 
+    ispb: number
+    setIspb: React.Dispatch<React.SetStateAction<number>>
+
     bank: string
     setBank: React.Dispatch<React.SetStateAction<string>>
+
+    agencia: string
+    setAgencia: React.Dispatch<React.SetStateAction<string>>
+
+    conta: string
+    setConta: React.Dispatch<React.SetStateAction<string>>
 
     balance: number
     setBalance: React.Dispatch<React.SetStateAction<number>>

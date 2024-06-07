@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 //import { Alert } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import LottieView from 'lottie-react-native'
-import { Audio } from 'expo-av'
+//import { Audio } from 'expo-av'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperNumero from '@/src/util/HelperNumero'
@@ -19,7 +19,7 @@ const useSendPayQrCodeDone = () => {
 
     useEffect(() => {
         _clearData() //  setTimeout(() => {}, 200)
-        _playSound()
+        //_playSound()
 
         return () => {
             _clearData()
@@ -43,36 +43,36 @@ const useSendPayQrCodeDone = () => {
         setName(params.name?.toString() || '')
     }
 
-    const _playSound = async () => {
-        try {
-            const source = require('@/src/assets/sounds/02.mp3')
+    // const _playSound = async () => {
+    //     try {
+    //         const source = require('@/src/assets/sounds/02.mp3')
 
-            await Audio.setAudioModeAsync({
-                allowsRecordingIOS: false,
-                interruptionModeIOS: 1, // Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-                playsInSilentModeIOS: true,
-                interruptionModeAndroid: 2, // Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-                shouldDuckAndroid: true,
-                playThroughEarpieceAndroid: false,
-            })
+    //         await Audio.setAudioModeAsync({
+    //             allowsRecordingIOS: false,
+    //             interruptionModeIOS: 1, // Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+    //             playsInSilentModeIOS: true,
+    //             interruptionModeAndroid: 2, // Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+    //             shouldDuckAndroid: true,
+    //             playThroughEarpieceAndroid: false,
+    //         })
 
-            const initialStatus = {
-                shouldPlay: true, // Play by default
-                rate: 1.0, // Control the speed
-                shouldCorrectPitch: true, // Correct the pitch
-                volume: 1.0, // Control the Volume
-                isMuted: false, // mute the Audio
-            }
+    //         const initialStatus = {
+    //             shouldPlay: true, // Play by default
+    //             rate: 1.0, // Control the speed
+    //             shouldCorrectPitch: true, // Correct the pitch
+    //             volume: 1.0, // Control the Volume
+    //             isMuted: false, // mute the Audio
+    //         }
 
-            const { sound } = await Audio.Sound.createAsync(source, initialStatus)
+    //         const { sound } = await Audio.Sound.createAsync(source, initialStatus)
 
-            await sound.playAsync() //  Play the Music
-        } catch (error: any) {
-            // sound.unloadAsync()
-            // Alert.alert(error)
-            console.log(error)
-        }
-    }
+    //         await sound.playAsync() //  Play the Music
+    //     } catch (error: any) {
+    //         // sound.unloadAsync()
+    //         // Alert.alert(error)
+    //         console.log(error)
+    //     }
+    // }
 
     const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
 

@@ -41,6 +41,8 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
  segunda - 04/06/2024 19:00:00 - 04/06/2024 21:00:00 - 02h ===> add SingalR e a tela de notificação, e geração d APK
 
  segunda - 05/06/2024 19:00:00 - 05/06/2024 23:00:00 - 04h ===> add tela de Configuração da URL
+ 
+ quinta  - 06/06/2024 19:00:00 - 06/06/2024 01:00:00 - 06h ===> ajuste para reuniao com a FJ
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -55,6 +57,15 @@ npx json-server --watch db_rec.json --port 3001
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+J3: "ISPB": 84701762
+JD: 04358798
+
+        // https://localhost:51235/spi/api/chave?chave=33333333333  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":33333333333,"agencia":"6","conta":"6666","tipoConta":0,"nome":"Machado de Assis"}
+        // https://localhost:51235/spi/api/chave?chave=44444444444  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":44444444444,"agencia":"7","conta":"7777","tipoConta":0,"nome":"Vinicius de Moraes"}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 npx expo login
 chris.mar.silva@gmail.com
 
@@ -64,16 +75,11 @@ chris.mar.silva@gmail.com
 
 npx expo install expo-updates
 eas update:configure
-eas update --branch development --message "#003 - Updating the app version 1.0.3"
-eas update --branch preview --message "#003 - Updating the app version 1.0.3"
-eas update --branch preview2 --message "#003 - Updating the app version 1.0.3"
-eas update --branch preview3 --message "#003 - Updating the app version 1.0.3"
-eas update --branch preview4 --message "#003 - Updating the app version 1.0.3"
-eas update --branch production --message "#003 - Updating the app version 1.0.3"
+eas update --branch development --message "#008 - Updating the app version 1.0.8"  // development / production / preview / preview2 / preview3 / preview4
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#003 - Updating the app version 1.0.3"
+eas build --platform android --profile preview --message "#011 - Updating the app version 1.0.11"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -100,6 +106,8 @@ npm run format
 "trailingComma": "es5", // "none"
 npm init @eslint/config
 npm i -g react-devtools --save-dev
+
+npx expo-doctor
 
 npm i react-native-console-time-polyfill --save
 #npx expo install lodash

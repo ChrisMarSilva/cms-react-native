@@ -1,19 +1,28 @@
 import api from '@/src/services/api'
 import * as CONSTANTE from '@/src/util/Constante'
 
-export const getLogin = async (urlDefault: string, username: string, password: string) => {
+export const getLogin = async (urlDefault: string, username: string) => {
     try {
-        //const url = urlDefault + CONSTANTE.URL_LOGIN + '?username=' + encodeURIComponent(escape(username.trim())) + '&password=' + encodeURIComponent(escape(password.trim()))
-        const url = urlDefault + CONSTANTE.URL_LOGIN + '?username=' + encodeURIComponent(escape(username.trim()))
-        //const response = await api.get<any>(url)
+        console.log('')
+        console.log('loginService.getLogin')
 
-        //const data = Array.isArray(response.data) ? response.data[0] : response.data
-        const data = {
+        username = username.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
+        console.log('username:', username)
+
+        const url = urlDefault + CONSTANTE.URL_LOGIN + '?chave=' + encodeURIComponent(escape(username))
+        console.log('url:', url)
+
+        const response = await api.get<any>(url)
+
+        const data = Array.isArray(response.data) ? response.data[0] : response.data
+        console.log('data:', data)
+
+        const result = {
             id: '1',
-            username: 'clientpay1',
+            username: username,
             password: '123',
-            name: 'Client Pay 01',
-            email: 'client.pay1@gmail.com',
+            name: data?.nome || '',
+            email: 'client@gmail.com',
             phone: '(949) 402-4538',
             socialSecurity: '000–00–0000',
             birth: '01/01/2020',
@@ -21,9 +30,20 @@ export const getLogin = async (urlDefault: string, username: string, password: s
             citizen: 'Yes',
             address: '123 Main St, Anytown',
             cardOrAccount: '1111112222',
+            ispb: data?.ispb || '',
+            bank: data?.nomeBanco || '',
+            tipoPessoa: data?.tipoPessoa || '',
+            documento: data?.documento || '',
+            agencia: data?.agencia || '',
+            conta: data?.conta || '',
+            tipoConta: data?.tipoConta || '',
         }
 
-        return data
+        console.log('result:', result)
+        console.log('-----------------------------')
+        console.log('')
+
+        return result
     } catch (error: any) {
         console.error('getLogin:', error)
         throw error

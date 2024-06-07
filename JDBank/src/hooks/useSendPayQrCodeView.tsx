@@ -3,6 +3,7 @@ import { Alert, Keyboard } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
+import { getLogin } from '@/src/services/loginService'
 import { payQrCode } from '@/src/services/qrcodeService'
 import * as HelperNumero from '@/src/util/HelperNumero'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
@@ -17,6 +18,8 @@ const useSendPayQrCodeView = () => {
     const [isLoadingPay, setIsLoadingPay] = useState<boolean>(false)
     const [value, setValue] = useState<number>(0)
     const [name, setName] = useState<string>('')
+    const [info, setInfo] = useState<string>('')
+    const [chave, setChave] = useState<string>('')
 
     useEffect(() => {
         _clearData()
@@ -42,6 +45,8 @@ const useSendPayQrCodeView = () => {
         setIsLoadingPay(false)
         setValue(HelperNumero.convertToCurrency(params.value?.toString() || '0'))
         setName(params.name?.toString() || '')
+        setInfo(params.info?.toString() || '')
+        setChave(params.chave?.toString() || '')
     }
 
     const _loadClient = async () => {
@@ -58,12 +63,12 @@ const useSendPayQrCodeView = () => {
         // }
     }
 
-    const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
+    const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '', info: '', chave: '' } })
 
     const handleSchedule = () => {
         Keyboard.dismiss()
         Alert.alert('Scheduled payment!')
-        router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
+        router.navigate({ pathname: '/home', params: { value: '0', name: '', info: '', chave: '' } })
     }
 
     const handleSend = async () => {
@@ -77,10 +82,19 @@ const useSendPayQrCodeView = () => {
                 return false
             }
 
-            await payQrCode(currentUser.url, currentUser.username, value, name)
+            // const data = await getLogin(currentUser.url, currentUser.username, chave)
+
+            const ispbRec = currentUser.bank == currentUser.namePaymentBank ? currentUser.ispbPaymentBank : currentUser.ispbReceiveBank // data?.ispb //
+            const agenciaRec = '0002'
+            const tipoContaRec = 0 //data?.tipoConta
+            const contaRec = '2222'
+            const tipoPessoaRec = 0 //data?.tipoPessoa
+            const documentoRec = 22222222222 // data?.documento
+            const nameRec = name // data?.name
+
+            await payQrCode(currentUser.url, currentUser.ispb, currentUser.agencia, 0, currentUser.conta, 0, currentUser.documento, currentUser.name, ispbRec, agenciaRec, tipoContaRec, contaRec, tipoPessoaRec, documentoRec, nameRec, info, value)
 
             setIsLoadingPay(false)
-            currentUser.setBalance(currentUser.balance - value)
 
             router.navigate({ pathname: '/send_pay_qrcode_done', params: { value: value, name: name } })
         } catch (error: any) {

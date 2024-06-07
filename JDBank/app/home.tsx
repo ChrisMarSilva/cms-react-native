@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import Constants from 'expo-constants'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 import * as HelperNumero from '@/src/util/HelperNumero'
@@ -47,7 +48,7 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.footer}>
-                <Text style={styles.footerText}>Version 1.0.0</Text>
+                <Text style={styles.footerText}>Version {Constants.expoConfig?.runtimeVersion?.toString()}</Text>
             </View>
         </View>
     )

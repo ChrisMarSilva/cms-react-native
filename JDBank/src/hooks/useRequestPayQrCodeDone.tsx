@@ -41,7 +41,7 @@ const useRequestPayQrCodeDone = () => {
 
     const _loadData = async () => {
         try {
-            const data = await createQrCode(currentUser.url, currentUser.username, value)
+            const data = await createQrCode(currentUser.url, currentUser.username, currentUser.name, value)
 
             setEncodedData(data)
             setIsLoading(false)
@@ -51,7 +51,7 @@ const useRequestPayQrCodeDone = () => {
         }
     }
 
-    const handleHome =  () => router.navigate({pathname: '/home', params: { value: 0 }})
+    const handleHome = () => router.navigate({ pathname: '/home', params: { value: 0 } })
 
     return {
         animation,

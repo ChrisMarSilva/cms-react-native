@@ -16,6 +16,14 @@ const useNotificationDetail = () => {
 
     const handleSeeReceipt = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
 
+    console.log('')
+    console.log('useNotificationDetail')
+    console.log('datetime: ', params.datetime)
+    console.log('name: ', params.name)
+    console.log('value: ', params.value)
+    console.log('-----------------------------')
+    console.log('')
+
     return {
         params,
         handleSeeReceipt,

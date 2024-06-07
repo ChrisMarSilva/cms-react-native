@@ -2,22 +2,33 @@ import api from '@/src/services/api'
 
 import * as CONSTANTE from '@/src/util/Constante'
 
-export const createQrCode = async (urlDefault: string, username: string, value: number) => {
+export const createQrCode = async (urlDefault: string, chave: string, name: string, value: number) => {
     try {
-        const url = urlDefault + CONSTANTE.URL_QRCODE_GENERATE
-        const body = { username: username.trim(), value: value }
-        //const response = await api.post(url, body)
+        console.log('')
+        console.log('qrcodeService.createQrCode')
 
-        // const data = response.data // certo
-        // const data = 'iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAYAAAAZtYVBAAAAAklEQVR4AewaftIAAAY1SURBVO3BQY4cy5LAQDLQ978yR0tfJZCoar34GjezP1jrEoe1LnJY6yKHtS5yWOsih7UucljrIoe1LnJY6yKHtS5yWOsih7UucljrIoe1LnJY6yKHtS7yw4dU'
-        // const data = '00020101021126360014br.gov.bcb.spi0114+55119421246815204000053039865802BR5906Fulano6009São Paulo63041689' //  0,00 ok
-        // const data = '00020101021126360014br.gov.bcb.spi0114+55119421200015204000053039865406100.005802BR5913Fulano de Tal6009São Paulo63041A9B' // 100,00 ok
-        // const data = '00020101021126360014br.gov.bcb.spi0114+55119421200055204000053039865406100.005802BR5909Anderson 6009São Paulo63040CB1' // 100,00 ok
-        // const data = '00020101021126360014br.gov.bcb.spi0114+55119421255555204000053039865406100.005802BR5917J3 AZUL RECEBEDOR6009São Paulo630417AC'
-        // const data = '00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC'
-        // const data = 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBQTFRF7c5J78kt+/Xm78lQ6stH5LI36bQh6rcf7sQp671G89ZZ8c9V8c5U9+u27MhJ/Pjv9txf8uCx57c937Ay5L1n58Nb67si8tVZ5sA68tJX/Pfr7dF58tBG9d5e8+Gc6chN6LM+7spN1pos6rYs6L8+47hE7cNG6bQc9uFj7sMn4rc17cMx3atG8duj+O7B686H7cAl7cEm7sRM26cq/vz5/v767NFY7tJM78Yq8s8y3agt9dte6sVD/vz15bY59Nlb8txY9+y86LpA5LxL67pE7L5H05Ai2Z4m58Vz89RI7dKr+/XY8Ms68dx/6sZE7sRCzIEN0YwZ67wi6rk27L4k9NZB4rAz7L0j5rM66bMb682a5sJG6LEm3asy3q0w3q026sqC8cxJ6bYd685U5a457cIn7MBJ8tZW7c1I7c5K7cQ18Msu/v3678tQ3aMq7tNe6chu6rgg79VN8tNH8c0w57Q83akq7dBb9Nld9d5g6cdC8dyb675F/v327NB6////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/LvB3QAAAMFJREFUeNpiqIcAbz0ogwFKm7GgCjgyZMihCLCkc0nkIAnIMVRw2UhDBGp5fcurGOyLfbhVtJwLdJkY8oscZCsFPBk5spiNaoTC4hnqk801Qi2zLQyD2NlcWWP5GepN5TOtSxg1QwrV01itpECG2kaLy3AYiCWxcRozQWyp9pNMDWePDI4QgVpbx5eo7a+mHFOqAxUQVeRhdrLjdFFQggqo5tqVeSS456UEQgWE4/RBboxyC4AKCEI9Wu9lUl8PEGAAV7NY4hyx8voAAAAASUVORK5CYII='
-        // const data = 'iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='
-        const data = 'iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQAAAACFI5MzAAABGUlEQVR42u2YSw7DIAxEzYpjcFM+N+UYrErtMUkjpd2WWQQlyudtLI89JpH5a8lDHvJnUkVXmkMPKcMeAg1peo70inrpRbm/ISFDwkhNX4NUSWxEo26WVFKisgc2ArWncSO3OthJvEs0nTju/bOT+NJKzJK++c5OovJWRIob2AwNsf6YXWJ3eFGbgXS4skgEGafaDGSifVONS/ZCQ/Q2YI5l8BdSS0ImwtTezehjiM9C3FG8fbVdykft/URTeEY918hlIZZFC9Yq0Rw6ns63nyxXtkTCYK6VuJv4NKvmMdgFMBHfBbRjb8JFxgoWW04RPmKfEaY2pgcZcT/OsL3GQ5baFrUN23iZZrvJ6pKjDJFXFvL8P3jIfvIGvNX7jsCaJvEAAAAASUVORK5CYII='
+        const url = urlDefault + CONSTANTE.URL_QRCODE_GENERATE
+        console.log('url:', url)
+
+        console.log('chave:', chave)
+        chave = chave.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
+        console.log('chave:', chave)
+
+        const body = JSON.parse(` {"chaveIdentificacao":"${chave}","nomeRecebedor":"${name}","cidade":"São Paulo","valor":${value}}`)
+        console.log('body:', body)
+
+        const response = await api.post(url, body)
+
+        const data = response.data // certo
+
+        //const body = `{"bank": "${bank}", "name": "${name}", "username": "${username}", "value": ${value}}`
+        //const data = btoa(unescape(encodeURIComponent(body))) // btoa(unescape(encodeURIComponent(JSON.stringify(body))))
+
+        //console.log('data:', data)
+        // console.log('certo: eyJiYW5rIjogIkpEIEJhbmsiLCAibmFtZSI6ICJDbGllbnQgUGF5IDAxIiwgInVzZXJuYW1lIjogImNsaWVudHBheTEiLCAidmFsdWUiOiAxMH0=')
+        // console.log('status:', data == 'eyJiYW5rIjogIkpEIEJhbmsiLCAibmFtZSI6ICJDbGllbnQgUGF5IDAxIiwgInVzZXJuYW1lIjogImNsaWVudHBheTEiLCAidmFsdWUiOiAxMH0=')
+        console.log('-----------------------------')
+        console.log('')
 
         return data
     } catch (error: any) {
@@ -26,14 +37,26 @@ export const createQrCode = async (urlDefault: string, username: string, value: 
     }
 }
 
-export const sendQrCode = async (urlDefault: string, username: string, qrcode: string) => {
+export const sendQrCode = async (urlDefault: string, qrcode: string) => {
     try {
         const url = urlDefault + CONSTANTE.URL_QRCODE_SEND
-        const body = JSON.stringify({ username: username.trim(), data: qrcode })
-        //const response = await api.post(url, body)
+        const body = JSON.stringify({ emv: qrcode })
 
-        // const data = response.data
-        const data = { value: 10000.0, name: 'Allieeee' }
+        console.log('')
+        console.log('qrcodeService.sendQrCode')
+        console.log('qrcode:', qrcode)
+        console.log('body:', body)
+
+        const response = await api.post(url, body)
+
+        // 00020101021126360014br.gov.bcb.spi0114+5511942120001520400005303986540512.335802BR5913Client Pay 016009São Paulo6304177C
+        const data = { value: parseFloat(response.data.transactionAmount), name: response.data.merchantName, info: response.data.additionalDataField, chave: response.data.merchantAccountInformation.itens[1].descricao }
+        // {"additionalDataField": "", "countryCode": "BR", "merchantAccountInformation": {"id": "26", "itens": [[Object], [Object]]}, "merchantCategoryCode": "0000", "merchantCity": "São Paulo", "merchantName": "Client Pay 01", "payloadFormatIndicator": "01", "pointInitiationMethod": 11, "transactionAmount": 12.33, "transactionCurrency": 986, "unreservedTemplate": {"itens": []}}
+
+        console.log('response:', response.data)
+        console.log('data:', data)
+        console.log('-----------------------------')
+        console.log('')
 
         return data
     } catch (error: any) {
@@ -42,39 +65,46 @@ export const sendQrCode = async (urlDefault: string, username: string, qrcode: s
     }
 }
 
-export const payQrCode = async (urlDefault: string, username: string, value: number, name: string) => {
+export const payQrCode = async (urlDefault: string, ispbPay: number, agenciaPay: string, tipoContaPay: number, contaPay: string, tipoPessoaPay: number, documentoPay: number, namePay: string, ispbRec: number, agenciaRec: string, tipoContaRec: number, contaRec: string, tipoPessoaRec: number, documentoRec: number, nameRec: string, infoRec: string, value: number) => {
     try {
-        // const url = 'https://89e6-67-159-235-142.ngrok-free.app/api'// DESENV
         const url = urlDefault + CONSTANTE.URL_QRCODE_PAY
-        // const body = JSON.stringify({ username: username.trim(), value: value, name: name }) // DESENV
+
+        console.log('')
+        console.log('qrcodeService.payQrCode')
+        console.log('url:', url)
 
         const body = JSON.stringify({
             pagador: {
-                ispb: 4358798,
-                tipoPessoa: 0,
-                tipoConta: 0,
-                agencia: '0004',
-                conta: '4444',
-                documento: 22222222222,
-                nome: 'JD VERMELHO PAGADOR',
+                ispb: ispbPay,
+                tipoPessoa: tipoPessoaPay,
+                tipoConta: tipoContaPay,
+                agencia: agenciaPay,
+                conta: contaPay,
+                documento: documentoPay,
+                nome: namePay,
             },
             recebedor: {
-                ispb: 84701762,
-                tipoPessoa: 0,
-                documento: 22222222222,
-                agencia: '0002',
-                conta: '2222',
-                tipoConta: 0,
-                nome: 'AZUL RECEBEDOR',
+                ispb: ispbRec,
+                tipoPessoa: tipoPessoaRec,
+                documento: documentoRec,
+                agencia: agenciaRec,
+                conta: contaRec,
+                tipoConta: tipoContaRec,
+                nome: nameRec,
             },
-            valor: value, // 15088.98
-            customInformation: '123',
+            valor: value,
+            customInformation: infoRec,
         })
+
+        console.log('body:', body)
 
         const response = await api.post(url, body)
 
         const data = response.data
-        //const data = { id: '123', username: username.trim(), value: value, name: name }
+
+        console.log('data:', data)
+        console.log('-----------------------------')
+        console.log('')
 
         return data
     } catch (error: any) {

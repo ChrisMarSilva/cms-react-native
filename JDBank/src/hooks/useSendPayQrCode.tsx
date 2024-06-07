@@ -48,17 +48,13 @@ const useSendPayQrCode = () => {
     const handlSendQRCode = async ({ type, data }: { type: any; data: any }) => {
         try {
             // remove this line
-            //const data = '00020101021126360014br.gov.bcb.spi0114+55119421246815204000053039865802BR5906Fulano6009São Paulo63041689'; //  0,00 ok
-            //const data = "00020101021126360014br.gov.bcb.spi0114+55119421200015204000053039865406100.005802BR5913Fulano de Tal6009São Paulo63041A9B"; // 100,00 ok
-            //const data = "00020101021126360014br.gov.bcb.spi0114+55119421200055204000053039865406100.005802BR5909Anderson 6009São Paulo63040CB1"; // 100,00 ok
-            //const data = '00020101021126360014br.gov.bcb.spi0114+55119421255555204000053039865406100.005802BR5917J3 AZUL RECEBEDOR6009São Paulo630417AC';
-            data = '00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC'
+            //data = '00020101021126360014br.gov.bcb.spi0114+551194212333352040000530398654040.005802BR5919JD VERMELHO PAGADOR6009São Paulo630416DC'
 
             // setHasScanned(false)
             if (data.trim() == '') return
             setHasScanned(true)
 
-            const result = await sendQrCode(currentUser.url, currentUser.username, data)
+            const result = await sendQrCode(currentUser.url, data)
 
             setHasScanned(false)
 
@@ -67,6 +63,8 @@ const useSendPayQrCode = () => {
                 params: {
                     value: parseFloat(result.value.toString() || '0'),
                     name: result.name.toString() || '',
+                    info: result.info.toString() || '',
+                    chave: result.chave.toString() || '',
                 },
             })
         } catch (error: any) {

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Keyboard, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
 
 import useRequestPayQrCode from '@/src/hooks/useRequestPayQrCode'

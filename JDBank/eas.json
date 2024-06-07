@@ -27,7 +27,17 @@
             "distribution": "internal"
         },
         "production": {
-            "channel": "production"
+            "channel": "production",
+            "env": {
+                "EXPO_PUBLIC_API_URL": "https://api.production.com"
+            }
+        },
+        "test": {
+            "env": {
+                "EXPO_PUBLIC_API_URL": "https://api.test.com",
+                "APP_ICON": "./assets/icon-test.png",
+                "APP_NAME": "My App (Test)"
+            }
         }
     },
     "submit": {

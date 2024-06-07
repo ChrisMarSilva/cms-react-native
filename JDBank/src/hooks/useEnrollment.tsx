@@ -25,7 +25,7 @@ const useEnrollment = () => {
     const refTxtCardOrAccount = useRef(null)
     const refTxtSocialSecurity = useRef(null)
 
-    let imglogo = (currentUser as any).url == CONSTANTE.PAYMENT_BANK_URL ? imglogoJD : imglogoJ3
+    let imglogo = currentUser.bank == currentUser.namePaymentBank ? imglogoJD : imglogoJ3
 
     useEffect(() => {
         _clearData()

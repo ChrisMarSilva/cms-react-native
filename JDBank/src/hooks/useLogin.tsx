@@ -44,7 +44,7 @@ const useLogin = () => {
         setTxtUsername(currentUser.username)
         setTxtPassword('')
 
-        console.log('useLogin._loadCurrentUser - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
+       // console.log('useLogin._loadCurrentUser - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
 
         if (currentUser.username == '') refTxtUsername?.current?.focus() // if (refTxtUsername && refTxtUsername.current)  refTxtUsername.current.focus()
         if (currentUser.username != '') refTxtPassword?.current?.focus()

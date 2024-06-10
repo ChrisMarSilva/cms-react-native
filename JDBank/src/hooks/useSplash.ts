@@ -41,7 +41,7 @@ const useSplash = () => {
         const ispb = await HelperSessao.GetIspb()
         const username = await HelperSessao.GetUsername()
 
-        console.log('useSplash._loadSessionUser - ispb:', ispb, ', bank:', bank, ', username:', username, ', url:', url)
+        //console.log('useSplash._loadSessionUser - ispb:', ispb, ', bank:', bank, ', username:', username, ', url:', url)
 
         currentUser.setUrl(url.toString().trim() || '')
         currentUser.setIspb(parseInt(ispb) || 0)

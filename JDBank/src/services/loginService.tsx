@@ -5,15 +5,15 @@ export const getLogin = async (urlDefault: string, username: string) => {
     try {
 
         username = username.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
-        console.log('loginService.getLogin - username:', username)
+        //console.log('loginService.getLogin - username:', username)
 
         const url = urlDefault + CONSTANTE.URL_LOGIN + '?chave=' + encodeURIComponent(escape(username))
-        console.log('loginService.getLogin - url:', url)
+        //console.log('loginService.getLogin - url:', url)
 
         const response = await api.get<any>(url)
 
         const data = Array.isArray(response.data) ? response.data[0] : response.data
-        console.log('loginService.getLogin - data:', data)
+        //console.log('loginService.getLogin - data:', data)
 
         const result = {
             id: '1',
@@ -37,7 +37,7 @@ export const getLogin = async (urlDefault: string, username: string) => {
             tipoConta: data?.tipoConta || '',
         }
 
-        console.log('loginService.getLogin - result:', result)
+        //console.log('loginService.getLogin - result:', result)
 
         return result
     } catch (error: any) {

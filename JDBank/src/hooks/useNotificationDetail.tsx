@@ -7,7 +7,7 @@ const useNotificationDetail = () => {
     const navigation = useNavigation()
     const params = useLocalSearchParams()
 
-    console.log('useNotificationDetail - datetime: ', params.datetime, ', name: ', params.name, ', value: ', params.value)
+    //console.log('useNotificationDetail - datetime: ', params.datetime, ', name: ', params.name, ', value: ', params.value)
 
     useEffect(() => {
         navigation.setOptions({

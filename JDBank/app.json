@@ -3,11 +3,11 @@
         "name": "JD Bank",
         "slug": "JDBank",
         "scheme": "jdbank",
-        "version": "1.0.13",
+        "version": "1.0.14",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "userInterfaceStyle": "automatic",
-        "runtimeVersion": "1.0.13",
+        "runtimeVersion": "1.0.14",
         "splash": {
             "image": "./assets/images/splash.png",
             "resizeMode": "contain",
@@ -16,12 +16,12 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "br.com.jdconsultores.jdbank",
-            "buildNumber": "1.0.13"
+            "buildNumber": "1.0.14"
         },
         "android": {
             "package": "br.com.jdconsultores.jdbank",
             "icon": "./assets/images/icon.png",
-            "versionCode": 13,
+            "versionCode": 14,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"

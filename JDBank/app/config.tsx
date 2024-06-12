@@ -10,7 +10,7 @@ export default function ConfigScreen() {
     return (
         <View style={styles.container}>
             <KeyboardAvoidingView style={styles.card} behavior="padding" enabled>
-                <Text style={styles.title}>Configuration</Text>
+                <Text style={styles.title}>Settings</Text>
 
                 <Text style={styles.inputTitle}>ISPB</Text>
                 <View style={styles.inputContainer}>

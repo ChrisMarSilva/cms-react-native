@@ -28,7 +28,7 @@ const useConfig = () => {
     // useEffect(() => {
     //     navigation.setOptions({
     //         headerBackground: () => <LinearGradient colors={['#fff', '#fff']} style={{ flex: 1 }} />,
-    //         //headerTitle: () => <Text style={{ marginLeft: 5, fontSize: 18, fontWeight: 'bold' }}>Configuration</Text>,
+    //         //headerTitle: () => <Text style={{ marginLeft: 5, fontSize: 18, fontWeight: 'bold' }}>Settings</Text>,
     //     })
     // }, [navigation])
 

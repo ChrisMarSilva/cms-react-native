@@ -45,7 +45,7 @@ export default function LoginScreen() {
                     {'  '}|{'  '}
                 </Text>
                 <Text style={styles.enrollText} onPress={handleConfig} disabled={isLoading}>
-                    Configuration
+                    Settings
                 </Text>
             </View>
 

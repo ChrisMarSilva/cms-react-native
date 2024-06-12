@@ -1,4 +1,7 @@
 
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 JDMobile2024
 
 Recuperação do codigo de 2019
@@ -47,21 +50,21 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+04358798 - JJ4Bank - https://3927-67-159-235-142.ngrok-free.app - 11111111111
+84701762 - J Bank  - https://55c5-67-159-235-142.ngrok-free.app - 44444444444444
+
+// https://localhost:51235/spi/api/chave?chave=33333333333  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":33333333333,"agencia":"6","conta":"6666","tipoConta":0,"nome":"Machado de Assis"}
+// https://localhost:51235/spi/api/chave?chave=44444444444  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":44444444444,"agencia":"7","conta":"7777","tipoConta":0,"nome":"Vinicius de Moraes"}
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 npx create-expo-app@latest -y
 npm run reset-project
 
 npx expo start -c
 npx json-server --watch db_pag.json --port 3002
 npx json-server --watch db_rec.json --port 3001
-
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
-
-// https://localhost:51235/spi/api/chave?chave=33333333333  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":33333333333,"agencia":"6","conta":"6666","tipoConta":0,"nome":"Machado de Assis"}
-// https://localhost:51235/spi/api/chave?chave=44444444444  // {"ispb":4358798,"nomeBanco":"JD Bank","tipoPessoa":0,"documento":44444444444,"agencia":"7","conta":"7777","tipoConta":0,"nome":"Vinicius de Moraes"}
-
-JJ4Bank - login: 11111111111:    url: https://61b8-191-181-56-59.ngrok-free.app - 04358798
-J Bank  - login: 44444444444444: url: https://2a73-191-181-56-59.ngrok-free.app - 84701762
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -79,7 +82,7 @@ eas update --branch development --message "#012 - Updating the app version 1.0.1
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#014 - Updating the app version 1.0.14"
+eas build --platform android --profile preview --message "#015 - Updating the app version 1.0.15"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -161,7 +164,6 @@ i18n
     index.js
     en-US.js
     pt-BR.js
-
 
 index.js
 

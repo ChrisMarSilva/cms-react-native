@@ -13,8 +13,8 @@ export default function NotificationDetailScreen() {
 
             <Text style={styles.datetimeText}>{params.datetime}</Text>
             <Text style={styles.sentAmount}>Received {HelperNumero.FormatCurrency(parseFloat(params.value?.toString() || '0'))}</Text>
-            <Text style={styles.toText}>from</Text>
-            <Text style={styles.recipient}>{params.name}</Text>
+            {params.value?.toString() != '' && <Text style={styles.toText}>from</Text>}
+            {params.value?.toString() != '' && <Text style={styles.recipient}>{params.name}</Text>}
 
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.doneButton} onPress={handleSeeReceipt}>

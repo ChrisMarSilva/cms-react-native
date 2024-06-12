@@ -18,14 +18,10 @@ const useHome = () => {
 
     const imgPerson = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imgBluePerson : imgRedPerson
 
-    // const [nameRec, setNameRec] = useState<string>('')
-    // const [valueRec, setValueRec] = useState<number>(0)
-    // const [datetimeRec, setDatetimeRec] = useState<string>('')
-    // const [isActiveNotification, setIsActiveNotification] = useState<boolean>(false)
-
-    // let value = 0
-    // let name = ''
-    // let datetime = ''
+    const [nameRec, setNameRec] = useState<string>('')
+    const [valueRec, setValueRec] = useState<number>(0)
+    const [datetimeRec, setDatetimeRec] = useState<string>('')
+    const [isActiveNotification, setIsActiveNotification] = useState<boolean>(false)
 
     useEffect(() => {
         _cleaData()
@@ -41,22 +37,16 @@ const useHome = () => {
             headerBackground: () => <HeaderBackground />,
             headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={currentUser.bank} />,
-            headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
-            // headerRight: () => (isActiveNotification ? <HeaderRight isVisible={true} onPress={handleNotification} icone={'notifications-on'} color={'#138a17'} /> : <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />),
+            //headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
+            headerRight: () => (isActiveNotification ? <HeaderRight isVisible={true} onPress={handleNotification} icone={'notifications-on'} color={'#138a17'} /> : null),
         })
     }, [navigation])
 
-    // useEffect(() => {
-    //     if (isActiveNotification) {
-    //         console.log('useHome.useEffect - isActiveNotification = true , datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
-    //     }
-    // }, [isActiveNotification])
-
     const _cleaData = () => {
-        //setNameRec('')
-        //setValueRec(0)
-        //setDatetimeRec('')
-        //setIsActiveNotification(false)
+        setNameRec('')
+        setValueRec(0)
+        setDatetimeRec('')
+        setIsActiveNotification(false)
     }
 
     const _loadData = () => {
@@ -95,32 +85,34 @@ const useHome = () => {
 
             const connection = new signalR.HubConnectionBuilder().withUrl(url, options).configureLogging(signalR.LogLevel.None).build()
 
-            connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor) => {
+            connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor, tipoOperacao) => {
                 console.log('useHome._getNotificationsBySignalR.ReceivePayment - agencia: ', agencia, ', conta: ', conta, ', documento: ', documento, ', tipoPessoa: ', tipoPessoa, ', nome: ', nome, ', valor: ', valor, ', balanceOld: ', currentUser.balance)
 
-                const d = new Date()
-                //setDatetimeRec(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
-                //setNameRec(nome)
-                //setValueRec(parseFloat(valor))
-                //setIsActiveNotification(true)
-
-                _getBalance()
                 //_playSound()
-                //setTimeout(() => { handleNotification() }, 900)
-                handleNotification(parseFloat(valor), nome, `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
+                _getBalance()
+
+                // setTimeout(() => {  }, 900)
+                if (tipoOperacao.toString() == '0') {
+                    // 0-Credito // 1-Debito
+
+                    const d = new Date()
+                    setDatetimeRec(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
+                    setNameRec(nome)
+                    setValueRec(parseFloat(valor))
+                    setIsActiveNotification(true)
+
+                    handleNotification(parseFloat(valor), nome, `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
+                }
             })
 
             connection.on('AtualizarSaldo', (agencia, conta, valor) => {
                 //console.log('useHome._getNotificationsBySignalR.AtualizarSaldo - agencia: ', agencia, ', conta: ', conta, ', valor: ', valor, ', currentUser.agencia: ', currentUser.agencia, ', currentUser.conta: ', currentUser.conta)
-
                 if (parseInt(currentUser.agencia) == parseInt(agencia) && parseInt(currentUser.conta) == parseInt(conta)) currentUser.setBalance(parseFloat(valor))
             })
 
             connection
                 .start()
-                .then(() => {
-                    /*console.log('Conectado!') */
-                })
+                //.then(() => { console.log('Conectado!') })
                 .catch((error) => console.error(error.toString()))
 
             connection.onclose(() => {
@@ -171,10 +163,10 @@ const useHome = () => {
     const handleLogout = () => router.replace('/login')
 
     const handleNotification = (value: number, name: string, datetime: string) => {
-        //console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
+        console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
 
         //if (nameRec.toString().trim() != '' && nameRec != 'undefined' && nameRec != undefined) {
-        router.navigate({ pathname: '/notification_detail', params: { value: value, name: name || '...', datetime: datetime } })
+        router.navigate({ pathname: '/notification_detail', params: { value: value, name: name, datetime: datetime } })
         //}
 
         //setIsActiveNotification(false)

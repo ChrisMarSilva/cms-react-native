@@ -7,6 +7,7 @@ export const URL_QRCODE_GENERATE = 'spi/api/qrcode/estatico/GerarQRCode'
 export const URL_QRCODE_SEND = 'api/qrcode'
 export const URL_QRCODE_PAY = 'api'
 export const URL_RECEBE_PAGTO = 'hubs/receive/payment' // SignaR ao Receber um Credio
+export const URL_LANCAMENTO = 'extrato/atual'
 
 // SESSAO
 export const SESSAO_PADRAO = '@JDSPI:'

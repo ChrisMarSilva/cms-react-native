@@ -86,7 +86,7 @@ const useHome = () => {
             const connection = new signalR.HubConnectionBuilder().withUrl(url, options).configureLogging(signalR.LogLevel.None).build()
 
             connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor, tipoOperacao) => {
-                console.log('useHome._getNotificationsBySignalR.ReceivePayment - agencia: ', agencia, ', conta: ', conta, ', documento: ', documento, ', tipoPessoa: ', tipoPessoa, ', nome: ', nome, ', valor: ', valor, ', balanceOld: ', currentUser.balance)
+                // console.log('useHome._getNotificationsBySignalR.ReceivePayment - agencia: ', agencia, ', conta: ', conta, ', documento: ', documento, ', tipoPessoa: ', tipoPessoa, ', nome: ', nome, ', valor: ', valor, ', balanceOld: ', currentUser.balance)
 
                 //_playSound()
                 _getBalance()
@@ -163,7 +163,7 @@ const useHome = () => {
     const handleLogout = () => router.replace('/login')
 
     const handleNotification = (value: number, name: string, datetime: string) => {
-        console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
+        // console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
 
         //if (nameRec.toString().trim() != '' && nameRec != 'undefined' && nameRec != undefined) {
         router.navigate({ pathname: '/notification_detail', params: { value: value, name: name, datetime: datetime } })

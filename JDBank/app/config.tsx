@@ -12,7 +12,7 @@ export default function ConfigScreen() {
             <KeyboardAvoidingView style={styles.card} behavior="padding" enabled>
                 <Text style={styles.title}>Settings</Text>
 
-                <Text style={styles.inputTitle}>ISPB</Text>
+                <Text style={styles.inputTitle}>Clearing System Member ID</Text>
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.input} ref={refIspb} onSubmitEditing={() => refBank?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="..." value={ispb} onChangeText={(value) => setIspb(value)} />
                     <TouchableOpacity onPress={() => setIspb('')}>
@@ -20,7 +20,7 @@ export default function ConfigScreen() {
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.inputTitle}>BANK</Text>
+                <Text style={styles.inputTitle}>Financial Institution Name</Text>
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.input} ref={refBank as React.RefObject<TextInput>} onSubmitEditing={() => refUrl?.current?.focus()} onEndEditing={() => Keyboard.dismiss} blurOnSubmit={false} returnKeyType={'next'} autoFocus={true} autoCapitalize="none" autoCorrect={false} placeholder="..." value={bank} onChangeText={(value) => setBank(value)} />
                     <TouchableOpacity onPress={() => setBank('')}>

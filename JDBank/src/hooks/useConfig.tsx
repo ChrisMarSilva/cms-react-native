@@ -44,7 +44,7 @@ const useConfig = () => {
         setIspb(currentUser.ispb.toString())
         setBank(currentUser.bank.toString().trim())
         setUrl(currentUser.url.toString().trim())
-        console.log('useConfig._loadData - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
+        // console.log('useConfig._loadData - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
 
         refIspb?.current?.focus()
     }
@@ -58,10 +58,10 @@ const useConfig = () => {
     const handleSave = async () => {
         if (ispb == '' || bank == '' || url == '') {
             if (ispb == '') {
-                Alert.alert('Warning', 'ISPB is required')
+                Alert.alert('Warning', 'Clearing System Member ID is required')
                 refIspb?.current?.focus()
             } else if (bank == '') {
-                Alert.alert('Warning', 'Bank is required')
+                Alert.alert('Warning', 'Financial Institution Name is required')
                 refBank?.current?.focus()
             } else if (url == '') {
                 Alert.alert('Warning', 'Url is required')
@@ -70,7 +70,7 @@ const useConfig = () => {
             return
         }
 
-        console.log('useConfig.handleSave - ispb:', ispb, ', bank:', bank, ', url:', url)
+        // console.log('useConfig.handleSave - ispb:', ispb, ', bank:', bank, ', url:', url)
 
         currentUser.setIspb(parseInt(ispb || '0'))
         currentUser.setBank(bank.toString().trim())

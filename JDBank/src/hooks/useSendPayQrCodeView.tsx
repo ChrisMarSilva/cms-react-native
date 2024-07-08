@@ -50,12 +50,6 @@ const useSendPayQrCodeView = () => {
 
     const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '', info: '', chave: '' } })
 
-    const handleSchedule = () => {
-        Keyboard.dismiss()
-        Alert.alert('Scheduled payment!')
-        router.navigate({ pathname: '/home', params: { value: '0', name: '', info: '', chave: '' } })
-    }
-
     const handleSend = async () => {
         try {
             Keyboard.dismiss()
@@ -95,7 +89,6 @@ const useSendPayQrCodeView = () => {
         value,
         handleHome,
         handleSend,
-        handleSchedule,
     }
 }
 

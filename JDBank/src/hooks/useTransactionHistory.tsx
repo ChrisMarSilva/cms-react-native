@@ -2,29 +2,23 @@ import { useEffect, useState } from 'react'
 import { useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
+import { getExtract } from '@/src/services/transactionService'
 import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 const useTransactionHistory = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
 
-    const [isBtnAllSelected, setIsBtnAllSelected] = useState(true)
-    const [isBtnReceivedSelected, setIsBtnReceivedSelected] = useState(false)
-    const [isBtnSentSelected, setIsBtnSentSelected] = useState(false)
-    const [dataPrinc, setDataPrinc] = useState<any>(null)
-    const [data, setData] = useState<any>(null)
+    const [isBtnAllSelected, setIsBtnAllSelected] = useState<boolean>(false)
+    const [isBtnReceivedSelected, setIsBtnReceivedSelected] = useState<boolean>(false)
+    const [isBtnSentSelected, setIsBtnSentSelected] = useState<boolean>(false)
+    const [data, setData] = useState<any[]>([])
+    const [dataPrinc, setDataPrinc] = useState<any[]>([])
 
     useEffect(() => {
-        setIsBtnAllSelected(true)
-        setIsBtnReceivedSelected(false)
-        setIsBtnSentSelected(false)
-        setDataPrinc(null)
-        setData(null)
+        _cleaData()
+        _loadData()
 
-        setTimeout(() => {
-            handleBtnAll()
-        }, 200)
-        
         // return () => {
         //     _clearData()
         // }
@@ -37,51 +31,54 @@ const useTransactionHistory = () => {
         })
     }, [navigation])
 
+    const _cleaData = () => {
+        setIsBtnAllSelected(false)
+        setIsBtnReceivedSelected(false)
+        setIsBtnSentSelected(false)
+        setData([])
+        setDataPrinc([])
+    }
+
+    const _loadData = async () => {
+        try {
+            const result = await getExtract(currentUser.url)
+
+            setDataPrinc(result)
+            setData(result)
+            setIsBtnAllSelected(true)
+            setIsBtnReceivedSelected(false)
+            setIsBtnSentSelected(false)
+        } catch (error: any) {
+            console.error(error)
+            Alert.alert(error.message)
+        }
+    }
+
     const handleBtnAll = () => {
-        const dt = new Date()
-        //const dataAtual = ('0' + (dt.getMonth() + 1)).substr(-2) + '/' + ('0' + dt.getDate()).substr(-2) + '/' + dt.getFullYear()
-        const dataAtual = (dt.getMonth() + 1).toString().padStart(2, '0') + '/' + dt.getDate().toString().padStart(2, '0') + '/' + dt.getFullYear()
-
-        const result = [
-            { time: dataAtual, title: 'Received', description: 'Person 1', lineColor: 'transparent', type: 'R', value: 123456.99 },
-            { time: dataAtual, title: 'Sent', description: 'Person 2', lineColor: 'transparent', type: 'R', value: -200 },
-            { time: dataAtual, title: 'Pending Request for Pay', description: 'Person 3', lineColor: 'transparent', type: 'R', value: 500 },
-            { time: dataAtual, title: 'Received', description: 'Person 1', lineColor: 'transparent', type: 'R', value: 1000 },
-            { time: dataAtual, title: 'Sent', description: 'Person 2', lineColor: 'transparent', type: 'R', value: -1500 },
-            { time: dataAtual, title: 'Received Request for Pay', description: 'Person 3', lineColor: 'transparent', type: 'P', value: 2000 },
-            { time: dataAtual, title: 'Received Request for Pay', description: 'Person 4', lineColor: 'transparent', type: 'P', value: 3000 },
-            { time: dataAtual, title: 'Sent', description: 'Person 5', lineColor: 'transparent', type: 'P', value: -4000 },
-            { time: dataAtual, title: 'Received Request for Pay', description: 'Person 4', lineColor: 'transparent', type: 'P', value: 5000 },
-            { time: dataAtual, title: 'Sent', description: 'Person 5', lineColor: 'transparent', type: 'P', value: -6000.99 },
-        ]
-
         setIsBtnAllSelected(true)
         setIsBtnReceivedSelected(false)
         setIsBtnSentSelected(false)
-        setData(result)
-        setDataPrinc(result)
+        setData(dataPrinc)
     }
-
     const handleBtnReceived = () => {
         setIsBtnAllSelected(false)
         setIsBtnReceivedSelected(true)
         setIsBtnSentSelected(false)
-        setData(dataPrinc.filter((item: any) => item.type == 'R'))
+        setData(dataPrinc.filter((item: any) => item.tipoOperacao == 0)) // 0 Received
     }
-
     const handleBtnSent = () => {
         setIsBtnAllSelected(false)
         setIsBtnReceivedSelected(false)
         setIsBtnSentSelected(true)
-        setData(dataPrinc.filter((item: any) => item.type == 'P'))
+        setData(dataPrinc.filter((item: any) => item.tipoOperacao == 1)) // 1 - sent
     }
 
     return {
         currentUser,
+        data,
         isBtnAllSelected,
         isBtnReceivedSelected,
         isBtnSentSelected,
-        data,
         handleBtnAll,
         handleBtnReceived,
         handleBtnSent,

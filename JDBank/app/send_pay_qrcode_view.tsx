@@ -8,7 +8,7 @@ import * as HelperNumero from '@/src/util/HelperNumero'
 //import imgLoader from '@/src/assets/lottie/201-simple-loader.json'
 
 export default function SendPayQrCodeViewScreen() {
-    const { isLoadingPay, name, value, handleHome, handleSend, handleSchedule } = useSendPayQrCodeView()
+    const { isLoadingPay, name, value, handleHome, handleSend } = useSendPayQrCodeView()
 
     return (
         <View style={styles.container}>
@@ -45,10 +45,6 @@ export default function SendPayQrCodeViewScreen() {
                         {isLoadingPay ? <ActivityIndicator color="#fff" size="small" /> : <Text style={styles.continueButtonText}>SEND</Text>}
                     </TouchableOpacity>
                 </View>
-
-                <TouchableOpacity style={styles.scheduleButton} onPress={handleSchedule} disabled={isLoadingPay}>
-                    <Text style={styles.continueButtonText}>SCHEDULE A PAYMENT</Text>
-                </TouchableOpacity>
                 {/* )} */}
             </View>
         </View>

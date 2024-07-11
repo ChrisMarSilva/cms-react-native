@@ -14,12 +14,16 @@ export default function TransactionHistoryScreen() {
                     ? item.pagadorNome
                     : item.pagadorISPB == currentUser.ispb
                       ? currentUser.bank
-                      : 'JJ4 Bank'
+                      : item.pagadorISPB == 4358798
+                        ? 'JJ4 Bank'
+                        : 'J Bank'
                 : item.recebedorNome // Sent
                   ? item.recebedorNome
                   : item.recebedorISPB == currentUser.ispb
                     ? currentUser.bank
-                    : 'J Bank'
+                    : item.recebedorISPB == 4358798
+                      ? 'JJ4 Bank'
+                      : 'J Bank'
 
         const initials = name?.charAt(0).toUpperCase() // name.split(' ').map((n: any) => n[0]).join('').toUpperCase()
         const value = HelperNumero.FormatCurrency(item.valor)

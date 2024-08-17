@@ -58,6 +58,9 @@ Ajuste no Layout e Tradução CSC solicitado pela FJ  - JDBankMobileV1.docx
         Ajustar nomes para os que eu enviei anteriormente por e-mail (adequação cultural) - Deve ser alterado no Banco de Dados
         Se o login pudesse ser um e-mail, ótimo, senão ok  - O login eh feito pela chave, deve ser alterado na API
 
+sabado - 17/08/2024 14:00:00 - 17/08/2024 15:00:00 - 04h ===> ajustes Carol
+        Alterar os logos - ok
+
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -75,7 +78,6 @@ tunnels:
   second-app:
     addr: 51237
     proto: http
-
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -103,7 +105,7 @@ eas update --branch development --message "#016 - Updating the app version 1.0.1
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#016 - Updating the app version 1.0.16"
+eas build --platform android --profile preview --message "#017 - Updating the app version 1.0.17"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

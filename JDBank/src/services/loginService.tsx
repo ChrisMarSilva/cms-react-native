@@ -3,7 +3,6 @@ import * as CONSTANTE from '@/src/util/Constante'
 
 export const getLogin = async (urlDefault: string, username: string) => {
     try {
-
         username = username.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
         //console.log('loginService.getLogin - username:', username)
 

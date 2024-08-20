@@ -59,7 +59,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
     container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f9f9f9' },
 
-    logo: { width: 150, height: 150, resizeMode: 'contain', marginBottom: 10 },
+    logo: { width: 130, height: 130, resizeMode: 'contain', marginBottom: 10 },
 
     loginCard: { width: '90%', backgroundColor: '#ffffff', padding: 5, borderRadius: 10, marginTop: 0, paddingTop: 50, shadowColor: '#000000', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.21, shadowRadius: 6.65, elevation: 9 },
     inputContainer: { paddingHorizontal: 10 },

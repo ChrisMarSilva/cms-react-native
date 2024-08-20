@@ -24,7 +24,7 @@ export const HeaderLeft = () => {
 
     return (
         <View>
-            <Image style={{ resizeMode: 'contain', width: 45, height: 45, borderRadius: 63, marginHorizontal: 15 }} source={imglogo} />
+            <Image style={{ resizeMode: 'center', width: 45, height: 45, borderRadius: 63, marginHorizontal: 15 }} source={imglogo} />
         </View>
     )
 }

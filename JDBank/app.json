@@ -1,13 +1,13 @@
 {
     "expo": {
-        "name": "JD Bank",
+        "name": "JJ4 Bank",
         "slug": "JDBank",
-        "scheme": "jdbank",
-        "version": "1.0.18",
+        "scheme": "jj4bank",
+        "version": "1.0.19",
         "orientation": "portrait",
         "icon": "./assets/images/icon.png",
         "userInterfaceStyle": "automatic",
-        "runtimeVersion": "1.0.18",
+        "runtimeVersion": "1.0.19",
         "splash": {
             "image": "./assets/images/splash.png",
             "resizeMode": "contain",
@@ -16,12 +16,12 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "br.com.jdconsultores.jdbank",
-            "buildNumber": "1.0.18"
+            "buildNumber": "1.0.19"
         },
         "android": {
             "package": "br.com.jdconsultores.jdbank",
             "icon": "./assets/images/icon.png",
-            "versionCode": 18,
+            "versionCode": 19,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"

@@ -72,20 +72,22 @@ Sex, 16/08/2024 22:58 - Anderson Jesus
 	Se o login pudesse ser um e-mail, ótimo, senão ok -  RESP.: O LOGIN É FEITO POR CHAVE, PRECISA SER ALTERADO NA API PRIMEIRO - Resposta do @Cristiano Martins da Silva, então o ideal seria você alterar, @anderson.jesus@jdconsultores.com.br
 	AJ: Acredito que é possível (não testei), em tese teria que inserir essas contas na base da DICT, na tabela “PessoaContas”, depois que o ambiente estiver no ar o Ferreira pode tentar e daí é ver o comportamento.
 
+sexta - 30/08/2024 19:00:00 - 30/08/2024 21:00:00 - 01h ===> ajustes Anderson
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 04358798
 JJ4 Bank
 https://433a-191-209-82-184.ngrok-free.app
+http://bank-a-simulator.jj4tech.com:8062
 11111111111
 
 84701762
 J Bank
 https://8b28-191-209-82-184.ngrok-free.app
+http://bank-b-simulator.jj4tech.com:8063
 44444444444444
-
-
 
 ngrok start --all
 
@@ -124,7 +126,7 @@ eas update --branch development --message "#016 - Updating the app version 1.0.1
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#018 - Updating the app version 1.0.18"
+eas build --platform android --profile preview --message "#019 - Updating the app version 1.0.19"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

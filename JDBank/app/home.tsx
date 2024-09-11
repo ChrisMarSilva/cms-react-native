@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Constants from 'expo-constants'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'

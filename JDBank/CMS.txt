@@ -74,18 +74,23 @@ Sex, 16/08/2024 22:58 - Anderson Jesus
 
 sexta - 30/08/2024 19:00:00 - 30/08/2024 21:00:00 - 01h ===> ajustes Anderson
 
+sexta - 10/09/2024 18:00:00 - 10/09/2024 23:00:00 - 05h ===> ajustes Carol
+  Sobre a tela de transferência por “chave”. Poderia desenha mais ou menos essa tela?
+  Notei que temos as mesmas logos para os dois bancos. Conseguiríamos ajustar isso?
+  Como eu faço para testar o login por Email? 
+    para testar precisa inserir a chave na tabela PessoaContas da base DICT, algo do tipo:
+    INSERT INTO dbo.PessoaContas (PessoaContaId,PessoaId,ContaId,Chave) VALUES ('DA14770B-00CB-48A8-8289-1BB0D9F03551','AAB623AE-B687-46F5-BA52-552358A7CAC1','267833C5-F43F-4A8A-9139-B7287299EDE1','<email>')
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 04358798
 JJ4 Bank
-https://433a-191-209-82-184.ngrok-free.app
 http://bank-a-simulator.jj4tech.com:8062
 11111111111
 
 84701762
 J Bank
-https://8b28-191-209-82-184.ngrok-free.app
 http://bank-b-simulator.jj4tech.com:8063
 44444444444444
 
@@ -126,7 +131,7 @@ eas update --branch development --message "#016 - Updating the app version 1.0.1
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#019 - Updating the app version 1.0.19"
+eas build --platform android --profile preview --message "#021 - Updating the app version 1.0.21"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

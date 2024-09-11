@@ -1,10 +1,11 @@
+import React from 'react'
 import { View, Image } from 'react-native'
 
 import useSplash from '@/src/hooks/useSplash'
 import imglogoJD from '@/src/assets/imgs/splash.png'
 
 export default function IndexScreen() {
-    const {} = useSplash()
+    useSplash()
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>

@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react'
 import { useRef, useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import { createQrCode } from '@/src/services/qrcodeService'
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import { HeaderBackground, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 const useRequestPayQrCodeDone = () => {
     const currentUser = useCurrentUser()

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { router } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'

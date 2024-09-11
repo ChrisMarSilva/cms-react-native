@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import LottieView from 'lottie-react-native'
 

@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Switch } from 'react-native'
 import Constants from 'expo-constants'
 

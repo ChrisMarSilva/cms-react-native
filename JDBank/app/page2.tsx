@@ -1,11 +1,8 @@
+import React from 'react'
 import { useEffect } from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
-
-import * as CONSTANTE from '@/src/util/Constante'
-import imglogoJD from '@/src/assets/imgs/icon-red.png'
 
 export default function Page2Screen() {
     const navigation = useNavigation()

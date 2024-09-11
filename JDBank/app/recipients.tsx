@@ -1,3 +1,4 @@
+import React from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Dimensions, Keyboard } from 'react-native'
 import Modal from 'react-native-modal'
 //import FontAwesome from '@expo/vector-icons/FontAwesome'

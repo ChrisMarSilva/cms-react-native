@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from 'react'
 import { Keyboard, Alert } from 'react-native'
 import { router } from 'expo-router'

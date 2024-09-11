@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 
 import * as HelperNumero from '@/src/util/HelperNumero'

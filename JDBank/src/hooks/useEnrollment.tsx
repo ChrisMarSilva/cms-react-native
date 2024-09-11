@@ -25,7 +25,7 @@ const useEnrollment = () => {
     const refTxtCardOrAccount = useRef(null)
     const refTxtSocialSecurity = useRef(null)
 
-    let imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
+    const imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
 
     useEffect(() => {
         _clearData()

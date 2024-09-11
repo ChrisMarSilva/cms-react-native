@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
 

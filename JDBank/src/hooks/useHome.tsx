@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import { router, useNavigation } from 'expo-router'
@@ -37,7 +39,6 @@ const useHome = () => {
             headerBackground: () => <HeaderBackground />,
             headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={currentUser.bank} />,
-            //headerRight: () => <HeaderRight isVisible={true} onPress={handleLogout} icone={'logout'} />,
             headerRight: () => (isActiveNotification ? <HeaderRight isVisible={true} onPress={handleNotification} icone={'notifications-on'} color={'#138a17'} /> : null),
         })
     }, [navigation])
@@ -160,7 +161,6 @@ const useHome = () => {
     const handleRecipients = () => router.navigate('/recipients')
     const handleTransactionHistory = () => router.navigate('/transaction_history')
     const handlePersonalInfo = () => router.navigate('/personal_info')
-    const handleLogout = () => router.replace('/login')
 
     const handleNotification = (value: number, name: string, datetime: string) => {
         // console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)

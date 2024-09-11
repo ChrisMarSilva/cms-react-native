@@ -1,10 +1,11 @@
+import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import { Keyboard } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperNumero from '@/src/util/HelperNumero'
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import { HeaderBackground, HeaderTitle } from '@/src/components/header'
 
 const useRequestPayQrCode = () => {
     const currentUser = useCurrentUser()

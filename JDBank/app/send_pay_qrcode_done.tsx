@@ -1,6 +1,7 @@
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import LottieView from 'lottie-react-native'
-import AntDesign from '@expo/vector-icons/AntDesign'
+//import AntDesign from '@expo/vector-icons/AntDesign'
 
 import useSendPayQrCodeDone from '@/src/hooks/useSendPayQrCodeDone'
 import * as HelperNumero from '@/src/util/HelperNumero'

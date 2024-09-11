@@ -1,6 +1,7 @@
+import React from 'react'
 import { useState } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { Link, router, useLocalSearchParams } from 'expo-router'
+import { Link, router } from 'expo-router'
 
 export default function RecipientsScreen() {
     // const params = useLocalSearchParams()

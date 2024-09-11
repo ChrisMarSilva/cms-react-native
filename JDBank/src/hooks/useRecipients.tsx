@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import { useNavigation } from 'expo-router'
 
-import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as HelperSessao from '@/src/util/HelperSessao'
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import { HeaderBackground, HeaderTitle } from '@/src/components/header'
 
 const useRecipients = () => {
-    const currentUser = useCurrentUser()
     const navigation = useNavigation()
 
     const refTxtName = useRef(null)

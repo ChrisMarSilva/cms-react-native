@@ -1,3 +1,4 @@
+import React from 'react'
 import { StyleSheet, View, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import Constants from 'expo-constants'

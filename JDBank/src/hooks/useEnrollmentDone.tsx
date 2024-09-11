@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from 'react'
 import { Keyboard, Alert } from 'react-native'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -21,7 +22,7 @@ const useEnrollmentDone = () => {
     const refTxtUsername = useRef(null)
     const refTxtPassword = useRef(null)
 
-    let imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
+    const imglogo = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imglogoJD : imglogoJ3
 
     useEffect(() => {
         _clearData()

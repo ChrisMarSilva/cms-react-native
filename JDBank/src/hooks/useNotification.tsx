@@ -1,7 +1,8 @@
+import React from 'react'
 import { useEffect } from 'react'
 import { useNavigation, router } from 'expo-router'
 
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import { HeaderBackground, HeaderTitle } from '@/src/components/header'
 
 const useNotification = () => {
     const navigation = useNavigation()

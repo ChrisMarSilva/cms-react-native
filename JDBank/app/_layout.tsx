@@ -1,3 +1,4 @@
+import React from 'react'
 import { LogBox } from 'react-native'
 import { Stack } from 'expo-router'
 
@@ -23,6 +24,9 @@ export default function RootLayout() {
                 {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
 
                 <Stack.Screen name="send_pay_qrcode" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="send_pay_qrcode_manual" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="send_pay_qrcode_manual_value" options={{ headerTintColor: '#888' }} />
+                <Stack.Screen name="send_pay_qrcode_camera" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="send_pay_qrcode_view" options={{ headerTintColor: '#888' }} />
                 <Stack.Screen name="send_pay_qrcode_done" options={{ headerBackVisible: false, headerTintColor: '#888' }} />
 

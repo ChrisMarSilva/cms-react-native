@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 
 import useEnrollmentDone from '@/src/hooks/useEnrollmentDone'

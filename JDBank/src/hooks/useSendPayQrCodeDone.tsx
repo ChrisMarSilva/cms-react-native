@@ -1,10 +1,11 @@
+import React from 'react'
 import { useRef, useEffect, useState } from 'react'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
 import LottieView from 'lottie-react-native'
 //import { Audio } from 'expo-av'
 
 import * as HelperNumero from '@/src/util/HelperNumero'
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
+import { HeaderBackground, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 const useSendPayQrCodeDone = () => {
     const navigation = useNavigation()
@@ -26,7 +27,6 @@ const useSendPayQrCodeDone = () => {
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
-            //headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={'Payment sent'} />,
             headerRight: () => <HeaderRight isVisible={true} onPress={handleHome} icone={'close'} />,
         })
@@ -72,10 +72,7 @@ const useSendPayQrCodeDone = () => {
     // }
 
     const handleHome = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
-
-    const handleSeeReceipt = () => {
-        router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
-    }
+    const handleSeeReceipt = () => router.navigate({ pathname: '/home', params: { value: '0', name: '' } })
 
     return {
         animation,

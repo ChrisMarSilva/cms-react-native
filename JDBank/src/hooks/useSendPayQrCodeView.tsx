@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { Alert, Keyboard } from 'react-native'
 import { router, useNavigation, useLocalSearchParams } from 'expo-router'
@@ -6,15 +8,13 @@ import useCurrentUser from '@/src/hooks/useCurrentUser'
 import { getLogin } from '@/src/services/loginService'
 import { payQrCode } from '@/src/services/qrcodeService'
 import * as HelperNumero from '@/src/util/HelperNumero'
-import { HeaderBackground, HeaderLeft, HeaderTitle, HeaderRight } from '@/src/components/header'
-import * as CONSTANTE from '@/src/util/Constante'
+import { HeaderBackground, HeaderTitle, HeaderRight } from '@/src/components/header'
 
 const useSendPayQrCodeView = () => {
     const currentUser = useCurrentUser()
     const navigation = useNavigation()
     const params = useLocalSearchParams()
 
-    //const animation = useRef(null)
     const [isLoadingPay, setIsLoadingPay] = useState<boolean>(false)
     const [value, setValue] = useState<number>(0)
     const [name, setName] = useState<string>('')
@@ -32,7 +32,6 @@ const useSendPayQrCodeView = () => {
     useEffect(() => {
         navigation.setOptions({
             headerBackground: () => <HeaderBackground />,
-            //headerLeft: () => <HeaderLeft />,
             headerTitle: () => <HeaderTitle titulo={'Review & Send'} />,
             headerRight: () => <HeaderRight isVisible={true} onPress={handleHome} icone={'close'} />,
         })
@@ -40,7 +39,6 @@ const useSendPayQrCodeView = () => {
 
     const _clearData = () => {
         Keyboard.dismiss()
-        //setIsLoadingClient(true)
         setIsLoadingPay(false)
         setValue(HelperNumero.convertToCurrency(params.value?.toString() || '0'))
         setName(params.name?.toString() || '')
@@ -63,13 +61,13 @@ const useSendPayQrCodeView = () => {
 
             const data = await getLogin(currentUser.url, chave)
 
-            const ispbRec = parseInt(data?.ispb) // currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? parseInt(CONSTANTE.ISPB_JJ4) : parseInt(CONSTANTE.ISPB_JD) //
-            const agenciaRec = data?.agencia // '0002'
-            const tipoContaRec = parseInt(data?.tipoConta) // 0 //
-            const contaRec = data?.conta // '2222'
-            const tipoPessoaRec = parseInt(data?.tipoPessoa) // 0 //
-            const documentoRec = parseInt(data?.documento) // 22222222222 //
-            const nameRec = data?.name // name //
+            const ispbRec = parseInt(data?.ispb) 
+            const agenciaRec = data?.agencia
+            const tipoContaRec = parseInt(data?.tipoConta)
+            const contaRec = data?.conta 
+            const tipoPessoaRec = parseInt(data?.tipoPessoa)
+            const documentoRec = parseInt(data?.documento)
+            const nameRec = data?.name 
 
             await payQrCode(currentUser.url, currentUser.ispb, currentUser.agencia, 0, currentUser.conta, 0, currentUser.documento, currentUser.name, ispbRec, agenciaRec, tipoContaRec, contaRec, tipoPessoaRec, documentoRec, nameRec, info, value)
 

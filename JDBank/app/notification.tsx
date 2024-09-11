@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
@@ -33,6 +34,6 @@ const styles = StyleSheet.create({
     amount: { fontSize: 16, fontWeight: 'bold', color: '#333', marginTop: 5 },
     date: { fontSize: 14, color: '#aaa' },
     icon: { marginLeft: 15 },
-    
+
     separator: { height: 1, backgroundColor: '#e0e0e0' },
 })

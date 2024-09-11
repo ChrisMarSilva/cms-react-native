@@ -136,6 +136,7 @@ const useConfig = () => {
         url,
         setUrl,
         status,
+        setStatus,
         handleSave,
         handleCancel,
         handleUpdateApp,

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 //import LottieView from 'lottie-react-native'
 //import FontAwesome from '@expo/vector-icons/FontAwesome'

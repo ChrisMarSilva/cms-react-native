@@ -62,7 +62,11 @@ const useSendPayQrCodeCamera = () => {
                 },
             })
         } catch (error: any) {
-            Alert.alert(error.messag)
+            const msgErroStatus = error.response ? error.response.status : '400' // 400 Bad Request
+            const msgErroMessage = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+            console.error('useSendPayQrCodeCamera.handlSendQRCode', msgErroStatus + ' - ' + msgErroMessage)
+            const msgErro = msgErroStatus == '404' ? 'Qr Code not send!' : '(' + msgErroStatus + ') Failed to send qr code' // 404 Not Found
+            Alert.alert(msgErro)
         }
     }
 

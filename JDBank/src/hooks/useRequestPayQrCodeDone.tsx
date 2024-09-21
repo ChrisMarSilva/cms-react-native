@@ -49,7 +49,11 @@ const useRequestPayQrCodeDone = () => {
             setIsLoading(false)
         } catch (error: any) {
             setIsLoading(false)
-            Alert.alert(error.messag)
+            const msgErroStatus = error.response ? error.response.status : '400' // 400 Bad Request
+            const msgErroMessage = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+            console.error('useRequestPayQrCodeDone._loadData', msgErroStatus + ' - ' + msgErroMessage)
+            const msgErro = msgErroStatus == '404' ? 'Qr Code not created!' : '(' + msgErroStatus + ') Failed to create qr code' // 404 Not Found
+            Alert.alert(msgErro)
         }
     }
 

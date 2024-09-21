@@ -33,7 +33,7 @@ export default function SendPayQrCodeViewScreen() {
             </TouchableOpacity>
 
             <View style={styles.infoContainer}>
-                <Text style={styles.infoText}>Make sure you're sending to someone you trust, and their information is correct. Money is typically available in their account in minutes.</Text>
+                <Text style={styles.infoText}>Make sure you're sending to someone you trust, and their information is correct. Money is typically available in their account in seconds.</Text>
                 <Text style={styles.warningText}>Once you've sent money, you can't cancel it.</Text>
             </View>
 

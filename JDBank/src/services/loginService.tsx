@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from '@/src/services/api'
 import * as CONSTANTE from '@/src/util/Constante'
+import useLogErrors from '@/src/hooks/useLogErrors'
 
 export const getLogin = async (urlDefault: string, username: string) => {
+    const { handleAddLogErrors } = useLogErrors()
+
+    username = username.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
+    const url = urlDefault + CONSTANTE.URL_LOGIN + '?chave=' + encodeURIComponent(escape(username))
+    const params = {}
+    //console.log('loginService.getLogin - url:', url)
+
     try {
-        username = username.replace('( ', '').replace(') ', '').replace('(', '').replace(')', '').replace('-', '').replace(' ', '').replace(' ', '')
-        //console.log('loginService.getLogin - username:', username)
-
-        const url = urlDefault + CONSTANTE.URL_LOGIN + '?chave=' + encodeURIComponent(escape(username))
-        //console.log('loginService.getLogin - url:', url)
-
         const response = await api.get<any>(url)
 
         const data = Array.isArray(response.data) ? response.data[0] : response.data
@@ -37,21 +39,22 @@ export const getLogin = async (urlDefault: string, username: string) => {
             tipoConta: data?.tipoConta || '',
         }
 
-        //console.log('loginService.getLogin - result:', result)
-
         return result
     } catch (error: any) {
-        console.error('getLogin:', error)
+        //console.error('getLogin:', error)
+        const statuscod = error.response ? error.response.status : '400' // 400 Bad Request
+        const message = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+        handleAddLogErrors('getLogin', url, params, statuscod, message)
         throw error
     }
 }
 
 export const createLogin = async (urlDefault: string, name: string, address: string, phone: string, email: string, cardOrAccount: string, socialSecurity: string, username: string, password: string) => {
     try {
-        const url = urlDefault + CONSTANTE.URL_ENROLL
+        // const url = urlDefault + CONSTANTE.URL_ENROLL
         // JSON.stringify({"garcom": garcom.toString()}),
-        const body = { name: name, address: address, phone: phone, email: email, cardOrAccount: cardOrAccount, socialSecurity: socialSecurity, username: username, password: password }
-        //const response = await api.post<any>(url, body)
+        // const body = { name: name, address: address, phone: phone, email: email, cardOrAccount: cardOrAccount, socialSecurity: socialSecurity, username: username, password: password }
+        // const response = await api.post<any>(url, body)
 
         // console.log('1-body: ', typeof body, body)
         // console.log('2-parse: ', typeof JSON.parse(body), JSON.parse(body))

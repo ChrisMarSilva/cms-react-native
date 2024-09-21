@@ -16,6 +16,7 @@ export const SESSAO_BANK = SESSAO_PADRAO + 'Bank'
 export const SESSAO_ISPB = SESSAO_PADRAO + 'Ispb'
 export const SESSAO_USERNAME = SESSAO_PADRAO + 'Username'
 export const SESSAO_RECIPIENTS = SESSAO_PADRAO + 'Recipients'
+export const SESSAO_LOG_ERROS = SESSAO_PADRAO + 'LogErrors'
 
 // ISPBs
 export const ISPB_JD = '04358798'

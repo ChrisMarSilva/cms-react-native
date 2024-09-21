@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from 'react'
 import { Keyboard, Alert } from 'react-native'
 import { router } from 'expo-router'
@@ -13,6 +14,7 @@ const useConfig = () => {
     const [bank, setBank] = useState<string>('')
     const [url, setUrl] = useState<string>('')
     const [status, setStatus] = useState<string>('')
+    const [logError, setLogError] = useState<any[]>([])
 
     const refIspb = useRef(null)
     const refBank = useRef(null)
@@ -25,31 +27,28 @@ const useConfig = () => {
         // return () => { }
     }, [])
 
-    // useEffect(() => {
-    //     navigation.setOptions({
-    //         headerBackground: () => <LinearGradient colors={['#fff', '#fff']} style={{ flex: 1 }} />,
-    //         //headerTitle: () => <Text style={{ marginLeft: 5, fontSize: 18, fontWeight: 'bold' }}>Settings</Text>,
-    //     })
-    // }, [navigation])
-
     const _clearData = () => {
         setIspb('')
         setBank('')
         setUrl('')
+        setLogError([])
 
         Keyboard.dismiss()
     }
 
-    const _loadData = () => {
+    const _loadData = async () => {
         setIspb(currentUser.ispb.toString())
         setBank(currentUser.bank.toString().trim())
         setUrl(currentUser.url.toString().trim())
-        // console.log('useConfig._loadData - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
 
         refIspb?.current?.focus()
+
+        const logErrorSession = await HelperSessao.GetLogErrors()
+        const lista = logErrorSession != null ? JSON.parse(logErrorSession) : []
+        setLogError(lista)
     }
 
-    const ensureTrailingSlash = (text) => {
+    const ensureTrailingSlash = (text: string) => {
         text = text.trim()
         if (!text.endsWith('/')) text += '/'
         return text
@@ -70,8 +69,6 @@ const useConfig = () => {
             return
         }
 
-        // console.log('useConfig.handleSave - ispb:', ispb, ', bank:', bank, ', url:', url)
-
         currentUser.setIspb(parseInt(ispb || '0'))
         currentUser.setBank(bank.toString().trim())
         currentUser.setUrl(ensureTrailingSlash(url.toString().trim()))
@@ -88,41 +85,46 @@ const useConfig = () => {
 
     const handleUpdateApp = async () => {
         if (__DEV__) {
-            setUpdateAppStatus('Development mode, skipping check for updates...')
+            setStatus('Development mode, skipping check for updates...')
             return // NAO PODE TER ATUALIZAÇOES EM MODE DE DESENVOLVIMENTO
         }
 
-        setUpdateAppStatus('Checking for updates...')
+        setStatus('Checking for updates...')
         Updates.checkForUpdateAsync()
             .then((update) => {
                 if (update.isAvailable) {
-                    setUpdateAppStatus('New update available, downloading...')
+                    setStatus('New update available, downloading...')
                     Updates.fetchUpdateAsync()
                         .then(() => {
-                            setUpdateAppStatus('Update downloaded, restarting app...')
+                            setStatus('Update downloaded, restarting app...')
                             Updates.reloadAsync()
                                 .then(() => {
-                                    setUpdateAppStatus('App restarted!')
+                                    setStatus('App restarted!')
                                 })
                                 .catch((error: any) => {
-                                    setUpdateAppStatus('reloadAsync: ' + error.toString())
+                                    setStatus('reloadAsync: ' + error.toString())
                                 })
                         })
                         .catch((error: any) => {
-                            setUpdateAppStatus('fetchUpdateAsync: ' + error.toString())
+                            setStatus('fetchUpdateAsync: ' + error.toString())
                         })
                 } else {
-                    setUpdateAppStatus('No updates available!')
+                    setStatus('No updates available!')
                 }
             })
             .catch((error: any) => {
-                setUpdateAppStatus('checkForUpdateAsync: ' + error.toString())
+                setStatus('checkForUpdateAsync: ' + error.toString())
             })
             .finally(() => {
                 setTimeout(() => {
-                    setUpdateAppStatus('')
+                    setStatus('')
                 }, 5000)
             })
+    }
+
+    const handleDelLogErrors = async () => {
+        setLogError([])
+        await HelperSessao.SetLogErrors(JSON.stringify([]))
     }
 
     return {
@@ -137,9 +139,11 @@ const useConfig = () => {
         setUrl,
         status,
         setStatus,
+        logError,
         handleSave,
         handleCancel,
         handleUpdateApp,
+        handleDelLogErrors,
     }
 }
 

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import { router, useNavigation } from 'expo-router'
 import * as signalR from '@microsoft/signalr'
-//import { Audio } from 'expo-av'
 
 import useCurrentUser from '@/src/hooks/useCurrentUser'
 import * as CONSTANTE from '@/src/util/Constante'
@@ -20,9 +19,7 @@ const useHome = () => {
 
     const imgPerson = currentUser.ispb == parseInt(CONSTANTE.ISPB_JD) ? imgBluePerson : imgRedPerson
 
-    const [nameRec, setNameRec] = useState<string>('')
-    const [valueRec, setValueRec] = useState<number>(0)
-    const [datetimeRec, setDatetimeRec] = useState<string>('')
+    const [isLoadingBalance, setIsLoadingBalance] = useState<boolean>(false)
     const [isActiveNotification, setIsActiveNotification] = useState<boolean>(false)
 
     useEffect(() => {
@@ -44,38 +41,36 @@ const useHome = () => {
     }, [navigation])
 
     const _cleaData = () => {
-        setNameRec('')
-        setValueRec(0)
-        setDatetimeRec('')
         setIsActiveNotification(false)
+        setIsLoadingBalance(false)
     }
 
     const _loadData = () => {
-        //console.log('useHome._loadData - ispb:', currentUser.ispb, ', bank:', currentUser.bank, ', username:', currentUser.username, ', url:', currentUser.url)
-
-        _getBalance()
+        //handleBalance()
         _getNotificationsBySignalR()
     }
 
-    const _getBalance = async () => {
+    const handleBalance = async () => {
         try {
-            //console.log('useHome._getBalance - agencia:', currentUser.agencia)
-            //console.log('useHome._getBalance - conta:', currentUser.conta)
+            setIsLoadingBalance(true)
 
             const data = await getBalance(currentUser.url, currentUser.agencia, currentUser.conta)
-            //console.log('useHome._getBalance - data:', data)
 
             currentUser.setBalance(parseFloat(data.toString()) || 0)
+            setIsLoadingBalance(false)
         } catch (error: any) {
-            console.error(error)
-            Alert.alert(error.message)
+            setIsLoadingBalance(false)
+            const msgErroStatus = error.response ? error.response.status : '400' // 400 Bad Request
+            const msgErroMessage = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+            console.error('useHome.handleBalance', msgErroStatus + ' - ' + msgErroMessage)
+            const msgErro = msgErroStatus == '404' ? 'Balance not found.' : '(' + msgErroStatus + ') Failed to verify balance' // 404 Not Found
+            Alert.alert(msgErro)
         }
     }
 
     const _getNotificationsBySignalR = async () => {
         try {
             const url = currentUser.url + CONSTANTE.URL_RECEBE_PAGTO
-            //console.log('useHome._getNotificationsBySignalR - url:', url)
 
             const options = {
                 headers: { 'content-type': 'application/json;charset=UTF-8' },
@@ -87,27 +82,18 @@ const useHome = () => {
             const connection = new signalR.HubConnectionBuilder().withUrl(url, options).configureLogging(signalR.LogLevel.None).build()
 
             connection.on('ReceivePayment', (agencia, conta, documento, tipoPessoa, nome, valor, tipoOperacao) => {
-                // console.log('useHome._getNotificationsBySignalR.ReceivePayment - agencia: ', agencia, ', conta: ', conta, ', documento: ', documento, ', tipoPessoa: ', tipoPessoa, ', nome: ', nome, ', valor: ', valor, ', balanceOld: ', currentUser.balance)
-
                 //_playSound()
-                _getBalance()
+                handleBalance()
 
-                // setTimeout(() => {  }, 900)
                 if (tipoOperacao.toString() == '0') {
                     // 0-Credito // 1-Debito
-
-                    const d = new Date()
-                    setDatetimeRec(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
-                    setNameRec(nome)
-                    setValueRec(parseFloat(valor))
                     setIsActiveNotification(true)
-
+                    const d = new Date()
                     handleNotification(parseFloat(valor), nome, `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`)
                 }
             })
 
             connection.on('AtualizarSaldo', (agencia, conta, valor) => {
-                //console.log('useHome._getNotificationsBySignalR.AtualizarSaldo - agencia: ', agencia, ', conta: ', conta, ', valor: ', valor, ', currentUser.agencia: ', currentUser.agencia, ', currentUser.conta: ', currentUser.conta)
                 if (parseInt(currentUser.agencia) == parseInt(agencia) && parseInt(currentUser.conta) == parseInt(conta)) currentUser.setBalance(parseFloat(valor))
             })
 
@@ -125,37 +111,6 @@ const useHome = () => {
         }
     }
 
-    // const _playSound = async () => {
-    //     try {
-    //         const source = require('@/src/assets/sounds/02.mp3')
-
-    //         await Audio.setAudioModeAsync({
-    //             allowsRecordingIOS: false,
-    //             interruptionModeIOS: 1, // Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-    //             playsInSilentModeIOS: true,
-    //             interruptionModeAndroid: 2, // Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-    //             shouldDuckAndroid: true,
-    //             playThroughEarpieceAndroid: false,
-    //         })
-
-    //         const initialStatus = {
-    //             shouldPlay: true, // Play by default
-    //             rate: 1.0, // Control the speed
-    //             shouldCorrectPitch: true, // Correct the pitch
-    //             volume: 1.0, // Control the Volume
-    //             isMuted: false, // mute the Audio
-    //         }
-
-    //         const { sound } = await Audio.Sound.createAsync(source, initialStatus)
-
-    //         await sound.playAsync() //  Play the Music
-    //     } catch (error: any) {
-    //         // sound.unloadAsync()
-    //         // Alert.alert(error)
-    //         console.log(error)
-    //     }
-    // }
-
     const handleSendPayQrCode = () => router.navigate('/send_pay_qrcode')
     const handleRequestPayQrCode = () => router.navigate('/request_pay_qrcode')
     const handleRecipients = () => router.navigate('/recipients')
@@ -163,18 +118,14 @@ const useHome = () => {
     const handlePersonalInfo = () => router.navigate('/personal_info')
 
     const handleNotification = (value: number, name: string, datetime: string) => {
-        // console.log('useHome.handleNotification - datetime: ', datetimeRec, ', name: ', nameRec, ', value: ', valueRec)
-
-        //if (nameRec.toString().trim() != '' && nameRec != 'undefined' && nameRec != undefined) {
         router.navigate({ pathname: '/notification_detail', params: { value: value, name: name, datetime: datetime } })
-        //}
-
-        //setIsActiveNotification(false)
     }
 
     return {
         currentUser,
         imgPerson,
+        isLoadingBalance,
+        handleBalance,
         handlePersonalInfo,
         handleSendPayQrCode,
         handleRequestPayQrCode,

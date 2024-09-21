@@ -52,8 +52,11 @@ const useTransactionHistory = () => {
             setIsBtnReceivedSelected(false)
             setIsBtnSentSelected(false)
         } catch (error: any) {
-            console.error(error)
-            Alert.alert(error.message)
+            const msgErroStatus = error.response ? error.response.status : '400' // 400 Bad Request
+            const msgErroMessage = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+            console.error('useTransactionHistory._loadData', msgErroStatus + ' - ' + msgErroMessage)
+            const msgErro = msgErroStatus == '404' ? 'Transaction not found!' : '(' + msgErroStatus + ') Failed to verify transactions' // 404 Not Found
+            Alert.alert(msgErro)
         }
     }
 

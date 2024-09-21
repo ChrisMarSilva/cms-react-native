@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import Constants from 'expo-constants'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
@@ -7,7 +7,7 @@ import * as HelperNumero from '@/src/util/HelperNumero'
 import useHome from '@/src/hooks/useHome'
 
 export default function HomeScreen() {
-    const { currentUser, imgPerson, handlePersonalInfo, handleSendPayQrCode, handleRequestPayQrCode, handleRecipients, handleTransactionHistory } = useHome()
+    const { currentUser, imgPerson, isLoadingBalance, handleBalance, handlePersonalInfo, handleSendPayQrCode, handleRequestPayQrCode, handleRecipients, handleTransactionHistory } = useHome()
 
     return (
         <View style={styles.container}>
@@ -23,7 +23,12 @@ export default function HomeScreen() {
 
             <View style={styles.balanceCard}>
                 <Text style={styles.balanceLabel}>Account Balance:</Text>
-                <Text style={styles.balanceValue}>{HelperNumero.FormatCurrency(currentUser.balance)}</Text>
+                <View style={styles.balanceRow}>
+                    <Text style={styles.balanceValue}>{HelperNumero.FormatCurrency(currentUser.balance)}</Text>
+                    <TouchableOpacity onPress={handleBalance} disabled={isLoadingBalance}>
+                        {isLoadingBalance ? <ActivityIndicator color="#888" size="small" /> : <MaterialIcons name="refresh" size={30} color="#888" style={styles.refreshIcon} />}
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <View style={styles.menuContainer}>
@@ -65,7 +70,9 @@ const styles = StyleSheet.create({
 
     balanceCard: { backgroundColor: '#FFFFFF', padding: 20, marginHorizontal: 20, borderRadius: 10, marginBottom: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5 },
     balanceLabel: { fontSize: 14, color: '#888' },
+    balanceRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }, // Adicionado para alinhar saldo e refresh
     balanceValue: { fontSize: 24, fontWeight: 'bold', color: '#138a17', marginTop: 5 },
+    refreshIcon: { marginLeft: 10 },
 
     menuContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', padding: 10 },
     menuItem: { backgroundColor: '#FFFFFF', padding: 20, borderRadius: 10, width: '45%', marginBottom: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, position: 'relative' },

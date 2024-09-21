@@ -84,15 +84,100 @@ sexta - 10/09/2024 18:00:00 - 10/09/2024 23:00:00 - 05h ===> ajustes Carol
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+quinta - 19/09/2024 
+  Ajuste para o Felipe
+  login para ver ISPB
+
+sexta - 10/09/2024
+  Ajustes para a Carol
+
+  Chave FedNow 44444444444444 ainda está em português, está Garota de Ipanema
+    Resp: Ajustar na Base de Dados. O Anderson explicou isso por email.
+    ok
+
+  O saldo demorava muito para atualizar a cada transação - 
+  Era mais rápido se eu desse logout e logon de novo, 
+  talvez valesse incluir um botação de "refresh" se não der pra fazer o saldo atualizar automático 
+    Resp: Add botao refresh na tela
+    Obs: Ao testar no meu celular e no simulador, a atulização de saldo é instantânea, deve ter algum problema com a internet ai 
+    ok
+
+  Quando fiz operação com a chave FedNow - Em um app o Histórico de Transações continuou vazio após as transações 
+  e no outro app o Histórico de Transações chegou a aparecer, mas com um erro: 
+  mostrou o a saída e entrada em um app só, mas depois sumiu também e os dois Históricos de Transação ficaram vazios
+    Obs: Ao testar no meu celular e no simulador, não tive problmea com a exibição do extrato, chegou a verificar se nas pagina web apareceu os dados?
+    ok
+
+  Apareceu com frequência o erro "Network Error"
+    Resp: Vou retirar esse erro, e subistitui por uma tela de log de erros
+
+  Quando fiz a operação com QR Code - O histórico apareceu, mas 
+  Não tem como trocarmos essas numerações por e-mails?
+    Resp: Ajustar na Base de Dados. O Anderson explicou isso por email.
+    ok
+
+  Como que eu logo com o Garota de Ipanema? É login e senha: "44444444444444" - 
+  Porque preciso devolver dinheiro pro Edgar Allan Poe.
+    ok
+
+    Segue a lista de clientes que eu conheço, se tem mais, deve veriricar a base de dados.
+
+    JJ4 Bank - 04358798
+      CPF: 11111111111 - Nome: Edgar Allan Poe
+      CPF: 33333333333 - Nome: Emily Dickinson
+      CPF: 44444444444 - Nome: Mark Twain
+
+    J Bank - 84701762
+      CNPJ: 11111111111111 - Nome: Midnight in Paris Bar
+      CNPJ: 33333333333333 - Nome: Pulitzer Prize Bookstore
+      CNPJ: 44444444444444 - Nome: Garota de Ipanema
+
+    Obs: Nao precisa de senha, eu retirei isso, pois não tem como validar a senha na API
+
+  No Histórico a notação de horas está em 24h, nos EUA não é assim que 
+  se faz notação de hora (se usa notação 12h). Data/Hora está de Miami?
+    ok
+
+  Tela "Review & Send" - "Money is typically available in their account in minutes" -
+   Substituir "minutes" por "seconds" por favor
+    ok
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 04358798
 JJ4 Bank
 http://bank-a-simulator.jj4tech.com:8062
-11111111111
+
+  Pessoas Físicas - 11 dígitos
+      Edgar Allan Poe 11111111111
+      Francis Scott Fitzgerald 22222222222
+      Emily Dickinson 33333333333
+      Mark Twain 44444444444
+      Toni Morrison 55555555555
+
+http://bank-a-simulator.jj4tech.com:8062/spi/api/chave?chave=11111111111
+http://bank-a-simulator.jj4tech.com:8062/spi/api/chave?chave=33333333333
+http://bank-a-simulator.jj4tech.com:8062/spi/api/chave?chave=44444444444
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 84701762
 J Bank
 http://bank-b-simulator.jj4tech.com:8063
-44444444444444
+
+  Pessoas Juridicas - 14 dígitos
+      Midnight in Paris Bar 11111111111111
+      Pulitzer Prize Bookstore 33333333333333
+      Garota de Ipanema 44444444444444
+
+http://bank-b-simulator.jj4tech.com:8063/spi/api/chave?chave=11111111111111
+http://bank-b-simulator.jj4tech.com:8063/spi/api/chave?chave=33333333333333
+http://bank-b-simulator.jj4tech.com:8063/spi/api/chave?chave=44444444444444
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 ngrok start --all
 
@@ -111,6 +196,9 @@ tunnels:
 npx create-expo-app@latest -y
 npm run reset-project
 
+npm i -g expo-cli
+
+npm start
 npx expo start -c
 npx json-server --watch db_pag.json --port 3002
 npx json-server --watch db_rec.json --port 3001
@@ -127,11 +215,11 @@ chris.mar.silva@gmail.com
 
 npx expo install expo-updates
 eas update:configure
-eas update --branch development --message "#016 - Updating the app version 1.0.16"  // development / production / preview / preview2 / preview3 / preview4
+eas update --branch development --message "#024 - Updating the app version 1.0.24"  // development / production / preview / preview2 / preview3 / preview4
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#021 - Updating the app version 1.0.21"
+eas build --platform android --profile preview --message "#025 - Updating the app version 1.0.25"
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

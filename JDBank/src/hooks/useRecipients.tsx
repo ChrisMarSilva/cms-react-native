@@ -52,7 +52,6 @@ const useRecipients = () => {
     }
 
     const _saveData = async () => {
-        console.log('saveData:', recipients)
         await HelperSessao.SetRecipients(JSON.stringify(recipients))
     }
 

@@ -50,19 +50,17 @@ const useSendPayQrCodeManual = () => {
             const data = await getLogin(currentUser.url, value)
 
             setIsLoading(false)
-
-            // console.log('')
-            // console.log('useSendPayQrCodeManual.handleContinue')
-            // console.log('documento: ', data?.documento)
-            // console.log('name: ', data?.name)
-
             router.navigate({
                 pathname: '/send_pay_qrcode_manual_value',
                 params: { documentoRec: data?.documento, nameRec: data?.name },
             })
         } catch (error: any) {
             setIsLoading(false)
-            Alert.alert('FedNow Key not found!')
+            const msgErroStatus = error.response ? error.response.status : '400' // 400 Bad Request
+            const msgErroMessage = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+            console.error('useSendPayQrCodeManual.handleContinue', msgErroStatus + ' - ' + msgErroMessage)
+            const msgErro = msgErroStatus == '404' ? 'FedNow Key not found!' : '(' + msgErroStatus + ') Failed to verify FedNow Key' // 404 Not Found
+            Alert.alert(msgErro)
         }
     }
 

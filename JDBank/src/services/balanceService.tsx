@@ -1,23 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from '@/src/services/api'
 import * as CONSTANTE from '@/src/util/Constante'
+import useLogErrors from '@/src/hooks/useLogErrors'
 
 export const getBalance = async (urlDefault: string, agencia: string, conta: string) => {
+    const { handleAddLogErrors } = useLogErrors()
+
+    const url = urlDefault + CONSTANTE.URL_BALANCE + '/' + agencia + '/' + conta
+    const params = {}
+    //console.log('balanceService.getBalance - url:', url)
+
     try {
-        const url = urlDefault + CONSTANTE.URL_BALANCE + '/' + agencia + '/' + conta
-
-        //console.log('balanceService.getBalance - url:', url)
-
         const response = await api.get<any>(url)
 
         const data = response.data
-        // const data = { id: '1', username: 'clientpay1',  balance: '1234.56'}
-        // const data = 1000000.0
-        // const data = Array.isArray(response.data) ? (response?.data[0]?.balance ? response.data[0].balance : response.data[0]) : response?.data?.balance ? response.data.balance : response.data
-        //console.log('balanceService.getBalance - data:', data)
-
         return data
     } catch (error: any) {
-        console.error('getBalance:', error)
+        //console.error('getBalance:', error)
+        const statuscod = error.response ? error.response.status : '400' // 400 Bad Request
+        const message = error && error.response && error.response.data && error.response.data.message ? error.response.data.message : error.message
+        handleAddLogErrors('getBalance', url, params, statuscod, message)
         throw error
     }
 }

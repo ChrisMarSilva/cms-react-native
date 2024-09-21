@@ -5,31 +5,32 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import useSendPayQrCode from '@/src/hooks/useSendPayQrCode'
 
 export default function SendPayQrCodeScreen() {
-    const { handlSendQRCodeByManual, handlSendQRCodeByCamera, handlHistory, handlReceipts } = useSendPayQrCode()
+    const { handleSendQRCodeByManual, handleSendQRCodeByCamera, handleTransactionHistory, handleRecipients } = useSendPayQrCode()
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>FedNow</Text>
                 <View style={styles.fedNowActions}>
-                    <TouchableOpacity style={styles.actionButton} onPress={handlSendQRCodeByManual}>
+                    <TouchableOpacity style={styles.actionButton} onPress={handleSendQRCodeByManual}>
                         <Ionicons name="send" size={32} color="#ff6600" style={styles.iconLeftTop} />
                         <Text style={styles.actionTextLeft}>Send</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton} onPress={handlSendQRCodeByCamera}>
+                    <TouchableOpacity style={styles.actionButton} onPress={handleSendQRCodeByCamera}>
                         <Ionicons name="qr-code-outline" size={32} color="#ff6600" style={styles.iconLeftTop} />
                         <Text style={styles.actionTextLeft}>QR Code</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
             <View style={styles.activityContainer}>
                 <Text style={styles.sectionTitle}>Activity</Text>
-                <TouchableOpacity style={styles.activityItem} onPress={handlHistory}>
+                <TouchableOpacity style={styles.activityItem} onPress={handleTransactionHistory}>
                     <Ionicons name="list-outline" size={24} color="black" />
                     <Text style={styles.activityText}>History</Text>
                     <Ionicons name="chevron-forward" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.activityItem} onPress={handlReceipts}>
+                <TouchableOpacity style={styles.activityItem} onPress={handleRecipients}>
                     <Ionicons name="document-outline" size={24} color="black" />
                     <Text style={styles.activityText}>Receipts</Text>
                     <Ionicons name="chevron-forward" size={24} color="black" />

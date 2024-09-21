@@ -15,16 +15,16 @@ const useSendPayQrCode = () => {
         })
     }, [navigation])
 
-    const handlSendQRCodeByManual = () => router.navigate('/send_pay_qrcode_manual')
-    const handlSendQRCodeByCamera = () => router.navigate('/send_pay_qrcode_camera')
-    const handlHistory = () => Alert.alert('Not implemented')
-    const handlReceipts = () => Alert.alert('Not implemented')
+    const handleSendQRCodeByManual = () => router.navigate('/send_pay_qrcode_manual')
+    const handleSendQRCodeByCamera = () => router.navigate('/send_pay_qrcode_camera')
+    const handleTransactionHistory = () => router.navigate('/transaction_history')
+    const handleRecipients = () => router.navigate('/recipients')
 
     return {
-        handlSendQRCodeByManual,
-        handlSendQRCodeByCamera,
-        handlHistory,
-        handlReceipts,
+        handleSendQRCodeByManual,
+        handleSendQRCodeByCamera,
+        handleTransactionHistory,
+        handleRecipients,
     }
 }
 

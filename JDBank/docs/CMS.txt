@@ -215,7 +215,8 @@ chris.mar.silva@gmail.com
 
 npx expo install expo-updates
 eas update:configure
-eas update --branch development --message "#025 - Updating the app version 1.0.25"  // development / production / preview / preview2 / preview3 / preview4
+eas update --branch preview2 --message "#025 - Updating the app version 1.0.25"  
+// development / production / preview / preview2 / preview3 / preview4
 
 eas build:configure
 eas build -p android --profile preview

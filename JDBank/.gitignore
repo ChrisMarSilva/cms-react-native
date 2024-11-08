@@ -1,4 +1,6 @@
 node_modules/
+node_modules/**/*
+.expo/*
 .expo/
 dist/
 npm-debug.*
@@ -9,6 +11,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+web-report/
 
 # macOS
 .DS_Store
@@ -18,3 +21,19 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+
+# Project
+*.env
+.tmp/*
+google-services*.json
+*.apk
+
+amplify/backend/.temp
+build/
+dist/
+node_modules/
+# aws-exports.js
+awsconfiguration.json
+amplifyconfiguration.json
+amplifyconfiguration.dart

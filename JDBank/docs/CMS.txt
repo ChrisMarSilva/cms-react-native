@@ -206,10 +206,13 @@ npx json-server --watch db_rec.json --port 3001
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
+npm install -g npm@10.9.0
+npm install -g npm@latest
+npm install -g eas-cli
+
 npx expo login
 chris.mar.silva@gmail.com
 
-npm install -g eas-cli
 eas login
 chris.mar.silva@gmail.com
 
@@ -220,7 +223,8 @@ eas update --branch preview2 --message "#025 - Updating the app version 1.0.25"
 
 eas build:configure
 eas build -p android --profile preview
-eas build --platform android --profile preview --message "#025 - Updating the app version 1.0.25"
+eas build --platform android --profile preview --message "#028 - Updating the app version 1.0.28"
+
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------

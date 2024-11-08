@@ -16,30 +16,9 @@
                 "buildType": "apk"
             }
         },
-        "preview2": {
-            "android": {
-                "gradleCommand": ":app:assembleRelease"
-            }
-        },
-        "preview3": {
-            "developmentClient": true
-        },
-        "preview4": {
-            "distribution": "internal"
-        },
         "production": {
             "autoIncrement": true,
-            "channel": "production",
-            "env": {
-                "EXPO_PUBLIC_API_URL": "https://api.production.com"
-            }
-        },
-        "test": {
-            "env": {
-                "EXPO_PUBLIC_API_URL": "https://api.test.com",
-                "APP_ICON": "./assets/icon-test.png",
-                "APP_NAME": "My App (Test)"
-            }
+            "channel": "production"
         }
     },
     "submit": {

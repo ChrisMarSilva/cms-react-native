@@ -1,6 +1,18 @@
+# Copy everything from your .gitignore file here
+
+# Additional ignores specific to EAS builds
+
+# Ignore native folders (if you are using EAS Build)
+/android
+/ios
+
+# Ignore test coverage reports
+/coverage
+
 node_modules/
 node_modules/**/*
 .expo/*
+.expo/
 dist/
 npm-debug.*
 *.jks
@@ -17,3 +29,12 @@ web-report/
 
 # Project
 .tmp/*
+
+amplify/backend/.temp
+build/
+dist/
+node_modules/
+# aws-exports.js
+awsconfiguration.json
+amplifyconfiguration.json
+amplifyconfiguration.dart
